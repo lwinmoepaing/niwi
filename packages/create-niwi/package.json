@@ -1,0 +1,13 @@
+{
+  "name": "create-niwi",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node index"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

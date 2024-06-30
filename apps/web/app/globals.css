@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  scroll-behavior: smooth !important;
+}
+
+progress::-webkit-progress-value {
+  transition: 0.6s width ease-out;
+}
