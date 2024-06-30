@@ -1,3 +1,11 @@
+---
+name: Feature Request
+about: Suggesting a new feature to improve our project!
+title: ''
+labels: ''
+assignees: ''
+
+---
 ## 🚀 Feature Request
 
 ### 🖋️ Title

@@ -1,3 +1,11 @@
+---
+name: Bug Report
+about: Create a report to help us improve. If this doesn't look right
+title: ''
+labels: ''
+assignees: ''
+
+---
 ## 📝 Issue Template
 
 ### 🖋️ Title
