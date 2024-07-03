@@ -1,4 +1,4 @@
-# [Niwi Starter](https://lwinmoepaing.com) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/main/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/lwinmoepaing/niwi)
+# [Niwi Starter](https://lwinmoepaing.com) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lwinmoepaing/niwi/blob/main/license) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/lwinmoepaing/niwi)
 
 ```markdown
 # 🚀 Niwi Starter
