@@ -32,6 +32,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "seeds/user.seed.mts", "seeds/blog.seed.ts", "seeds/index.ts"  ],
   "exclude": ["node_modules"]
 }
