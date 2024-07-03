@@ -1,81 +1,87 @@
-# Turborepo starter
+```markdown
+# 🚀 Niwi Starter
 
-This is an official starter Turborepo.
+Niwi Starter is a comprehensive, easy-to-use template for rapidly bootstrapping a Next.js application with essential features like authentication, blog management, email integration, database pre-seeding, and more. 🎉
 
-## Using this example
+## 🎯 Getting Started
 
-Run the following command:
+To create a new project using Niwi Starter, run the following command:
 
-```sh
-npx create-turbo@latest
+```bash
+npx create-niwi
 ```
 
-## What's inside?
+This will automatically generate a Next.js project with the following features:
 
-This Turborepo includes the following packages/apps:
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-lock.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> **Authentication Flow**: Built-in user authentication.
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-blog.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> **Blog Management System**: A full-featured blog system similar to Medium.
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-mail.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> **Mail Integration**: Pre-configured with Mailgun for sending emails.
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-seed.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> **Pre-seeded Database**: Initial data for testing and development.
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-database.png" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> **Database Management**: Prisma configured with MongoDB.
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-payment.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> **Payment Integration**: Stripe integration for handling payments.
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-seo.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> **SEO Helper Functions**: Tools to optimize your site's SEO.
 
-### Apps and Packages
+## 🚀 Additional Custom Features
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+In addition to the default features, Niwi Starter offers additional systems that can be included during the setup process. When you run the `npx create-niwi` command, you will be prompted to select any additional features you want to include:
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-music.gif" height="25" style="margin: 0px 2px; positon: relative; top: 1px" /> **Niwi Music**: A music management system similar to Spotify.
+- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-library.gif" height="25" style="margin: 0px 2px; positon: relative; top: 1px" /> **Niwi Library**: A library management system for organizing books and other media.
 
-### Utilities
+## 🔧 Example Usage
 
-This Turborepo has some additional tools already setup for you:
+To create a new project with Niwi Music or Niwi Library, follow these steps:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+1. Run the Niwi Starter command:
+   ```bash
+   npx create-niwi
+   ```
+2. When prompted, select the additional features you want to include:
+   ```text
+   Which major feature do you want to add?
+   > niwi-music
+   > niwi-library
+   ```
 
-### Build
+## 🛠️ Features
 
-To build all apps and packages, run the following command:
+### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-lock.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Authentication Flow
+- Secure user authentication out of the box.
 
-```
-cd my-turborepo
-pnpm build
-```
+### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-blog.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Blog Management System
+- Create, edit, and manage blog posts with ease.
+- Similar functionality to Medium.
 
-### Develop
+### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-mail.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Mail Integration
+- Send emails using Mailgun.
 
-To develop all apps and packages, run the following command:
+### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-seed.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Pre-seeded Database
+- Initial data for seamless development and testing.
 
-```
-cd my-turborepo
-pnpm dev
-```
+### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-database.png" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Database Management
+- Prisma ORM configured with MongoDB.
 
-### Remote Caching
+### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-payment.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Payment Integration
+- Accept and manage payments using Stripe.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-seo.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> SEO Helper Functions
+- Tools to optimize your site's search engine performance.
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+### 🎯 Additional Systems
+- 🎵 **Niwi Music**: Stream and manage music similar to Spotify.
+- 📚 **Niwi Library**: Manage books and other media efficiently.
 
-```
-cd my-turborepo
-npx turbo login
-```
+## 🤝 Contributing
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+We welcome contributions to Niwi Starter! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started. 🤗
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## 📜 License
 
-```
-npx turbo link
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. 📝
 
-## Useful Links
+---
 
-Learn more about the power of Turborepo:
+Start your project with Niwi Starter and build your application with ease! 🚀
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+![Welcome to Niwi Starter](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3o2bWF4bWhtZDhmaHlmMTVrdWhsdmxqNWJ3NG83c3prZWJkaWllbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/z6EG2su1f5jOTourNL/giphy.gif)
+
