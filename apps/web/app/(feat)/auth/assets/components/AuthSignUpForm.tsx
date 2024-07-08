@@ -3,7 +3,6 @@ import SubmitButton from "@/components/niwi-ui/button/submit-button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,7 +13,7 @@ import TextInput from "@/components/niwi-ui/form/text-input";
 import useSignUpForm from "../hooks/useSignUpForm";
 
 function AuthSignUpForm() {
-  const { pending, handleSubmit, form, signUpResponse } = useSignUpForm();
+  const { pending, handleSubmit, form } = useSignUpForm();
   return (
     <>
       <Form {...form}>
