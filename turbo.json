@@ -1,5 +1,10 @@
 {
-  "globalEnv": ["SECRET_HASH_KEY", "NODE_ENV"],
+  "globalEnv": [
+    "SECRET_HASH_KEY",
+    "NODE_ENV",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET"
+  ],
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {

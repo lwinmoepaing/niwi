@@ -40,28 +40,51 @@ export async function signUpAction(
   _currentState: unknown,
   data: SignUpFormValues
 ) {
-  const { error } = signUpFormSchema.safeParse(data);
-  if (error) {
-    return responseError("", error.format());
-  }
+  try {
+    const { error } = signUpFormSchema.safeParse(data);
+    if (error) {
+      return responseError("", error.format());
+    }
 
-  const { name, email, password } = data;
-  const user = await getUserByEmail(email);
-  if (user) {
-    return responseError("User is already exist");
+    const { name, email, password } = data;
+    const user = await getUserByEmail(email);
+    if (user) {
+      return responseError("User is already exist");
+    }
+    const { hash, salt } = hashPassword(password);
+    const newUserData = {
+      name,
+      email,
+      password: hash,
+      salt,
+      role: "USER",
+    } as const;
+    const newUser = await createUser({ ...newUserData });
+    return responseSuccess("Successfully created User", newUser);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
   }
-  const { hash, salt } = hashPassword(password);
-  const newUserData = {
-    name,
-    email,
-    password: hash,
-    salt,
-    role: "USER",
-  } as const;
-  const newUser = await createUser({ ...newUserData });
-  return responseSuccess("Successfully created User", newUser);
 }
 
 export async function logOutAction() {
   await signOut({ redirectTo: "/" });
+}
+
+export async function googleAuthAction(_currentState: unknown) {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    console.log("Start Google");
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+
+    console.log({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+    });
+    await signIn("google");
+  } catch (err) {
+    throw err;
+  }
 }

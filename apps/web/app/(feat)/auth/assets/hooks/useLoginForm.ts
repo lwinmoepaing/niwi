@@ -1,5 +1,8 @@
 "use client";
-import { loginAction } from "@/feats/auth/actions/auth.action";
+import {
+  googleAuthAction,
+  loginAction,
+} from "@/feats/auth/actions/auth.action";
 import {
   loginFormSchema,
   LoginFormValues,
@@ -10,6 +13,11 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const useLoginForm = () => {
+  const [errorMsgGoogle, dispatchGoogle] = useActionState(
+    googleAuthAction,
+    undefined
+  );
+
   const [logInError, dispatchLogIn, pending] = useActionState(
     loginAction,
     undefined
@@ -40,6 +48,8 @@ const useLoginForm = () => {
     pending,
     handleSubmit,
     form,
+    errorMsgGoogle,
+    dispatchGoogle,
   };
 };
 

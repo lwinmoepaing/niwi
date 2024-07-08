@@ -11,6 +11,14 @@ const nextAuthEdgeConfig = {
   },
   providers: [],
   callbacks: {
+    signIn({ account, profile }) {
+      if (account?.provider === "google") {
+        console.log({ account, profile });
+      }
+
+      return true;
+    },
+
     authorized: ({ auth, request }) => {
       // Run every request with middleware
       const isLoggedIn = Boolean(auth?.user);

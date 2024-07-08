@@ -14,7 +14,8 @@ import { PasswordInput } from "@/components/niwi-ui/form/password-input";
 import SubmitButton from "@/components/niwi-ui/button/submit-button";
 
 function AuthLoginForm() {
-  const { pending, handleSubmit, form } = useLoginForm();
+  const { pending, handleSubmit, form, dispatchGoogle, errorMsgGoogle } =
+    useLoginForm();
   return (
     <>
       <Form {...form}>
@@ -66,6 +67,10 @@ function AuthLoginForm() {
           <SubmitButton text="Login" />
         </form>
       </Form>
+      <form className="flex flex-col my-[20px]" action={dispatchGoogle}>
+        <SubmitButton text="Google Sign In" />
+        {errorMsgGoogle ? <p>{errorMsgGoogle}</p> : null}
+      </form>
     </>
   );
 }
