@@ -75,11 +75,11 @@ To create a new project with Niwi Music or Niwi Library, follow these steps:
 
 ## 🤝 Contributing
 
-We welcome contributions to Niwi Starter! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started. 🤗
+We welcome contributions to Niwi Starter! Please see our [CONTRIBUTING.md](contributing.md) for details on how to get started. 🤗
 
 ## 📜 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. 📝
+This project is licensed under the MIT License. See the [LICENSE](license) file for details. 📝
 
 ---
 

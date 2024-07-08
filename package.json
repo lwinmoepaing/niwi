@@ -5,6 +5,7 @@
     "commit": "cz",
     "build": "turbo build",
     "add:web": "pnpm add --filter=web",
+    "dev:web": "pnpm dev --filter=web",
     "db:generate": "turbo db:generate",
     "dev": "turbo dev",
     "lint": "turbo lint",

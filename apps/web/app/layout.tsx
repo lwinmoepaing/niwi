@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import { Toaster } from "react-hot-toast";
+import "@/styles/globals.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en" data-theme="cyberpunk">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        <Toaster />
       </body>
     </html>
   );

@@ -22,6 +22,7 @@ module.exports = {
   env: {
     node: true,
     browser: true,
+    es2020: true
   },
   plugins: ["only-warn"],
   settings: {

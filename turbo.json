@@ -1,5 +1,5 @@
 {
-  "globalEnv": ["SECRET_HASH_KEY"],
+  "globalEnv": ["SECRET_HASH_KEY", "NODE_ENV"],
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {

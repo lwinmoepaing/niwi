@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,13 +12,27 @@
     "seed": "ts-node -r tsconfig-paths/register -P ./seeds/tsconfig.seeder.json seeds/index.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.7.0",
+    "@prisma/client": "^5.16.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.2.0",
+    "jose": "^5.6.3",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.400.0",
     "next": "15.0.0-rc.0",
+    "next-auth": "5.0.0-beta.19",
     "prisma-multischema": "^1.1.4",
     "react": "19.0.0-rc-f994737d14-20240522",
-    "react-dom": "19.0.0-rc-f994737d14-20240522"
+    "react-dom": "19.0.0-rc-f994737d14-20240522",
+    "react-hook-form": "^7.51.2",
+    "react-hot-toast": "^2.4.1",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^2.3.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@prisma/client": "^5.16.1",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -27,8 +41,6 @@
     "@typescript-eslint/parser": "^7.1.0",
     "@vercel/style-guide": "^5.2.0",
     "autoprefixer": "^10.4.19",
-    "crypto": "^1.0.1",
-    "crypto-js": "^4.2.0",
     "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "15.0.0-rc.0",
