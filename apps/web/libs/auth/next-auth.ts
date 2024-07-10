@@ -1,14 +1,57 @@
-import { getUserByEmail } from "@/feats/auth/services/auth.service";
-import { LoginFormValues } from "@/feats/auth/validations/auth.validation";
+import { createUser, getUserByEmail } from "@/feats/auth/services/auth.service";
+import {
+  googleAuthSchema,
+  LoginFormValues,
+} from "@/feats/auth/validations/auth.validation";
+import { nanoid } from "nanoid";
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { verifyPassword } from "../hash/hash";
+import GithubProvider from "next-auth/providers/github";
+import { hashPassword, verifyPassword } from "../hash/hash";
 import nextAuthEdgeConfig from "./next-auth-for-edge";
-// import DiscordProvider from "next-auth/providers/discord";
 
 const config = {
   ...nextAuthEdgeConfig,
+  callbacks: {
+    ...nextAuthEdgeConfig.callbacks,
+    async signIn({ account, profile, user }) {
+      if (account?.provider === "google") {
+        const { success, data } = googleAuthSchema.safeParse(profile);
+        if (!success) return false;
+        try {
+          const existUser = await getUserByEmail(data.email);
+          if (existUser) {
+            user.id = existUser.id;
+            user.name = existUser.name;
+            user.image = existUser.image;
+            return true;
+          }
+
+          // New user from Google Authentication
+          const password = nanoid();
+          const { hash, salt } = hashPassword(password);
+          const newUser = await createUser({
+            password: hash,
+            salt: salt,
+            name: data.name,
+            email: data.email,
+            role: "USER",
+            image: data.picture,
+          });
+          user.id = newUser.id;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      if (account?.provider === "github") {
+        console.log(profile);
+      }
+
+      return true;
+    },
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -19,6 +62,7 @@ const config = {
         response_type: "code",
       },
     }),
+    GithubProvider({}),
     Credentials({
       async authorize(credentials) {
         // Run on Login State
@@ -38,8 +82,6 @@ const config = {
         if (!isCorrectPassword) {
           throw new Error("Do you forgot your password?");
         }
-
-        console.log("Authenticated!!");
 
         return user;
       },

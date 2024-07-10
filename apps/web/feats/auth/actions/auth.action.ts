@@ -13,6 +13,7 @@ import {
   responseSuccess,
 } from "@/libs/response/response-helper";
 import { hashPassword } from "@/libs/hash/hash";
+import config from "@/config";
 
 export async function loginAction(
   _currentState: unknown,
@@ -58,6 +59,7 @@ export async function signUpAction(
       password: hash,
       salt,
       role: "USER",
+      image: config.defaultUserImage,
     } as const;
     const newUser = await createUser({ ...newUserData });
     return responseSuccess("Successfully created User", newUser);
@@ -73,18 +75,13 @@ export async function logOutAction() {
 }
 
 export async function googleAuthAction(_currentState: unknown) {
-  // eslint-disable-next-line no-useless-catch
-  try {
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    console.log("Start Google");
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+  return await signIn("google");
+}
 
-    console.log({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-    });
-    await signIn("google");
-  } catch (err) {
-    throw err;
+export async function githubAuthAction(_currentState: unknown) {
+  try {
+    return await signIn("github");
+  } catch (e) {
+    console.log(e);
   }
 }

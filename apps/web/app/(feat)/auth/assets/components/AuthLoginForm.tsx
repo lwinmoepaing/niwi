@@ -1,4 +1,5 @@
 "use client";
+import SubmitButton from "@/components/niwi-ui/button/submit-button";
 import {
   Form,
   FormControl,
@@ -8,14 +9,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/niwi-ui/form/form";
+import { PasswordInput } from "@/components/niwi-ui/form/password-input";
 import TextInput from "@/components/niwi-ui/form/text-input";
 import useLoginForm from "../hooks/useLoginForm";
-import { PasswordInput } from "@/components/niwi-ui/form/password-input";
-import SubmitButton from "@/components/niwi-ui/button/submit-button";
 
 function AuthLoginForm() {
-  const { pending, handleSubmit, form, dispatchGoogle, errorMsgGoogle } =
-    useLoginForm();
+  const {
+    pending,
+    handleSubmit,
+    form,
+    dispatchGoogle,
+    errorMsgGoogle,
+    errorMsgGitHub,
+    dispatchGitHub,
+  } = useLoginForm();
   return (
     <>
       <Form {...form}>
@@ -68,8 +75,12 @@ function AuthLoginForm() {
         </form>
       </Form>
       <form className="flex flex-col my-[20px]" action={dispatchGoogle}>
-        <SubmitButton text="Google Sign In" />
+        <SubmitButton text="Sign In with Google " />
         {errorMsgGoogle ? <p>{errorMsgGoogle}</p> : null}
+      </form>
+      <form className="flex flex-col my-[20px]" action={dispatchGitHub}>
+        <SubmitButton text="Sign In with Discord" />
+        {errorMsgGitHub ? <p>{errorMsgGitHub}</p> : null}
       </form>
     </>
   );

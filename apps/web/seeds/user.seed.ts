@@ -6,6 +6,7 @@ type UserType = {
   name: string;
   email: string;
   password: string;
+  image: string;
   role: "ADMIN" | "USER";
 };
 
@@ -15,12 +16,14 @@ const users: UserType[] = [
     role: "ADMIN",
     email: "admin@gmail.com",
     password: "123456",
+    image: "/images/auth/profile.png",
   },
   {
     name: "Niwi-User",
     role: "USER",
     email: "user@gmail.com",
     password: "123456",
+    image: "/images/auth/profile.png",
   },
 ] as const;
 

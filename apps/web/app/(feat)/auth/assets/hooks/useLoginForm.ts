@@ -1,5 +1,6 @@
 "use client";
 import {
+  githubAuthAction,
   googleAuthAction,
   loginAction,
 } from "@/feats/auth/actions/auth.action";
@@ -15,6 +16,11 @@ import toast from "react-hot-toast";
 const useLoginForm = () => {
   const [errorMsgGoogle, dispatchGoogle] = useActionState(
     googleAuthAction,
+    undefined
+  );
+
+  const [errorMsgGitHub, dispatchGitHub] = useActionState(
+    githubAuthAction,
     undefined
   );
 
@@ -50,6 +56,8 @@ const useLoginForm = () => {
     form,
     errorMsgGoogle,
     dispatchGoogle,
+    errorMsgGitHub,
+    dispatchGitHub,
   };
 };
 

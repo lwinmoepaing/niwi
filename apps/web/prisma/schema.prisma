@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Mon Jul 08 2024 23:34:34 GMT+0700 (Indochina Time)✨
+//🧩Don't Edit this file.✨Generated in Thu Jul 11 2024 01:24:22 GMT+0700 (Indochina Time)✨
 
 datasource db {
   provider = "mongodb"
@@ -27,6 +27,7 @@ model User {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   email    String   @unique
+  image    String
   password String
   role     UserRole
   salt     String

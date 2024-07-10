@@ -10,6 +10,7 @@ type CreateUserProps = {
   salt: string;
   name: string;
   email: string;
+  image: string;
   role: "ADMIN" | "USER";
 };
 export const createUser = (user: CreateUserProps) => {
