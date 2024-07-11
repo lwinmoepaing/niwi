@@ -16,6 +16,7 @@ import GoogleIcon from "@/components/niwi-ui/social-icons/google-icon";
 import GithubIcon from "@/components/niwi-ui/social-icons/github-icon";
 import FacebookIcon from "@/components/niwi-ui/social-icons/facebook-icon";
 import TwitterIcon from "@/components/niwi-ui/social-icons/twitter-icon";
+import Link from "next/link";
 
 function AuthLoginForm() {
   const {
@@ -31,7 +32,7 @@ function AuthLoginForm() {
     errorMsgTwitter,
     dispatchTwitter,
   } = useLoginForm();
-  
+
   return (
     <>
       <Form {...form}>
@@ -83,6 +84,15 @@ function AuthLoginForm() {
           <SubmitButton text="Login" />
         </form>
       </Form>
+
+      <div className="my-2">
+        <Link href="/auth/reset-password" className="hover:underline">
+          <p>
+            <small>Forgot your password ?</small>
+          </p>
+        </Link>
+      </div>
+
       <form className="flex flex-col my-[10px]" action={dispatchGoogle}>
         <SubmitButton
           text="Sign In with Google"

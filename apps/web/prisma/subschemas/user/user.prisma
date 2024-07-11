@@ -15,10 +15,21 @@ model User {
     password      String
     resetPassword String?
 
+    // Magic
+    magicLink String
+
     // Other Oauth
     githubId   String? @unique
     facebookId String? @unique
     twitterId  String? @unique
+
+    // DateTime
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // -------------
+    // Relationships
+    // -------------
 
     // blog.prisma
     Blog Blog[]

@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Thu Jul 11 2024 15:23:33 GMT+0700 (Indochina Time)✨
+//🧩Don't Edit this file.✨Generated in Thu Jul 11 2024 18:55:23 GMT+0700 (Indochina Time)✨
 
 datasource db {
   provider = "mongodb"
@@ -39,6 +39,14 @@ model User {
   githubId   String? @unique
   facebookId String? @unique
   twitterId  String? @unique
+
+  // DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // -------------
+  // Relationships
+  // -------------
 
   // blog.prisma
   Blog Blog[]

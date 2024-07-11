@@ -36,6 +36,12 @@ export const signUpFormSchema = baseSchema.and(passwordSchema);
 
 export type SignUpFormValues = z.infer<typeof signUpFormSchema>;
 
+export const forgotPasswordSchema = z.object({
+  email: z.string().email(),
+});
+
+export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
+
 export const googleAuthSchema = z.object({
   email: z.string().email(),
   name: z.string({ message: "Name is required." }).min(1),

@@ -9,7 +9,9 @@
     "FACEBOOK_CLIENT_ID",
     "FACEBOOK_CLIENT_SECRET",
     "TWITTER_CLIENT_ID",
-    "TWITTER_CLIENT_SECRET"
+    "TWITTER_CLIENT_SECRET",
+    "MAILGUN_API_KEY",
+    "EMAIL_DOMAIN_NAME"
   ],
   "$schema": "https://turbo.build/schema.json",
   "tasks": {

@@ -18,6 +18,24 @@ export const createUser = (user: CreateUserProps) => {
   return prismaClient.user.create({ data: user });
 };
 
+type UpdateUserProps = {
+  userId: string;
+  data: {
+    email?: string;
+    image?: string;
+    name?: string;
+    resetPassword?: string;
+  };
+};
+export const updateUser = ({ data, userId }: UpdateUserProps) => {
+  return prismaClient.user.update({
+    where: {
+      id: userId,
+    },
+    data,
+  });
+};
+
 export const getUserByGithubIdOrEmail = async ({
   email,
   githubId,
