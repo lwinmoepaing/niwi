@@ -74,10 +74,18 @@ export async function logOutAction() {
   await signOut({ redirectTo: "/" });
 }
 
-export async function googleAuthAction(_currentState: unknown) {
+export async function googleAuthAction() {
   return await signIn("google");
 }
 
-export async function githubAuthAction(_currentState: unknown) {
+export async function githubAuthAction() {
   return await signIn("github");
+}
+
+export async function facebookAuthAction() {
+  return await signIn("facebook");
+}
+
+export async function twitterAuthAction() {
+  return await signIn("twitter");
 }

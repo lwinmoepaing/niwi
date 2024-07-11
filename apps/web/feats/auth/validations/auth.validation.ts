@@ -48,3 +48,18 @@ export const githubAuthSchema = z.object({
   name: z.string({ message: "Name is required." }).min(1),
   avatar_url: z.string({ message: "Image is required." }).min(1),
 });
+
+export const facebookAuthSchema = z.object({
+  id: z.string().min(1),
+  email: z.string().email(),
+  name: z.string({ message: "Name is required." }).min(1),
+});
+
+export const twitterAuthSchema = z.object({
+  data: z.object({
+    id: z.string().min(1),
+    name: z.string({ message: "Name is required." }).min(1),
+    username: z.string({ message: "Name is required." }).min(1),
+    profile_image_url: z.string({ message: "Image is required." }).min(1),
+  }),
+});

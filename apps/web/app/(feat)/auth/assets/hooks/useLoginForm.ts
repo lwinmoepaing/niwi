@@ -1,8 +1,10 @@
 "use client";
 import {
+  facebookAuthAction,
   githubAuthAction,
   googleAuthAction,
   loginAction,
+  twitterAuthAction,
 } from "@/feats/auth/actions/auth.action";
 import {
   loginFormSchema,
@@ -18,9 +20,17 @@ const useLoginForm = () => {
     googleAuthAction,
     undefined
   );
-
   const [errorMsgGitHub, dispatchGitHub] = useActionState(
     githubAuthAction,
+    undefined
+  );
+  const [errorMsgFacebook, dispatchFacebook] = useActionState(
+    facebookAuthAction,
+    undefined
+  );
+
+  const [errorMsgTwitter, dispatchTwitter] = useActionState(
+    twitterAuthAction,
     undefined
   );
 
@@ -58,6 +68,10 @@ const useLoginForm = () => {
     dispatchGoogle,
     errorMsgGitHub,
     dispatchGitHub,
+    errorMsgFacebook,
+    dispatchFacebook,
+    errorMsgTwitter,
+    dispatchTwitter,
   };
 };
 
