@@ -79,7 +79,7 @@ function AuthLoginForm() {
         {errorMsgGoogle ? <p>{errorMsgGoogle}</p> : null}
       </form>
       <form className="flex flex-col my-[20px]" action={dispatchGitHub}>
-        <SubmitButton text="Sign In with Discord" />
+        <SubmitButton text="Sign In with Github" />
         {errorMsgGitHub ? <p>{errorMsgGitHub}</p> : null}
       </form>
     </>

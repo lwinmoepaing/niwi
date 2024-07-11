@@ -41,3 +41,10 @@ export const googleAuthSchema = z.object({
   name: z.string({ message: "Name is required." }).min(1),
   picture: z.string({ message: "Image is required." }).min(1),
 });
+
+export const githubAuthSchema = z.object({
+  id: z.number().min(1),
+  email: z.string().email(),
+  name: z.string({ message: "Name is required." }).min(1),
+  avatar_url: z.string({ message: "Image is required." }).min(1),
+});

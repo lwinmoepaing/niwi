@@ -79,9 +79,5 @@ export async function googleAuthAction(_currentState: unknown) {
 }
 
 export async function githubAuthAction(_currentState: unknown) {
-  try {
-    return await signIn("github");
-  } catch (e) {
-    console.log(e);
-  }
+  return await signIn("github");
 }

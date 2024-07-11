@@ -1,5 +1,10 @@
-import { createUser, getUserByEmail } from "@/feats/auth/services/auth.service";
 import {
+  createUser,
+  getUserByEmail,
+  getUserByGithubOrEmail,
+} from "@/feats/auth/services/auth.service";
+import {
+  githubAuthSchema,
   googleAuthSchema,
   LoginFormValues,
 } from "@/feats/auth/validations/auth.validation";
@@ -10,6 +15,24 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import { hashPassword, verifyPassword } from "../hash/hash";
 import nextAuthEdgeConfig from "./next-auth-for-edge";
+
+const createNewUserForOAuth = async (
+  name: string,
+  email: string,
+  image: string
+) => {
+  const password = nanoid();
+  const { hash, salt } = hashPassword(password);
+  const newUser = await createUser({
+    password: hash,
+    salt: salt,
+    name,
+    email,
+    role: "USER",
+    image,
+  });
+  return newUser;
+};
 
 const config = {
   ...nextAuthEdgeConfig,
@@ -29,16 +52,11 @@ const config = {
           }
 
           // New user from Google Authentication
-          const password = nanoid();
-          const { hash, salt } = hashPassword(password);
-          const newUser = await createUser({
-            password: hash,
-            salt: salt,
-            name: data.name,
-            email: data.email,
-            role: "USER",
-            image: data.picture,
-          });
+          const newUser = await createNewUserForOAuth(
+            data.name,
+            data.email,
+            data.picture
+          );
           user.id = newUser.id;
         } catch (e) {
           return false;
@@ -46,7 +64,29 @@ const config = {
       }
 
       if (account?.provider === "github") {
-        console.log(profile);
+        const { success, data, error } = githubAuthSchema.safeParse(profile);
+        if (!success) return false;
+        try {
+          const existUser = await getUserByGithubOrEmail({
+            email: data.email,
+            githubId: data.id,
+          });
+          if (existUser) {
+            user.id = existUser.id;
+            user.name = existUser.name;
+            user.image = existUser.image;
+            return true;
+          }
+          // New user from Discord Authentication
+          const newUser = await createNewUserForOAuth(
+            data.name,
+            data.email,
+            data.avatar_url
+          );
+          user.id = newUser.id;
+        } catch (e) {
+          return false;
+        }
       }
 
       return true;
@@ -62,7 +102,10 @@ const config = {
         response_type: "code",
       },
     }),
-    GithubProvider({}),
+    GithubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID ?? "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
+    }),
     Credentials({
       async authorize(credentials) {
         // Run on Login State
