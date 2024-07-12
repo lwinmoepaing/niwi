@@ -50,6 +50,17 @@ export const resetPasswordSchema = z
 
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
+export const magicLinkSchema = z.object({
+  email: z.string().email(),
+});
+
+export type MagicLinkFormValues = z.infer<typeof magicLinkSchema>;
+
+export const magicLinkAuthSchema = z.object({
+  email: z.string().email(),
+  type: z.literal("MAGIC_LINK"),
+});
+
 export const googleAuthSchema = z.object({
   email: z.string().email(),
   name: z.string({ message: "Name is required." }).min(1),

@@ -1,5 +1,7 @@
+import config from "@/config";
 import dateUtil from "@/libs/date/date-util";
 import prismaClient from "@/libs/db/prismaClient";
+import { decryptText } from "@/libs/hash/hash";
 import {
   responseError,
   responseSuccess,
@@ -130,4 +132,32 @@ export const checkResetPasswordKeyValid = async (resetPasswordKey: string) => {
   }
 
   return responseSuccess("Reset password key is valid", user);
+};
+
+export const checkMagicKeyValid = async (magicKey: string) => {
+  const [encryptEmail, id, salt, tokenTime] = magicKey.split("~");
+
+  if (!id || !salt || !tokenTime || !encryptEmail) {
+    return responseError("Invalid reset password route.");
+  }
+
+  const email = decryptText(encryptEmail?.replace(/ /g, "+"), config.secretKey);
+  const user = await getUserByEmail(email);
+  if (!user) {
+    return responseError("Invalid user email with Magic key.");
+  }
+
+  const isSameSalt = user.salt === salt;
+  if (!isSameSalt) {
+    return responseError("Invalid Magic key.");
+  }
+
+  const now = dateUtil();
+  const tokenExpire = dateUtil(tokenTime);
+  const isExpire = now.isAfter(tokenExpire);
+  if (isExpire) {
+    return responseError("Magic token is expired.");
+  }
+
+  return responseSuccess("Magic key is valid", user);
 };

@@ -10,6 +10,7 @@ import {
   githubAuthSchema,
   googleAuthSchema,
   LoginFormValues,
+  magicLinkAuthSchema,
   twitterAuthSchema,
 } from "@/feats/auth/validations/auth.validation";
 import { nanoid } from "nanoid";
@@ -184,7 +185,20 @@ const config = {
     }),
     Credentials({
       async authorize(credentials) {
-        // Run on Login State
+        // Magic Link Authentication
+        const { success, data } = magicLinkAuthSchema.safeParse(credentials);
+        if (success) {
+          const { email } = data;
+          const user = await getUserByEmail(email);
+
+          if (!user) {
+            throw new Error("User not found");
+          }
+
+          return user;
+        }
+
+        // Run on Normal Login State
         const { email, password } = credentials as LoginFormValues;
         const user = await getUserByEmail(email);
 

@@ -86,10 +86,14 @@ function AuthLoginForm() {
       </Form>
 
       <div className="my-2">
-        <Link href="/auth/reset-password" className="hover:underline">
-          <p>
-            <small>Forgot your password ?</small>
-          </p>
+        <p className="text-center">
+          <small>Or</small>
+        </p>
+      </div>
+
+      <div className="my-2">
+        <Link href="/auth/magic-link" className="hover:underline text-blue-600">
+          <p className="text-center"> Magic Link 🚀</p>
         </Link>
       </div>
 
@@ -125,6 +129,13 @@ function AuthLoginForm() {
         />
         {errorMsgTwitter ? <p>{errorMsgTwitter}</p> : null}
       </form>
+      <div className="my-2">
+        <Link href="/auth/reset-password" className="hover:underline">
+          <p>
+            <small>Forgot your password ?</small>
+          </p>
+        </Link>
+      </div>
     </>
   );
 }
