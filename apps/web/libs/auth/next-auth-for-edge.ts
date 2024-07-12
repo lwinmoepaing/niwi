@@ -52,6 +52,9 @@ const nextAuthEdgeConfig = {
       }
       return session;
     },
+    redirect: async () => {
+      return "/"; // This can be any URL you want to redirect to
+    },
   },
 } as NextAuthConfig;
 

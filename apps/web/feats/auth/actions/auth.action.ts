@@ -1,29 +1,35 @@
 "use server";
 
+import config from "@/config";
+import ResetPasswordMail from "@/feats/mail/template/reset-password.mail";
 import { signIn, signOut } from "@/libs/auth/next-auth";
-import { AuthError } from "next-auth";
+import { hashPassword, hashPasswordBySalt } from "@/libs/hash/hash";
+import { sendEmail } from "@/libs/mail/mailgun";
+import {
+  responseError,
+  responseSuccess,
+} from "@/libs/response/response-helper";
+import { User } from "@prisma/client";
 import { render } from "@react-email/render";
+import { nanoid } from "nanoid";
+import { AuthError } from "next-auth";
 import {
-  ForgotPasswordFormValues,
-  forgotPasswordSchema,
-  LoginFormValues,
-  signUpFormSchema,
-  SignUpFormValues,
-} from "../validations/auth.validation";
-import {
+  checkResetPasswordKeyValid,
   createUser,
   getUserByEmail,
   updateUser,
 } from "../services/auth.service";
 import {
-  responseError,
-  responseSuccess,
-} from "@/libs/response/response-helper";
-import { hashPassword } from "@/libs/hash/hash";
-import config from "@/config";
-import { sendEmail } from "@/libs/mail/mailgun";
-import ResetPasswordEmail from "@/feats/mail/template/reset-password-mail";
-import { nanoid } from "nanoid";
+  ForgotPasswordFormValues,
+  forgotPasswordSchema,
+  LoginFormValues,
+  ResetPasswordFormValues,
+  resetPasswordSchema,
+  signUpFormSchema,
+  SignUpFormValues,
+} from "../validations/auth.validation";
+import dateUtil from "@/libs/date/date-util";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 export async function loginAction(
   _currentState: unknown,
@@ -31,6 +37,7 @@ export async function loginAction(
 ) {
   try {
     await signIn("credentials", authData);
+    // return responseSuccess("Successfully logged in");
   } catch (error) {
     if (error instanceof AuthError) {
       if (error.cause?.err instanceof Error) {
@@ -43,6 +50,11 @@ export async function loginAction(
           return { message: "Could not sign in." };
       }
     }
+
+    if (isRedirectError(error)) {
+      return { message: "Redirect" };
+    }
+
     throw error;
   }
 }
@@ -80,40 +92,79 @@ export async function signUpAction(
   }
 }
 
-export async function resetPasswordAction(
+export async function forgotPasswordAction(
   _currentState: unknown,
   data: ForgotPasswordFormValues
 ) {
-  const { error } = forgotPasswordSchema.safeParse(data);
-  if (error) {
-    return responseError("", error.format());
+  try {
+    const { error } = forgotPasswordSchema.safeParse(data);
+    if (error) {
+      return responseError("", error.format());
+    }
+
+    const { email } = data;
+    const user = await getUserByEmail(email);
+    if (!user) {
+      return responseError("Your email address is not found");
+    }
+
+    const id = nanoid();
+    const tokenExpire = dateUtil().add(1, "hour").toString();
+    const resetPassword = `${id}~${user.salt}~${email}~${tokenExpire}`;
+    await updateUser({
+      userId: user.id,
+      data: { resetPassword },
+    });
+
+    await sendEmail({
+      to: email,
+      subject: `${config?.appName} | Reset Password`,
+      html: render(
+        ResetPasswordMail({
+          userName: user.name,
+          resetPasswordLink: `${config.domainUrl}/auth/reset-password?resetPasswordKey=${resetPassword}`,
+        })
+      ),
+    });
+
+    return responseSuccess("Successfully sent to your email");
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
   }
+}
 
-  const { email } = data;
-  const user = await getUserByEmail(email);
-  if (!user) {
-    return responseError("Your email address is not found");
+export async function resetPasswordAction(
+  _currentState: unknown,
+  formData: ResetPasswordFormValues
+) {
+  try {
+    const { error, data } = resetPasswordSchema.safeParse(formData);
+    if (error) {
+      return responseError("", error.format());
+    }
+
+    const checkReset = await checkResetPasswordKeyValid(data.resetPasswordKey);
+
+    if (!checkReset.success) {
+      return responseError(checkReset.message);
+    }
+
+    const user = checkReset.data as User;
+    const newPassword = hashPasswordBySalt(data.password, user.salt);
+
+    const updatedUser = await updateUser({
+      userId: user.id,
+      data: { password: newPassword, resetPassword: "" },
+    });
+
+    return responseSuccess("Successfully update password", updatedUser);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
   }
-
-  const id = nanoid();
-  const resetPassword = `${id}:${user.salt}`;
-  await updateUser({
-    userId: user.id,
-    data: { resetPassword },
-  });
-
-  await sendEmail({
-    to: email,
-    subject: `${config?.appName} | Reset Password`,
-    html: render(
-      ResetPasswordEmail({
-        userName: user.name,
-        resetPasswordLink: `${config.domainUrl}/auth/reset-password?key=${resetPassword}`,
-      })
-    ),
-  });
-
-  return responseSuccess("Successfully sent to your email");
 }
 
 export async function logOutAction() {

@@ -1,5 +1,10 @@
-import "server-only";
+import dateUtil from "@/libs/date/date-util";
 import prismaClient from "@/libs/db/prismaClient";
+import {
+  responseError,
+  responseSuccess,
+} from "@/libs/response/response-helper";
+import "server-only";
 
 export const getUserByEmail = (email: string) => {
   return prismaClient.user.findUnique({ where: { email } });
@@ -25,8 +30,10 @@ type UpdateUserProps = {
     image?: string;
     name?: string;
     resetPassword?: string;
+    password?: string;
   };
 };
+
 export const updateUser = ({ data, userId }: UpdateUserProps) => {
   return prismaClient.user.update({
     where: {
@@ -92,4 +99,35 @@ export const getUserByTwitterId = async (twitterId: string) => {
   return prismaClient.user.findUnique({
     where: { twitterId: twitterId },
   });
+};
+
+export const checkResetPasswordKeyValid = async (resetPasswordKey: string) => {
+  const [id, salt, email, tokenTime] = resetPasswordKey.split("~");
+
+  if (!id || !salt || !tokenTime || !email) {
+    return responseError("Invalid reset password route.");
+  }
+
+  const user = await getUserByEmail(email);
+  if (!user) {
+    return responseError("Invalid user email with token key.");
+  }
+
+  if (!user.resetPassword) {
+    return responseError("Reset password token is expired.");
+  }
+
+  const isSameSalt = user.salt === salt;
+  if (!isSameSalt) {
+    return responseError("Invalid reset password key.");
+  }
+
+  const now = dateUtil();
+  const tokenExpire = dateUtil(tokenTime);
+  const isExpire = now.isAfter(tokenExpire);
+  if (isExpire) {
+    return responseError("Reset token is expired.");
+  }
+
+  return responseSuccess("Reset password key is valid", user);
 };

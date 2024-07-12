@@ -8,7 +8,13 @@ const SignOutButton = () => {
   const [isPending, startTransition] = useTransition();
 
   const handleSignOut = useCallback(async () => {
-    startTransition(async () => await logOutAction());
+    startTransition(async () => {
+      try {
+        return await logOutAction();
+      } catch (e) {
+        console.log(e);
+      }
+    });
   }, []);
 
   return (

@@ -1,36 +1,29 @@
 "use client";
-import { resetPasswordAction } from "@/feats/auth/actions/auth.action";
+import { forgotPasswordAction } from "@/feats/auth/actions/auth.action";
 import {
-  ResetPasswordFormValues,
-  resetPasswordSchema,
+  forgotPasswordSchema,
+  ForgotPasswordFormValues,
 } from "@/feats/auth/validations/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useActionState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const useResetPasswordForm = ({
-  resetPasswordKey,
-}: {
-  resetPasswordKey?: string;
-}) => {
-  const router = useRouter();
-
+const useForgotPasswordForm = () => {
   const [forgotPasswordResponse, dispatchReset, pending] = useActionState(
-    resetPasswordAction,
+    forgotPasswordAction,
     undefined
   );
 
-  const form = useForm<ResetPasswordFormValues>({
-    resolver: zodResolver(resetPasswordSchema),
+  const form = useForm<ForgotPasswordFormValues>({
+    resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
-      resetPasswordKey: resetPasswordKey,
+      email: "",
     },
   });
 
   const handleSubmit = useCallback(
-    async (values: ResetPasswordFormValues) => {
+    async (values: ForgotPasswordFormValues) => {
       dispatchReset(values);
     },
     [dispatchReset]
@@ -39,11 +32,7 @@ const useResetPasswordForm = ({
   useEffect(() => {
     if (forgotPasswordResponse?.success === true) {
       toast.success(forgotPasswordResponse.message);
-      form.reset(
-        { resetPasswordKey, password: "", passwordConfirm: "" },
-        { keepDefaultValues: false }
-      );
-      router.push("/auth/login");
+      form.reset({ email: "" }, { keepDefaultValues: false });
       return;
     }
 
@@ -61,4 +50,4 @@ const useResetPasswordForm = ({
   };
 };
 
-export default useResetPasswordForm;
+export default useForgotPasswordForm;

@@ -11,19 +11,24 @@ import {
   LoginFormValues,
 } from "@/feats/auth/validations/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useActionState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const useLoginForm = () => {
+  const router = useRouter();
+
   const [errorMsgGoogle, dispatchGoogle] = useActionState(
     googleAuthAction,
     undefined
   );
+
   const [errorMsgGitHub, dispatchGitHub] = useActionState(
     githubAuthAction,
     undefined
   );
+
   const [errorMsgFacebook, dispatchFacebook] = useActionState(
     facebookAuthAction,
     undefined
@@ -55,6 +60,10 @@ const useLoginForm = () => {
   );
 
   useEffect(() => {
+    if (logInError?.message === "Redirect") {
+      router.push("/");
+      return;
+    }
     if (logInError?.message) {
       toast.error(logInError.message);
     }

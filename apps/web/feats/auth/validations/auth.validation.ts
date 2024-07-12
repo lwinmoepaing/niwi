@@ -42,6 +42,14 @@ export const forgotPasswordSchema = z.object({
 
 export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
+export const resetPasswordSchema = z
+  .object({
+    resetPasswordKey: z.string().min(1),
+  })
+  .and(passwordSchema);
+
+export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
+
 export const googleAuthSchema = z.object({
   email: z.string().email(),
   name: z.string({ message: "Name is required." }).min(1),

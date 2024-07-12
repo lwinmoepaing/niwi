@@ -3,11 +3,15 @@ import { AES, enc } from "crypto-js";
 
 export const hashPassword = (password: string) => {
   const salt = crypto.randomBytes(16).toString("hex");
+  const hash = hashPasswordBySalt(password, salt);
+  return { hash, salt };
+};
+
+export const hashPasswordBySalt = (password: string, salt: string) => {
   const hash = crypto
     .pbkdf2Sync(password, salt, 1000, 64, "sha512")
     .toString("hex");
-
-  return { hash, salt };
+  return hash;
 };
 
 interface VerifiedPasswordProps {

@@ -3,6 +3,7 @@ const config = {
   domainUrl: "http://localhost:3000",
   domainName: "niwistarter.com",
   defaultUserImage: "/images/auth/profile.png",
+  secretKey: process.env.SECRET_HASH_KEY || "niwi",
   authRoute: {
     loginUrl: "/auth/login",
     callback: "/dashboard",
