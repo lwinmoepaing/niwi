@@ -35,6 +35,11 @@ function AuthLoginForm() {
 
   return (
     <>
+      <div className="text-center mb-2">
+        <h1 className="text-3xl bg-gradient-to-r inline-block  from-rose-500 via-purple-700 to-blue-400 text-transparent bg-clip-text">
+          Niwi Starter
+        </h1>
+      </div>
       <Form {...form}>
         <form
           className="flex flex-col gap-4"
@@ -92,7 +97,7 @@ function AuthLoginForm() {
       </div>
 
       <div className="my-2">
-        <Link href="/auth/magic-link" className="hover:underline text-blue-600">
+        <Link href="/auth/magic-link" className="hover:underline niwi-link">
           <p className="text-center"> Magic Link 🚀</p>
         </Link>
       </div>

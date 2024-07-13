@@ -15,14 +15,25 @@ export default async function HomePage() {
           </h1>
         </div>
 
-        <Link href="/auth/login">
-          <Button>Login</Button>
-        </Link>
-
-        <div className="text-left text-sm">
-          {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
-        </div>
-        {session && <SignOutButton />}
+        {!session ? (
+          <>
+            <Link href="/auth/login">
+              <Button>Login</Button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <div className="flex flex-row gap-x-[16px] justify-center">
+              {/* <Link href="/dashboard">
+                <Button variant={"outline"}>Dashboard</Button>
+              </Link> */}
+              <SignOutButton />
+            </div>
+            <div className="text-left text-sm dark:text-white ">
+              <pre>{JSON.stringify(session, null, 2)}</pre>
+            </div>
+          </>
+        )}
       </section>
     </main>
   );

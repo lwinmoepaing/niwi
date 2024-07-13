@@ -138,7 +138,7 @@ export const checkMagicKeyValid = async (magicKey: string) => {
   const [encryptEmail, id, salt, tokenTime] = magicKey.split("~");
 
   if (!id || !salt || !tokenTime || !encryptEmail) {
-    return responseError("Invalid reset password route.");
+    return responseError("Invalid Magic key.");
   }
 
   const email = decryptText(encryptEmail?.replace(/ /g, "+"), config.secretKey);

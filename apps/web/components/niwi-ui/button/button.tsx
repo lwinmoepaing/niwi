@@ -2,15 +2,13 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/libs/utils";
 import { RefObject } from "react";
 
-const defaultStyle =
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+const defaultStyle = "niwi-button";
 
 const buttonVariants = cva(defaultStyle, {
   variants: {
     variant: {
-      primary: "bg-blue-500 text-white hover:bg-blue-500/90",
-      outline:
-        "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+      primary: "niwi-button--primary",
+      outline: "niwi-button--outline",
     },
     size: {
       sm: "h-9 rounded-md px-3",

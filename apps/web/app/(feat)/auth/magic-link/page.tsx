@@ -9,7 +9,7 @@ type MagicLinkPageProps = {
   searchParams: { magicKey: string };
 };
 
-const sectionStyle = "mx-auto max-w-[360px] px-[20px] my-20";
+const sectionStyle = "niwi-auth-section container";
 
 async function MagicLinkPage({ searchParams }: MagicLinkPageProps) {
   const { magicKey } = searchParams;

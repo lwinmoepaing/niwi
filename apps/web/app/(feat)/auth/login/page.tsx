@@ -2,7 +2,7 @@ import AuthLoginForm from "../assets/components/AuthLoginForm";
 
 function AuthLoginPage() {
   return (
-    <section className="mx-auto max-w-[360px] px-[20px] my-20">
+    <section className="niwi-auth-section container">
       <AuthLoginForm />
     </section>
   );

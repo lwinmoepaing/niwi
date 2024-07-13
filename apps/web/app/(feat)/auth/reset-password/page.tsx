@@ -12,7 +12,7 @@ async function ResetPasswordPage({ searchParams }: ResetPasswordPageProps) {
     const { success, message } = await checkResetPasswordKeyValid(resetPasswordKey);
     if (!success) {
       return (
-        <section className="mx-auto max-w-[360px] px-[20px] my-20">
+        <section className="niwi-auth-section container">
           {message}
         </section>
       );
@@ -20,7 +20,7 @@ async function ResetPasswordPage({ searchParams }: ResetPasswordPageProps) {
   }
 
   return (
-    <section className="mx-auto max-w-[360px] px-[20px] my-20">
+    <section className="niwi-auth-section container">
       <ResetPasswordForm resetPasswordKey={resetPasswordKey} />
     </section>
   );
