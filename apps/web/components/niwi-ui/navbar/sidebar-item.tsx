@@ -2,7 +2,7 @@
 
 import { cn } from "@/libs/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 
 type SideBarItemProps = {
   icon: React.ReactNode;
@@ -15,8 +15,8 @@ export default function SideBarItem({
   href,
   icon,
 }: SideBarItemProps) {
-  const pathName = usePathname();
-  const isActive = pathName === href;
+  // const pathName = usePathname();
+  // const isActive = pathName === href;
   return (
     <Link
       href={href}
