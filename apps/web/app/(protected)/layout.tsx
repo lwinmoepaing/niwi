@@ -5,11 +5,11 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export default async function AdminLayout({ children }: Props) {
+export default async function DashboardLayout({ children }: Props) {
   return (
     <>
       <Navbar />
-      <section className="border-t flex flex-1 pl-[100px]">
+      <section className="niwi-sidebar-container">
         <SideBar />
         <main className="py-4 px-5 min-h-screen w-full">{children}</main>
       </section>

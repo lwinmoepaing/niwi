@@ -4,7 +4,15 @@ import { logOutAction } from "@/feats/auth/actions/auth.action";
 import { CircleDashed } from "lucide-react";
 import { useCallback, useTransition } from "react";
 
-const SignOutButton = () => {
+type SignOutButtonProps = {
+  text?: string;
+  className?: string;
+};
+
+const SignOutButton = ({
+  text = "Sign Out",
+  className,
+}: SignOutButtonProps) => {
   const [isPending, startTransition] = useTransition();
 
   const handleSignOut = useCallback(async () => {
@@ -18,13 +26,13 @@ const SignOutButton = () => {
   }, []);
 
   return (
-    <Button disabled={isPending} onClick={handleSignOut}>
+    <Button disabled={isPending} onClick={handleSignOut} className={className}>
       {isPending ? (
         <>
           <CircleDashed className="animate-spin" />
         </>
       ) : (
-        "Sign Out"
+        text
       )}
     </Button>
   );

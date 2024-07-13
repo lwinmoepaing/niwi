@@ -5,6 +5,10 @@
   --niwi-dark-background: #2b2d31;
   --niwi-dark-primary-background: #313339;
 
+  /* Dark Toggler */
+  --niwi-toggler-color: #dfdfdf;
+  --niwi-dark-toggler-color: #b5b9c1;
+
   /* Link */
   --niwi-link-color: #2563eb;
   --niwi-dark-link-color: #5489ff;
@@ -16,6 +20,31 @@
   /* Buttons */
   --niwi-button-primary: #3b82f6;
   --niwi-button-outline-border-color: #4f545b;
+
+  /* Navbar */
+  --niwi-navbar-color: #ffffff;
+  --niwi-dark-navbar-color: #1d1f23;
+  --niwi-navbar-bottom-border-color: #eaeaea;
+  --niwi-dark-navbar-bottom-border-color: #282a2e;
+
+  /* Sidebar */
+  --niwi-sidebar-color: white;
+  --niwi-dark-sidebar-color: #1d1f23;
+
+  /* Sidebar Item */
+  --niwi-sidebar-item-color: #fafafa;
+  --niwi-dark-sidebar-item-color: #313339;
+}
+
+/*=============================================
+=                 Logo Text                   =
+=============================================*/
+
+.niwi-logo-text {
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to right, #f43f5e, #7e22ce, #60a5fa);
+  display: inline-block;
 }
 
 /*=============================================
@@ -27,14 +56,6 @@
 }
 
 .dark.niwi-body {
-  background-color: var(--niwi-dark-background, #2b2d31);
-}
-
-.bg-mute {
-  background-color: #f4f4f5;
-}
-
-.dark .bg-mute {
   background-color: var(--niwi-dark-background, #2b2d31);
 }
 
@@ -62,11 +83,17 @@
   justify-content: center;
   align-items: center;
   background: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--niwi-toggler-color, #dfdfdf);
 }
 
 .dark .niwi-toggler {
   background: var(--niwi-dark-primary-background, #313339);
-  color: white;
+  color: var(--niwi-dark-toggler-color, #b5b9c1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--niwi-dark-toggler-color, #b5b9c1);
 }
 
 /*=============================================
@@ -127,7 +154,6 @@
   color: white;
 }
 
-
 /*=============================================
 =               Auth Features                 =
 =============================================*/
@@ -143,4 +169,78 @@
 .dark .niwi-auth-section.container {
   background: var(--niwi-dark-primary-background, #313339);
   color: white;
+}
+
+/*=============================================
+=               Niwi Navbar                   =
+=============================================*/
+
+.niwi-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.niwi-navbar .nav {
+  display: flex;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-width: 1px;
+  width: 100%;
+  height: 4rem;
+  background-color: var(--niwi-navbar-color, #ffffff);
+  border-bottom-color: var(--niwi-navbar-bottom-border-color, #dfdfdf);
+}
+
+.dark .niwi-navbar .nav {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--niwi-dark-navbar-bottom-border-color, #282a2e);
+  background-color: var(--niwi-dark-navbar-color, #313339);
+}
+
+/*=============================================
+=              Niwi Sidebar                   =
+=============================================*/
+.niwi-sidebar-container {
+  display: flex;
+  flex: 1;
+  padding-left: 100px;
+}
+
+.niwi-sidebar {
+  display: flex;
+  position: fixed;
+  left: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  top: 4rem;
+  width: 100px;
+  height: calc(100vh - 4rem);
+  background-color: var(--niwi-sidebar-color, white);
+}
+
+.dark .niwi-sidebar {
+  background-color: var(--niwi-dark-sidebar-color, #1d1f23);
+}
+
+.niwi-sidebar-item {
+  display: flex;
+  padding: 0.5rem;
+  margin-top: 1.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 18px;
+  width: 52px;
+  height: 52px;
+  color: black;
+  background-color: var(--niwi-sidebar-item-color, #fafafa);
+}
+
+.dark .niwi-sidebar-item {
+  color: white;
+  background-color: var(--niwi-dark-sidebar-item-color, #313339);
 }

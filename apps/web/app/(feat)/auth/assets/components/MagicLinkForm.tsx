@@ -10,6 +10,7 @@ import {
 } from "@/components/niwi-ui/form/form";
 import TextInput from "@/components/niwi-ui/form/text-input";
 import useMagicLinkForm from "../hooks/useMagicLinkForm";
+import Link from "next/link";
 
 function MagicLinkForm() {
   const { pending, handleSubmit, form } = useMagicLinkForm();
@@ -38,7 +39,10 @@ function MagicLinkForm() {
             </FormItem>
           )}
         />
-        <SubmitButton text="Sign in with email ✨✨"  />
+        <SubmitButton text="Sign in with email ✨✨" />
+        <Link href="/auth/login" className="niwi-link hover:underline">
+          Go Back
+        </Link>
       </form>
     </Form>
   );

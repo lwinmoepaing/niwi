@@ -36,7 +36,7 @@ function AuthLoginForm() {
   return (
     <>
       <div className="text-center mb-2">
-        <h1 className="text-3xl bg-gradient-to-r inline-block  from-rose-500 via-purple-700 to-blue-400 text-transparent bg-clip-text">
+        <h1 className="text-3xl niwi-logo-text">
           Niwi Starter
         </h1>
       </div>

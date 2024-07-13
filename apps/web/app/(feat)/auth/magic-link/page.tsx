@@ -26,7 +26,7 @@ async function MagicLinkPage({ searchParams }: MagicLinkPageProps) {
     return (
       <section className={cn(sectionStyle, "text-center")}>
         <p>{message}</p>
-        <Link href="/" className="text-blue-500 hover:underline">
+        <Link href="/" className="niwi-link hover:underline">
           Go Home
         </Link>
       </section>

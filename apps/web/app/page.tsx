@@ -10,7 +10,7 @@ export default async function HomePage() {
     <main className={"h-screen font-bold"}>
       <section className="w-full max-w-[800px] mx-auto py-20 text-center">
         <div className="text-center mb-5">
-          <h1 className="text-8xl bg-gradient-to-r inline-block  from-rose-500 via-purple-700 to-blue-400 text-transparent bg-clip-text">
+          <h1 className="text-8xl niwi-logo-text">
             Niwi Starter
           </h1>
         </div>
@@ -24,9 +24,9 @@ export default async function HomePage() {
         ) : (
           <>
             <div className="flex flex-row gap-x-[16px] justify-center">
-              {/* <Link href="/dashboard">
+              <Link href="/dashboard">
                 <Button variant={"outline"}>Dashboard</Button>
-              </Link> */}
+              </Link>
               <SignOutButton />
             </div>
             <div className="text-left text-sm dark:text-white ">
