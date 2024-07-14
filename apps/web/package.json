@@ -12,7 +12,15 @@
     "seed": "ts-node -r tsconfig-paths/register -P ./seeds/tsconfig.seeder.json seeds/index.ts"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.7",
     "@hookform/resolvers": "^3.7.0",
+    "@lexical/html": "^0.16.1",
+    "@lexical/link": "^0.16.1",
+    "@lexical/list": "^0.16.1",
+    "@lexical/react": "^0.16.1",
+    "@lexical/rich-text": "^0.16.1",
+    "@lexical/selection": "^0.16.1",
+    "@lexical/utils": "^0.16.1",
     "@prisma/client": "^5.16.1",
     "@react-email/components": "^0.0.21",
     "@react-email/render": "^0.0.16",
@@ -24,6 +32,7 @@
     "form-data": "^4.0.0",
     "jose": "^5.6.3",
     "jsonwebtoken": "^9.0.2",
+    "lexical": "^0.16.1",
     "lucide-react": "^0.400.0",
     "mailgun.js": "^10.2.1",
     "nanoid": "^5.0.7",

@@ -1,15 +1,12 @@
-import Image from "next/image";
-import Button from "../button/button";
-import SidebarItem from "./sidebar-item";
 import SignOutButton from "@/app/(feat)/auth/assets/components/SignOutButton";
-
-const iconSize = 14;
+import Image from "next/image";
+import SidebarItem from "./sidebar-item";
 
 const sideBarItems = [
   {
     name: "Home",
     href: "/dashboard",
-    icon: (_props: { size: number }) => (
+    icon: () => (
       <Image
         src={"/images/icons/house.gif"}
         alt={"Home"}
@@ -21,7 +18,7 @@ const sideBarItems = [
   {
     name: "Blog",
     href: "/dashboard/blogs",
-    icon: (_props: { size: number }) => (
+    icon: () => (
       <Image
         src={"/images/icons/blog.gif"}
         alt={"Blogs"}
@@ -38,7 +35,7 @@ export default async function SideBar() {
       <ul>
         {sideBarItems.map((item) => (
           <li key={item.name}>
-            <SidebarItem icon={<item.icon size={iconSize} />} href={item.href}>
+            <SidebarItem icon={<item.icon />} href={item.href}>
               {item.name}
             </SidebarItem>
           </li>

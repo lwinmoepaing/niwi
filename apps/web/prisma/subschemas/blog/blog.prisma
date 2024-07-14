@@ -1,8 +1,11 @@
 model Blog {
-    id          String @id @default(auto()) @map("_id") @db.ObjectId
-    slug        String @unique
-    title       String
-    description String
-    user        User   @relation(fields: [userId], references: [id])
-    userId      String @db.ObjectId
+    id           String   @id @default(auto()) @map("_id") @db.ObjectId
+    slug         String   @unique
+    title        String
+    content      String
+    isPublished  Boolean
+    previewImage String?
+    reactions    String[]
+    user         User     @relation(fields: [userId], references: [id])
+    userId       String   @db.ObjectId
 }

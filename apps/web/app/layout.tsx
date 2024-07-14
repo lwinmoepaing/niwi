@@ -1,8 +1,9 @@
+import "@/styles/globals.css";
+import "@/styles/niwi-blog.css";
+import "@/styles/niwi.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
-import "@/styles/globals.css";
-import "@/styles/niwi.css";
 import { LightDarkToggle } from "@/components/niwi-ui/light-dark-toggler/light-dark-toggler";
 import { getDarkModeCookie } from "@/feats/setting/actions/setting.action";
 
