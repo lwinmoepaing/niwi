@@ -41,8 +41,8 @@ export default async function SideBar() {
           </li>
         ))}
       </ul>
-      <footer className="fixed bottom-4">
-        <SignOutButton text="Logout" />
+      <footer className="fixed bottom-4 w-[100px] px-[10px]">
+        <SignOutButton text="Logout" className="block w-full" />
       </footer>
     </aside>
   );

@@ -1,0 +1,102 @@
+/*=============================================
+=                  Variables                  =
+=============================================*/
+:root {
+  --niwi-editor-side-button-text-color: #0a0a0a;
+  --niwi-editor-dark-side-button-text-color: #f1f3f5;
+
+  /* Left Side Action Button */
+  --niwi-editor-side-primary-background: #ffffff;
+  --niwi-editor-dark-side-primary-background: #1d1f23;
+
+  /* Right Side Action Button */
+  --niwi-editor-right-action-color: #60a5fa;
+  --niwi-hover-editor-right-action-color: #60a5fa38;
+}
+
+/*=============================================
+=                Editor Tools                 =
+=============================================*/
+
+.editor-side-actions-container {
+  display: flex;
+  flex-direction: row;
+  z-index: 100;
+}
+
+.editor-side-actions-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-radius: 18px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+  background-color: var(--niwi-editor-side-primary-background, #ffffff);
+  color: var(--niwi-editor-side-button-text-color, #0a0a0a);
+}
+
+.dark .editor-side-actions-button {
+  background-color: var(--niwi-editor-dark-side-primary-background, #1d1f23);
+  color: var(--niwi-editor-side-button-dark-text-color, #f1f3f5);
+}
+
+.editor-side-actions-button.active {
+  transition: 0.1s all ease-in-out;
+  rotate: 45deg;
+}
+
+.editor-side-right-actions-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-radius: 18px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+  background-color: var(--niwi-editor-side-primary-background, #ffffff);
+  color: var(--niwi-editor-side-button-text-color, #0a0a0a);
+  border: 0.5px solid var(--niwi-editor-right-action-color, #60a5fa);
+  color: var(--niwi-editor-right-action-color, #60a5fa);
+
+  /* Animation */
+  opacity: 0;
+  scale: 0.5;
+  animation-name: editor-tools-button-fade-in;
+  animation-duration: 0.2s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+}
+
+.editor-side-right-actions-button:hover {
+  background-color: var(--niwi-hover-editor-right-action-color, #60a5fa38);
+}
+
+.dark .editor-side-right-actions-button {
+  background-color: var(--niwi-editor-dark-side-primary-background, #1d1f23);
+  border: 1.5px solid var(--niwi-editor-right-action-color, #60a5fa);
+}
+
+.dark .editor-side-right-actions-button:hover {
+  background-color: var(--niwi-hover-editor-right-action-color, #60a5fa38);
+}
+
+.editor-side-actions-container {
+  display: flex;
+  column-gap: 10px;
+}
+
+@keyframes editor-tools-button-fade-in {
+  0% {
+    opacity: 0;
+    scale: 0.5;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}

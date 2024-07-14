@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
-import "@/styles/niwi-blog.css";
 import "@/styles/niwi.css";
+import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor.css";
+import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-tool.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
@@ -27,7 +28,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const isDarkMode = await getDarkModeCookie();
-  
+
   return (
     <html lang="en">
       <body

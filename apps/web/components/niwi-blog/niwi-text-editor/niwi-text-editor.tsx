@@ -1,6 +1,5 @@
 "use client";
 
-import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
@@ -15,6 +14,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import editorConfig from "./config/editor-config";
 
 // Custom Plugin
+import NiwiFloatingLeftSidePlugin from "./plugins/NiwiFloatingLeftSidePlugin/NiwiFloatingLeftSidePlugin";
 import NiwiFloatingToolBarPlugin from "./plugins/NiwiFloatingToolBarPlugin/NiwiFloatingToolBarPlugin";
 
 const placeholder = "Enter your blog";
@@ -23,7 +23,9 @@ export default function NiwiTextEditor() {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
+        {/* Editor Actions */}
         <NiwiFloatingToolBarPlugin />
+        <NiwiFloatingLeftSidePlugin />
 
         <div className="editor-inner">
           <RichTextPlugin
@@ -40,8 +42,6 @@ export default function NiwiTextEditor() {
           <HistoryPlugin />
           <ListPlugin />
           <LinkPlugin />
-          <AutoFocusPlugin />
-
           {/* Custom Plugins */}
         </div>
       </div>
