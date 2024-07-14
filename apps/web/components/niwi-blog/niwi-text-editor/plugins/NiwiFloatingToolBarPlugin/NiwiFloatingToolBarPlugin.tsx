@@ -19,6 +19,7 @@ import NiwiToolBarItemList from "./component/NiwiToolBarItemList";
 import { useEditorPointInteractions } from "./hook/useEditorPointInteractions";
 import useNiwiToolBarAction from "./hook/useNiwiToolBarAction";
 import { useEditorHydrate } from "../../editor-utils/editor-hydration";
+import { cn } from "@/libs/utils";
 
 export type FloatingMenuPosition = { x: number; y: number } | undefined;
 
@@ -75,6 +76,7 @@ const NiwiFloatingToolBarPlugin = () => {
     }
 
     const domRange = nativeSel.getRangeAt(0);
+
     computePosition(domRange, ref.current, {
       middleware: [flip(), shift(), offset(10)],
       placement: "top",
@@ -158,17 +160,24 @@ const NiwiFloatingToolBarPlugin = () => {
   return createPortal(
     isOpen && (
       <>
-        <div ref={ref} style={positionStyle}>
+        <div ref={ref} style={positionStyle} className="z-10">
           <NiwiToolBarItemList
             checkActiveButton={checkActiveButton}
             onClickAction={onClickAction}
           />
         </div>
 
-        <div ref={linkRef} style={linkPositionStyle}>
-          <div>
-            <input value={linkUrl} ref={inputRef} onChange={handleChange} />
-          </div>
+        <div
+          ref={linkRef}
+          style={linkPositionStyle}
+          className={cn("niwi-editor-link-container", isLink && "active")}
+        >
+          <input
+            className="niwi-editor-link"
+            value={linkUrl}
+            ref={inputRef}
+            onChange={handleChange}
+          />
         </div>
       </>
     ),

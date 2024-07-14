@@ -1,22 +1,23 @@
+import { cn } from "@/libs/utils";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
-import { Plus, Image, CodeXml } from "lucide-react";
 import {
   $getRoot,
   $getSelection,
-  BLUR_COMMAND,
   KEY_ENTER_COMMAND,
   NodeKey,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
-import { CSSProperties, useCallback, useEffect, useState } from "react";
+import { CodeXml, Image, Plus } from "lucide-react";
+import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { useEditorHydrate } from "../../editor-utils/editor-hydration";
-import { cn } from "@/libs/utils";
 
 const LowPrority = 1;
 
 const NiwiFloatingLeftSidePlugin = () => {
   const hasHydrate = useEditorHydrate();
+
+  const containerRef = useRef<HTMLDivElement>(null);
   const [editor] = useLexicalComposerContext();
   const [showRightSideIcons, setShowRightSideIcons] = useState<boolean>(false);
 
@@ -45,10 +46,7 @@ const NiwiFloatingLeftSidePlugin = () => {
     const focusNode = editor.getElementByKey(currentNode as NodeKey);
 
     if (focusNode !== null) {
-      console.dir(focusNode);
-
       const offsetTop = focusNode.offsetTop;
-
       setPositionStyle({
         top: offsetTop - 8,
         opacity: 1,
@@ -92,20 +90,6 @@ const NiwiFloatingLeftSidePlugin = () => {
           return false;
         },
         LowPrority
-      ),
-      editor.registerCommand(
-        BLUR_COMMAND,
-        () => {
-          setShowRightSideIcons(false);
-          setPositionStyle((prev) => ({
-            ...prev,
-            display: "none",
-            opacity: 0,
-            visibility: "hidden",
-          }));
-          return false;
-        },
-        LowPrority
       )
     );
   }, [editor, handleLeftSideIcon, setShowRightSideIcons]);
@@ -114,6 +98,7 @@ const NiwiFloatingLeftSidePlugin = () => {
 
   return (
     <div
+      ref={containerRef}
       className="editor-side-actions-container"
       style={{
         position: "absolute",

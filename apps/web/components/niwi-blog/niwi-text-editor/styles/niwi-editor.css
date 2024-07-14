@@ -54,7 +54,7 @@
 .editor-input {
   min-height: 150px;
   resize: none;
-  font-size: 15px;
+  font-size: 20px;
   caret-color: var(--niwi-editor-cursor-color, #60a5fa);
   position: relative;
   tab-size: 1;
@@ -211,7 +211,7 @@
 }
 
 .editor-heading-h1 {
-  font-size: 24px;
+  font-size: 30px;
   color: rgb(5, 5, 5);
   font-weight: 400;
   margin: 0;
@@ -220,13 +220,10 @@
 }
 
 .editor-heading-h2 {
-  font-size: 15px;
-  color: rgb(101, 103, 107);
+  font-size: 24px;
   font-weight: 700;
   margin: 0;
-  margin-top: 10px;
   padding: 0;
-  text-transform: uppercase;
 }
 
 .editor-quote {

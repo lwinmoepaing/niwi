@@ -1,6 +1,16 @@
 import React from "react";
 import { TCustomEditorActionType } from "../../../editor-utils/editor-utils";
 import { cn } from "@/libs/utils";
+import {
+  Heading1,
+  Heading2,
+  Bold,
+  Italic,
+  ListOrdered,
+  List,
+  Underline,
+  Link,
+} from "lucide-react";
 
 type NiwiToolBarItemListProps = {
   // eslint-disable-next-line no-unused-vars
@@ -14,54 +24,78 @@ const NiwiToolBarItemList = ({
   onClickAction,
 }: NiwiToolBarItemListProps) => {
   return (
-    <div className="container">
+    <div className="niwi-editor-toolbar-container">
       <span
-        className={cn(checkActiveButton("h1") && "active")}
+        className={cn(
+          "niwi-editor-toolbar-btn",
+          checkActiveButton("h1") && "active"
+        )}
         onClick={() => onClickAction("h1")}
       >
-        H1
+        <Heading1 size={20} />
       </span>
       <span
-        className={cn(checkActiveButton("h2") && "active")}
+        className={cn(
+          "niwi-editor-toolbar-btn",
+          checkActiveButton("h2") && "active"
+        )}
         onClick={() => onClickAction("h2")}
       >
-        H2
+        <Heading2 size={20} />
       </span>
       <span
-        className={cn(checkActiveButton("bold") && "active")}
+        className={cn(
+          "niwi-editor-toolbar-btn",
+          checkActiveButton("bold") && "active"
+        )}
         onClick={() => onClickAction("bold")}
       >
-        B
+        <Bold size={20} />
       </span>
       <span
-        className={cn(checkActiveButton("italic") && "active")}
+        className={cn(
+          "niwi-editor-toolbar-btn",
+          checkActiveButton("italic") && "active"
+        )}
         onClick={() => onClickAction("italic")}
       >
-        I
+        <Italic size={20} />
       </span>
       <span
-        className={cn(checkActiveButton("underline") && "active")}
+        className={cn(
+          "niwi-editor-toolbar-btn",
+          checkActiveButton("underline") && "active"
+        )}
         onClick={() => onClickAction("underline")}
       >
-        U
+        <Underline size={20} />
       </span>
       <span
-        className={cn(checkActiveButton("ol") && "active")}
+        className={cn(
+          "niwi-editor-toolbar-btn",
+          checkActiveButton("ol") && "active"
+        )}
         onClick={() => onClickAction("ol")}
       >
-        ol
+        <List size={20} />
       </span>
       <span
-        className={cn(checkActiveButton("ul") && "active")}
+        className={cn(
+          "niwi-editor-toolbar-btn",
+          checkActiveButton("ul") && "active"
+        )}
         onClick={() => onClickAction("ul")}
       >
-        ul
+        <ListOrdered size={20} />
       </span>
       <span
-        className={cn(checkActiveButton("link") && "active")}
+        className={cn(
+          "niwi-editor-toolbar-btn",
+          checkActiveButton("link") && "active"
+        )}
         onClick={() => onClickAction("link")}
       >
-        Link
+        <Link size={20} />
       </span>
     </div>
   );

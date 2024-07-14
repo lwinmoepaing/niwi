@@ -34,6 +34,7 @@ export type TCustomEditorActionType =
   | ElementFormatType
   | HeadingTagType
   | ListNodeTagType
+  | "paragraph"
   | "link";
 
 export const headingTags: HeadingTagType[] = [

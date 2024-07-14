@@ -55,6 +55,7 @@ const useNiwiToolBarAction = () => {
     const selection = $getSelection();
     let allSelectedEvents = [...selectedEventTypes];
 
+    console.log({ selection });
     // inner function
     const pushInEventTypesState = (
       selectionFormat: boolean,
@@ -95,11 +96,11 @@ const useNiwiToolBarAction = () => {
           const type = parentList ? parentList.getTag() : element.getTag();
           pushInGenericTypesState(isListing, type);
           setBlockType(type);
-        }
-
-        const isHeading = $isHeadingNode(element);
-        if (isHeading) {
-          const type = element.getTag();
+        } else {
+          const isHeading = $isHeadingNode(element);
+          const type = isHeading
+            ? element.getTag()
+            : (element.getType() as "paragraph");
           pushInGenericTypesState(isHeading, type);
           setBlockType(type);
         }
