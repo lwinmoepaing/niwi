@@ -55,7 +55,6 @@ const useNiwiToolBarAction = () => {
     const selection = $getSelection();
     let allSelectedEvents = [...selectedEventTypes];
 
-    console.log({ selection });
     // inner function
     const pushInEventTypesState = (
       selectionFormat: boolean,

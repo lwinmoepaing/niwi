@@ -1,0 +1,11 @@
+.niwi-editor-emoji {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  padding-left: 22px;
+  margin: 0 2px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}

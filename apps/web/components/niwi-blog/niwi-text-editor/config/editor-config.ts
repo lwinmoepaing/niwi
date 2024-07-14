@@ -5,7 +5,7 @@ import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import niwiEditorTheme from "../theme/niwi-editor-theme";
 
 // Custom Nodes
-// import CustomNode from "../custom/"
+import { NiwiEmojiNode } from "../plugins/NiwiEmojiPlugin/nodes/NiwiEmojiNode";
 
 const editorConfig: InitialConfigType = {
   theme: niwiEditorTheme,
@@ -20,6 +20,7 @@ const editorConfig: InitialConfigType = {
 
     // -- My CustomNodes
     //
+    NiwiEmojiNode,
   ],
   onError: (error: Error) => {
     console.error(error);

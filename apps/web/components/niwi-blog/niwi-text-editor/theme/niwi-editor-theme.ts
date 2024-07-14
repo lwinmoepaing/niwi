@@ -32,4 +32,7 @@ export default {
     underline: "editor-text-underline",
     underlineStrikethrough: "editor-text-underlineStrikethrough",
   },
+
+  // Custom Theme
+  niwiEmoji: "niwi-editor-emoji",
 };
