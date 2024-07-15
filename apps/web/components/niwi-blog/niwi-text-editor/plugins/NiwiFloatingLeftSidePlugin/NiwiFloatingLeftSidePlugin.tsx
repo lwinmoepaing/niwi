@@ -8,9 +8,11 @@ import {
   NodeKey,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
-import { CodeXml, Image, Plus } from "lucide-react";
+import { CodeXml, Plus } from "lucide-react";
 import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { useEditorHydrate } from "../../editor-utils/editor-hydration";
+import NiwiEditorSideImageInsertIcon from "../NiwiImagePlugin/components/NiwiEditorSideImageInsertIcon";
+import { $isNiwiImageNode } from "../NiwiImagePlugin/nodes/NiwiImageNode";
 
 const LowPrority = 1;
 
@@ -42,8 +44,21 @@ const NiwiFloatingLeftSidePlugin = () => {
     const selectionNodeIndex = topLevelNodeKeys.indexOf(
       selectionFirstNode as string
     );
-    const currentNode = topLevelNodeKeys[selectionNodeIndex];
-    const focusNode = editor.getElementByKey(currentNode as NodeKey);
+    const currentNodeKey = topLevelNodeKeys[selectionNodeIndex];
+    const focusNode = editor.getElementByKey(currentNodeKey as NodeKey);
+
+    const hide = () =>
+      setPositionStyle((prev) => ({
+        ...prev,
+        display: "none",
+        opacity: 0,
+        visibility: "hidden",
+      }));
+
+    const currentNode = selection?.getNodes()?.[0];
+    if (currentNode && $isNiwiImageNode(currentNode)) {
+      return hide();
+    }
 
     if (focusNode !== null) {
       const offsetTop = focusNode.offsetTop;
@@ -53,18 +68,9 @@ const NiwiFloatingLeftSidePlugin = () => {
         visibility: "visible",
       });
     } else {
-      setPositionStyle((prev) => ({
-        ...prev,
-        display: "none",
-        opacity: 0,
-        visibility: "hidden",
-      }));
+      hide();
     }
   }, [editor]);
-
-  //   const onClickImageInsert = useCallback(() => {
-  //     editor.dispatchCommand(INSERT_DECORATION_COMMAND, { name: "" });
-  //   }, [editor]);
 
   useEffect(() => {
     return mergeRegister(
@@ -122,16 +128,8 @@ const NiwiFloatingLeftSidePlugin = () => {
 
       {showRightSideIcons ? (
         <div className="editor-side-actions-container">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              // onClickImageInsert();
-            }}
-            className="editor-side-right-actions-button"
-            type="button"
-          >
-            <Image size={20} />
-          </button>
+          <NiwiEditorSideImageInsertIcon />
+
           <button
             onClick={(e) => {
               e.stopPropagation();

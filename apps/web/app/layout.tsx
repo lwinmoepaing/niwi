@@ -10,6 +10,7 @@ import "@/styles/niwi.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-tool.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-emoji.css";
+import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-image.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

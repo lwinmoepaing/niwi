@@ -4,7 +4,7 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { $generateHtmlFromNodes } from "@lexical/html";
+// import { $generateHtmlFromNodes } from "@lexical/html";
 
 // Lexical Editor Plugin
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
@@ -20,6 +20,7 @@ import NiwiFloatingLeftSidePlugin from "./plugins/NiwiFloatingLeftSidePlugin/Niw
 import NiwiFloatingToolBarPlugin from "./plugins/NiwiFloatingToolBarPlugin/NiwiFloatingToolBarPlugin";
 import NiwiEmojiPlugin from "./plugins/NiwiEmojiPlugin/NiwiEmojiPlugin";
 import NiwiEmojiPickerPlugin from "./plugins/NiwiEmojiPickerPlugin/NiwiEmojiPickerPlugin";
+import NiwiImagePlugin from "./plugins/NiwiImagePlugin/NiwiImagePlugin";
 
 const placeholder = "Enter your blog";
 
@@ -33,7 +34,9 @@ export default function NiwiTextEditor() {
 
         <div className="editor-inner">
           <RichTextPlugin
-            placeholder={<div className="editor-placeholder">{placeholder}</div>}
+            placeholder={
+              <div className="editor-placeholder">{placeholder}</div>
+            }
             contentEditable={
               <ContentEditable
                 className="editor-input"
@@ -46,7 +49,7 @@ export default function NiwiTextEditor() {
           <OnChangePlugin
             onChange={(editorState, editor) => {
               editor.getEditorState().read(() => {
-                console.log($generateHtmlFromNodes(editor));
+                // console.log($generateHtmlFromNodes(editor));
               });
             }}
           />
@@ -57,6 +60,7 @@ export default function NiwiTextEditor() {
           {/* Custom Plugins */}
           <NiwiEmojiPlugin />
           <NiwiEmojiPickerPlugin />
+          <NiwiImagePlugin />
         </div>
       </div>
     </LexicalComposer>

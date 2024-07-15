@@ -1,0 +1,29 @@
+/*=============================================
+=              Editor Niwi Image              =
+=============================================*/
+
+.niwi-editor-image-container {
+  width: 100%;
+  background: #dfdfdf;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 6px 0;
+  padding: 0.5rem;
+
+}
+
+.niwi-editor-image-container.contain {
+  width: 100%;
+}
+.niwi-editor-image-container.fitWidth {
+  width: 100%;
+}
+.niwi-editor-image-container.extraWidth {
+  width: 100%;
+}
+.niwi-editor-image-container.fullScreen {
+  width: 100%;
+}
+
+.niwi-editor-image-container .niwi-image {
+}

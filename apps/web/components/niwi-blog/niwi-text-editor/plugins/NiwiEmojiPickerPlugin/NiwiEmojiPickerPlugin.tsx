@@ -12,6 +12,7 @@ import {
 } from "lexical";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import * as ReactDOM from "react-dom";
+import { useEditorHydrate } from "../../editor-utils/editor-hydration";
 
 class EmojiOption extends MenuOption {
   title: string;
@@ -69,10 +70,7 @@ function EmojiMenuItem({
       {option.emojiType === "text" ? (
         <span className="text">{option.emoji}</span>
       ) : (
-        <span
-          className="img"
-          style={{ backgroundImage: `url(${option.src})` }}
-        >
+        <span className="img" style={{ backgroundImage: `url(${option.src})` }}>
           {" "}
         </span>
       )}
@@ -91,6 +89,7 @@ export default function NiwiEmojiPickerPlugin() {
   const [editor] = useLexicalComposerContext();
   const [, setQueryString] = useState<string | null>(null);
   const [emojis, setEmojis] = useState<Array<Emoji>>([]);
+  const hasHydrate = useEditorHydrate();
 
   useEffect(() => {
     import("./config/emoji-picker-config").then((file) => {
@@ -142,6 +141,8 @@ export default function NiwiEmojiPickerPlugin() {
     },
     [editor]
   );
+
+  if (!hasHydrate) return null;
 
   return (
     <LexicalTypeaheadMenuPlugin
