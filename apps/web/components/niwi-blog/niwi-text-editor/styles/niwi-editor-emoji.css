@@ -9,3 +9,44 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+.niwi-editor-emoji-popover {
+  width: 300px;
+  background: white;
+  box-shadow: 0 0 5px 1px #dddddd;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  column-gap: 10px;
+  row-gap: 10px;
+  margin-top: 5px;
+}
+
+.dark .niwi-editor-emoji-popover {
+  background-color: #1d1f23;
+  box-shadow: 0 0 5px 2px #1d1f23;
+}
+
+.niwi-editor-emoji-popover .item {
+  width: 38px;
+  height: 38px;
+  padding: 4px;
+  position: relative;
+  border-radius: 9px;
+  background-color: #fafafa;
+}
+
+.dark {
+  background-color: #313338;
+}
+
+.niwi-editor-emoji-popover .item span.img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}

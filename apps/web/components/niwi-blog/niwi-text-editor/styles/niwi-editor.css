@@ -59,7 +59,7 @@
   position: relative;
   tab-size: 1;
   outline: 0;
-  padding: 15px 10px;
+  padding: 20px;
   caret-color: #444;
 }
 
@@ -72,12 +72,13 @@
   overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
-  top: 15px;
-  left: 10px;
-  font-size: 15px;
+  top: 20px;
+  left: 20px;
+  font-size: 20px;
   user-select: none;
   display: inline-block;
   pointer-events: none;
+  height: 22px;
 }
 
 .editor-text-bold {

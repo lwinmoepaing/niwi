@@ -18,7 +18,8 @@ import editorConfig from "./config/editor-config";
 // Custom Plugin
 import NiwiFloatingLeftSidePlugin from "./plugins/NiwiFloatingLeftSidePlugin/NiwiFloatingLeftSidePlugin";
 import NiwiFloatingToolBarPlugin from "./plugins/NiwiFloatingToolBarPlugin/NiwiFloatingToolBarPlugin";
-import NiwiEmojisPlugin from "./plugins/NiwiEmojiPlugin/NiwiEmojiPlugin";
+import NiwiEmojiPlugin from "./plugins/NiwiEmojiPlugin/NiwiEmojiPlugin";
+import NiwiEmojiPickerPlugin from "./plugins/NiwiEmojiPickerPlugin/NiwiEmojiPickerPlugin";
 
 const placeholder = "Enter your blog";
 
@@ -32,7 +33,7 @@ export default function NiwiTextEditor() {
 
         <div className="editor-inner">
           <RichTextPlugin
-            placeholder={null}
+            placeholder={<div className="editor-placeholder">{placeholder}</div>}
             contentEditable={
               <ContentEditable
                 className="editor-input"
@@ -44,18 +45,18 @@ export default function NiwiTextEditor() {
           />
           <OnChangePlugin
             onChange={(editorState, editor) => {
-              console.log(editorState?.toJSON());
-
               editor.getEditorState().read(() => {
                 console.log($generateHtmlFromNodes(editor));
               });
             }}
           />
-          <NiwiEmojisPlugin />
           <HistoryPlugin />
           <ListPlugin />
           <LinkPlugin />
+
           {/* Custom Plugins */}
+          <NiwiEmojiPlugin />
+          <NiwiEmojiPickerPlugin />
         </div>
       </div>
     </LexicalComposer>

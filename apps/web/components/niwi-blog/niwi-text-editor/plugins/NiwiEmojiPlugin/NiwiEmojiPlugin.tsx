@@ -55,7 +55,7 @@ function useEmojis(editor: LexicalEditor): void {
   }, [editor]);
 }
 
-export default function NiwiEmojisPlugin(): JSX.Element | null {
+export default function NiwiEmojiPlugin(): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
   useEmojis(editor);
   return null;
