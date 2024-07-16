@@ -217,6 +217,7 @@ const useNiwiToolBarAction = () => {
   );
 
   return {
+    blockType,
     isLink,
     selectedElementKey,
     selectedEventTypes,

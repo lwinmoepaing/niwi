@@ -1,5 +1,6 @@
 import { AutoLinkNode, LinkNode } from "@lexical/link";
 import { ListItemNode, ListNode } from "@lexical/list";
+import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { InitialConfigType } from "@lexical/react/LexicalComposer";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import niwiEditorTheme from "../theme/niwi-editor-theme";
@@ -19,6 +20,8 @@ const editorConfig: InitialConfigType = {
     QuoteNode,
     AutoLinkNode,
     LinkNode,
+    CodeNode,
+    CodeHighlightNode,
 
     // -----------------------
     // -- My CustomNodes

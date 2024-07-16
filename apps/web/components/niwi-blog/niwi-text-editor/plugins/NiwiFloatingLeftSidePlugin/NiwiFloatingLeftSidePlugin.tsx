@@ -13,6 +13,7 @@ import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { useEditorHydrate } from "../../editor-utils/editor-hydration";
 import NiwiEditorSideImageInsertIcon from "../NiwiImagePlugin/components/NiwiEditorSideImageInsertIcon";
 import { $isNiwiImageNode } from "../NiwiImagePlugin/nodes/NiwiImageNode";
+import CodeInsertIcon from "../CodeHighlightPlugin/CodeInsertIcon";
 
 const LowPrority = 1;
 
@@ -129,16 +130,7 @@ const NiwiFloatingLeftSidePlugin = () => {
       {showRightSideIcons ? (
         <div className="editor-side-actions-container">
           <NiwiEditorSideImageInsertIcon />
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            className="editor-side-right-actions-button"
-            type="button"
-          >
-            <CodeXml size={20} />
-          </button>
+          <CodeInsertIcon />
         </div>
       ) : null}
     </div>

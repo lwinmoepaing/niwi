@@ -1,0 +1,289 @@
+.editor-code {
+  background-color: #fafafa;
+  font-family: Menlo, Consolas, Monaco, monospace;
+  display: block;
+  padding: 8px 8px 8px 52px;
+  line-height: 1.53;
+  font-size: 13px;
+  margin: 0;
+  tab-size: 2;
+  overflow-x: auto;
+  position: relative;
+  border-radius: 5px;
+  color: #508eed;
+}
+
+.editor-code:before {
+  content: attr(data-gutter);
+  position: absolute;
+  background-color: #f4f4f5;
+  left: 0;
+  top: 0;
+  border-right: 1px solid #ccc;
+  padding: 8px;
+  color: #777;
+  white-space: pre-wrap;
+  text-align: right;
+  min-width: 25px;
+  line-height: 20.4px;
+}
+
+.dark .editor-code:before {
+  background-color: #2b2d31;
+  border-right: 1px solid #80848b;
+}
+
+.dark .editor-code {
+  background-color: #1d1f23;
+}
+/* Light Theme */
+.editor-token-atrule {
+  color: #795548; /* Brown for atrules */
+}
+
+.editor-token-attr {
+  color: #795548; /* Brown for attributes */
+}
+
+.editor-token-boolean {
+  color: #7c4dff; /* Dark purple for booleans */
+}
+
+.editor-token-builtin {
+  color: #795548; /* Brown for built-in keywords */
+}
+
+.editor-token-cdata {
+  color: #616161; /* Grey for CDATA */
+  font-style: italic; /* Italic style for CDATA */
+}
+
+.editor-token-char {
+  color: #d32f2f; /* Dark red for characters */
+}
+
+.editor-token-class {
+  color: #fbc02d; /* Yellow for classes */
+}
+
+.editor-token-class-name {
+  color: #1976d2; /* Blue for class names */
+}
+
+.editor-token-comment {
+  color: #616161; /* Grey for comments */
+  font-style: italic; /* Italic style for comments */
+}
+
+.editor-token-constant {
+  color: #1976d2; /* Blue for constants */
+}
+
+.editor-token-deleted {
+  color: #d32f2f; /* Dark red for deleted code */
+}
+
+.editor-token-doctype {
+  color: #616161; /* Grey for doctype */
+  font-style: italic; /* Italic style for doctype */
+}
+
+.editor-token-entity {
+  color: #d32f2f; /* Dark red for entities */
+}
+
+.editor-token-function {
+  color: #388e3c; /* Dark green for functions */
+}
+
+.editor-token-important {
+  color: #f57c00; /* Dark orange for important keywords */
+  font-weight: bold; /* Bold for emphasis */
+}
+
+.editor-token-inserted {
+  color: #388e3c; /* Dark green for inserted code */
+}
+
+.editor-token-keyword {
+  color: #795548; /* Brown for keywords */
+}
+
+.editor-token-namespace {
+  color: #8e24aa; /* Dark purple for namespaces */
+}
+
+.editor-token-number {
+  color: #f57c00; /* Dark orange for numbers */
+}
+
+.editor-token-operator {
+  color: #0288d1; /* Dark cyan for operators */
+}
+
+.editor-token-prolog {
+  color: #616161; /* Grey for prolog */
+  font-style: italic; /* Italic style for prolog */
+}
+
+.editor-token-property {
+  color: #7c4dff; /* Dark purple for properties */
+}
+
+.editor-token-punctuation {
+  color: #0288d1; /* Dark cyan for punctuation */
+}
+
+.editor-token-regex {
+  color: #fbc02d; /* Yellow for regex */
+}
+
+.editor-token-selector {
+  color: #1976d2; /* Blue for selectors */
+}
+
+.editor-token-string {
+  color: #388e3c; /* Dark green for strings */
+}
+
+.editor-token-symbol {
+  color: #f57c00; /* Dark orange for symbols */
+}
+
+.editor-token-tag {
+  color: #d32f2f; /* Dark red for tags */
+}
+
+.editor-token-url {
+  color: #00008b; /* Dark blue for URLs */
+}
+
+.editor-token-variable {
+  color: #c2185b; /* Dark pink for variables */
+}
+
+/* Dark Theme */
+.dark .editor-token-atrule {
+  color: #ffcb6b; /* Light yellow for atrules */
+}
+
+.dark .editor-token-attr {
+  color: #ffcb6b; /* Light yellow for attributes */
+}
+
+.dark .editor-token-boolean {
+  color: #c792ea; /* Purple for booleans */
+}
+
+.dark .editor-token-builtin {
+  color: #ffcb6b; /* Light yellow for built-in keywords */
+}
+
+.dark .editor-token-cdata {
+  color: #616161; /* Grey for CDATA */
+  font-style: italic; /* Italic style for CDATA */
+}
+
+.dark .editor-token-char {
+  color: #e06c75; /* Red for characters */
+}
+
+.dark .editor-token-class {
+  color: #ffc107; /* Amber for classes */
+}
+
+.dark .editor-token-class-name {
+  color: #82aaff; /* Light blue for class names */
+}
+
+.dark .editor-token-comment {
+  color: #616161; /* Grey for comments */
+  font-style: italic; /* Italic style for comments */
+}
+
+.dark .editor-token-constant {
+  color: #82aaff; /* Light blue for constants */
+}
+
+.dark .editor-token-deleted {
+  color: #ff5370; /* Red for deleted code */
+}
+
+.dark .editor-token-doctype {
+  color: #616161; /* Grey for doctype */
+  font-style: italic; /* Italic style for doctype */
+}
+
+.dark .editor-token-entity {
+  color: #ff5370; /* Red for entities */
+}
+
+.dark .editor-token-function {
+  color: #c3e88d; /* Light green for functions */
+}
+
+.dark .editor-token-important {
+  color: #f78c6c; /* Orange for important keywords */
+  font-weight: bold; /* Bold for emphasis */
+}
+
+.dark .editor-token-inserted {
+  color: #c3e88d; /* Light green for inserted code */
+}
+
+.dark .editor-token-keyword {
+  color: #ffcb6b; /* Light yellow for keywords */
+}
+
+.dark .editor-token-namespace {
+  color: #b389c5; /* Soft purple for namespaces */
+}
+
+.dark .editor-token-number {
+  color: #f78c6c; /* Orange for numbers */
+}
+
+.dark .editor-token-operator {
+  color: #89ddff; /* Cyan for operators */
+}
+
+.dark .editor-token-prolog {
+  color: #616161; /* Grey for prolog */
+  font-style: italic; /* Italic style for prolog */
+}
+
+.dark .editor-token-property {
+  color: #c792ea; /* Purple for properties */
+}
+
+.dark .editor-token-punctuation {
+  color: #89ddff; /* Cyan for punctuation */
+}
+
+.dark .editor-token-regex {
+  color: #ffd700; /* Gold for regex */
+}
+
+.dark .editor-token-selector {
+  color: #82aaff; /* Light blue for selectors */
+}
+
+.dark .editor-token-string {
+  color: #c3e88d; /* Light green for strings */
+}
+
+.dark .editor-token-symbol {
+  color: #f78c6c; /* Orange for symbols */
+}
+
+.dark .editor-token-tag {
+  color: #ff5370; /* Red for tags */
+}
+
+.dark .editor-token-url {
+  color: #0000ff; /* Blue for URLs */
+}
+
+.dark .editor-token-variable {
+  color: #f07178; /* Pink for variables */
+}

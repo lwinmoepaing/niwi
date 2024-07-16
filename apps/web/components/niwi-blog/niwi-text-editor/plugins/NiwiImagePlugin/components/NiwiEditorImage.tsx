@@ -91,40 +91,24 @@ const NiwiEditorImage = ({
 
   const handleKeyDownCaption = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
+      event.isPropagationStopped();
+      captionRef?.current?.blur();
       switch (event.key) {
         case "ArrowUp":
-          captionRef?.current?.blur();
           editor.update(() => {
             const currentNode = $getNodeByKey(nodeKey);
             const prevSibling = currentNode?.getPreviousSibling();
             if (prevSibling) {
-              const prevSiblingDOM = editor.getElementByKey(
-                prevSibling.getKey()
-              );
-              if (prevSiblingDOM) {
-                const inputElement = prevSiblingDOM.querySelector("p");
-                if (inputElement) {
-                  inputElement.focus();
-                }
-              }
+              prevSibling.selectStart();
             }
           });
           return;
         case "ArrowDown":
-          captionRef?.current?.blur();
           editor.update(() => {
             const currentNode = $getNodeByKey(nodeKey);
             const nextSibling = currentNode?.getNextSibling();
             if (nextSibling) {
-              const nextSiblingDOM = editor.getElementByKey(
-                nextSibling.getKey()
-              );
-              if (nextSiblingDOM) {
-                const inputElement = nextSiblingDOM.querySelector("p");
-                if (inputElement) {
-                  inputElement.focus();
-                }
-              }
+              nextSibling.selectStart();
             }
           });
           return;

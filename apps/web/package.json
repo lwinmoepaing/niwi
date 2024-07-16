@@ -14,6 +14,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.6.7",
     "@hookform/resolvers": "^3.7.0",
+    "@lexical/code": "^0.16.1",
     "@lexical/html": "^0.16.1",
     "@lexical/link": "^0.16.1",
     "@lexical/list": "^0.16.1",
