@@ -188,7 +188,13 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
   }
 
   decorate(): JSX.Element {
-    return <NiwiEditorImage nodeKey={this.getKey()} src={this.__src} />;
+    return (
+      <NiwiEditorImage
+        nodeKey={this.getKey()}
+        src={this.__src}
+        imgSize={this.__imgSize}
+      />
+    );
   }
 }
 

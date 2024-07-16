@@ -7,6 +7,7 @@ import niwiEditorTheme from "../theme/niwi-editor-theme";
 // Custom Nodes
 import { NiwiEmojiNode } from "../plugins/NiwiEmojiPlugin/nodes/NiwiEmojiNode";
 import { NiwiImageNode } from "../plugins/NiwiImagePlugin/nodes/NiwiImageNode";
+import { NiwiCaptionNode } from "../plugins/NiwiImagePlugin/nodes/NiwiImageCaptionNode";
 
 const editorConfig: InitialConfigType = {
   theme: niwiEditorTheme,
@@ -28,6 +29,7 @@ const editorConfig: InitialConfigType = {
     // - Images
     // -
     NiwiImageNode,
+    NiwiCaptionNode,
   ],
   onError: (error: Error) => {
     console.error(error);
