@@ -142,6 +142,29 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
     element.setAttribute(ATTR.size, this.__imgSize);
     element.setAttribute(ATTR.altText, this.__altText);
     element.classList.add(`size-${this.__imgSize}`);
+
+    // Image
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("image-wrapper");
+    imgContainer.classList.add(this.__imgSize);
+
+    const img = document.createElement("img");
+    img.classList.add("niwi-image");
+    img.classList.add(this.__imgSize);
+    img.setAttribute("src", this.__src);
+
+    // Collect all from container
+    imgContainer.append(img);
+    element.appendChild(imgContainer);
+
+    // Image Caption
+    if (this.__altText) {
+      const p = document.createElement("p");
+      p.classList.add("niwi-editor-image-caption");
+      p.innerHTML = this.__altText;
+      element.appendChild(p);
+    }
+
     return { element };
   }
 
@@ -162,13 +185,22 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
     };
   }
 
+  getSize(): ImageSizeType {
+    return this.getLatest().__imgSize;
+  }
+
   setSize(size: ImageSizeType): void {
     const writable = this.getWritable();
     writable.__imgSize = size;
   }
 
-  getSize(): ImageSizeType {
-    return this.getLatest().__imgSize;
+  getAltText(): string {
+    return this.getLatest().__altText;
+  }
+
+  setAltText(value: string): void {
+    const writable = this.getWritable();
+    writable.__altText = value;
   }
 
   getData(): NiwiImageNodePropsType {
@@ -193,6 +225,7 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
         nodeKey={this.getKey()}
         src={this.__src}
         imgSize={this.__imgSize}
+        updatePlaceHolder={(str) => this.setAltText(str)}
       />
     );
   }

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 import { $insertNodeToNearestRoot } from "@lexical/utils";
 
+import { NiwiImageCaptionNode } from "./nodes/NiwiImageCaptionNode";
 import {
   $createNiwiImageNode,
   NiwiImageNode,
@@ -18,7 +19,7 @@ export default function NiwiImagePlugin() {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    if (!editor.hasNodes([NiwiImageNode])) {
+    if (!editor.hasNodes([NiwiImageNode, NiwiImageCaptionNode])) {
       throw new Error(
         "NiwiImagePlugin: NiwiImageNode is not registered on editor"
       );

@@ -42,8 +42,8 @@ export const onUploadImageAction = async (form: FormData) => {
 
   // Ensure the upload directory exists
   await fs.mkdir(uploadDir, { recursive: true });
-
   const fileBuffer = Buffer.from(await image.arrayBuffer());
+
   await fs.writeFile(filePath, fileBuffer);
 
   return responseSuccess("File uploaded successfully", {

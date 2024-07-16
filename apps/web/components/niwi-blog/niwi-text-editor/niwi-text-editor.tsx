@@ -4,7 +4,7 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-// import { $generateHtmlFromNodes } from "@lexical/html";
+import { $generateHtmlFromNodes } from "@lexical/html";
 
 // Lexical Editor Plugin
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
@@ -49,7 +49,7 @@ export default function NiwiTextEditor() {
           <OnChangePlugin
             onChange={(editorState, editor) => {
               editor.getEditorState().read(() => {
-                // console.log($generateHtmlFromNodes(editor));
+                console.log($generateHtmlFromNodes(editor));
               });
             }}
           />
