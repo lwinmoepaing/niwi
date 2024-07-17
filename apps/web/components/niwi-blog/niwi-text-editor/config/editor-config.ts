@@ -11,6 +11,7 @@ import { NiwiImageNode } from "../plugins/NiwiImagePlugin/nodes/NiwiImageNode";
 import { NiwiImageCaptionNode } from "../plugins/NiwiImagePlugin/nodes/NiwiImageCaptionNode";
 import { NiwiYoutubeTextNode } from "../plugins/NiwiYoutubePlugin/nodes/NiwiYoutubeTextNode";
 import { NiwiYoutubeNode } from "../plugins/NiwiYoutubePlugin/nodes/NiwiYoutubeNode";
+import { NiwiSplashImageNode } from "../plugins/NiwiSplashImagePlugin/nodes/NiwiSplashImageNode";
 
 const editorConfig: InitialConfigType = {
   theme: niwiEditorTheme,
@@ -25,20 +26,27 @@ const editorConfig: InitialConfigType = {
     CodeNode,
     CodeHighlightNode,
 
-    // -----------------------
-    // -- My CustomNodes
-    // -----------------------
+    // ----------------------- //
+    // -- My CustomNodes       //
+    // ----------------------- //
+    // ----------
     // - Emojis
-    // -
+    // ----------
     NiwiEmojiNode,
+    // ----------
     // - Images
-    // -
+    // ----------
     NiwiImageNode,
     NiwiImageCaptionNode,
+    // ----------
     // - Youtube
-    // -
+    // ----------
     NiwiYoutubeTextNode,
     NiwiYoutubeNode,
+    // ----------
+    // - Splash Image
+    // ----------
+    NiwiSplashImageNode,
   ],
   onError: (error: Error) => {
     console.error(error);

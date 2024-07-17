@@ -10,6 +10,7 @@ import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-code.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-embedded.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-emoji.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-image.css";
+import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-splash-image.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-tool.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor.css";
 import "@/styles/globals.css";

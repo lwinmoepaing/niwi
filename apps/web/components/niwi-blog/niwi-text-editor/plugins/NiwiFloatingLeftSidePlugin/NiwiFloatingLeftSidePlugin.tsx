@@ -17,6 +17,8 @@ import { $isNiwiImageNode } from "../NiwiImagePlugin/nodes/NiwiImageNode";
 import NiwiYoutubeInsertIcon from "../NiwiYoutubePlugin/components/NiwiYoutubeInsertIcon";
 import { $isNiwiYoutubeText } from "../NiwiYoutubePlugin/nodes/NiwiYoutubeTextNode";
 import { $isNiwiYoutubeNode } from "../NiwiYoutubePlugin/nodes/NiwiYoutubeNode";
+import { $isNiwiSplashImageNode } from "../NiwiSplashImagePlugin/nodes/NiwiSplashImageNode";
+import NiwiSplashInsertIcon from "../NiwiSplashImagePlugin/components/NiwiSplashInsertIcon";
 
 const LowPrority = 1;
 
@@ -65,7 +67,7 @@ const NiwiFloatingLeftSidePlugin = () => {
       }));
 
     const currentNode = selection?.getNodes()?.[0];
-    
+
     if (currentNode && $isNiwiImageNode(currentNode)) {
       return hide();
     }
@@ -75,6 +77,10 @@ const NiwiFloatingLeftSidePlugin = () => {
     }
 
     if (currentNode && $isNiwiYoutubeNode(currentNode)) {
+      return hide();
+    }
+
+    if (currentNode && $isNiwiSplashImageNode(currentNode)) {
       return hide();
     }
 
@@ -149,6 +155,7 @@ const NiwiFloatingLeftSidePlugin = () => {
           <NiwiEditorSideImageInsertIcon />
           <CodeInsertIcon />
           <NiwiYoutubeInsertIcon onClick={hideRightSideIcons} />
+          <NiwiSplashInsertIcon onClick={hideRightSideIcons} />
         </div>
       ) : null}
     </div>

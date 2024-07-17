@@ -37,3 +37,26 @@ export function getPagniationPath({
     nextPath,
   };
 }
+
+interface PaginationProps {
+  page: number;
+  limitCount: number;
+  totalCount: number;
+}
+
+interface PaginationResponse {
+  nextPage: boolean;
+  previousPage: boolean;
+}
+
+export function checkNextPageAndPreviousPage(
+  props: PaginationProps
+): PaginationResponse {
+  const { page, limitCount, totalCount } = props;
+  const totalPages = Math.ceil(totalCount / limitCount);
+
+  return {
+    nextPage: page < totalPages,
+    previousPage: page > 1,
+  };
+}

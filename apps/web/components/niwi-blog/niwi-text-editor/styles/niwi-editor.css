@@ -41,6 +41,10 @@
   color: var(--niwi-dark-editor-text-color, #f1f3f5);
 }
 
+.dark .editor-container hr {
+  border-color: #ffffff12;
+}
+
 .editor-inner {
   background-color: var(--niwi-editor-text-container-color, #ffffff);
   position: relative;

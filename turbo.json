@@ -11,7 +11,8 @@
     "TWITTER_CLIENT_ID",
     "TWITTER_CLIENT_SECRET",
     "MAILGUN_API_KEY",
-    "EMAIL_DOMAIN_NAME"
+    "EMAIL_DOMAIN_NAME",
+    "NEXT_PUBLIC_UNSPLASH_ACCESS_KEY"
   ],
   "$schema": "https://turbo.build/schema.json",
   "tasks": {

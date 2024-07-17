@@ -33,7 +33,7 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
   (response) => {
     // Do something with the response data if needed
-    return response;
+    return response.data;
   },
   (error) => {
     // Handle the response error here

@@ -26,6 +26,7 @@ type NiwiEditorImageProps = {
   src: string;
   imgSize: NiwiImageNodePropsType["imgSize"];
   nodeKey: string;
+  altText: string;
   // eslint-disable-next-line no-unused-vars
   updatePlaceHolder: (_str: string) => void;
 };
@@ -34,17 +35,18 @@ const NiwiEditorImage = ({
   src,
   imgSize,
   nodeKey,
+  altText,
   updatePlaceHolder,
 }: NiwiEditorImageProps) => {
   const captionRef = useRef<HTMLInputElement>(null);
   const [editor] = useLexicalComposerContext();
 
-  const [placeHolder, setPlaceHolder] = useState<string>("");
+  const [placeHolder, setPlaceHolder] = useState<string>(altText);
   const [imageSize, setImageSize] =
     useState<NiwiImageNodePropsType["imgSize"]>(imgSize);
 
   const { isFocus } = useNodeFocus({ nodeKey });
-  const { ref, isActive, setIsActive } = useNodeActive<HTMLDivElement>();
+  const { ref, isActive, setIsActive } = useNodeActive<HTMLDivElement>({});
   const { escapeWithParagraph } = useEditorKeydown({ nodeKey });
   const { removeNodeAndReplaceParagraph } = useRemoveNode({ nodeKey });
 

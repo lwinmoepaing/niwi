@@ -1,0 +1,56 @@
+.niwi-editor-splash-image-input {
+  margin: 0;
+  margin-bottom: 8px;
+  position: relative;
+  outline: none;
+  width: 100%;
+  display: block;
+  background-color: transparent;
+}
+
+.niwi-editor-splash-photo-gallery {
+  margin-top: 14px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.niwi-editor-splash-photo-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.niwi-editor-splash-photo-column-photo {
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.niwi-editor-splash-photo-column-img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+  margin-bottom: 20px;
+  border-radius: 15px;
+
+  /* Animation */
+  opacity: 0;
+  scale: 0.98;
+  animation-name: editor-splash-image-fade-in;
+  animation-duration: 0.2s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes editor-splash-image-fade-in {
+  0% {
+    opacity: 0;
+    scale: 0.98;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}

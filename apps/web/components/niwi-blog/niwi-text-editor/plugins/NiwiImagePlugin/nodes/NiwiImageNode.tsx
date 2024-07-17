@@ -224,6 +224,7 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
         nodeKey={this.getKey()}
         src={this.__src}
         imgSize={this.__imgSize}
+        altText={this.__altText}
         updatePlaceHolder={(str) => this.setAltText(str)}
       />
     );
