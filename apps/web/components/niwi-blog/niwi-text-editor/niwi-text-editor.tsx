@@ -3,7 +3,6 @@
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 // import { $generateHtmlFromNodes } from "@lexical/html";
 
 // Lexical Editor Plugin
@@ -11,6 +10,7 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
 // Editor Configuration
 import editorConfig from "./config/editor-config";
@@ -22,6 +22,7 @@ import NiwiEmojiPlugin from "./plugins/NiwiEmojiPlugin/NiwiEmojiPlugin";
 import NiwiEmojiPickerPlugin from "./plugins/NiwiEmojiPickerPlugin/NiwiEmojiPickerPlugin";
 import NiwiImagePlugin from "./plugins/NiwiImagePlugin/NiwiImagePlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin/CodeHighlightPlugin";
+import NiwiYoutubePlugin from "./plugins/NiwiYoutubePlugin/NiwiYoutubePlugin";
 
 const placeholder = "Enter your blog";
 
@@ -63,6 +64,7 @@ export default function NiwiTextEditor() {
           <NiwiEmojiPlugin />
           <NiwiEmojiPickerPlugin />
           <NiwiImagePlugin />
+          <NiwiYoutubePlugin />
         </div>
       </div>
     </LexicalComposer>

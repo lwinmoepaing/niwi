@@ -8,12 +8,13 @@ import {
   NodeKey,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
-import { CodeXml, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { useEditorHydrate } from "../../editor-utils/editor-hydration";
+import CodeInsertIcon from "../CodeHighlightPlugin/CodeInsertIcon";
 import NiwiEditorSideImageInsertIcon from "../NiwiImagePlugin/components/NiwiEditorSideImageInsertIcon";
 import { $isNiwiImageNode } from "../NiwiImagePlugin/nodes/NiwiImageNode";
-import CodeInsertIcon from "../CodeHighlightPlugin/CodeInsertIcon";
+import NiwiYoutubeInsertIcon from "../NiwiYoutubePlugin/components/NiwiYoutubeInsertIcon";
 
 const LowPrority = 1;
 
@@ -131,6 +132,7 @@ const NiwiFloatingLeftSidePlugin = () => {
         <div className="editor-side-actions-container">
           <NiwiEditorSideImageInsertIcon />
           <CodeInsertIcon />
+          <NiwiYoutubeInsertIcon />
         </div>
       ) : null}
     </div>

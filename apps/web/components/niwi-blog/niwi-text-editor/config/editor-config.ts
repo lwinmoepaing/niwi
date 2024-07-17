@@ -9,6 +9,8 @@ import niwiEditorTheme from "../theme/niwi-editor-theme";
 import { NiwiEmojiNode } from "../plugins/NiwiEmojiPlugin/nodes/NiwiEmojiNode";
 import { NiwiImageNode } from "../plugins/NiwiImagePlugin/nodes/NiwiImageNode";
 import { NiwiImageCaptionNode } from "../plugins/NiwiImagePlugin/nodes/NiwiImageCaptionNode";
+import { NiwiYoutubeTextNode } from "../plugins/NiwiYoutubePlugin/nodes/NiwiYoutubeTextNode";
+import { NiwiYoutubeNode } from "../plugins/NiwiYoutubePlugin/nodes/NiwiYoutubeNode";
 
 const editorConfig: InitialConfigType = {
   theme: niwiEditorTheme,
@@ -33,6 +35,10 @@ const editorConfig: InitialConfigType = {
     // -
     NiwiImageNode,
     NiwiImageCaptionNode,
+    // - Youtube
+    // -
+    NiwiYoutubeTextNode,
+    NiwiYoutubeNode,
   ],
   onError: (error: Error) => {
     console.error(error);

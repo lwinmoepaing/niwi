@@ -12,8 +12,9 @@ import {
   NiwiImageNodePropsType,
 } from "./nodes/NiwiImageNode";
 
-export const INSERT_NIWI_IMAGE_COMMAND =
-  createCommand<NiwiImageNodePropsType>();
+export const INSERT_NIWI_IMAGE_COMMAND = createCommand<NiwiImageNodePropsType>(
+  "insert-niwi-image-command"
+);
 
 export default function NiwiImagePlugin() {
   const [editor] = useLexicalComposerContext();

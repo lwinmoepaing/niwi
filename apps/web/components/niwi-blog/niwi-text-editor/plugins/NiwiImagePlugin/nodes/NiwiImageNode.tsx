@@ -175,13 +175,11 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
     return node;
   }
 
-  exportJSON(): SerializedNiwiImageNode {
+  override exportJSON(): SerializedNiwiImageNode {
     return {
-      ...super.exportJSON(),
-      src: this.__src,
-      imgSize: this.__imgSize,
-      altText: this.__altText,
       type: INLINE_IMAGE_PLUGIN_TYPE,
+      ...this.getData(),
+      version: 1,
     };
   }
 
