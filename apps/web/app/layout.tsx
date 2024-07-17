@@ -1,18 +1,19 @@
+import { LightDarkToggle } from "@/components/niwi-ui/light-dark-toggler/light-dark-toggler";
+import ReactQueryProvider from "@/components/query-client-provider/query-client-provider";
+import { getDarkModeCookie } from "@/feats/setting/actions/setting.action";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
-import { LightDarkToggle } from "@/components/niwi-ui/light-dark-toggler/light-dark-toggler";
-import { getDarkModeCookie } from "@/feats/setting/actions/setting.action";
 
 // Importing Styles
-import "@/styles/globals.css";
-import "@/styles/niwi.css";
-import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor.css";
-import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-tool.css";
-import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-emoji.css";
-import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-image.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-code.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-embedded.css";
+import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-emoji.css";
+import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-image.css";
+import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-tool.css";
+import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor.css";
+import "@/styles/globals.css";
+import "@/styles/niwi.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,9 +41,11 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} niwi-body ${isDarkMode ? "dark" : ""}`}
       >
-        {children}
-        <LightDarkToggle className="absolute top-5 right-5" />
-        <Toaster />
+        <ReactQueryProvider>
+          {children}
+          <LightDarkToggle className="absolute top-5 right-5" />
+          <Toaster />
+        </ReactQueryProvider>
       </body>
     </html>
   );
