@@ -152,6 +152,7 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
     img.classList.add("niwi-image");
     img.classList.add(this.__imgSize);
     img.setAttribute("src", this.__src);
+    img.setAttribute("alt", this.__altText);
 
     // Collect all from container
     imgContainer.append(img);

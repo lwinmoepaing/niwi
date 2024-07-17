@@ -1,14 +1,8 @@
 import { cn } from "@/libs/utils";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { mergeRegister } from "@lexical/utils";
-import {
-  $getNodeByKey,
-  $getSelection,
-  $isNodeSelection,
-  BaseSelection,
-} from "lexical";
 import Image from "next/image";
 import {
+  ChangeEvent,
   KeyboardEvent,
   memo,
   useCallback,
@@ -19,7 +13,14 @@ import {
 } from "react";
 import ImageExtraWidthIcon from "../../../editor-icons/image-extra-width-icon";
 import ImageFitViewIcon from "../../../editor-icons/image-fit-view-icon";
+import {
+  useEditorKeydown,
+  useNodeActive,
+  useNodeFocus,
+  useRemoveNode,
+} from "../../../editor-utils/editor-keydown-paragraph";
 import { NiwiImageNodePropsType } from "../nodes/NiwiImageNode";
+import { Trash2 } from "lucide-react";
 
 type NiwiEditorImageProps = {
   src: string;
@@ -35,104 +36,53 @@ const NiwiEditorImage = ({
   nodeKey,
   updatePlaceHolder,
 }: NiwiEditorImageProps) => {
-  const imageWrapperRef = useRef<HTMLDivElement>(null);
   const captionRef = useRef<HTMLInputElement>(null);
   const [editor] = useLexicalComposerContext();
-  const [selection, setSelection] = useState<BaseSelection | null>(null);
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const [isFocus, setIsFocus] = useState<boolean>(false);
-  const [placeHolder, setPlaceHolder] = useState<string>("");
 
+  const [placeHolder, setPlaceHolder] = useState<string>("");
   const [imageSize, setImageSize] =
     useState<NiwiImageNodePropsType["imgSize"]>(imgSize);
 
-  const onRightClick = useCallback(() => {
-    // console.log("On Right Click");
-  }, []);
-
-  useEffect(() => {
-    let isMounted = true;
-    const rootElement = editor.getRootElement();
-
-    const unregister = mergeRegister(
-      editor.registerUpdateListener(({ editorState }) => {
-        if (isMounted) {
-          setSelection(editorState.read(() => $getSelection()));
-        }
-      })
-    );
-
-    rootElement?.addEventListener("contextmenu", onRightClick);
-
-    return () => {
-      isMounted = false;
-      unregister();
-      rootElement?.removeEventListener("contextmenu", onRightClick);
-    };
-  }, [editor, onRightClick]);
+  const { isFocus } = useNodeFocus({ nodeKey });
+  const { ref, isActive, setIsActive } = useNodeActive<HTMLDivElement>();
+  const { escapeWithParagraph } = useEditorKeydown({ nodeKey });
+  const { removeNodeAndReplaceParagraph } = useRemoveNode({ nodeKey });
 
   const isExistImage = useMemo<boolean>(() => {
     return !!src;
   }, [src]);
 
-  const selectionOnChange = useCallback(() => {
-    if ($isNodeSelection(selection) && selection) {
-      const hasNode = selection._nodes.has(nodeKey);
-      if (hasNode) captionRef?.current?.focus();
-      setIsFocus(hasNode);
-    } else {
-      setIsFocus(false);
-    }
-  }, [nodeKey, selection, captionRef]);
-
   useEffect(() => {
-    selectionOnChange();
-  }, [selection]);
+    captionRef?.current?.focus();
+  }, [isFocus]);
 
   const handleKeyDownCaption = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
       event.isPropagationStopped();
-      captionRef?.current?.blur();
       switch (event.key) {
         case "ArrowUp":
-          editor.update(() => {
-            const currentNode = $getNodeByKey(nodeKey);
-            const prevSibling = currentNode?.getPreviousSibling();
-            if (prevSibling) {
-              prevSibling.selectStart();
-            }
-          });
+          captionRef?.current?.blur();
+          escapeWithParagraph("up");
           return;
         case "ArrowDown":
-          editor.update(() => {
-            const currentNode = $getNodeByKey(nodeKey);
-            const nextSibling = currentNode?.getNextSibling();
-            if (nextSibling) {
-              nextSibling.selectStart();
-            }
-          });
+          captionRef?.current?.blur();
+          escapeWithParagraph("down");
+          return;
+        case "Enter":
+          captionRef?.current?.blur();
+          escapeWithParagraph("down");
           return;
       }
     },
-    []
+    [captionRef]
   );
 
-  useEffect(() => {
-    const handleOutSideClick = (event: MouseEvent) => {
-      if (
-        imageWrapperRef.current &&
-        !imageWrapperRef.current?.contains(event.target as Node)
-      ) {
-        setIsActive(false);
-      }
-    };
-
-    window.addEventListener("mousedown", handleOutSideClick);
-
-    return () => {
-      window.removeEventListener("mousedown", handleOutSideClick);
-    };
-  }, [imageWrapperRef]);
+  const handlCaption = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setPlaceHolder(e.target.value);
+    editor.update(() => {
+      updatePlaceHolder(e.target.value);
+    });
+  }, []);
 
   const isActiveImage = useMemo(() => isActive || isFocus, [isActive, isFocus]);
 
@@ -145,7 +95,7 @@ const NiwiEditorImage = ({
             setIsActive(true);
             captionRef?.current?.focus();
           }}
-          ref={imageWrapperRef}
+          ref={ref}
         >
           <div className={cn("niwi-image-tooltip", isActiveImage && "active")}>
             <button
@@ -166,6 +116,13 @@ const NiwiEditorImage = ({
                 className={cn("icon", imageSize === "extraWidth" && "active")}
               />
             </button>
+            <button
+              type="button"
+              className="icon-wrapper trash"
+              onClick={removeNodeAndReplaceParagraph}
+            >
+              <Trash2 />
+            </button>
           </div>
           <Image
             className={cn(imageSize, "niwi-image", isActiveImage && "active")}
@@ -180,12 +137,7 @@ const NiwiEditorImage = ({
         ref={captionRef}
         className="niwi-editor-image-caption"
         placeholder="Enter Caption"
-        onChange={(e) => {
-          setPlaceHolder(e.target.value);
-          editor.update(() => {
-            updatePlaceHolder(e.target.value);
-          });
-        }}
+        onChange={handlCaption}
         onKeyDown={handleKeyDownCaption}
         value={placeHolder}
       />

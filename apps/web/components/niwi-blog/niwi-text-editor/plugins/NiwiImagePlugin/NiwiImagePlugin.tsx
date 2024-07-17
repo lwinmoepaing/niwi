@@ -1,9 +1,12 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
-import { COMMAND_PRIORITY_LOW, createCommand } from "lexical";
+import {
+  $getSelection,
+  $isRangeSelection,
+  COMMAND_PRIORITY_LOW,
+  createCommand,
+} from "lexical";
 import { useEffect } from "react";
-
-import { $insertNodeToNearestRoot } from "@lexical/utils";
 
 import { NiwiImageCaptionNode } from "./nodes/NiwiImageCaptionNode";
 import {
@@ -31,8 +34,18 @@ export default function NiwiImagePlugin() {
         INSERT_NIWI_IMAGE_COMMAND,
         (props: NiwiImageNodePropsType) => {
           editor.update(() => {
+            const selection = $getSelection();
             const NiwiImageNode = $createNiwiImageNode(props);
-            $insertNodeToNearestRoot(NiwiImageNode);
+
+            if ($isRangeSelection(selection)) {
+              const { anchor } = selection;
+              anchor.getNode().insertBefore(NiwiImageNode);
+              if (selection) {
+                const currentNode = selection.getNodes()[0];
+                currentNode?.remove();
+              }
+              NiwiImageNode.selectEnd();
+            }
           });
           return true;
         },

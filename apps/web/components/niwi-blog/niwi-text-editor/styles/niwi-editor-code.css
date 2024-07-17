@@ -8,6 +8,7 @@
   margin: 0;
   tab-size: 2;
   overflow-x: auto;
+  overflow-y: hidden;
   position: relative;
   border-radius: 5px;
   color: #508eed;

@@ -5,12 +5,17 @@ import { Youtube } from "lucide-react";
 import { useCallback } from "react";
 import { INSERT_NIWI_YOUTUBE_COMMAND } from "../NiwiYoutubePlugin";
 
-function NiwiYoutubeInsertIcon() {
+type NiwiYoutubeInsertIconProps = {
+  onClick?: () => void
+}
+
+function NiwiYoutubeInsertIcon({onClick}: NiwiYoutubeInsertIconProps) {
   const [editor] = useLexicalComposerContext();
 
   const onInsertYoutubeLink = useCallback(() => {
+    onClick?.();
     editor.dispatchCommand(INSERT_NIWI_YOUTUBE_COMMAND, {
-      placeholder: "Enter youtube url...",
+      placeholder: "Copy and paste youtube url...",
     });
   }, []);
 

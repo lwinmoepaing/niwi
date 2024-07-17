@@ -3,7 +3,7 @@
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-// import { $generateHtmlFromNodes } from "@lexical/html";
+import { $generateHtmlFromNodes } from "@lexical/html";
 
 // Lexical Editor Plugin
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
@@ -23,10 +23,11 @@ import NiwiEmojiPickerPlugin from "./plugins/NiwiEmojiPickerPlugin/NiwiEmojiPick
 import NiwiImagePlugin from "./plugins/NiwiImagePlugin/NiwiImagePlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin/CodeHighlightPlugin";
 import NiwiYoutubePlugin from "./plugins/NiwiYoutubePlugin/NiwiYoutubePlugin";
+import { memo } from "react";
 
 const placeholder = "Enter your blog";
 
-export default function NiwiTextEditor() {
+function NiwiTextEditor() {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
@@ -51,7 +52,7 @@ export default function NiwiTextEditor() {
           <OnChangePlugin
             onChange={(editorState, editor) => {
               editor.getEditorState().read(() => {
-                // console.log($generateHtmlFromNodes(editor));
+                console.log($generateHtmlFromNodes(editor));
               });
             }}
           />
@@ -70,3 +71,5 @@ export default function NiwiTextEditor() {
     </LexicalComposer>
   );
 }
+
+export default memo(NiwiTextEditor);

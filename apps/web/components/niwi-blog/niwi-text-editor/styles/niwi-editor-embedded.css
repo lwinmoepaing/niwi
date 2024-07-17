@@ -1,0 +1,112 @@
+/*=============================================
+=                  Variables                  =
+=============================================*/
+:root {
+  --niwi-embedded-editor-tooltip-background: #282a2e;
+  --niwi-embedded-editor-tooltip-icon: #fff;
+  --niwi-embedded-editor-tooltip-active-icon: #60a5fa;
+}
+
+/*=============================================
+=             Editor Niwi Embedded            =
+=============================================*/
+
+.niwi-youtube-container {
+  width: 100%;
+  padding-top: 53%;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.niwi-youtube-container .youtube-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.niwi-editor-embedded-container .niwi-embedded-tooltip {
+  background-color: var(--niwi-embedded-editor-tooltip-background);
+  border-radius: 10px;
+
+  /* Position */
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  margin-left: -20px;
+
+  /* Flex */
+  flex-direction: row;
+  align-items: center;
+  /* column-gap: 8px; */
+
+  /* Animation */
+  animation-name: img-editor-tooltip-fade-in;
+  animation-duration: 0.2s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+
+  /* Inactive */
+  display: none;
+  visibility: hidden;
+}
+
+.niwi-editor-embedded-container .niwi-embedded-tooltip.active {
+  /* Active */
+  display: flex;
+  visibility: visible;
+}
+
+.niwi-editor-embedded-container:hover .niwi-embedded-tooltip {
+  /* Active */
+  display: flex;
+  visibility: visible;
+}
+
+.niwi-editor-embedded-container .niwi-embedded-tooltip::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background-color: var(--niwi-embedded-editor-tooltip-background);
+
+  /* Position */
+  position: absolute;
+  bottom: -10px;
+  left: 49%;
+  transform: translateX(-50%);
+  rotate: 45deg;
+}
+
+@keyframes img-editor-tooltip-fade-in {
+  0% {
+    opacity: 0;
+    scale: 0.5;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.niwi-editor-embedded-container .niwi-embedded-tooltip .icon-wrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  position: relative;
+}
+
+.niwi-editor-embedded-container .niwi-embedded-tooltip .icon {
+  /* fill: var(--niwi-embedded-editor-tooltip-icon); */
+  color: var(--niwi-dark-text-color);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.niwi-editor-embedded-container .niwi-embedded-tooltip .icon.active {
+  /* fill: var(--niwi-embedded-editor-tooltip-active-icon); */
+}

@@ -10,47 +10,11 @@ import type {
   Spread,
 } from "lexical";
 
-import { BlockWithAlignableContents } from "@lexical/react/LexicalBlockWithAlignableContents";
 import {
   DecoratorBlockNode,
   SerializedDecoratorBlockNode,
 } from "@lexical/react/LexicalDecoratorBlockNode";
-import * as React from "react";
-
-type YouTubeComponentProps = Readonly<{
-  className: Readonly<{
-    base: string;
-    focus: string;
-  }>;
-  format: ElementFormatType | null;
-  nodeKey: NodeKey;
-  videoID: string;
-}>;
-
-function YouTubeComponent({
-  className,
-  format,
-  nodeKey,
-  videoID,
-}: YouTubeComponentProps) {
-  return (
-    <BlockWithAlignableContents
-      className={className}
-      format={format}
-      nodeKey={nodeKey}
-    >
-      <iframe
-        width="560"
-        height="315"
-        src={`https://www.youtube-nocookie.com/embed/${videoID}`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen={true}
-        title="YouTube video"
-      />
-    </BlockWithAlignableContents>
-  );
-}
+import NiwiYoutube from "../components/NiwiYoutube";
 
 export type SerializedNiwiYoutubeNode = Spread<
   {
@@ -104,10 +68,17 @@ export class NiwiYoutubeNode extends DecoratorBlockNode {
   }
 
   exportDOM(): DOMExportOutput {
+    const container = document.createElement("div");
+    container.setAttribute("data-lexical-youtube", this.__id);
+    container.classList.add("niwi-youtube-container");
+
+    const div = document.createElement("div");
+    div.classList.add("youtube-wrapper");
+
     const element = document.createElement("iframe");
     element.setAttribute("data-lexical-youtube", this.__id);
-    element.setAttribute("width", "560");
-    element.setAttribute("height", "315");
+    element.setAttribute("width", "100%");
+    element.setAttribute("height", "100%");
     element.setAttribute(
       "src",
       `https://www.youtube-nocookie.com/embed/${this.__id}`
@@ -119,12 +90,15 @@ export class NiwiYoutubeNode extends DecoratorBlockNode {
     );
     element.setAttribute("allowfullscreen", "true");
     element.setAttribute("title", "YouTube video");
-    return { element };
+
+    div.append(element);
+    container.append(div);
+    return { element: container };
   }
 
   static importDOM(): DOMConversionMap | null {
     return {
-      iframe: (domNode: HTMLElement) => {
+      div: (domNode: HTMLElement) => {
         if (!domNode.hasAttribute("data-lexical-youtube")) {
           return null;
         }
@@ -156,11 +130,13 @@ export class NiwiYoutubeNode extends DecoratorBlockNode {
   decorate(_editor: LexicalEditor, config: EditorConfig): JSX.Element {
     const embedBlockTheme = config.theme.embedBlock || {};
     const className = {
-      base: embedBlockTheme.base || "",
+      base:
+        embedBlockTheme.base ||
+        "niwi-youtube-container niwi-editor-embedded-container",
       focus: embedBlockTheme.focus || "",
     };
     return (
-      <YouTubeComponent
+      <NiwiYoutube
         className={className}
         format={this.__format}
         nodeKey={this.getKey()}

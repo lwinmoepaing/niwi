@@ -15,6 +15,8 @@ import CodeInsertIcon from "../CodeHighlightPlugin/CodeInsertIcon";
 import NiwiEditorSideImageInsertIcon from "../NiwiImagePlugin/components/NiwiEditorSideImageInsertIcon";
 import { $isNiwiImageNode } from "../NiwiImagePlugin/nodes/NiwiImageNode";
 import NiwiYoutubeInsertIcon from "../NiwiYoutubePlugin/components/NiwiYoutubeInsertIcon";
+import { $isNiwiYoutubeText } from "../NiwiYoutubePlugin/nodes/NiwiYoutubeTextNode";
+import { $isNiwiYoutubeNode } from "../NiwiYoutubePlugin/nodes/NiwiYoutubeNode";
 
 const LowPrority = 1;
 
@@ -24,6 +26,11 @@ const NiwiFloatingLeftSidePlugin = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [editor] = useLexicalComposerContext();
   const [showRightSideIcons, setShowRightSideIcons] = useState<boolean>(false);
+
+  const hideRightSideIcons = useCallback(
+    () => setShowRightSideIcons(false),
+    []
+  );
 
   const handleToggleFloatingComponentMenu = useCallback(() => {
     setShowRightSideIcons((prev) => !prev);
@@ -58,7 +65,16 @@ const NiwiFloatingLeftSidePlugin = () => {
       }));
 
     const currentNode = selection?.getNodes()?.[0];
+    
     if (currentNode && $isNiwiImageNode(currentNode)) {
+      return hide();
+    }
+
+    if (currentNode && $isNiwiYoutubeText(currentNode)) {
+      return hide();
+    }
+
+    if (currentNode && $isNiwiYoutubeNode(currentNode)) {
       return hide();
     }
 
@@ -132,7 +148,7 @@ const NiwiFloatingLeftSidePlugin = () => {
         <div className="editor-side-actions-container">
           <NiwiEditorSideImageInsertIcon />
           <CodeInsertIcon />
-          <NiwiYoutubeInsertIcon />
+          <NiwiYoutubeInsertIcon onClick={hideRightSideIcons} />
         </div>
       ) : null}
     </div>

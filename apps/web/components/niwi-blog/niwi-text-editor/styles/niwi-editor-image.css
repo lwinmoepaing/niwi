@@ -106,6 +106,10 @@
   position: relative;
 }
 
+.niwi-editor-image-container .niwi-image-tooltip .icon-wrapper.trash {
+  color: var(--niwi-dark-text-color);
+}
+
 .niwi-editor-image-container .niwi-image-tooltip .icon {
   fill: var(--niwi-image-editor-tooltip-icon);
   cursor: pointer;

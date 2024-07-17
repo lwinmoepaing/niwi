@@ -11,7 +11,8 @@
 
   /* Right Side Action Button */
   --niwi-editor-right-action-color: #60a5fa;
-  --niwi-hover-editor-right-action-color: #60a5fa38;
+  --niwi-hover-editor-right-action-color: #cee4ff;
+  --niwi-dark-hover-editor-right-action-color: #2a3d54;
 
   /* Top Toolbar Action */
   --niwi-editor-toolbar-container-color: #fff;
@@ -88,7 +89,7 @@
 }
 
 .editor-side-right-actions-button:hover {
-  background-color: var(--niwi-hover-editor-right-action-color, #60a5fa38);
+  background-color: var(--niwi-hover-editor-right-action-color, #cee4ff);
 }
 
 .dark .editor-side-right-actions-button {
@@ -97,7 +98,7 @@
 }
 
 .dark .editor-side-right-actions-button:hover {
-  background-color: var(--niwi-hover-editor-right-action-color, #60a5fa38);
+  background-color: var(--niwi-dark-hover-editor-right-action-color, #2a3d54);
 }
 
 .editor-side-actions-container {
@@ -216,4 +217,13 @@
   outline: none;
   border-radius: 5px;
   background-color: transparent;
+}
+
+.niwi-editor-placeholder {
+  display: block;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  margin-bottom: 8px;
 }
