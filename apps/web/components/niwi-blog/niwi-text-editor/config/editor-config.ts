@@ -9,6 +9,7 @@ import niwiEditorTheme from "../theme/niwi-editor-theme";
 import { NiwiEmojiNode } from "../plugins/NiwiEmojiPlugin/nodes/NiwiEmojiNode";
 import { NiwiImageCaptionNode } from "../plugins/NiwiImagePlugin/nodes/NiwiImageCaptionNode";
 import { NiwiImageNode } from "../plugins/NiwiImagePlugin/nodes/NiwiImageNode";
+import { NiwiLineBreakNode } from "../plugins/NiwiLineBreakPlugin/nodes/NiwiLineBreakNode";
 import { NiwiSplashImageNode } from "../plugins/NiwiSplashImagePlugin/nodes/NiwiSplashImageNode";
 import { NiwiTwitterNode } from "../plugins/NiwiTwitterPlugin/nodes/NiwiTwitterNode";
 import { NiwiTwitterTextNode } from "../plugins/NiwiTwitterPlugin/nodes/NiwiTwitterTextNode";
@@ -54,6 +55,10 @@ const editorConfig: InitialConfigType = {
     // ----------
     NiwiTwitterTextNode,
     NiwiTwitterNode,
+    // ----------
+    // - Line Break
+    // ----------
+    NiwiLineBreakNode,
   ],
   onError: (error: Error) => {
     console.error(error);

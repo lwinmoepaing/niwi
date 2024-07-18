@@ -14,6 +14,8 @@ import { useEditorHydrate } from "../../editor-utils/editor-hydration";
 import CodeInsertIcon from "../CodeHighlightPlugin/CodeInsertIcon";
 import NiwiEditorSideImageInsertIcon from "../NiwiImagePlugin/components/NiwiEditorSideImageInsertIcon";
 import { $isNiwiImageNode } from "../NiwiImagePlugin/nodes/NiwiImageNode";
+import NiwiLineBreakInsertIcon from "../NiwiLineBreakPlugin/components/​NiwiLineBreakInsertIcon";
+import { $isNiwiLineBreakNode } from "../NiwiLineBreakPlugin/nodes/NiwiLineBreakNode";
 import NiwiSplashInsertIcon from "../NiwiSplashImagePlugin/components/NiwiSplashInsertIcon";
 import { $isNiwiSplashImageNode } from "../NiwiSplashImagePlugin/nodes/NiwiSplashImageNode";
 import NiwiTwitterInsertIcon from "../NiwiTwitterPlugin/components/NiwiTwitterInsertIcon";
@@ -95,6 +97,10 @@ const NiwiFloatingLeftSidePlugin = () => {
       return hide();
     }
 
+    if (currentNode && $isNiwiLineBreakNode(currentNode)) {
+      return hide();
+    }
+
     if (focusNode !== null) {
       const offsetTop = focusNode.offsetTop;
       setPositionStyle({
@@ -168,6 +174,7 @@ const NiwiFloatingLeftSidePlugin = () => {
           <CodeInsertIcon />
           <NiwiYoutubeInsertIcon onClick={hideRightSideIcons} />
           <NiwiTwitterInsertIcon onClick={hideRightSideIcons} />
+          <NiwiLineBreakInsertIcon onClick={hideRightSideIcons} />
         </div>
       ) : null}
     </div>

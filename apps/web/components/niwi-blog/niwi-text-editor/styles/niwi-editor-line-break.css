@@ -1,0 +1,118 @@
+/*=============================================
+=                  Variables                  =
+=============================================*/
+:root {
+  --niwi-editor-linebrak-dot-color: #999;
+  --niwi-editor-dark-linebrak-dot-color: #999;
+
+  --niwi-editor-linebreak-tooltip-active-icon: #60a5fa;
+}
+
+/*=============================================
+=              Editor Line Break              =
+=============================================*/
+
+.niwi-line-break {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.1s all ease-in-out;
+  position: relative;
+}
+
+.niwi-line-break.active {
+  border: 2px solid var(--niwi-editor-linebreak-tooltip-active-icon);
+}
+
+.niwi-line-break .dot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.niwi-line-break .dot-container .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: var(--niwi-editor-linebrak-dot-color, #999);
+}
+
+.dark .niwi-line-break .dot-container .dot {
+  background-color: var(--niwi-editor-linebrak-dot-color, #999);
+}
+
+.niwi-linebreak-tooltip {
+  background-color: var(--niwi-embedded-editor-tooltip-background);
+  border-radius: 10px;
+
+  /* Position */
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  margin-left: -20px;
+
+  /* Flex */
+  flex-direction: row;
+  align-items: center;
+  /* column-gap: 8px; */
+
+  /* Animation */
+  animation-name: img-editor-linebreak-fade-in;
+  animation-duration: 0.2s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+
+  /* Inactive */
+  display: none;
+  visibility: hidden;
+}
+
+.niwi-line-break.active .niwi-linebreak-tooltip {
+  /* Active */
+  display: flex;
+  visibility: visible;
+}
+
+.niwi-linebreak-tooltip::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background-color: var(--niwi-embedded-editor-tooltip-background);
+
+  /* Position */
+  position: absolute;
+  bottom: -10px;
+  left: 49%;
+  transform: translateX(-50%);
+  rotate: 45deg;
+}
+
+@keyframes img-editor-linebreak-fade-in {
+  0% {
+    opacity: 0;
+    scale: 0.5;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.niwi-linebreak-tooltip .icon-wrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  position: relative;
+}
+.niwi-linebreak-tooltip .icon {
+  /* fill: var(--niwi-embedded-editor-tooltip-icon); */
+  color: var(--niwi-dark-text-color);
+  cursor: pointer;
+  z-index: 10;
+}

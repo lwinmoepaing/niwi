@@ -1,31 +1,32 @@
 "use client";
 
+import { $generateHtmlFromNodes } from "@lexical/html";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { $generateHtmlFromNodes } from "@lexical/html";
 
 // Lexical Editor Plugin
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 
 // Editor Configuration
 import editorConfig from "./config/editor-config";
 
 // Custom Plugin
+import { memo } from "react";
+import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin/CodeHighlightPlugin";
+import NiwiEmojiPickerPlugin from "./plugins/NiwiEmojiPickerPlugin/NiwiEmojiPickerPlugin";
+import NiwiEmojiPlugin from "./plugins/NiwiEmojiPlugin/NiwiEmojiPlugin";
 import NiwiFloatingLeftSidePlugin from "./plugins/NiwiFloatingLeftSidePlugin/NiwiFloatingLeftSidePlugin";
 import NiwiFloatingToolBarPlugin from "./plugins/NiwiFloatingToolBarPlugin/NiwiFloatingToolBarPlugin";
-import NiwiEmojiPlugin from "./plugins/NiwiEmojiPlugin/NiwiEmojiPlugin";
-import NiwiEmojiPickerPlugin from "./plugins/NiwiEmojiPickerPlugin/NiwiEmojiPickerPlugin";
 import NiwiImagePlugin from "./plugins/NiwiImagePlugin/NiwiImagePlugin";
-import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin/CodeHighlightPlugin";
-import NiwiYoutubePlugin from "./plugins/NiwiYoutubePlugin/NiwiYoutubePlugin";
-import { memo } from "react";
+import NiwiLineBreakPlugin from "./plugins/NiwiLineBreakPlugin/NiwiLineBreakPlugin";
 import NiwiSplashImagePlugin from "./plugins/NiwiSplashImagePlugin/NiwiSplashImagePlugin";
 import NiwiTwitterPlugin from "./plugins/NiwiTwitterPlugin/NiwiTwitterPlugin";
+import NiwiYoutubePlugin from "./plugins/NiwiYoutubePlugin/NiwiYoutubePlugin";
 
 const placeholder = "Enter your blog";
 
@@ -70,6 +71,7 @@ function NiwiTextEditor() {
           <NiwiYoutubePlugin />
           <NiwiSplashImagePlugin />
           <NiwiTwitterPlugin />
+          <NiwiLineBreakPlugin />
         </div>
       </div>
     </LexicalComposer>

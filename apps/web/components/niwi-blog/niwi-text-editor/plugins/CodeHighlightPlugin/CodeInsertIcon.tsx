@@ -16,9 +16,6 @@ function CodeInsertIcon() {
       editor.update(() => {
         let selection = $getSelection();
         if (selection !== null) {
-          console.log({
-            isCollapsed: selection.isCollapsed(),
-          });
           if (selection.isCollapsed()) {
             $setBlocksType(selection, () => $createCodeNode());
           } else {
