@@ -27,7 +27,7 @@
   overflow: hidden;
 }
 
-.niwi-editor-embedded-container .niwi-embedded-tooltip {
+.niwi-embedded-tooltip {
   background-color: var(--niwi-embedded-editor-tooltip-background);
   border-radius: 10px;
 
@@ -65,7 +65,7 @@
   visibility: visible;
 }
 
-.niwi-editor-embedded-container .niwi-embedded-tooltip::before {
+.niwi-embedded-tooltip::before {
   content: "";
   width: 15px;
   height: 15px;
@@ -90,7 +90,7 @@
   }
 }
 
-.niwi-editor-embedded-container .niwi-embedded-tooltip .icon-wrapper {
+.niwi-embedded-tooltip .icon-wrapper {
   width: 40px;
   height: 40px;
   display: flex;
@@ -100,13 +100,31 @@
   position: relative;
 }
 
-.niwi-editor-embedded-container .niwi-embedded-tooltip .icon {
+.niwi-embedded-tooltip .icon,
+.twitter-wrapper .icon {
   /* fill: var(--niwi-embedded-editor-tooltip-icon); */
   color: var(--niwi-dark-text-color);
   cursor: pointer;
   z-index: 10;
 }
 
-.niwi-editor-embedded-container .niwi-embedded-tooltip .icon.active {
+.niwi-embedded-tooltip .icon.active {
   /* fill: var(--niwi-embedded-editor-tooltip-active-icon); */
+}
+
+.twitter-wrapper {
+  display: inline-block;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+}
+
+.twitter-wrapper:hover .niwi-embedded-tooltip {
+  /* Active */
+  display: flex;
+  visibility: visible;
+}
+
+.twitter-wrapper .niwi-embedded-tooltip {
+  top: -35px;
 }

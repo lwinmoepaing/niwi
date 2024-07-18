@@ -9,12 +9,7 @@ import fs from "fs/promises";
 import { nanoid } from "nanoid";
 import path from "path";
 import { z } from "zod";
-
-const imageUploadSchema = z.object({
-  image: z.instanceof(File).refine((file) => file.type.startsWith("image/"), {
-    message: "Only image files are allowed",
-  }),
-});
+import { imageUploadSchema } from "../validation/image-upload.validation";
 
 export const onUploadImageAction = async (form: FormData) => {
   const image = form.get("image") as File | null;

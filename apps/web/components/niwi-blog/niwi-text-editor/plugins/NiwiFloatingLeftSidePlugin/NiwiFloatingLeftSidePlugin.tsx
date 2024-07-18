@@ -14,11 +14,14 @@ import { useEditorHydrate } from "../../editor-utils/editor-hydration";
 import CodeInsertIcon from "../CodeHighlightPlugin/CodeInsertIcon";
 import NiwiEditorSideImageInsertIcon from "../NiwiImagePlugin/components/NiwiEditorSideImageInsertIcon";
 import { $isNiwiImageNode } from "../NiwiImagePlugin/nodes/NiwiImageNode";
-import NiwiYoutubeInsertIcon from "../NiwiYoutubePlugin/components/NiwiYoutubeInsertIcon";
-import { $isNiwiYoutubeText } from "../NiwiYoutubePlugin/nodes/NiwiYoutubeTextNode";
-import { $isNiwiYoutubeNode } from "../NiwiYoutubePlugin/nodes/NiwiYoutubeNode";
-import { $isNiwiSplashImageNode } from "../NiwiSplashImagePlugin/nodes/NiwiSplashImageNode";
 import NiwiSplashInsertIcon from "../NiwiSplashImagePlugin/components/NiwiSplashInsertIcon";
+import { $isNiwiSplashImageNode } from "../NiwiSplashImagePlugin/nodes/NiwiSplashImageNode";
+import NiwiTwitterInsertIcon from "../NiwiTwitterPlugin/components/NiwiTwitterInsertIcon";
+import { $isNiwiTwitterNode } from "../NiwiTwitterPlugin/nodes/NiwiTwitterNode";
+import { $isNiwiTwitterText } from "../NiwiTwitterPlugin/nodes/NiwiTwitterTextNode";
+import NiwiYoutubeInsertIcon from "../NiwiYoutubePlugin/components/NiwiYoutubeInsertIcon";
+import { $isNiwiYoutubeNode } from "../NiwiYoutubePlugin/nodes/NiwiYoutubeNode";
+import { $isNiwiYoutubeText } from "../NiwiYoutubePlugin/nodes/NiwiYoutubeTextNode";
 
 const LowPrority = 1;
 
@@ -77,6 +80,14 @@ const NiwiFloatingLeftSidePlugin = () => {
     }
 
     if (currentNode && $isNiwiYoutubeNode(currentNode)) {
+      return hide();
+    }
+
+    if (currentNode && $isNiwiTwitterText(currentNode)) {
+      return hide();
+    }
+
+    if (currentNode && $isNiwiTwitterNode(currentNode)) {
       return hide();
     }
 
@@ -153,9 +164,10 @@ const NiwiFloatingLeftSidePlugin = () => {
       {showRightSideIcons ? (
         <div className="editor-side-actions-container">
           <NiwiEditorSideImageInsertIcon />
+          <NiwiSplashInsertIcon onClick={hideRightSideIcons} />
           <CodeInsertIcon />
           <NiwiYoutubeInsertIcon onClick={hideRightSideIcons} />
-          <NiwiSplashInsertIcon onClick={hideRightSideIcons} />
+          <NiwiTwitterInsertIcon onClick={hideRightSideIcons} />
         </div>
       ) : null}
     </div>

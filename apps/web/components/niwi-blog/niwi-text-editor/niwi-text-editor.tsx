@@ -25,6 +25,7 @@ import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin/CodeHighlightPlug
 import NiwiYoutubePlugin from "./plugins/NiwiYoutubePlugin/NiwiYoutubePlugin";
 import { memo } from "react";
 import NiwiSplashImagePlugin from "./plugins/NiwiSplashImagePlugin/NiwiSplashImagePlugin";
+import NiwiTwitterPlugin from "./plugins/NiwiTwitterPlugin/NiwiTwitterPlugin";
 
 const placeholder = "Enter your blog";
 
@@ -68,6 +69,7 @@ function NiwiTextEditor() {
           <NiwiImagePlugin />
           <NiwiYoutubePlugin />
           <NiwiSplashImagePlugin />
+          <NiwiTwitterPlugin />
         </div>
       </div>
     </LexicalComposer>

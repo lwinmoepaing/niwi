@@ -2,7 +2,10 @@ import { z } from "zod";
 
 export const imageUploadSchema = z.object({
   image: z
-    .instanceof(File)
+    .object({
+      type: z.string(),
+      size: z.number(),
+    })
     .refine((file) => file.type.startsWith("image/"), {
       message: "Only image files are allowed",
     })
