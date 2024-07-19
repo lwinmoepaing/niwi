@@ -1,0 +1,101 @@
+name: Feature Request
+description: Suggest a new feature to improve our project
+title: "[Feature] <title>"
+labels: [enhancement]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🚀 Feature Request
+        
+        Thank you for taking the time to suggest a new feature for our project!
+
+  - type: input
+    id: title
+    attributes:
+      label: 🖋️ Title
+      description: Provide a brief and descriptive title for your feature request
+      placeholder: Brief and Descriptive Title
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📋 Description
+      description: Describe the feature you're requesting. What problem does it solve? Why is it needed?
+      placeholder: Detailed description of the feature...
+    validations:
+      required: true
+
+  - type: textarea
+    id: goals
+    attributes:
+      label: 🎯 Goals
+      description: What do you want to achieve with this feature?
+      placeholder: List the goals this feature would accomplish...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 📝 Detailed Proposal
+      description: Provide a detailed description of how the feature should work. Include any relevant code snippets, diagrams, or mockups.
+      placeholder: Detailed proposal for the feature...
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 🖥️ App Version
+      description: What version of our software are you currently using?
+      placeholder: e.g., 1.0.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternatives
+      description: Describe any alternative solutions or features you've considered.
+      placeholder: Alternative solutions...
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📚 Additional Context
+      description: Add any other context or screenshots about the feature request here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 🔗 References
+      description: Link any related issues, pull requests, or discussions.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: labels
+    attributes:
+      label: 🧩 Labels
+      description: Select the most appropriate label for this feature request
+      multiple: true
+      options:
+        - Feature
+        - Enhancement
+        - Request
+        - Improvement
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature to improve our project! Your feedback is valuable.
