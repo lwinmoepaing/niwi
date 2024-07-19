@@ -2,7 +2,7 @@ name: Feature Request
 description: Suggest a new feature to improve our project
 title: "[Feature] <title>"
 labels: [enhancement]
-assignees: ''
+assignees: ""
 
 body:
   - type: markdown
