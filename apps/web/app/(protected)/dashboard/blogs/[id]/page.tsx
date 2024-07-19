@@ -1,6 +1,6 @@
-import NiwiTextEditor from "@/components/niwi-blog/niwi-text-editor/niwi-text-editor";
 import { getBlogById } from "@/feats/blog/services/blog.service";
 import { notFound } from "next/navigation";
+import EditBlogForm from "../assets/components/edit-blog-form";
 
 type BlogDetailPageProps = { params: { id: string } };
 
@@ -9,9 +9,14 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
   if (!success || !data) return notFound();
 
   return (
-    <>
-      <NiwiTextEditor initializeData={data.contentJson} />
-    </>
+    <article>
+      <EditBlogForm
+        contentJson={data.contentJson}
+        content={data.content}
+        blogId={data.id}
+        publishStatus={data.isPublished}
+      />
+    </article>
   );
 };
 export default BlogDetailPage;

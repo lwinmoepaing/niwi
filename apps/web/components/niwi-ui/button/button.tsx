@@ -8,6 +8,7 @@ const buttonVariants = cva(defaultStyle, {
   variants: {
     variant: {
       primary: "niwi-button--primary",
+      success: "niwi-button--success",
       outline: "niwi-button--outline",
     },
     size: {

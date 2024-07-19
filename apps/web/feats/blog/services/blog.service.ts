@@ -1,3 +1,5 @@
+import "server-only";
+
 import prismaClient from "@/libs/db/prismaClient";
 import {
   responseError,
@@ -61,5 +63,38 @@ export const getBlogById = async (id: string) => {
     return responseSuccess(`Successfully fetched blog ${id}`, blog);
   } catch (e) {
     return responseError((e as Error).message);
+  }
+};
+
+type SaveBlogProps = {
+  blogId: string;
+  content: string;
+  contentJson: string;
+  userId: string;
+};
+
+export const saveBlog = async (blogProps: SaveBlogProps) => {
+  const { blogId, content, contentJson, userId } = blogProps;
+
+  try {
+    const { success, data: blog } = await getBlogById(blogId);
+
+    if (!success || !blog) return responseError("Blog not found");
+
+    if (blog.userId !== userId)
+      return responseError("User has no permission to update");
+
+    const updatedBlog = await prismaClient.blog.update({
+      where: { id: blogId },
+      data: {
+        content,
+        contentJson,
+      },
+    });
+
+    return responseSuccess("Successfully save blog", updatedBlog);
+  } catch (error) {
+    console.error("Transaction failed: ", error);
+    return responseError("Failed to create blog or reactions");
   }
 };

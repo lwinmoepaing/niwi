@@ -5,10 +5,12 @@ import {
   responseError,
   responseSuccess,
 } from "@/libs/response/response-helper";
-import { createBlog } from "../services/blog.service";
+import { createBlog, saveBlog } from "../services/blog.service";
 import {
   CreateBlogFormValues,
   createBlogSchema,
+  SaveBlogFormValues,
+  saveBlogSchema,
 } from "../validations/blog.validation";
 
 export const createBlogAction = async (
@@ -30,7 +32,37 @@ export const createBlogAction = async (
       return responseError(newBlog.message);
     }
 
-    return responseSuccess("Success", newBlog.data);
+    return responseSuccess("Successfully created your blog.", newBlog.data);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
+  }
+};
+
+export const saveBlogAction = async (
+  _currentState: unknown,
+  blogData: SaveBlogFormValues
+) => {
+  try {
+    const { error, data } = saveBlogSchema.safeParse(blogData);
+    if (error) {
+      return responseError("", error.format());
+    }
+
+    const session = await auth();
+    if (!session?.user?.id) return responseError("No authentication data");
+
+    const savedBlog = await saveBlog({
+      ...data,
+      userId: session.user.id,
+    });
+
+    if (!savedBlog.success) {
+      return responseError(savedBlog.message);
+    }
+
+    return responseSuccess("Successfully saved your blog.", savedBlog.data);
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);

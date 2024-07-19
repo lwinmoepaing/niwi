@@ -1,3 +1,5 @@
+import "server-only";
+
 import config from "@/config";
 import dateUtil from "@/libs/date/date-util";
 import prismaClient from "@/libs/db/prismaClient";
@@ -6,7 +8,6 @@ import {
   responseError,
   responseSuccess,
 } from "@/libs/response/response-helper";
-import "server-only";
 
 export const getUserByEmail = (email: string) => {
   return prismaClient.user.findUnique({ where: { email } });

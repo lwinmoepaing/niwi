@@ -4,7 +4,7 @@ import { $generateHtmlFromNodes } from "@lexical/html";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { EditorState, LexicalEditor } from "lexical";
+import { $getRoot, EditorState, LexicalEditor } from "lexical";
 import { memo, useCallback, useMemo } from "react";
 
 // Lexical Editor Plugin
@@ -34,7 +34,7 @@ const placeholderText = "Enter your blog";
 
 type NiwiTextEditorProps = {
   initializeData?: string;
-  onChangeValue?: (html: string, json: string) => void;
+  onChangeValue?: (html: string, json: string, plainText: string) => void;
 };
 
 function NiwiTextEditor({
@@ -49,8 +49,15 @@ function NiwiTextEditor({
       const json = editorState.toJSON();
 
       editorState.read(() => {
+        const root = $getRoot();
+        const rawPlainText = root.getTextContent();
+        const plainText = rawPlainText
+          .replace(/\n/g, " ")
+          .split(" ")
+          .filter(Boolean)
+          .join(" ");
         const htmlValue = $generateHtmlFromNodes(editor);
-        onChangeValue(htmlValue, JSON.stringify(json));
+        onChangeValue(htmlValue, JSON.stringify(json), plainText);
       });
     },
     []
