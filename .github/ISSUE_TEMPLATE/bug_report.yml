@@ -1,0 +1,130 @@
+name: Bug Report
+description: Create a report to help us improve
+title: "[Bug] <title>"
+labels: [bug]
+assignees: ''
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📝 Bug Report Template
+
+        Thank you for taking the time to fill out this bug report!
+
+  - type: input
+    id: title
+    attributes:
+      label: 🖋️ Title
+      description: Provide a brief and descriptive title
+      placeholder: Brief and Descriptive Title
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📋 Description
+      description: Describe the issue in detail. What is happening? What should be happening?
+      placeholder: Detailed description of the issue...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 📊 Steps to Reproduce
+      description: Provide a step-by-step description of how to reproduce the issue
+      value: |
+        1. 
+        2. 
+        3. 
+        4. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 📷 Screenshots
+      description: If applicable, add screenshots to help explain your problem. You can drag and drop images directly into this field.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: 🖥️ Browser
+      description: What browser(s) are you seeing the problem on?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Microsoft Edge
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: 📱 Device
+      description: What type of device are you using?
+      options:
+        - Desktop
+        - Mobile
+        - Tablet
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: 💻 Operating System
+      description: What operating system are you using?
+      placeholder: e.g., Windows 10, macOS Big Sur, Ubuntu 20.04
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 🔢 App Version
+      description: What version of our software are you running?
+      placeholder: e.g., 1.0.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📚 Additional Context
+      description: Add any other context about the problem here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 🔗 References
+      description: Link any related issues, pull requests, or discussions.
+    validations:
+      required: false
+
+  - type: textarea
+    id: solutions
+    attributes:
+      label: 💡 Possible Solutions
+      description: If you have any ideas on how to solve the issue, share them here.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 📜 Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com/code-of-conduct)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
