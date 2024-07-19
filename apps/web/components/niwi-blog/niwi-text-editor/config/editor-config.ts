@@ -15,10 +15,12 @@ import { NiwiTwitterNode } from "../plugins/NiwiTwitterPlugin/nodes/NiwiTwitterN
 import { NiwiTwitterTextNode } from "../plugins/NiwiTwitterPlugin/nodes/NiwiTwitterTextNode";
 import { NiwiYoutubeNode } from "../plugins/NiwiYoutubePlugin/nodes/NiwiYoutubeNode";
 import { NiwiYoutubeTextNode } from "../plugins/NiwiYoutubePlugin/nodes/NiwiYoutubeTextNode";
+import { htmlConfig } from "./html-config";
 
 const editorConfig: InitialConfigType = {
   theme: niwiEditorTheme,
   namespace: "Niwi Blog Editor",
+  html: htmlConfig,
   nodes: [
     HeadingNode,
     ListNode,

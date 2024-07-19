@@ -4,7 +4,7 @@ export async function GET() {
   try {
     const userCount = await prismaClient.user.count();
     return Response.json({ success: "OK", userCount });
-  } catch (e: any) {
+  } catch (_e) {
     return Response.json({ success: "Not Ok" });
   }
 }

@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Thu Jul 11 2024 18:55:23 GMT+0700 (Indochina Time)✨
+//🧩Don't Edit this file.✨Generated in Fri Jul 19 2024 19:30:38 GMT+0700 (Indochina Time)✨
 
 datasource db {
   provider = "mongodb"
@@ -9,13 +9,74 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum BlogReactionType {
+  HEART
+  THUMB_UP
+  THUMB_DOWN
+}
+
 model Blog {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  slug        String @unique
-  title       String
-  description String
-  user        User   @relation(fields: [userId], references: [id])
-  userId      String @db.ObjectId
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  slug         String  @unique
+  title        String
+  content      String
+  contentJson  String
+  isPublished  Boolean @default(false)
+  previewImage String?
+  user         User    @relation(fields: [userId], references: [id])
+  userId       String  @db.ObjectId
+
+  // Blog Comments
+  blogComments BlogComment[]
+
+  // Blog Reactions
+  reactions   BlogReactions @relation(fields: [reactionsId], references: [id])
+  reactionsId String        @unique @db.ObjectId
+
+  // Blog has many user reactions
+  userBlogReaction UserBlogReaction[]
+
+  // DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BlogComment {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  content String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @db.ObjectId
+  blog    Blog   @relation(fields: [blogId], references: [id])
+  blogId  String @db.ObjectId
+
+  // DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BlogReactions {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  heart      Int    @default(0)
+  thumbsUp   Int    @default(0)
+  thumbsDown Int    @default(0)
+  Blog       Blog?
+}
+
+model UserBlogReaction {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // User React Blog
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+
+  // User React to Blog ID
+  blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String @db.ObjectId
+
+  // User react 
+  reaction BlogReactionType
+
+  @@unique([userId, blogId, reaction])
 }
 
 enum UserRole {
@@ -35,6 +96,9 @@ model User {
   password      String
   resetPassword String?
 
+  // Magic
+  magicLink String?
+
   // Other Oauth
   githubId   String? @unique
   facebookId String? @unique
@@ -49,9 +113,8 @@ model User {
   // -------------
 
   // blog.prisma
-  Blog Blog[]
+  blogs             Blog[]
+  blogComments      BlogComment[] // New field to track user comments
+  userBlogReactions UserBlogReaction[] // New field to track user reactions
   // end 
-
-  // library.prisma
-  // end
 }

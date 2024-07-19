@@ -208,6 +208,11 @@
   background-color: var(--niwi-dark-navbar-color, #313339);
 }
 
+.niwi-nav-right-container {
+  display: flex;
+  flex-direction: row;
+}
+
 /*=============================================
 =              Niwi Sidebar                   =
 =============================================*/

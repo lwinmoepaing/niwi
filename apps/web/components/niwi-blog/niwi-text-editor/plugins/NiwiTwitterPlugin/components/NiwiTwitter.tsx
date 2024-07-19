@@ -57,6 +57,7 @@ function NiwiTwitter({
         onLoad();
       }
     } catch (error) {
+      setIsTweetLoading(false);
       if (onError) {
         onError(String(error));
       }
@@ -66,6 +67,10 @@ function NiwiTwitter({
   useEffect(() => {
     if (tweetID !== previousTweetIDRef.current) {
       setIsTweetLoading(true);
+
+      setTimeout(() => {
+        setIsTweetLoading(false);
+      }, 2000);
 
       if (isTwitterScriptLoading) {
         const script = document.createElement("script");

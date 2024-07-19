@@ -2,8 +2,10 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { mergeRegister } from "@lexical/utils";
 import {
   $createParagraphNode,
+  $getRoot,
   $getSelection,
   $isRangeSelection,
+  $isRootNode,
   COMMAND_PRIORITY_LOW,
   createCommand,
 } from "lexical";
@@ -37,14 +39,26 @@ export default function NiwiLineBreakPlugin() {
 
             if ($isRangeSelection(selection)) {
               const { anchor } = selection;
-              anchor.getNode().insertBefore(niwiLineBreakNode);
-              if (selection) {
-                const currentNode = selection.getNodes()[0];
-                currentNode?.remove();
+              const anchorNode = anchor.getNode();
+              const rootNode = $getRoot();
+
+              if ($isRootNode(anchorNode)) {
+                const firstChild = rootNode.getFirstChild();
+                if (firstChild) {
+                  firstChild.insertBefore(niwiLineBreakNode);
+                } else {
+                  rootNode.append(niwiLineBreakNode);
+                }
+                const p = $createParagraphNode();
+                niwiLineBreakNode.insertAfter(p);
+                p.selectStart();
+                return;
               }
-              niwiLineBreakNode.selectEnd();
+
+              anchorNode.replace(niwiLineBreakNode);
               const p = $createParagraphNode();
               niwiLineBreakNode.insertAfter(p);
+              p.selectStart();
             }
           });
           return true;

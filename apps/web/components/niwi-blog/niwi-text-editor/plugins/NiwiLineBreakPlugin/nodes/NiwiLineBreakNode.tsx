@@ -10,7 +10,9 @@ import {
 } from "lexical";
 import NiwiLineBreak from "../components/NiwiLineBreak";
 
-export type NiwiLineBreakNodePropsType = {};
+export type NiwiLineBreakNodePropsType = {
+  isLineBreak: true;
+};
 
 type SerializedNiwiLineBreakNode = Spread<
   NiwiLineBreakNodePropsType,
@@ -27,12 +29,38 @@ const KLASS = {
   container: "niwi-editor-niwi-line-break-container",
 };
 
-export function convertNiwiImage(): DOMConversionOutput | null {
+export function convertNiwiLineBreak(
+  domNode: HTMLDivElement
+): DOMConversionOutput | null {
+  console.log("Getting Dom", domNode);
   const node = $createNiwiLineBreakNode();
   return {
     node,
   };
 }
+
+const makeLineBreakDom = () => {
+  const lbContainer = document.createElement("div");
+  lbContainer.classList.add("niwi-line-break");
+
+  const dotContainer = document.createElement("div");
+  dotContainer.classList.add("dot-container");
+
+  const dot = document.createElement("span");
+  dot.classList.add("dot");
+  const dot2 = document.createElement("span");
+  dot2.classList.add("dot");
+  const dot3 = document.createElement("span");
+  dot3.classList.add("dot");
+
+  dotContainer.append(dot);
+  dotContainer.append(dot2);
+  dotContainer.append(dot3);
+
+  lbContainer.append(dotContainer);
+
+  return lbContainer;
+};
 
 export class NiwiLineBreakNode extends DecoratorNode<JSX.Element> {
   constructor(key?: NodeKey) {
@@ -50,7 +78,6 @@ export class NiwiLineBreakNode extends DecoratorNode<JSX.Element> {
   createDOM(): HTMLElement {
     const dom = document.createElement("div");
     dom.classList.add(KLASS.container);
-
     dom.setAttribute(ATTR.container, "true");
     return dom;
   }
@@ -67,8 +94,8 @@ export class NiwiLineBreakNode extends DecoratorNode<JSX.Element> {
         }
 
         return {
-          conversion: convertNiwiImage,
-          priority: 1,
+          conversion: convertNiwiLineBreak,
+          priority: 2,
         };
       },
     };
@@ -78,21 +105,7 @@ export class NiwiLineBreakNode extends DecoratorNode<JSX.Element> {
     const element = document.createElement("div");
     element.classList.add(KLASS.container);
     element.setAttribute(ATTR.container, "true");
-
-    const lbContainer = document.createElement("div");
-    lbContainer.classList.add("niwi-line-break");
-
-    const dotContainer = document.createElement("div");
-    dotContainer.classList.add("dot-container");
-
-    const dot = document.createElement("span");
-    dot.classList.add("dot");
-
-    dotContainer.append(dot);
-    dotContainer.append(dot);
-    dotContainer.append(dot);
-
-    lbContainer.append(dotContainer);
+    const lbContainer = makeLineBreakDom();
     element.append(lbContainer);
     return { element };
   }
@@ -105,6 +118,7 @@ export class NiwiLineBreakNode extends DecoratorNode<JSX.Element> {
   override exportJSON(): SerializedNiwiLineBreakNode {
     return {
       type: NIWI_LINE_BREAK_PLUGIN_TYPE,
+      isLineBreak: true,
       version: 1,
     };
   }

@@ -102,6 +102,7 @@ export class NiwiTwitterNode extends DecoratorBlockNode {
   getId(): string {
     return this.__id;
   }
+
   getTextContent(
     // eslint-disable-next-line no-unused-vars
     _includeInert?: boolean | undefined,
@@ -124,6 +125,7 @@ export class NiwiTwitterNode extends DecoratorBlockNode {
         nodeKey={this.getKey()}
         loadingComponent="Loading..."
         tweetID={this.__id}
+        onError={() => this.remove()}
       />
     );
   }

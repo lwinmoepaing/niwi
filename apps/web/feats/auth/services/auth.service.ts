@@ -19,10 +19,14 @@ type CreateUserProps = {
   email?: string;
   image: string;
   role: "ADMIN" | "USER";
-  github_id?: string;
+  githubId?: string;
+  facebookId?: string;
+  twitterId?: string;
 };
 export const createUser = (user: CreateUserProps) => {
-  return prismaClient.user.create({ data: user });
+  return prismaClient.user.create({
+    data: user,
+  });
 };
 
 type UpdateUserProps = {

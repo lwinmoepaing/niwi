@@ -1,8 +1,10 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import {
+  $getRoot,
   $getSelection,
   $isRangeSelection,
+  $isRootNode,
   COMMAND_PRIORITY_LOW,
   createCommand,
 } from "lexical";
@@ -32,16 +34,26 @@ export default function NiwiSplashImagePlugin() {
         () => {
           editor.update(() => {
             const selection = $getSelection();
-            const NiwiSplashImageNode = $createNiwiSplashImageNode();
+            const niwiSplashImageNode = $createNiwiSplashImageNode();
 
             if ($isRangeSelection(selection)) {
               const { anchor } = selection;
-              anchor.getNode().insertBefore(NiwiSplashImageNode);
-              if (selection) {
-                const currentNode = selection.getNodes()[0];
-                currentNode?.remove();
+              const anchorNode = anchor.getNode();
+              const rootNode = $getRoot();
+
+              if ($isRootNode(anchorNode)) {
+                const firstChild = rootNode.getFirstChild();
+                if (firstChild) {
+                  firstChild.insertBefore(niwiSplashImageNode);
+                } else {
+                  rootNode.append(niwiSplashImageNode);
+                }
+                niwiSplashImageNode.selectEnd();
+                return;
               }
-              NiwiSplashImageNode.selectEnd();
+
+              anchorNode.replace(niwiSplashImageNode);
+              niwiSplashImageNode.selectEnd();
             }
           });
           return true;

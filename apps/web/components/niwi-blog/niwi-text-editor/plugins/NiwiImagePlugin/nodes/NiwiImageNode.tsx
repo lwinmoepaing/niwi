@@ -128,7 +128,7 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
 
         return {
           conversion: convertNiwiImage,
-          priority: 1,
+          priority: 2,
         };
       },
     };
@@ -159,12 +159,10 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
     element.appendChild(imgContainer);
 
     // Image Caption
-    if (this.__altText) {
-      const p = document.createElement("p");
-      p.classList.add("niwi-editor-image-caption");
-      p.innerHTML = this.__altText;
-      element.appendChild(p);
-    }
+    const p = document.createElement("p");
+    p.classList.add("niwi-editor-image-caption");
+    p.innerHTML = this.__altText || "";
+    element.appendChild(p);
 
     return { element };
   }

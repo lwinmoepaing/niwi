@@ -10,6 +10,7 @@ import {
 } from "lexical";
 import NiwiEditorSplashImage from "../components/NiwiEditorSplashImage";
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type NiwiSplashImageNodePropsType = {};
 
 type SerializedNiwiSplashImageNode = Spread<

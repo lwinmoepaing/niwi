@@ -1,4 +1,4 @@
-import NiwiTextEditor from "@/components/niwi-blog/niwi-text-editor/niwi-text-editor";
+import NiwiHtmlView from "@/components/niwi-blog/niwi-html-view/niwi-html-view";
 import { getBlogById } from "@/feats/blog/services/blog.service";
 import { notFound } from "next/navigation";
 
@@ -8,10 +8,6 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
   const { data, success } = await getBlogById(id);
   if (!success || !data) return notFound();
 
-  return (
-    <>
-      <NiwiTextEditor initializeData={data.contentJson} />
-    </>
-  );
+  return <NiwiHtmlView htmlText={data.content} />;
 };
 export default BlogDetailPage;

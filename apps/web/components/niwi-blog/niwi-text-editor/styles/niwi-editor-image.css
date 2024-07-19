@@ -128,4 +128,5 @@
   text-align: center;
   padding: 10px 20px;
   outline: none;
+  min-height: 40px;
 }

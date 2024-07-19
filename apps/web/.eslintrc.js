@@ -7,13 +7,15 @@ module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: true,
+    project,
+    sourceType: "module",
   },
   extends: [
     "eslint:recommended",
     "prettier",
     require.resolve("@vercel/style-guide/eslint/next"),
     "turbo",
+    "plugin:@typescript-eslint/recommended",
   ],
   globals: {
     React: true,
@@ -22,15 +24,18 @@ module.exports = {
   env: {
     node: true,
     browser: true,
-    es2020: true
+    es2020: true,
   },
-  plugins: ["only-warn"],
+  plugins: ["@typescript-eslint", "only-warn"],
   settings: {
     "import/resolver": {
       typescript: {
         project,
       },
     },
+  },
+  rules: {
+    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
   },
   ignorePatterns: [
     // Ignore dotfiles

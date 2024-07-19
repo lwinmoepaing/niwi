@@ -1,10 +1,10 @@
-import NiwiTextEditor from "@/components/niwi-blog/niwi-text-editor/niwi-text-editor";
+import CreateBlogForm from "../assets/components/create-blog-form";
 
 function NewBlogCreatePage() {
   return (
-    <div>
-      <NiwiTextEditor />
-    </div>
+    <article>
+      <CreateBlogForm />
+    </article>
   );
 }
 export default NewBlogCreatePage;

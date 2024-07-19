@@ -10,7 +10,10 @@ export default function Navbar() {
             Niwi Starter
           </Link>
         </section>
-        <section>
+        <section className="niwi-nav-right-container">
+          <div id="niwi-navbar-right-portal">
+
+          </div>
           <LightDarkToggle className="" />
         </section>
       </nav>

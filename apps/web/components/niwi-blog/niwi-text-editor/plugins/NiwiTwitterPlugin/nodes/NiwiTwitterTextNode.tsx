@@ -98,8 +98,7 @@ export class NiwiTwitterTextNode extends DecoratorNode<JSX.Element> {
     };
   }
 
-  // eslint-disable-next-line no-unused-vars
-  exportDOM(editor: LexicalEditor): DOMExportOutput {
+  exportDOM(_editor: LexicalEditor): DOMExportOutput {
     const element = document.createElement("div");
     element.classList.add(KLASS.container);
     element.setAttribute(ATTR.container, "true");

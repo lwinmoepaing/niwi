@@ -43,7 +43,9 @@ const createNewUserForOAuth = async (
     email: !email ? undefined : email,
     role: "USER",
     image,
-    github_id: provider === "github" ? id : undefined,
+    githubId: provider === "github" ? id : undefined,
+    facebookId: provider === "facebook" ? id : undefined,
+    twitterId: provider === "twitter" ? id : undefined,
   });
   return newUser;
 };

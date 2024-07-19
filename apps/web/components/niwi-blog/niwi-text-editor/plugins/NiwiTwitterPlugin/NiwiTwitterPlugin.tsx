@@ -1,8 +1,10 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import {
+  $getRoot,
   $getSelection,
   $isRangeSelection,
+  $isRootNode,
   COMMAND_PRIORITY_LOW,
   createCommand,
 } from "lexical";
@@ -38,11 +40,21 @@ export default function NiwiTwitterPlugin() {
 
             if ($isRangeSelection(selection)) {
               const { anchor } = selection;
-              anchor.getNode().insertBefore(niwiTwitterTextNode);
-              if (selection) {
-                const currentNode = selection.getNodes()[0];
-                currentNode?.remove();
+              const anchorNode = anchor.getNode();
+              const rootNode = $getRoot();
+
+              if ($isRootNode(anchorNode)) {
+                const firstChild = rootNode.getFirstChild();
+                if (firstChild) {
+                  firstChild.insertBefore(niwiTwitterTextNode);
+                } else {
+                  rootNode.append(niwiTwitterTextNode);
+                }
+                niwiTwitterTextNode.selectEnd();
+                return;
               }
+
+              anchorNode.replace(niwiTwitterTextNode);
               niwiTwitterTextNode.selectEnd();
             }
           });

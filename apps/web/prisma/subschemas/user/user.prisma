@@ -16,7 +16,7 @@ model User {
     resetPassword String?
 
     // Magic
-    magicLink String
+    magicLink String?
 
     // Other Oauth
     githubId   String? @unique
@@ -32,9 +32,8 @@ model User {
     // -------------
 
     // blog.prisma
-    Blog Blog[]
+    blogs             Blog[]
+    blogComments      BlogComment[] // New field to track user comments
+    userBlogReactions UserBlogReaction[] // New field to track user reactions
     // end 
-
-    // library.prisma
-    // end
 }

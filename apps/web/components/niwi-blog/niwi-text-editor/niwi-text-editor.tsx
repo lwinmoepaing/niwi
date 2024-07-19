@@ -4,6 +4,8 @@ import { $generateHtmlFromNodes } from "@lexical/html";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
+import { EditorState, LexicalEditor } from "lexical";
+import { memo, useCallback, useMemo } from "react";
 
 // Lexical Editor Plugin
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
@@ -16,21 +18,64 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import editorConfig from "./config/editor-config";
 
 // Custom Plugin
-import { memo } from "react";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin/CodeHighlightPlugin";
 import NiwiEmojiPickerPlugin from "./plugins/NiwiEmojiPickerPlugin/NiwiEmojiPickerPlugin";
 import NiwiEmojiPlugin from "./plugins/NiwiEmojiPlugin/NiwiEmojiPlugin";
 import NiwiFloatingLeftSidePlugin from "./plugins/NiwiFloatingLeftSidePlugin/NiwiFloatingLeftSidePlugin";
 import NiwiFloatingToolBarPlugin from "./plugins/NiwiFloatingToolBarPlugin/NiwiFloatingToolBarPlugin";
 import NiwiImagePlugin from "./plugins/NiwiImagePlugin/NiwiImagePlugin";
+import NiwiInitializeHtmlPlugin from "./plugins/NiwiInitializeHtmlPlugin/NiwiInitializeHtmlPlugin";
 import NiwiLineBreakPlugin from "./plugins/NiwiLineBreakPlugin/NiwiLineBreakPlugin";
 import NiwiSplashImagePlugin from "./plugins/NiwiSplashImagePlugin/NiwiSplashImagePlugin";
 import NiwiTwitterPlugin from "./plugins/NiwiTwitterPlugin/NiwiTwitterPlugin";
 import NiwiYoutubePlugin from "./plugins/NiwiYoutubePlugin/NiwiYoutubePlugin";
 
-const placeholder = "Enter your blog";
+const placeholderText = "Enter your blog";
 
-function NiwiTextEditor() {
+type NiwiTextEditorProps = {
+  initializeData?: string;
+  onChangeValue?: (html: string, json: string) => void;
+};
+
+function NiwiTextEditor({
+  onChangeValue,
+  initializeData = "",
+}: NiwiTextEditorProps) {
+  const onChangeHandler = useCallback(
+    (_editorState: EditorState, editor: LexicalEditor) => {
+      if (!onChangeValue) return;
+
+      const editorState = editor.getEditorState();
+      const json = editorState.toJSON();
+
+      editorState.read(() => {
+        const htmlValue = $generateHtmlFromNodes(editor);
+        onChangeValue(htmlValue, JSON.stringify(json));
+      });
+    },
+    []
+  );
+
+  const placeholder = useMemo(
+    () => (
+      <div className="editor-placeholder">
+        {initializeData ? "" : placeholderText}
+      </div>
+    ),
+    [initializeData]
+  );
+
+  const contentEditable = useMemo(
+    () => (
+      <ContentEditable
+        className="editor-input"
+        aria-placeholder={placeholderText}
+        placeholder={placeholderText}
+      />
+    ),
+    []
+  );
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
@@ -40,25 +85,11 @@ function NiwiTextEditor() {
 
         <div className="editor-inner">
           <RichTextPlugin
-            placeholder={
-              <div className="editor-placeholder">{placeholder}</div>
-            }
-            contentEditable={
-              <ContentEditable
-                className="editor-input"
-                aria-placeholder={placeholder}
-                placeholder={placeholder}
-              />
-            }
+            placeholder={placeholder}
+            contentEditable={contentEditable}
             ErrorBoundary={LexicalErrorBoundary}
           />
-          <OnChangePlugin
-            onChange={(editorState, editor) => {
-              editor.getEditorState().read(() => {
-                console.log($generateHtmlFromNodes(editor));
-              });
-            }}
-          />
+          <OnChangePlugin onChange={onChangeHandler} />
           <HistoryPlugin />
           <ListPlugin />
           <LinkPlugin />
@@ -72,6 +103,11 @@ function NiwiTextEditor() {
           <NiwiSplashImagePlugin />
           <NiwiTwitterPlugin />
           <NiwiLineBreakPlugin />
+
+          {/* Initializing Data */}
+          {!!initializeData && (
+            <NiwiInitializeHtmlPlugin contentJson={initializeData} />
+          )}
         </div>
       </div>
     </LexicalComposer>

@@ -13,7 +13,7 @@ export function LightDarkToggle({ className }: Props) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const setCookie = useCallback((name: string, value: string) => {
-    let expires = "";
+    const expires = "";
     document.cookie =
       name + "=" + (value || "") + expires + "; path=/; priority=high";
   }, []);

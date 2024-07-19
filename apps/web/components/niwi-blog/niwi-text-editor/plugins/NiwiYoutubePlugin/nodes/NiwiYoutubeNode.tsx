@@ -104,7 +104,7 @@ export class NiwiYoutubeNode extends DecoratorBlockNode {
         }
         return {
           conversion: $convertYoutubeElement,
-          priority: 1,
+          priority: 2,
         };
       },
     };

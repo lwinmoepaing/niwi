@@ -7,9 +7,9 @@ type EmojiListType = {
   src: string;
 };
 
-let customEmojiList: EmojiListType[] = [];
+const customEmojiList: EmojiListType[] = [];
 
-for (let [key, value] of customEmoji) {
+for (const [key, value] of customEmoji) {
   const [, img] = value[0].split(":");
   customEmojiList.push({
     title: value[0],

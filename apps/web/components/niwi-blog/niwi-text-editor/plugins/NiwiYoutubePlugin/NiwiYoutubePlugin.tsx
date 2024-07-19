@@ -1,8 +1,10 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import {
+  $getRoot,
   $getSelection,
   $isRangeSelection,
+  $isRootNode,
   COMMAND_PRIORITY_LOW,
   createCommand,
 } from "lexical";
@@ -34,16 +36,26 @@ export default function NiwiYoutubePlugin() {
         (props: NiwiYoutubeTextPropsType) => {
           editor.update(() => {
             const selection = $getSelection();
-            const NiwiYoutubeTextNode = $createNiwiYoutubeText(props);
+            const niwiYoutubeTextNode = $createNiwiYoutubeText(props);
 
             if ($isRangeSelection(selection)) {
               const { anchor } = selection;
-              anchor.getNode().insertBefore(NiwiYoutubeTextNode);
-              if (selection) {
-                const currentNode = selection.getNodes()[0];
-                currentNode?.remove();
+              const anchorNode = anchor.getNode();
+              const rootNode = $getRoot();
+
+              if ($isRootNode(anchorNode)) {
+                const firstChild = rootNode.getFirstChild();
+                if (firstChild) {
+                  firstChild.insertBefore(niwiYoutubeTextNode);
+                } else {
+                  rootNode.append(niwiYoutubeTextNode);
+                }
+                niwiYoutubeTextNode.selectEnd();
+                return;
               }
-              NiwiYoutubeTextNode.selectEnd();
+
+              anchorNode.replace(niwiYoutubeTextNode);
+              niwiYoutubeTextNode.selectEnd();
             }
           });
           return true;
