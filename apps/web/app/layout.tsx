@@ -15,6 +15,7 @@ import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-splash-image.
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-tool.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor.css";
 import "@/styles/globals.css";
+import "@/styles/niwi-blog.css";
 import "@/styles/niwi.css";
 
 const geistSans = localFont({

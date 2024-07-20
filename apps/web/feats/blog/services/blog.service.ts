@@ -60,7 +60,19 @@ export const createBlog = async (blogProps: CreateBlogProps) => {
 export const getBlogById = async (id: string) => {
   try {
     const blog = await prismaClient.blog.findUnique({ where: { id } });
-    return responseSuccess(`Successfully fetched blog ${id}`, blog);
+    return responseSuccess(`Successfully fetched blog by ${id}`, blog);
+  } catch (e) {
+    return responseError((e as Error).message);
+  }
+};
+
+export const getBlogBySlug = async (slug: string) => {
+  try {
+    const blog = await prismaClient.blog.findUnique({ where: { slug } });
+    return responseSuccess(
+      `Successfully fetched blog by slug name ${slug}`,
+      blog
+    );
   } catch (e) {
     return responseError((e as Error).message);
   }
@@ -95,6 +107,45 @@ export const saveBlog = async (blogProps: SaveBlogProps) => {
     return responseSuccess("Successfully save blog", updatedBlog);
   } catch (error) {
     console.error("Transaction failed: ", error);
-    return responseError("Failed to create blog or reactions");
+    return responseError("Failed to save blog .");
+  }
+};
+
+type PublishBlogProps = {
+  blogId: string;
+  title: string;
+  slug: string;
+  userId: string;
+};
+
+export const publishBlog = async (blogProps: PublishBlogProps) => {
+  const { blogId, userId, slug } = blogProps;
+
+  try {
+    const { success, data: blog } = await getBlogById(blogId);
+
+    if (!success || !blog) return responseError("Blog not found");
+
+    if (blog.userId !== userId)
+      return responseError("User has no permission to update");
+
+    // Checking Slug is available
+    const { success: isSlugFound, data: blogBySlug } =
+      await getBlogBySlug(slug);
+
+    if (!isSlugFound || !blogBySlug || blogBySlug.id === blogId) {
+      const updatedBlog = await prismaClient.blog.update({
+        where: { id: blogId },
+        data: { ...blogProps, isPublished: true },
+      });
+      return responseSuccess("Successfully publish blog", updatedBlog);
+    }
+
+    // When a slug is found and
+    // the current blog ID is not the same as the blog retrieved by the slug
+    return responseError("Slug is already used. Please re-generate the slug.");
+  } catch (error) {
+    console.error("Transaction failed: ", error);
+    return responseError("Failed to publish blog");
   }
 };

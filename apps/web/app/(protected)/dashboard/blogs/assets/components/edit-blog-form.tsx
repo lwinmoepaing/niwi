@@ -5,6 +5,7 @@ import Button from "@/components/niwi-ui/button/button";
 import NavbarRightPortal from "@/components/niwi-ui/navbar/navbar-right-portal";
 import useEditBlogForm from "../hooks/useEditBlogForm";
 import { CircleDashed } from "lucide-react";
+import PreviewPublishModal from "./preview-publish-modal";
 
 function EditBlogForm({
   contentJson,
@@ -20,6 +21,8 @@ function EditBlogForm({
   const {
     onChangeValue,
     handleSubmit,
+    showPreviewModal,
+    togglePreviewModal,
     savePending,
     isValidForm,
     isValidPublish,
@@ -49,11 +52,21 @@ function EditBlogForm({
               "Save"
             )}
           </Button>
-          <Button type="button" size={"md"} disabled={!isValidPublish}>
+          <Button
+            type="button"
+            size={"md"}
+            disabled={!isValidPublish}
+            onClick={togglePreviewModal}
+          >
             Publish
           </Button>
         </div>
       </NavbarRightPortal>
+
+      <PreviewPublishModal
+        show={showPreviewModal}
+        onClose={togglePreviewModal}
+      />
 
       <NiwiTextEditor
         onChangeValue={onChangeValue}

@@ -2,4 +2,143 @@
 =                  Variables                  =
 =============================================*/
 :root {
+  --niwi-blog-publish-img-color: #eee;
+  --niwi-dark-blog-publish-img-color: #313339;
+}
+
+/*=============================================
+=                Preview Modal                =
+=============================================*/
+.niwi-blog-publish-preview-modal {
+  background-color: var(--niwi-background, #f4f4f5);
+
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 40;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  overflow-y: auto;
+}
+
+.niwi-blog-publish-preview-modal.inactive {
+  /* Animation */
+  animation-name: niwi-blog-publish-preview-modal-content-close-animation;
+  animation-duration: 0.2s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes niwi-blog-publish-preview-modal-content-close-animation {
+  0% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.dark .niwi-blog-publish-preview-modal {
+  background-color: var(--niwi-dark-background, #2b2d31);
+}
+
+.niwi-blog-publish-preview-modal.active {
+  /* Active */
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.niwi-blog-publish-preview-modal.active .content {
+  /* Animation */
+  animation-name: niwi-blog-publish-preview-modal-content-animation;
+  animation-duration: 0.2s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes niwi-blog-publish-preview-modal-content-animation {
+  0% {
+    opacity: 0;
+    scale: 0.9;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.niwi-blog-publish-preview-modal .content {
+  max-width: 1060px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+.niwi-blog-publish-preview-modal .content .section-wrapper {
+  display: flex;
+  flex-direction: column;
+  column-gap: 20px;
+  row-gap: 14px;
+}
+
+@media screen and (min-width: 768px) { 
+  .niwi-blog-publish-preview-modal .content .section-wrapper {
+    display: flex;
+    flex-direction: row;
+    column-gap: 30px;
+  }
+}
+
+.niwi-blog-publish-preview-modal .content .section-wrapper .section {
+  flex: 1;
+  width: 100%;
+}
+
+.niwi-blog-publish-preview-modal .close-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+}
+.niwi-blog-publish-preview-modal .close-icon svg {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/*=============================================
+=                Blog Styling                 =
+=============================================*/
+
+.niwi-blog-publish-preview-modal .blog-image {
+  min-height: 200px;
+}
+
+.niwi-blog-publish-preview-modal .niwi-blog-image-container {
+  background-color: var(--niwi-blog-publish-img-color);
+
+  height: 200px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  /* Display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark .niwi-blog-publish-preview-modal .niwi-blog-image-container {
+  background-color: var(--niwi-dark-blog-publish-img-color);
+}
+
+.niwi-blog-image-empty-text {
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  opacity: 0.4;
 }

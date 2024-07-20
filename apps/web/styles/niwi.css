@@ -2,6 +2,8 @@
 =                  Variables                  =
 =============================================*/
 :root {
+  /* Background Color */
+  --niwi-background: #f4f4f5;
   --niwi-dark-background: #2b2d31;
   --niwi-dark-primary-background: #313339;
 
@@ -58,7 +60,7 @@
 =                    Body                     =
 =============================================*/
 .niwi-body {
-  background-color: #f4f4f5;
+  background-color: var(--niwi-background, #f4f4f5);
   outline: none;
   color: var(--niwi-text-color, black);
 }

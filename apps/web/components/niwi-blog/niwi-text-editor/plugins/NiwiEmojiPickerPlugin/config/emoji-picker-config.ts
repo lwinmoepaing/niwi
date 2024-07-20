@@ -19,12 +19,4 @@ for (const [key, value] of customEmoji) {
   });
 }
 
-export default [
-  {
-    title: "Smile",
-    emoji: "😀",
-    type: "text",
-    src: "",
-  },
-  ...customEmojiList,
-] as EmojiListType[];
+export default [...customEmojiList] as EmojiListType[];

@@ -7,7 +7,9 @@ function NiwiInitializeHtmlPlugin({ contentJson }: { contentJson: string }) {
   const importJson = useCallback(
     (contentJson: string) => {
       const data = editor.parseEditorState(contentJson);
-      editor.setEditorState(data);
+      queueMicrotask(() => {
+        editor.setEditorState(data);
+      });
     },
     [editor]
   );

@@ -15,3 +15,13 @@ export const saveBlogSchema = z.object({
 });
 
 export type SaveBlogFormValues = z.infer<typeof saveBlogSchema>;
+
+export const publishBlogSchema = z.object({
+  blogId: z.string().min(1),
+  isPublish: z.boolean(),
+  title: z.string(),
+  slug: z.string(),
+  previewImage: z.string().optional(),
+});
+
+export type PublishBlogFormValues = z.infer<typeof publishBlogSchema>;

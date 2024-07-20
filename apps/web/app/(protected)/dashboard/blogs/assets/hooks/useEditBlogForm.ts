@@ -33,6 +33,8 @@ const useEditBlogForm = ({
     undefined
   );
 
+  const [showPreviewModal, setShowPreviewModal] = useState(true);
+
   const [plainText, setPlainText] = useState("");
 
   const [isPublished, setIsPublished] = useState(publishStatus);
@@ -93,6 +95,11 @@ const useEditBlogForm = ({
     []
   );
 
+  const togglePreviewModal = useCallback(
+    () => setShowPreviewModal((prev) => !prev),
+    []
+  );
+
   const isValidForm = useMemo<boolean>(() => {
     return plainText.trim().length !== 0 && isDirty && isValid;
   }, [plainText, isDirty, isValid]);
@@ -104,6 +111,8 @@ const useEditBlogForm = ({
   return {
     onChangeValue,
     handleSubmit: handleSubmit(submit),
+    showPreviewModal,
+    togglePreviewModal,
     editorResetKey,
     savePending,
     saveBlogResponse,
