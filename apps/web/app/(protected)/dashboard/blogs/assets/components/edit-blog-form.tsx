@@ -8,6 +8,7 @@ import useEditBlogForm from "../hooks/useEditBlogForm";
 import PreviewPublishModal from "./preview-publish-modal";
 import Link from "next/link";
 import config from "@/config";
+import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
 
 function EditBlogForm({
   contentJson,
@@ -90,6 +91,15 @@ function EditBlogForm({
         images={images}
         blogId={blogId}
         onSuccess={handleOnPublishingSuccess}
+      />
+
+      <NiwiBlogProfile
+        title={title || "Title will be generated from your editor..."}
+        profileLink={"/dashboard"}
+        profileImg={"/images/auth/profile.png"}
+        profileName={"Shawn King Shawn"}
+        estimateTime={"-- minutes to "}
+        date={"Jun 21, 2024"}
       />
 
       <NiwiTextEditor
