@@ -19,7 +19,7 @@ import {
   useNodeFocus,
   useRemoveNode,
 } from "../../../editor-utils/editor-keydown-paragraph";
-import { NiwiImageNodePropsType } from "../nodes/NiwiImageNode";
+import { ImageSizeType, NiwiImageNodePropsType } from "../nodes/NiwiImageNode";
 import { Trash2 } from "lucide-react";
 
 type NiwiEditorImageProps = {
@@ -29,6 +29,7 @@ type NiwiEditorImageProps = {
   altText: string;
   // eslint-disable-next-line no-unused-vars
   updatePlaceHolder: (_str: string) => void;
+  updateImageSize: (imgSize: ImageSizeType) => void;
 };
 
 const NiwiEditorImage = ({
@@ -37,6 +38,7 @@ const NiwiEditorImage = ({
   nodeKey,
   altText,
   updatePlaceHolder,
+  updateImageSize,
 }: NiwiEditorImageProps) => {
   const captionRef = useRef<HTMLInputElement>(null);
   const [editor] = useLexicalComposerContext();
@@ -55,7 +57,9 @@ const NiwiEditorImage = ({
   }, [src]);
 
   useEffect(() => {
-    captionRef?.current?.focus();
+    if (isFocus) {
+      captionRef?.current?.focus();
+    }
   }, [isFocus]);
 
   const handleKeyDownCaption = useCallback(
@@ -86,6 +90,13 @@ const NiwiEditorImage = ({
     });
   }, []);
 
+  const handleImageSize = useCallback((str: ImageSizeType) => {
+    setImageSize(str);
+    editor.update(() => {
+      updateImageSize(str);
+    });
+  }, []);
+
   const isActiveImage = useMemo(() => isActive || isFocus, [isActive, isFocus]);
 
   return (
@@ -103,7 +114,7 @@ const NiwiEditorImage = ({
             <button
               type="button"
               className="icon-wrapper"
-              onClick={() => setImageSize("fitWidth")}
+              onClick={() => handleImageSize("fitWidth")}
             >
               <ImageFitViewIcon
                 className={cn("icon", imageSize === "fitWidth" && "active")}
@@ -112,7 +123,7 @@ const NiwiEditorImage = ({
             <button
               type="button"
               className="icon-wrapper"
-              onClick={() => setImageSize("extraWidth")}
+              onClick={() => handleImageSize("extraWidth")}
             >
               <ImageExtraWidthIcon
                 className={cn("icon", imageSize === "extraWidth" && "active")}

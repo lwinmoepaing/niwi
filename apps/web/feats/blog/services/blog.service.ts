@@ -119,7 +119,7 @@ type PublishBlogProps = {
 };
 
 export const publishBlog = async (blogProps: PublishBlogProps) => {
-  const { blogId, userId, slug } = blogProps;
+  const { blogId, userId, slug, title } = blogProps;
 
   try {
     const { success, data: blog } = await getBlogById(blogId);
@@ -136,7 +136,11 @@ export const publishBlog = async (blogProps: PublishBlogProps) => {
     if (!isSlugFound || !blogBySlug || blogBySlug.id === blogId) {
       const updatedBlog = await prismaClient.blog.update({
         where: { id: blogId },
-        data: { ...blogProps, isPublished: true },
+        data: {
+          title,
+          slug,
+          isPublished: true,
+        },
       });
       return responseSuccess("Successfully publish blog", updatedBlog);
     }

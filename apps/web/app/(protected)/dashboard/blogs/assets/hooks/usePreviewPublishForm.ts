@@ -1,43 +1,117 @@
+import { publishBlogAction } from "@/feats/blog/actions/blog.action";
+import {
+  PublishBlogFormValues,
+  publishBlogSchema,
+} from "@/feats/blog/validations/blog.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useMemo, useState } from "react";
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import toast from "react-hot-toast";
 
-export const publishFormSchema = z.object({
-  title: z.string().min(3),
-  subTitle: z.string().min(3),
-  slug: z.string().min(3),
-  previewImage: z.string(),
-});
+type UsePreviewPublishFormProps = {
+  title: string;
+  subTitle: string;
+  images: string[];
+  blogId: string;
+  onSuccess: (blogSlug: string) => void;
+};
 
-export type PublishFormValue = z.infer<typeof publishFormSchema>;
-
-const usePreviewPublishForm = () => {
+const usePreviewPublishForm = ({
+  title,
+  subTitle,
+  blogId,
+  images,
+  onSuccess,
+}: UsePreviewPublishFormProps) => {
   const [hasHydrate, setHasHydrate] = useState(false);
-  const [src] = useState("");
 
-  const form = useForm<PublishFormValue>({
-    resolver: zodResolver(publishFormSchema),
+  const [publishResponse, dispatchPublishBlog, pending] = useActionState(
+    publishBlogAction,
+    undefined
+  );
+
+  const [showPhotoChanger, setShowPohtoChanger] = useState(false);
+
+  const form = useForm<PublishBlogFormValues>({
+    resolver: zodResolver(publishBlogSchema),
     defaultValues: {
-      title: "",
-      subTitle: "",
+      title,
+      subTitle,
       slug: "",
+      isPublish: true,
+      blogId,
+      previewImage: images.length > 0 ? images[0] || "" : "",
     },
   });
+
+  const onSetImage = useCallback(
+    (image: string) => {
+      form.setValue("previewImage", image);
+    },
+    [form?.setValue]
+  );
+
+  const submit = useCallback(
+    async (values: PublishBlogFormValues) => {
+      dispatchPublishBlog({ ...values });
+    },
+    [dispatchPublishBlog]
+  );
 
   const dom = useMemo(() => {
     if (typeof document === "undefined") return null;
     return document.body;
   }, [hasHydrate]);
 
+  const openPhotoChanger = useCallback(() => {
+    setShowPohtoChanger(true);
+  }, []);
+
+  const updatePhoto = useCallback((img: string) => {
+    form.setValue("previewImage", img);
+    setShowPohtoChanger(false);
+  }, []);
+
+  useEffect(() => {
+    form.setValue("title", title?.trim());
+    form.setValue("subTitle", subTitle?.trim());
+    const img = images.length > 0 ? images[0] || "" : "";
+    form.setValue("previewImage", img);
+    form.setValue("slug", title?.toLowerCase().replace(/\s+/g, "-"));
+  }, [form.setValue, title, subTitle, images]);
+
   useEffect(() => {
     setHasHydrate(true);
   }, []);
 
+  useEffect(() => {
+    if (publishResponse?.success === true) {
+      toast.success(publishResponse.message);
+      onSuccess?.(form.getValues("slug"));
+      return;
+    }
+
+    if (publishResponse?.success === false) {
+      toast.error(publishResponse.message);
+      return;
+    }
+  }, [publishResponse, onSuccess]);
+
   return {
-    hasHydrate,
-    src,
     form,
+    pending,
+    submit,
+    hasHydrate,
+    showPhotoChanger,
+    onSetImage,
+    openPhotoChanger,
+    updatePhoto,
     dom,
   };
 };

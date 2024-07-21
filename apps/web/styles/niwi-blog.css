@@ -16,13 +16,21 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 40;
-  padding-top: 100px;
-  padding-bottom: 100px;
+  z-index: 100;
+  padding-top: 60px;
+  padding-bottom: 60px;
   overflow-y: auto;
 }
 
+@media screen and (min-width: 768px) {
+  .niwi-blog-publish-preview-modal {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
 .niwi-blog-publish-preview-modal.inactive {
+  display: none;
   /* Animation */
   animation-name: niwi-blog-publish-preview-modal-content-close-animation;
   animation-duration: 0.2s;
@@ -86,7 +94,7 @@
   row-gap: 14px;
 }
 
-@media screen and (min-width: 768px) { 
+@media screen and (min-width: 768px) {
   .niwi-blog-publish-preview-modal .content .section-wrapper {
     display: flex;
     flex-direction: row;
@@ -124,7 +132,6 @@
   height: 200px;
   border-radius: 20px;
   margin-bottom: 10px;
-  cursor: pointer;
 
   /* Display */
   display: flex;
@@ -141,4 +148,57 @@
   margin: 0 auto;
   text-align: center;
   opacity: 0.4;
+}
+
+.niwi-blog-image {
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-positoin: center center;
+}
+
+.niwi-blog-preview-button {
+  color: white;
+  padding: 5px 18px;
+  border: 1px solid white;
+  border-radius: 30px;
+  background-color: #000000b0;
+  position: relative;
+  opacity: 0.6;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.niwi-blog-preview-button:hover {
+  opacity: 1;
+}
+
+.niwi-blog-preview-photo-changer-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.niwi-blog-preview-photo-changer-container .item {
+  width: 33%;
+  height: 33%;
+  padding-top: 33%;
+  position: relative;
+  cursor: pointer;
+}
+
+.niwi-blog-preview-photo-changer-container .item:hover {
+  opacity: 0.7;
+}
+
+.niwi-blog-preview-photo-changer-container .item .item-img {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 90%;
+  height: 90%;
+  transform: translate(-50%);
 }

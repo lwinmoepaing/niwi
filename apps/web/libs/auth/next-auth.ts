@@ -124,7 +124,8 @@ const config = {
           const newUser = await createNewUserForOAuth(
             data.name,
             data.email,
-            appConfig.defaultUserImage
+            appConfig.defaultUserImage,
+            { provider: "facebook", id: data.id.toString() }
           );
           user.id = newUser.id;
           user.image = newUser.image;
@@ -151,7 +152,8 @@ const config = {
           const newUser = await createNewUserForOAuth(
             data.data.name,
             "",
-            appConfig.defaultUserImage
+            appConfig.defaultUserImage,
+            { provider: "twitter", id: data.data.id }
           );
           user.id = newUser.id;
           user.image = newUser.image;

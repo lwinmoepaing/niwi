@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/components/niwi-ui/button/button";
 import {
   Form,
   FormControl,
@@ -10,23 +11,52 @@ import {
 } from "@/components/niwi-ui/form/form";
 import TextInput from "@/components/niwi-ui/form/text-input";
 import { cn } from "@/libs/utils";
-import { XIcon } from "lucide-react";
+import { CircleDashed, XIcon } from "lucide-react";
 import Image from "next/image";
+import { memo } from "react";
 import { createPortal } from "react-dom";
 import usePreviewPublishForm from "../hooks/usePreviewPublishForm";
-import { memo } from "react";
 import config from "@/config";
-import Button from "@/components/niwi-ui/button/button";
 
 type PreviewPublishModalProps = {
   show: boolean;
+  title: string;
+  subTitle: string;
+  images: string[];
+  blogId: string;
+  onSuccess: () => void;
   onClose: () => void;
 };
 
-function PreviewPublishModal({ show, onClose }: PreviewPublishModalProps) {
-  const { dom, src, hasHydrate, form } = usePreviewPublishForm();
+function PreviewPublishModal({
+  show,
+  onClose,
+  title,
+  subTitle,
+  images,
+  blogId,
+  onSuccess,
+}: PreviewPublishModalProps) {
+  const {
+    dom,
+    hasHydrate,
+    pending,
+    showPhotoChanger,
+    openPhotoChanger,
+    submit,
+    updatePhoto,
+    form,
+  } = usePreviewPublishForm({
+    title,
+    subTitle,
+    onSuccess,
+    images,
+    blogId,
+  });
 
   if (!hasHydrate || !dom) return null;
+
+  const src = form?.watch("previewImage");
 
   return createPortal(
     <div
@@ -35,11 +65,8 @@ function PreviewPublishModal({ show, onClose }: PreviewPublishModalProps) {
         show ? "active" : "inactive"
       )}
     >
-      <form
-        className=""
-        // action={}
-      >
-        <Form {...form}>
+      <Form {...form}>
+        <form className="" action={() => form.handleSubmit(submit)()}>
           <div className="content">
             <div className="close-icon" onClick={onClose}>
               <XIcon />
@@ -53,18 +80,50 @@ function PreviewPublishModal({ show, onClose }: PreviewPublishModalProps) {
                 <div className="niwi-blog-image-container">
                   {!src && (
                     <p className="niwi-blog-image-empty-text">
-                      Include a high-quality image in your story to make it more
+                      Include a high-quality image in your blog to make it more
                       inviting to readers.
                     </p>
                   )}
+
                   {src && (
-                    <Image
-                      className={cn("niwi-blog-image")}
-                      src={src || ""}
-                      alt={""}
-                      width={800}
-                      height={600}
-                    />
+                    <>
+                      {!showPhotoChanger ? (
+                        <div className="w-full h-full relative flex justify-center items-center">
+                          <Image
+                            className={cn("niwi-blog-image")}
+                            src={src || ""}
+                            alt={""}
+                            fill
+                          />
+                          <button
+                            className="niwi-blog-preview-button"
+                            type="button"
+                            onClick={openPhotoChanger}
+                          >
+                            Change Preview Image
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="niwi-blog-preview-photo-changer-container">
+                          {images.map((item) => (
+                            <div
+                              className="item"
+                              key={item}
+                              onClick={() => updatePhoto(item)}
+                            >
+                              <div className="item-img">
+                                <Image
+                                  className={cn("niwi-blog-image")}
+                                  src={item}
+                                  alt={title}
+                                  fill
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
 
@@ -76,7 +135,7 @@ function PreviewPublishModal({ show, onClose }: PreviewPublishModalProps) {
                       <FormLabel>Preview Title</FormLabel>
                       <FormControl>
                         <TextInput
-                          type="email"
+                          type="text"
                           placeholder="Write a preview text"
                           // disabled={pending}
                           {...field}
@@ -86,17 +145,17 @@ function PreviewPublishModal({ show, onClose }: PreviewPublishModalProps) {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="title"
+                  name="subTitle"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Preview Sub-title</FormLabel>
                       <FormControl>
                         <TextInput
-                          type="email"
+                          type="text"
                           placeholder="Write a preview subtitle ..."
-                          // disabled={pending}
                           {...field}
                         />
                       </FormControl>
@@ -104,6 +163,10 @@ function PreviewPublishModal({ show, onClose }: PreviewPublishModalProps) {
                     </FormItem>
                   )}
                 />
+
+                {/*
+
+                 */}
                 <p className="mt-2 text-sm">
                   <strong>Note</strong>: Changes here will affect to your
                   preview card UI and SEO.
@@ -122,7 +185,7 @@ function PreviewPublishModal({ show, onClose }: PreviewPublishModalProps) {
                 <FormField
                   control={form.control}
                   name="slug"
-                  render={({ field }) => (
+                  render={({ field, formState }) => (
                     <FormItem>
                       <FormLabel>Slug</FormLabel>
                       <FormControl>
@@ -131,24 +194,42 @@ function PreviewPublishModal({ show, onClose }: PreviewPublishModalProps) {
                           placeholder="Write a preview text"
                           // disabled={pending}
                           {...field}
+                          // disabled={pending}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            console.log(value);
+                            field.onChange(
+                              e.target.value?.toLowerCase().replace(/\s+/g, "-")
+                            );
+                          }}
                         />
                       </FormControl>
-                      <FormDescription className="text-[12px] ml-1">
-                        {config.domainUrl}/blogs/{field.value}
-                      </FormDescription>
+                      {formState.errors.slug?.message ? null : (
+                        <FormDescription className="text-[12px] ml-1">
+                          Preview:{" "}
+                          <strong>
+                            {config.domainUrl}/blogs/
+                            {field.value.toLowerCase().replace(/\s+/g, "-")}
+                          </strong>
+                        </FormDescription>
+                      )}
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                <Button type="button" variant={"success"} className="mt-4">
-                  Publish now
+                <Button type="submit" variant={"success"} className="mt-4">
+                  {pending ? (
+                    <CircleDashed className="animate-spin" />
+                  ) : (
+                    "Publish now"
+                  )}
                 </Button>
               </section>
             </div>
           </div>
-        </Form>
-      </form>
+        </form>
+      </Form>
     </div>,
     dom
   );

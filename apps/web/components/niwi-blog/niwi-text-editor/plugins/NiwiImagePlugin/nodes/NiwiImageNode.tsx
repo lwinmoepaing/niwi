@@ -10,7 +10,7 @@ import {
 } from "lexical";
 import NiwiEditorImage from "../components/NiwiEditorImage";
 
-type ImageSizeType = "contain" | "fitWidth" | "extraWidth" | "fullScreen";
+export type ImageSizeType = "contain" | "fitWidth" | "extraWidth" | "fullScreen";
 
 export type NiwiImageNodePropsType = {
   imgSize: ImageSizeType;
@@ -224,6 +224,7 @@ export class NiwiImageNode extends DecoratorNode<JSX.Element> {
         imgSize={this.__imgSize}
         altText={this.__altText}
         updatePlaceHolder={(str) => this.setAltText(str)}
+        updateImageSize={(str: ImageSizeType) => this.setSize(str)}
       />
     );
   }

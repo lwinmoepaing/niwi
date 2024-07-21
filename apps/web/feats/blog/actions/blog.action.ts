@@ -79,7 +79,7 @@ export const publishBlogAction = async (
   try {
     const { error, data } = publishBlogSchema.safeParse(blogData);
     if (error) {
-      return responseError("", error.format());
+      return responseError(error.message, error.format());
     }
 
     const session = await auth();

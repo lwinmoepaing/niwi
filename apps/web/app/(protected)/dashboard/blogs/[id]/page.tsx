@@ -15,6 +15,7 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
         content={data.content}
         blogId={data.id}
         publishStatus={data.isPublished}
+        slug={data.slug}
       />
     </article>
   );

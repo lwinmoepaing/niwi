@@ -32,6 +32,7 @@
 .niwi-editor-image-container .niwi-image {
   width: 100%;
   transition: border 0.1s ease-in-out;
+  border-radius: 16px;
 }
 
 .niwi-editor-image-container .niwi-image.active {

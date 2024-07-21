@@ -3,34 +3,45 @@
 import NiwiTextEditor from "@/components/niwi-blog/niwi-text-editor/niwi-text-editor";
 import Button from "@/components/niwi-ui/button/button";
 import NavbarRightPortal from "@/components/niwi-ui/navbar/navbar-right-portal";
-import useEditBlogForm from "../hooks/useEditBlogForm";
 import { CircleDashed } from "lucide-react";
+import useEditBlogForm from "../hooks/useEditBlogForm";
 import PreviewPublishModal from "./preview-publish-modal";
+import Link from "next/link";
+import config from "@/config";
 
 function EditBlogForm({
   contentJson,
   content,
   blogId,
   publishStatus,
+  slug,
 }: {
   contentJson: string;
   content: string;
   blogId: string;
   publishStatus: boolean;
+  slug: string;
 }) {
   const {
     onChangeValue,
     handleSubmit,
-    showPreviewModal,
+    handleOnPublishingSuccess,
     togglePreviewModal,
+    showPreviewModal,
     savePending,
     isValidForm,
     isValidPublish,
+    isPublished,
+    title,
+    subTitle,
+    images,
+    slugName,
   } = useEditBlogForm({
     contentJson,
     content,
     blogId,
     publishStatus,
+    slug,
   });
 
   return (
@@ -49,23 +60,36 @@ function EditBlogForm({
                 <CircleDashed className="animate-spin" />
               </>
             ) : (
-              "Save"
+              `Save${isPublished ? " and publish" : ""}`
             )}
           </Button>
-          <Button
-            type="button"
-            size={"md"}
-            disabled={!isValidPublish}
-            onClick={togglePreviewModal}
-          >
-            Publish
-          </Button>
+          {!isPublished ? (
+            <Button
+              type="button"
+              size={"md"}
+              disabled={!isValidPublish}
+              onClick={togglePreviewModal}
+            >
+              Publish
+            </Button>
+          ) : (
+            <Link href={`${config.domainUrl}/blogs/${slugName}`}>
+              <Button type="button" size={"md"}>
+                Go Publish Page
+              </Button>
+            </Link>
+          )}
         </div>
       </NavbarRightPortal>
 
       <PreviewPublishModal
         show={showPreviewModal}
         onClose={togglePreviewModal}
+        title={title}
+        subTitle={subTitle}
+        images={images}
+        blogId={blogId}
+        onSuccess={handleOnPublishingSuccess}
       />
 
       <NiwiTextEditor

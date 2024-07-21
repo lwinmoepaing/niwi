@@ -8,6 +8,7 @@ model Blog {
     id           String  @id @default(auto()) @map("_id") @db.ObjectId
     slug         String  @unique
     title        String
+    subTitle     String?
     content      String
     contentJson  String
     isPublished  Boolean @default(false)
