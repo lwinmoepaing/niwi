@@ -24,7 +24,7 @@ type PreviewPublishModalProps = {
   subTitle: string;
   images: string[];
   blogId: string;
-  onSuccess: () => void;
+  onSuccess: (blogSlug: string) => void;
   onClose: () => void;
 };
 
@@ -42,9 +42,12 @@ function PreviewPublishModal({
     hasHydrate,
     pending,
     showPhotoChanger,
+    suggestSlug,
+    emptySuggest,
     openPhotoChanger,
     submit,
     updatePhoto,
+    onSuggestClick,
     form,
   } = usePreviewPublishForm({
     title,
@@ -137,7 +140,7 @@ function PreviewPublishModal({
                         <TextInput
                           type="text"
                           placeholder="Write a preview text"
-                          // disabled={pending}
+                          disabled={pending}
                           {...field}
                         />
                       </FormControl>
@@ -192,15 +195,13 @@ function PreviewPublishModal({
                         <TextInput
                           type="text"
                           placeholder="Write a preview text"
-                          // disabled={pending}
+                          disabled={pending}
                           {...field}
-                          // disabled={pending}
                           onChange={(e) => {
-                            const value = e.target.value;
-                            console.log(value);
                             field.onChange(
                               e.target.value?.toLowerCase().replace(/\s+/g, "-")
                             );
+                            emptySuggest();
                           }}
                         />
                       </FormControl>
@@ -210,7 +211,17 @@ function PreviewPublishModal({
                           <strong>
                             {config.domainUrl}/blogs/
                             {field.value.toLowerCase().replace(/\s+/g, "-")}
-                          </strong>
+                          </strong>{" "}
+                          {!!suggestSlug && (
+                            <Button
+                              type="button"
+                              size={"sm"}
+                              onClick={onSuggestClick}
+                              className="!text-[10px] ml-1"
+                            >
+                              Suggestion :&nbsp;<strong>{suggestSlug}</strong>
+                            </Button>
+                          )}
                         </FormDescription>
                       )}
                       <FormMessage />

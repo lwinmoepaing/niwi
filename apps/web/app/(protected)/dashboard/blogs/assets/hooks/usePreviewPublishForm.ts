@@ -38,6 +38,8 @@ const usePreviewPublishForm = ({
 
   const [showPhotoChanger, setShowPohtoChanger] = useState(false);
 
+  const [suggestSlug, setSuggestSlug] = useState("");
+
   const form = useForm<PublishBlogFormValues>({
     resolver: zodResolver(publishBlogSchema),
     defaultValues: {
@@ -78,12 +80,20 @@ const usePreviewPublishForm = ({
     setShowPohtoChanger(false);
   }, []);
 
+  const onSuggestClick = useCallback(() => {
+    form.setValue("slug", suggestSlug);
+    setSuggestSlug("");
+  }, [suggestSlug, form.setValue]);
+
+  const emptySuggest = useCallback(() => setSuggestSlug(""), []);
+
   useEffect(() => {
     form.setValue("title", title?.trim());
     form.setValue("subTitle", subTitle?.trim());
     const img = images.length > 0 ? images[0] || "" : "";
     form.setValue("previewImage", img);
     form.setValue("slug", title?.toLowerCase().replace(/\s+/g, "-"));
+    setSuggestSlug("");
   }, [form.setValue, title, subTitle, images]);
 
   useEffect(() => {
@@ -99,9 +109,13 @@ const usePreviewPublishForm = ({
 
     if (publishResponse?.success === false) {
       toast.error(publishResponse.message);
+      const suggest = publishResponse.errors.suggest as string;
+      if (suggest) {
+        setSuggestSlug(suggest);
+      }
       return;
     }
-  }, [publishResponse, onSuccess]);
+  }, [publishResponse, onSuccess, form.getValues]);
 
   return {
     form,
@@ -111,7 +125,10 @@ const usePreviewPublishForm = ({
     showPhotoChanger,
     onSetImage,
     openPhotoChanger,
+    onSuggestClick,
     updatePhoto,
+    emptySuggest,
+    suggestSlug,
     dom,
   };
 };

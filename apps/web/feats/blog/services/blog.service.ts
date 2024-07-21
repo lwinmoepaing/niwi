@@ -78,6 +78,29 @@ export const getBlogBySlug = async (slug: string) => {
   }
 };
 
+export const searchSimilarBySlug = async (slug: string) => {
+  try {
+    // Find all blogs with slugs starting with the base slug
+    const blogs = await prismaClient.blog.count({
+      where: {
+        slug: {
+          contains: `${slug}`,
+        },
+      },
+    });
+
+    const count = blogs;
+    const suggestedSlug = count === 0 ? slug : `${slug}-${count + 1}`;
+
+    return responseSuccess(
+      `Suggested slug for ${slug} is ${suggestedSlug}`,
+      suggestedSlug
+    );
+  } catch (e) {
+    return responseError((e as Error).message);
+  }
+};
+
 type SaveBlogProps = {
   blogId: string;
   content: string;
@@ -147,9 +170,13 @@ export const publishBlog = async (blogProps: PublishBlogProps) => {
 
     // When a slug is found and
     // the current blog ID is not the same as the blog retrieved by the slug
-    return responseError("Slug is already used. Please re-generate the slug.");
+    const { data: suggest } = await searchSimilarBySlug(slug);
+
+    return responseError("Slug is already used. Please re-generate the slug.", {
+      suggest,
+    });
   } catch (error) {
     console.error("Transaction failed: ", error);
-    return responseError("Failed to publish blog");
+    return responseError("Failed to publish blog", { suggest: "" });
   }
 };

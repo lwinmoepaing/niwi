@@ -1,4 +1,8 @@
-import { getBlogById, getBlogBySlug } from "@/feats/blog/services/blog.service";
+import {
+  getBlogById,
+  getBlogBySlug,
+  searchSimilarBySlug,
+} from "@/feats/blog/services/blog.service";
 import { checkBlogByStatusSchema } from "@/feats/blog/validations/blog.validation";
 import { responseAPI } from "@/libs/response/response-helper";
 import { StatusCodes } from "http-status-codes";
@@ -41,9 +45,12 @@ export async function POST(req: Request) {
       });
     }
 
+    const suggest = await searchSimilarBySlug(slug);
+
     return responseAPI({
       message: "Slug is not available",
       statusCode: StatusCodes.CONFLICT,
+      data: suggest.data || "",
     });
   } catch (err) {
     let message = "Slug Checking service is not available";

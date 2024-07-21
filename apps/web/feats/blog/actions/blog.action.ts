@@ -14,6 +14,7 @@ import {
   SaveBlogFormValues,
   saveBlogSchema,
 } from "../validations/blog.validation";
+import { revalidatePath } from "next/cache";
 
 export const createBlogAction = async (
   _currentState: unknown,
@@ -91,8 +92,11 @@ export const publishBlogAction = async (
     });
 
     if (!publishedBlog.success) {
-      return responseError(publishedBlog.message);
+      const suggest = publishedBlog.errors.suggest as string;
+      return responseError(publishedBlog.message, { suggest });
     }
+
+    revalidatePath("/dashboard/blogs/" + data.blogId);
 
     return responseSuccess("Successfully saved your blog.", publishedBlog.data);
   } catch (err) {
