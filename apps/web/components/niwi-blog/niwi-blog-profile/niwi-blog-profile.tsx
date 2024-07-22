@@ -1,5 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import NiwiBlogHeartIcon from "../niwi-blog-icons/niwi-blog-heart-icon";
+import { useCallback, useState } from "react";
+import NiwiBlogMessageIcon from "../niwi-blog-icons/niwi-blog-message-icon";
+import NiwiBookmarkIcon from "../niwi-blog-icons/niwi-bookmark-icon";
 
 type NiwiBlogProfileProps = {
   title: string;
@@ -18,6 +22,20 @@ function NiwiBlogProfile({
   estimateTime,
   date,
 }: NiwiBlogProfileProps) {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isBookmark, setIsBookmark] = useState(false);
+  const [count, setCount] = useState(10);
+  const [messageCount] = useState(12);
+
+  const toggleFavorite = useCallback(() => {
+    setIsFavorite((prev) => !prev);
+    setCount((prev) => (prev === 10 ? prev + 1 : prev - 1));
+  }, []);
+
+  const toggleBookmark = useCallback(() => {
+    setIsBookmark((prev) => !prev);
+  }, []);
+
   return (
     <section className="niwi-blog-profile-container">
       <h1 className="niwi-blog-profile-header">{title}</h1>
@@ -36,6 +54,23 @@ function NiwiBlogProfile({
               {estimateTime} read · {date}
             </h4>
           </div>
+        </div>
+      </div>
+      <div className="niwi-blog-profile-actions">
+        <div className="niwi-blog-profile-actions-container heart-container">
+          <NiwiBlogHeartIcon isActive={isFavorite} onClick={toggleFavorite} />
+          <span className="counter" onClick={toggleFavorite}>
+            {count}
+          </span>
+        </div>
+        <div className="niwi-blog-profile-actions-container message-container">
+          <NiwiBlogMessageIcon onClick={() => {}} />
+          <span className="counter" onClick={() => {}}>
+            {messageCount}
+          </span>
+        </div>
+        <div className="niwi-blog-profile-actions-container message-container">
+          <NiwiBookmarkIcon onClick={toggleBookmark} active={isBookmark} />
         </div>
       </div>
     </section>
