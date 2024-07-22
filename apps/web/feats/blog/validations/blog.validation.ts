@@ -18,7 +18,7 @@ export type SaveBlogFormValues = z.infer<typeof saveBlogSchema>;
 
 export const publishBlogSchema = z.object({
   blogId: z.string().min(1, "BlogID is required"),
-  isPublish: z.boolean(),
+  isPublish: z.boolean({ message: "Publish status is required" }),
   title: z.string().min(1, "Title is required"),
   subTitle: z.string().min(1, "Subtitle is required"),
   slug: z
@@ -34,3 +34,10 @@ export const checkBlogByStatusSchema = z.object({
   blogId: z.string().min(1, "BlogID is required"),
   slug: z.string().min(1, "Slug is required"),
 });
+
+export const favoriteBlogSchema = z.object({
+  blogId: z.string().min(1, "BlogID is required"),
+  isFavorite: z.boolean({ message: "Favorite is required" }),
+});
+
+export type FavoriteBlogFormValues = z.infer<typeof favoriteBlogSchema>;

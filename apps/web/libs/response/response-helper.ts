@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 
-export const responseError = <T = any, B = any>(
+export const responseError = <T = null, B = null>(
   message: string,
   errors?: T,
   data?: B
@@ -9,7 +9,7 @@ export const responseError = <T = any, B = any>(
   return { success: false, errors, message, data };
 };
 
-export const responseSuccess = <T = any, B = any>(
+export const responseSuccess = <T = null, B = any>(
   message: string,
   data?: T,
   errors?: B
@@ -21,7 +21,7 @@ type ResponseApiProps = {
   message: string;
   statusCode: number;
 };
-export const responseAPI = <T = any, B = any>(
+export const responseAPI = <T = null, B = null>(
   res: ResponseApiProps & {
     data?: B;
     errors?: T;

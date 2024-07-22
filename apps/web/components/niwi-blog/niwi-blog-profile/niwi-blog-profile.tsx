@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import NiwiBlogHeartIcon from "../niwi-blog-icons/niwi-blog-heart-icon";
 import { useCallback, useState } from "react";
+import NiwiBlogHeartIcon from "../niwi-blog-icons/niwi-blog-heart-icon";
 import NiwiBlogMessageIcon from "../niwi-blog-icons/niwi-blog-message-icon";
+import NiwiBlogShareIcon from "../niwi-blog-icons/niwi-blog-share-icon";
 import NiwiBookmarkIcon from "../niwi-blog-icons/niwi-bookmark-icon";
 
 type NiwiBlogProfileProps = {
@@ -69,8 +70,11 @@ function NiwiBlogProfile({
             {messageCount}
           </span>
         </div>
-        <div className="niwi-blog-profile-actions-container message-container">
+        <div className="niwi-blog-profile-actions-container small">
           <NiwiBookmarkIcon onClick={toggleBookmark} active={isBookmark} />
+        </div>
+        <div className="niwi-blog-profile-actions-container small">
+          <NiwiBlogShareIcon onClick={() => {}} />
         </div>
       </div>
     </section>

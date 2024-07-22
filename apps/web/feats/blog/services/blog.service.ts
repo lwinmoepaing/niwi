@@ -180,3 +180,68 @@ export const publishBlog = async (blogProps: PublishBlogProps) => {
     return responseError("Failed to publish blog", { suggest: "" });
   }
 };
+
+type ToggleFavoriteBlogProps = {
+  blogId: string;
+  userId: string;
+  isFavorite: boolean;
+};
+export const updateFavoriteBlog = async (
+  blogProps: ToggleFavoriteBlogProps
+) => {
+  const { blogId, userId, isFavorite } = blogProps;
+
+  try {
+    const { success, data: blog } = await getBlogById(blogId);
+
+    if (!success || !blog) return responseError("Blog not found");
+
+    const defaultProps = {
+      userId,
+      blogId,
+      reaction: "HEART",
+    } as const;
+
+    const resData = await prismaClient.$transaction(async (prisma) => {
+      const searchUserBlogReaction = await prisma.userBlogReaction.findFirst({
+        where: defaultProps,
+      });
+
+      // First time reaction for this blog
+      if (!searchUserBlogReaction) {
+        await prisma.userBlogReaction.create({
+          data: defaultProps,
+        });
+
+        await prisma.blogReactions.update({
+          where: { id: blog.reactionsId },
+          data: { heart: { increment: 1 } },
+        });
+
+        return { blogId, userId, isFavorite };
+      }
+
+      // If user've already react for this blog
+      if (isFavorite) {
+        return { blogId, userId, isFavorite };
+      }
+
+      await prisma.userBlogReaction.delete({
+        where: {
+          id: searchUserBlogReaction.id,
+        },
+      });
+
+      await prisma.blogReactions.update({
+        where: { id: blog.reactionsId },
+        data: { heart: { decrement: 1 } },
+      });
+
+      return { blogId, userId, isFavorite };
+    });
+
+    return responseSuccess("Successfully created blog", resData);
+  } catch (error) {
+    return responseError("Failed to favorite (or) unfavorite blog");
+  }
+};
