@@ -5,6 +5,7 @@ import NiwiBlogHeartIcon from "../niwi-blog-icons/niwi-blog-heart-icon";
 import NiwiBlogMessageIcon from "../niwi-blog-icons/niwi-blog-message-icon";
 import NiwiBlogShareIcon from "../niwi-blog-icons/niwi-blog-share-icon";
 import NiwiBookmarkIcon from "../niwi-blog-icons/niwi-bookmark-icon";
+import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
 
 type NiwiBlogProfileProps = {
   title: string;
@@ -78,6 +79,7 @@ function NiwiBlogProfile({
           <NiwiBlogShareIcon onClick={() => {}} />
         </div>
       </div>
+      <NiwiBlogSettingMenu />
     </section>
   );
 }

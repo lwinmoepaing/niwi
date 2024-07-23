@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
 
 type NiwiBlogDraftCardProps = {
   profileImg: string;
@@ -37,6 +38,7 @@ function NiwiBlogDraftCard({
           </div>
         </div>
       </div>
+      <NiwiBlogSettingMenu />
     </section>
   );
 }

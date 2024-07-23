@@ -43,7 +43,7 @@
   /* column-gap: 8px; */
 
   /* Animation */
-  animation-name: img-editor-tooltip-fade-in;
+  animation-name: img-editor-tooltip-embedded-fade-in;
   animation-duration: 0.2s;
   animation-delay: 0s;
   animation-fill-mode: forwards;
@@ -79,7 +79,7 @@
   rotate: 45deg;
 }
 
-@keyframes img-editor-tooltip-fade-in {
+@keyframes img-editor-tooltip-embedded-fade-in {
   0% {
     opacity: 0;
     scale: 0.5;

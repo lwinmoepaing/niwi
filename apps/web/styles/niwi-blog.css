@@ -392,3 +392,174 @@
     transform: scale(1);
   }
 }
+
+/*=============================================
+=              Niwi Blog Setting              =
+=============================================*/
+.niwi-blog-setting-menu {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  /* Display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Position */
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  column-gap: 4px;
+  /* Transition */
+  transition: all 0.2s ease-in-out;
+}
+
+.niwi-blog-setting-menu .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 4px;
+  background-color: #949494;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  top: 0;
+}
+
+.dark .niwi-blog-setting-menu .dot {
+  background-color: white;
+}
+
+.niwi-blog-setting-menu.active,
+.niwi-blog-setting-menu:hover {
+  background-color: #f4f4f5;
+}
+
+.dark .niwi-blog-setting-menu.active,
+.dark .niwi-blog-setting-menu:hover {
+  background-color: #282a2e;
+}
+
+.niwi-blog-setting-menu.active .dot,
+.niwi-blog-setting-menu:hover .dot {
+  transform: scale(1.1);
+
+  /*  */
+  top: 2px;
+  transition: all 0.1s ease-in-out;
+
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+.niwi-blog-setting-menu.active .dot:nth-child(1),
+.niwi-blog-setting-menu:hover .dot:nth-child(1) {
+  background-color: #f43f5e;
+  box-shadow: 0px 0px 0.5px 0.5px #f43f5e;
+  animation-name: niwi-blog-setting-menu-animation;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+.niwi-blog-setting-menu.active .dot:nth-child(2),
+.niwi-blog-setting-menu:hover .dot:nth-child(2) {
+  background-color: #7e22ce;
+  box-shadow: 0px 0px 0.5px 0.5px #7e22ce;
+  animation-name: niwi-blog-setting-menu-animation;
+  animation-delay: 0.12s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+.niwi-blog-setting-menu.active .dot:nth-child(3),
+.niwi-blog-setting-menu:hover .dot:nth-child(3) {
+  background-color: #60a5fa;
+  box-shadow: 0px 0px 0.5px 0.5px #60a5fa;
+  animation-name: niwi-blog-setting-menu-animation;
+  animation-delay: 0.22s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+@keyframes niwi-blog-setting-menu-animation {
+  0% {
+    top: 1px;
+  }
+  50% {
+    top: -1px;
+  }
+  100% {
+    top: 1px;
+  }
+}
+
+.niwi-blog-setting-menu .menu {
+  position: absolute;
+  background-color: #f4f4f5;
+  font-size: 12px;
+  border-radius: 5px;
+  width: 120px;
+  top: 44px;
+  right: 8px;
+
+  scale: 0.95;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.niwi-blog-setting-menu .menu.active {
+  visibility: visible;
+  opacity: 1;
+  scale: 1;
+}
+
+.dark .niwi-blog-setting-menu .menu {
+  background-color: #282a2e;
+}
+
+.niwi-blog-setting-menu .menu::after {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #f4f4f5;
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 1px;
+}
+
+.dark .niwi-blog-setting-menu .menu::after {
+  border-bottom: 10px solid #282a2e;
+}
+
+.niwi-blog-setting-menu .menu button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+}
+
+.niwi-blog-setting-menu .menu button:hover .icon {
+  stroke: #f43f5e;
+}
+
+.niwi-blog-setting-menu .menu button:hover .button-text {
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to right, #f43f5e, #7e22ce, #60a5fa);
+  display: inline-block;
+}
+
+.niwi-blog-setting-menu .menu button:hover {
+  opacity: 0.75;
+}
+
+.niwi-blog-setting-menu .menu .icon {
+  display: inline-block;
+  margin-right: 0.45rem;
+}
