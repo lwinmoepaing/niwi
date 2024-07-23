@@ -25,14 +25,13 @@ const getBlogsByAuthor = async ({
 };
 
 export const useGetBlogsByAuthor = ({
-  pageNo,
   authorId,
   publishStatus,
 }: GetBlogByAuthorIdProps) => {
   // Using useInfiniteQuery to handle paginated queries
   return useInfiniteQuery({
     initialPageParam: 1,
-    queryKey: ["get-blogs-by-author", authorId, pageNo, publishStatus],
+    queryKey: ["get-blogs-by-author", authorId, publishStatus],
     queryFn: ({ pageParam = 0 }) =>
       getBlogsByAuthor({
         pageNo: pageParam as number,

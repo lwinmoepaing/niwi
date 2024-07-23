@@ -1,8 +1,10 @@
 import { createBlogAction } from "@/feats/blog/actions/blog.action";
+import { createBlogCacheUpdate } from "@/feats/blog/services/blog-query-cache.service";
 import {
   CreateBlogFormValues,
   createBlogSchema,
 } from "@/feats/blog/validations/blog.validation";
+import { getExtractNodeFromEditor } from "@/libs/editor/getExtractNodeFromEditor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
@@ -22,7 +24,7 @@ const defaultValues = {
   contentJson: "",
 };
 
-const useCreateBlogForm = () => {
+const useCreateBlogForm = ({ currentAuthId }: { currentAuthId?: string }) => {
   const router = useRouter();
 
   const [editorResetKey, setEditorResetKey] = useState(() => nanoid());
@@ -54,8 +56,17 @@ const useCreateBlogForm = () => {
   useEffect(() => {
     if (createBlogResponse?.success === true) {
       toast.success(createBlogResponse.message);
-      const blogId = createBlogResponse.data?.newBlog.id;
-      router.push(`/dashboard/blogs/${blogId}`);
+
+      const newBlog = createBlogResponse.data?.newBlog;
+
+      if (newBlog) {
+        const blogId = createBlogResponse.data?.newBlog?.id;
+
+        if (currentAuthId) createBlogCacheUpdate(newBlog, currentAuthId);
+
+        router.push(`/dashboard/blogs/${blogId}`);
+      }
+
       resetForm();
       return;
     }
@@ -71,6 +82,11 @@ const useCreateBlogForm = () => {
       setValue("content", html);
       setValue("contentJson", json);
       setPlainText(text);
+
+      const [getTitle] = getExtractNodeFromEditor(json);
+      if (getTitle?.trim() && getTitle.length > 0) {
+        setValue("title", getTitle);
+      }
     },
     []
   );

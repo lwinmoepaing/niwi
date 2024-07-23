@@ -5,6 +5,7 @@ import {
   responseError,
   responseSuccess,
 } from "@/libs/response/response-helper";
+import { revalidatePath } from "next/cache";
 import {
   createBlog,
   publishBlog,
@@ -21,7 +22,6 @@ import {
   SaveBlogFormValues,
   saveBlogSchema,
 } from "../validations/blog.validation";
-import { revalidatePath } from "next/cache";
 
 export const createBlogAction = async (
   _currentState: unknown,
@@ -36,7 +36,8 @@ export const createBlogAction = async (
     const session = await auth();
     if (!session?.user?.id) return responseError("No authentication data");
 
-    const newBlog = await createBlog({ ...data, userId: session.user.id });
+    const authorId = session.user.id;
+    const newBlog = await createBlog({ ...data, userId: authorId });
 
     if (!newBlog.success) {
       return responseError(newBlog.message);

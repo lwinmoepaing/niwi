@@ -9,7 +9,7 @@ import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-
 
 function CreateBlogForm({ currentAuthId }: { currentAuthId?: string }) {
   const { onChangeValue, handleSubmit, editorResetKey, pending, isValidForm } =
-    useCreateBlogForm();
+    useCreateBlogForm({ currentAuthId });
 
   return (
     <>

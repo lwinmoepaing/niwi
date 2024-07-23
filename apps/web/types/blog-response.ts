@@ -18,13 +18,13 @@ export interface Blog {
   content: string;
   contentJson: string;
   isPublished: boolean;
-  previewImage?: string;
+  previewImage: string | null;
   userId: string;
   reactionsId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   user: User;
-  reactions: Reactions;
+  reactions: Reactions | null;
   userBlogReaction: UserBlogReaction[];
 }
 

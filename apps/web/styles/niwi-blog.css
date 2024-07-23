@@ -279,6 +279,7 @@
   flex-direction: row;
   align-items: center;
   column-gap: 0.25rem;
+  position: relative;
 }
 
 .niwi-blog-profile-actions-container.small {

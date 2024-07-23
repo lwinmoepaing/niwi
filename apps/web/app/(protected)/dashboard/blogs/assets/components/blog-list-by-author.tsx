@@ -71,6 +71,7 @@ function BlogListByAuthor({
       {blogList.map((item) => (
         <NiwiBlogDraftCard
           key={item.id}
+          title={item.title}
           profileLink={`/dashboard/profile/${item.user.id}`}
           profileImg={item.user.image}
           profileName={item.user.name}

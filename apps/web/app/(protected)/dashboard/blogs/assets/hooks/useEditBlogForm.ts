@@ -1,10 +1,9 @@
-import { getPlainTextFromNode } from "@/components/niwi-blog/niwi-text-editor/editor-utils/editor-text-node-helper";
 import { saveBlogAction } from "@/feats/blog/actions/blog.action";
 import {
   SaveBlogFormValues,
   saveBlogSchema,
 } from "@/feats/blog/validations/blog.validation";
-import { EditorRootJson } from "@/types/editor-json";
+import { getExtractNodeFromEditor } from "@/libs/editor/getExtractNodeFromEditor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { nanoid } from "nanoid";
 import {
@@ -16,17 +15,6 @@ import {
 } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-
-function getExtractText(strArray: string[]): [string, string] {
-  // Filter out empty strings
-  const nonEmptyStrings = strArray.filter((str) => str.trim() !== "");
-
-  // Get the first two non-empty strings
-  const title = nonEmptyStrings[0] || "";
-  const subTitle = nonEmptyStrings[1] || "";
-
-  return [title, subTitle];
-}
 
 const useEditBlogForm = ({
   blogId,
@@ -107,25 +95,14 @@ const useEditBlogForm = ({
 
   const onChangeValue = useCallback(
     (html: string, json: string, text: string) => {
+      setPlainText(text);
       setValue("content", html, { shouldDirty: true });
       setValue("contentJson", json, { shouldDirty: true });
 
-      const imageList: string[] = [];
-      const parseJson = JSON.parse(json) as EditorRootJson;
-      const textList: string[] = [];
-      parseJson.root.children.forEach((child) => {
-        if (child.type === "Niwi-Image-Container" && child.src) {
-          imageList.push(child.src);
-        }
-        textList.push(getPlainTextFromNode(child));
-      });
-
-      const [getTitle, getSubTitle] = getExtractText(textList);
-
+      const [getTitle, getSubTitle, imageList] = getExtractNodeFromEditor(json);
       setTitle(getTitle?.trim());
       setSubTitle(getSubTitle?.trim());
       setImages(imageList);
-      setPlainText(text);
     },
     []
   );

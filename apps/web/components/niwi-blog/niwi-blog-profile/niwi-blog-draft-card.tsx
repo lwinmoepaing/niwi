@@ -3,6 +3,7 @@ import Link from "next/link";
 import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
 
 type NiwiBlogDraftCardProps = {
+  title: string;
   profileImg: string;
   profileName: string;
   profileLink: string;
@@ -12,6 +13,7 @@ type NiwiBlogDraftCardProps = {
 };
 
 function NiwiBlogDraftCard({
+  title,
   profileImg,
   profileName,
   profileLink,
@@ -20,7 +22,9 @@ function NiwiBlogDraftCard({
 }: NiwiBlogDraftCardProps) {
   return (
     <section className="niwi-blog-profile-container">
-      <h1 className="niwi-blog-profile-header">Untitled Blog</h1>
+      <h1 className="niwi-blog-profile-header">
+        {!title || title === "-" ? "Untitled Blog" : title}
+      </h1>
       <div className="niwi-blog-profile-row">
         <Link href={profileLink}>
           <div className="niwi-blog-profile-image">

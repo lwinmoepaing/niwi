@@ -27,8 +27,8 @@ function NiwiBlogProfile({
 }: NiwiBlogProfileProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBookmark, setIsBookmark] = useState(false);
-  const [count, setCount] = useState(10);
-  const [messageCount] = useState(12);
+  const [count, setCount] = useState(0);
+  const [messageCount] = useState(0);
 
   const toggleFavorite = useCallback(() => {
     setIsFavorite((prev) => !prev);
@@ -63,19 +63,19 @@ function NiwiBlogProfile({
         <div className="niwi-blog-profile-actions-container heart-container">
           <NiwiBlogHeartIcon isActive={isFavorite} onClick={toggleFavorite} />
           <span className="counter" onClick={toggleFavorite}>
-            {count}
+            {count <= 0 ? "" : count}
           </span>
         </div>
         <div className="niwi-blog-profile-actions-container message-container">
           <NiwiBlogMessageIcon onClick={() => {}} />
           <span className="counter" onClick={() => {}}>
-            {messageCount}
+            {messageCount <= 0 ? "" : messageCount}
           </span>
         </div>
-        <div className="niwi-blog-profile-actions-container small">
+        <div className="niwi-blog-profile-actions-container">
           <NiwiBookmarkIcon onClick={toggleBookmark} active={isBookmark} />
         </div>
-        <div className="niwi-blog-profile-actions-container small">
+        <div className="niwi-blog-profile-actions-container">
           <NiwiBlogShareIcon onClick={() => {}} />
         </div>
       </div>

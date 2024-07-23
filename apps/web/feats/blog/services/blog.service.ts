@@ -6,6 +6,7 @@ import {
   responseSuccess,
 } from "@/libs/response/response-helper";
 import { nanoid } from "nanoid";
+import { Blog } from "@/types/blog-response";
 
 type CreateBlogProps = {
   title: string;
@@ -43,7 +44,40 @@ export const createBlog = async (blogProps: CreateBlogProps) => {
           },
         });
 
-        return [newBlog, newBlogReactions];
+        const blogWithRelations: Blog | null = await prisma.blog.findUnique({
+          where: {
+            id: newBlog.id,
+          },
+
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+              },
+            },
+            reactions: {
+              select: {
+                heart: true,
+                thumbsUp: true,
+                thumbsDown: true,
+              },
+            },
+            userBlogReaction: {
+              where: {
+                userId: userId,
+              },
+              select: {
+                reaction: true,
+                userId: true,
+                blogId: true,
+              },
+            },
+          },
+        });
+
+        return [blogWithRelations, newBlogReactions];
       }
     );
 
