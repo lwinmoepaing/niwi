@@ -41,3 +41,12 @@ export const favoriteBlogSchema = z.object({
 });
 
 export type FavoriteBlogFormValues = z.infer<typeof favoriteBlogSchema>;
+
+export const blogByAuthPaginationSchema = z.object({
+  page: z
+    .string()
+    .optional()
+    .transform((val) => parseInt(val || "1") || 1),
+  authorId: z.string().min(1, "Author ID is required"),
+  publishStatus: z.boolean(),
+});

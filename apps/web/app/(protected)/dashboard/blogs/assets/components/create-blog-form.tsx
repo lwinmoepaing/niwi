@@ -7,7 +7,7 @@ import { CircleDashed } from "lucide-react";
 import useCreateBlogForm from "../hooks/useCreateBlogForm";
 import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
 
-function CreateBlogForm() {
+function CreateBlogForm({ currentAuthId }: { currentAuthId?: string }) {
   const { onChangeValue, handleSubmit, editorResetKey, pending, isValidForm } =
     useCreateBlogForm();
 
@@ -37,9 +37,10 @@ function CreateBlogForm() {
         title={"Title will be generated when you published..."}
         profileLink={"/dashboard"}
         profileImg={"/images/auth/profile.png"}
-        profileName={"Shawn King Shawn"}
-        estimateTime={"-- minutes to "}
+        profileName={"Lwin Moe Paing"}
+        estimateTime={"5 minutes to "}
         date={"Jun 21, 2024"}
+        currentAuthId={currentAuthId}
       />
 
       <NiwiTextEditor onChangeValue={onChangeValue} key={editorResetKey} />

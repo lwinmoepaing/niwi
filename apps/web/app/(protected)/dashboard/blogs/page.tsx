@@ -1,15 +1,11 @@
-import Button from "@/components/niwi-ui/button/button";
-import Link from "next/link";
+import { auth } from "@/libs/auth/next-auth";
+import { notFound } from "next/navigation";
+import BlogListLandingPage from "./assets/components/blog-list-landing-page";
 
-function BlogsLandingPage() {
-  return (
-    <div className="flex flex-row justify-between">
-      <p className="dark:text-white">Blog Lists</p>
+async function BlogsLandingPage() {
+  const session = await auth();
+  if (!session?.user?.id) return notFound();
 
-      <Link href="/dashboard/blogs/create">
-        <Button>Create new blog</Button>
-      </Link>
-    </div>
-  );
+  return <BlogListLandingPage authorId={session.user.id} />;
 }
 export default BlogsLandingPage;

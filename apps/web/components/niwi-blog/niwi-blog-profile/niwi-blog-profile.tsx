@@ -12,6 +12,7 @@ type NiwiBlogProfileProps = {
   profileName: string;
   profileLink: string;
   estimateTime: string;
+  currentAuthId?: string;
   date: string;
 };
 

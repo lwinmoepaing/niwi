@@ -351,3 +351,44 @@
   top: 12px;
   left: 12px;
 }
+
+.niwi-blog-switcher-animation {
+  /* Common animation properties */
+  animation-duration: 0.5s;
+  animation-delay: 0s;
+  animation-timing-function: ease-in-out;
+}
+
+.niwi-blog-switcher-animation.forward {
+  animation-name: niwi-blog-switcher-forward;
+  animation-fill-mode: forwards;
+}
+
+.niwi-blog-switcher-animation.reverse {
+  animation-name: niwi-blog-switcher-reverse;
+  animation-fill-mode: forwards;
+}
+
+@keyframes niwi-blog-switcher-forward {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes niwi-blog-switcher-reverse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

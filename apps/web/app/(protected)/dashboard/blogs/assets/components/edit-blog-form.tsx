@@ -97,7 +97,7 @@ function EditBlogForm({
         title={title || "Title will be generated from your editor..."}
         profileLink={"/dashboard"}
         profileImg={"/images/auth/profile.png"}
-        profileName={"Shawn King Shawn"}
+        profileName={"Lwin Moe Paing"}
         estimateTime={"-- minutes to "}
         date={"Jun 21, 2024"}
       />
