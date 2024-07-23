@@ -2,10 +2,10 @@
 
 import NiwiBlogDraftPublishSwitcher from "@/components/niwi-blog/niwi-blog-tools/niwi-blog-draft-publish-switch";
 import Button from "@/components/niwi-ui/button/button";
-import Link from "next/link";
-import BlogListByAuthor from "./blog-list-by-author";
 import NavbarRightPortal from "@/components/niwi-ui/navbar/navbar-right-portal";
+import Link from "next/link";
 import { useState } from "react";
+import BlogListByAuthor from "./blog-list-by-author";
 
 function BlogListLandingPage({ authorId }: { authorId: string }) {
   const [switcher, setSwitcher] = useState<"Draft" | "Publish">("Draft");
@@ -27,21 +27,25 @@ function BlogListLandingPage({ authorId }: { authorId: string }) {
 
       <div className="w-full md:max-w-[60%]">
         {switcher === "Draft" && (
-          <BlogListByAuthor
-            authorId={authorId}
-            publishStatus={false}
-            key={switcher}
-          />
+          <>
+            <BlogListByAuthor
+              authorId={authorId}
+              publishStatus={false}
+              key={switcher}
+            />
+          </>
         )}
       </div>
 
       <div className="w-full md:max-w-[60%]">
         {switcher === "Publish" && (
-          <BlogListByAuthor
-            authorId={authorId}
-            publishStatus={true}
-            key={switcher}
-          />
+          <>
+            <BlogListByAuthor
+              authorId={authorId}
+              publishStatus={true}
+              key={switcher}
+            />
+          </>
         )}
       </div>
     </>

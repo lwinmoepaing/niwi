@@ -7,6 +7,10 @@ import { Blog } from "@/types/blog-response";
 import { useInView } from "react-intersection-observer";
 import { memo, useMemo } from "react";
 import NiwiBlogDraftCard from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-draft-card";
+import {
+  NiwiBlogProfileSkeleton,
+  NiwiDraftBlogProfileSkeleton,
+} from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-skeletons";
 
 function BlogListByAuthor({
   authorId,
@@ -20,7 +24,7 @@ function BlogListByAuthor({
     // inView
   } = useInView({ threshold: 0 });
 
-  const { data } = useGetBlogsByAuthor({
+  const { data, isLoading } = useGetBlogsByAuthor({
     pageNo: 1,
     authorId,
     publishStatus,
@@ -51,6 +55,12 @@ function BlogListByAuthor({
             currentAuthId={authorId}
           />
         ))}
+        {isLoading && (
+          <>
+            <NiwiBlogProfileSkeleton />
+            <NiwiBlogProfileSkeleton />
+          </>
+        )}
         <div ref={ref} className="h-[20px]"></div>
       </section>
     );
@@ -69,6 +79,13 @@ function BlogListByAuthor({
           currentAuthId={authorId}
         />
       ))}
+      {isLoading && (
+        <>
+          <NiwiDraftBlogProfileSkeleton />
+          <NiwiDraftBlogProfileSkeleton />
+          <NiwiDraftBlogProfileSkeleton />
+        </>
+      )}
       <div ref={ref} className="h-[20px]"></div>
     </section>
   );
