@@ -9,6 +9,7 @@ import PreviewPublishModal from "./preview-publish-modal";
 import Link from "next/link";
 import config from "@/config";
 import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
+import { User } from "next-auth";
 
 function EditBlogForm({
   contentJson,
@@ -17,6 +18,9 @@ function EditBlogForm({
   publishStatus,
   slug,
   title: parentTitle,
+  currentAuth,
+  favoriteCount,
+  isFavorite,
 }: {
   contentJson: string;
   content: string;
@@ -24,6 +28,9 @@ function EditBlogForm({
   publishStatus: boolean;
   slug: string;
   title: string;
+  currentAuth?: User;
+  favoriteCount: number;
+  isFavorite: boolean;
 }) {
   const {
     onChangeValue,
@@ -98,12 +105,16 @@ function EditBlogForm({
 
       <NiwiBlogProfile
         title={title || "Title will be generated from your editor..."}
-        profileLink={"/dashboard"}
-        profileImg={"/images/auth/profile.png"}
-        profileName={"Lwin Moe Paing"}
-        estimateTime={"-- minutes to "}
+        profileLink={`/dashboard/profile/${currentAuth?.id || ""}`}
+        profileImg={currentAuth?.image || "/images/auth/profile.png"}
+        profileName={currentAuth?.name || "-"}
+        estimateTime={"estimate time to "}
         date={"Jun 21, 2024"}
         blogId={blogId}
+        favoriteCount={favoriteCount}
+        isFavorite={isFavorite}
+        currentAuthId={currentAuth?.id}
+        hideActions={!isPublished}
       />
 
       <NiwiTextEditor

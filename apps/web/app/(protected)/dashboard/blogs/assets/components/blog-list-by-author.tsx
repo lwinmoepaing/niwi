@@ -49,9 +49,7 @@ function BlogListByAuthor({
       <>
         <NiwiEmptyBlog
           title={
-            publishStatus
-              ? "You haven’t published any blogs yet."
-              : undefined
+            publishStatus ? "You haven’t published any blogs yet." : undefined
           }
         />
       </>
@@ -73,6 +71,10 @@ function BlogListByAuthor({
             currentAuthId={authorId}
             blogId={item.id}
             showSetting={true}
+            favoriteCount={item.reactions?.heart || 0}
+            isFavorite={item.userBlogReaction.some(
+              (item) => item.reaction === "HEART"
+            )}
           />
         ))}
         {isFetching ? (

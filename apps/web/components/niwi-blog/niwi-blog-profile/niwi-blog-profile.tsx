@@ -6,6 +6,8 @@ import NiwiBlogMessageIcon from "../niwi-blog-icons/niwi-blog-message-icon";
 import NiwiBlogShareIcon from "../niwi-blog-icons/niwi-blog-share-icon";
 import NiwiBookmarkIcon from "../niwi-blog-icons/niwi-bookmark-icon";
 import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
+import useBlogFavorite from "@/feats/blog/hooks/useBlogFavorite";
+import { cn } from "@/libs/utils";
 
 type NiwiBlogProfileProps = {
   title: string;
@@ -17,6 +19,9 @@ type NiwiBlogProfileProps = {
   date: string;
   blogId: string;
   showSetting?: boolean;
+  favoriteCount: number;
+  isFavorite: boolean;
+  hideActions?: boolean;
 };
 
 function NiwiBlogProfile({
@@ -28,16 +33,26 @@ function NiwiBlogProfile({
   date,
   blogId,
   showSetting,
+  favoriteCount,
+  isFavorite: parentFav,
+  hideActions,
+  currentAuthId,
 }: NiwiBlogProfileProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { favCount, favorite, onClickFavorite } = useBlogFavorite({
+    blogId,
+    isFavorite: parentFav,
+    favoriteCount,
+    currentAuthId: currentAuthId ?? "",
+  });
+
   const [isBookmark, setIsBookmark] = useState(false);
-  const [count, setCount] = useState(0);
   const [messageCount] = useState(0);
 
-  const toggleFavorite = useCallback(() => {
-    setIsFavorite((prev) => !prev);
-    setCount((prev) => (prev === 10 ? prev + 1 : prev - 1));
-  }, []);
+  // const [isFavorite, setIsFavorite] = useState(false);
+  // const toggleFavorite = useCallback(() => {
+  //   setIsFavorite((prev) => !prev);
+  //   setCount((prev) => (prev === 10 ? prev + 1 : prev - 1));
+  // }, []);
 
   const toggleBookmark = useCallback(() => {
     setIsBookmark((prev) => !prev);
@@ -67,11 +82,13 @@ function NiwiBlogProfile({
           </div>
         </div>
       </div>
-      <div className="niwi-blog-profile-actions">
+      <div
+        className={cn("niwi-blog-profile-actions", hideActions && " !hidden ")}
+      >
         <div className="niwi-blog-profile-actions-container heart-container">
-          <NiwiBlogHeartIcon isActive={isFavorite} onClick={toggleFavorite} />
-          <span className="counter" onClick={toggleFavorite}>
-            {count <= 0 ? "" : count}
+          <NiwiBlogHeartIcon isActive={favorite} onClick={onClickFavorite} />
+          <span className="counter" onClick={onClickFavorite}>
+            {favCount <= 0 ? "" : favCount}
           </span>
         </div>
         <div className="niwi-blog-profile-actions-container message-container">

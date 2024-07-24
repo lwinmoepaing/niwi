@@ -1,13 +1,14 @@
 "use client";
 
+import NiwiBlogDraftCard from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-draft-card";
 import NiwiTextEditor from "@/components/niwi-blog/niwi-text-editor/niwi-text-editor";
 import Button from "@/components/niwi-ui/button/button";
 import NavbarRightPortal from "@/components/niwi-ui/navbar/navbar-right-portal";
 import { CircleDashed } from "lucide-react";
+import { User } from "next-auth";
 import useCreateBlogForm from "../hooks/useCreateBlogForm";
-import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
 
-function CreateBlogForm({ currentAuthId }: { currentAuthId?: string }) {
+function CreateBlogForm({ currentUser }: { currentUser?: User }) {
   const { onChangeValue, handleSubmit, editorResetKey, pending, isValidForm } =
     useCreateBlogForm();
 
@@ -33,14 +34,14 @@ function CreateBlogForm({ currentAuthId }: { currentAuthId?: string }) {
         </div>
       </NavbarRightPortal>
 
-      <NiwiBlogProfile
+      <NiwiBlogDraftCard
         title={"Title will be generated when you published..."}
-        profileLink={"/dashboard"}
-        profileImg={"/images/auth/profile.png"}
-        profileName={"Lwin Moe Paing"}
-        estimateTime={"5 minutes to "}
+        profileLink={`/dashboard/profile/${currentUser?.id || ""}`}
+        profileImg={currentUser?.image || "/images/auth/profile.png"}
+        profileName={currentUser?.name || "-"}
+        estimateTime={"estimate time to "}
         date={"Jun 21, 2024"}
-        currentAuthId={currentAuthId}
+        currentAuthId={currentUser?.id}
         blogId={""}
       />
 

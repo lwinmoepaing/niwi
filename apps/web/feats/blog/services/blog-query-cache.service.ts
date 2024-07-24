@@ -143,3 +143,73 @@ export const deleteBlogQueryCacheUpdate = (data: SingleBlog) => {
     }
   });
 };
+
+type favBlogCacheProps = {
+  blogId: string;
+  userId: string;
+  count: number;
+  isFavorite: boolean;
+};
+
+const updateFnForFavoriteBlog = (
+  data: favBlogCacheProps,
+  pages: BlogsByAuthorResponse[]
+): BlogsByAuthorResponse[] => {
+  return pages.reduce((prev, page) => {
+    page.data = page.data.map((item) => {
+      const condition = item.id === data.blogId;
+
+      console.log({ condition, data, reactions: item.reactions });
+
+      if (condition && item.reactions) {
+        item.reactions = { ...item.reactions, heart: data.count };
+      }
+
+      console.log({ updated: item.reactions });
+
+      if (condition && item.userBlogReaction) {
+        item.userBlogReaction = data.isFavorite
+          ? item.userBlogReaction.reduce(
+              (prev, next) => [...prev, next],
+              [
+                {
+                  reaction: "HEART",
+                  userId: data.userId,
+                  blogId: data.blogId,
+                },
+              ]
+            )
+          : item.userBlogReaction.filter((item) => item.reaction !== "HEART");
+
+        console.log(item.userBlogReaction);
+      }
+
+      return item;
+    });
+
+    return [...prev, page];
+  }, [] as BlogsByAuthorResponse[]);
+};
+
+export const updateFavoriteBlogQueryCacheUpdate = (
+  cacheProp: favBlogCacheProps
+) => {
+  console.log("Updating Cache");
+  const keys = getAllKeys(cacheProp.userId);
+
+  keys.forEach((key) => {
+    const exisitingCache = queryClient.getQueryData(key);
+
+    if (exisitingCache) {
+      queryClient.setQueryData(
+        key,
+        (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
+          return {
+            ...oldData,
+            pages: updateFnForFavoriteBlog(cacheProp, oldData.pages),
+          };
+        }
+      );
+    }
+  });
+};

@@ -225,7 +225,7 @@
   background-color: var(--niwi-blog-profile-bg-color);
   position: relative;
   border-radius: 20px;
-  padding: 20px;
+  padding: 20px 20px 30px;
 }
 
 .dark .niwi-blog-profile-container {

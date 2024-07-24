@@ -6,7 +6,7 @@ import {
   responseSuccess,
 } from "@/libs/response/response-helper";
 import { nanoid } from "nanoid";
-import { Blog } from "@/types/blog-response";
+import { Blog, SingleBlog } from "@/types/blog-response";
 
 const getUserSelectRelation = (userId: string) =>
   ({
@@ -94,10 +94,16 @@ export const createBlog = async (blogProps: CreateBlogProps) => {
   }
 };
 
-export const getBlogById = async (id: string) => {
+export const getBlogById = async (id: string, userId?: string) => {
   try {
-    const blog = await prismaClient.blog.findUnique({ where: { id } });
-    return responseSuccess(`Successfully fetched blog by ${id}`, blog);
+    const blog = await prismaClient.blog.findUnique({
+      where: { id },
+      include: userId ? getUserSelectRelation(userId) : undefined,
+    });
+    return responseSuccess(
+      `Successfully fetched blog by ${id}`,
+      blog as Blog | SingleBlog
+    );
   } catch (e) {
     return responseError((e as Error).message);
   }
