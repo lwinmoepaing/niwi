@@ -16,12 +16,14 @@ function EditBlogForm({
   blogId,
   publishStatus,
   slug,
+  title: parentTitle,
 }: {
   contentJson: string;
   content: string;
   blogId: string;
   publishStatus: boolean;
   slug: string;
+  title: string;
 }) {
   const {
     onChangeValue,
@@ -43,6 +45,7 @@ function EditBlogForm({
     blogId,
     publishStatus,
     slug,
+    title: parentTitle,
   });
 
   return (
@@ -100,6 +103,7 @@ function EditBlogForm({
         profileName={"Lwin Moe Paing"}
         estimateTime={"-- minutes to "}
         date={"Jun 21, 2024"}
+        blogId={blogId}
       />
 
       <NiwiTextEditor

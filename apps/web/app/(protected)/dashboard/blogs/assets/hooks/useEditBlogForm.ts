@@ -1,4 +1,5 @@
 import { saveBlogAction } from "@/feats/blog/actions/blog.action";
+import { updateBlogQueryCacheUpdate } from "@/feats/blog/services/blog-query-cache.service";
 import {
   SaveBlogFormValues,
   saveBlogSchema,
@@ -22,12 +23,14 @@ const useEditBlogForm = ({
   content,
   publishStatus,
   slug,
+  title: parentTitle,
 }: {
   blogId: string;
   contentJson: string;
   content: string;
   publishStatus: boolean;
   slug: string;
+  title: string;
 }) => {
   const [editorResetKey] = useState(() => nanoid());
 
@@ -40,7 +43,9 @@ const useEditBlogForm = ({
 
   // Editor Text
   const [plainText, setPlainText] = useState("");
-  const [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>(
+    parentTitle === "-" ? "" : parentTitle
+  );
   const [subTitle, setSubTitle] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);
   const [slugName, setSlugName] = useState<string>(slug);
@@ -55,6 +60,7 @@ const useEditBlogForm = ({
     mode: "onSubmit",
     resolver: zodResolver(saveBlogSchema),
     defaultValues: {
+      title: "-",
       blogId,
       content,
       contentJson,
@@ -63,9 +69,11 @@ const useEditBlogForm = ({
 
   const submit = useCallback(
     async (values: SaveBlogFormValues) => {
-      dispatchSaveBlog(values);
+      console.log({ title });
+
+      dispatchSaveBlog({ ...values, title });
     },
-    [dispatchSaveBlog]
+    [dispatchSaveBlog, title]
   );
 
   useEffect(() => {
@@ -81,6 +89,8 @@ const useEditBlogForm = ({
           },
           { keepDefaultValues: false }
         );
+
+        updateBlogQueryCacheUpdate(saveBlogResponse.data);
 
         setIsPublished(saveBlogResponse.data.isPublished);
       }
@@ -100,6 +110,7 @@ const useEditBlogForm = ({
       setValue("contentJson", json, { shouldDirty: true });
 
       const [getTitle, getSubTitle, imageList] = getExtractNodeFromEditor(json);
+      // setValue("title", getTitle?.trim(), { shouldDirty: true });
       setTitle(getTitle?.trim());
       setSubTitle(getSubTitle?.trim());
       setImages(imageList);

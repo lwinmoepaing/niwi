@@ -15,6 +15,8 @@ type NiwiBlogProfileProps = {
   estimateTime: string;
   currentAuthId?: string;
   date: string;
+  blogId: string;
+  showSetting?: boolean;
 };
 
 function NiwiBlogProfile({
@@ -24,6 +26,8 @@ function NiwiBlogProfile({
   profileLink,
   estimateTime,
   date,
+  blogId,
+  showSetting,
 }: NiwiBlogProfileProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBookmark, setIsBookmark] = useState(false);
@@ -41,7 +45,11 @@ function NiwiBlogProfile({
 
   return (
     <section className="niwi-blog-profile-container">
-      <h1 className="niwi-blog-profile-header">{title}</h1>
+      <h1 className="niwi-blog-profile-header">
+        <Link href={`/dashboard/blogs/${blogId}`} className="link">
+          {!title || title === "-" ? "Untitled Blog" : title}
+        </Link>
+      </h1>
       <div className="niwi-blog-profile-row">
         <Link href={profileLink}>
           <div className="niwi-blog-profile-image">
@@ -79,7 +87,7 @@ function NiwiBlogProfile({
           <NiwiBlogShareIcon onClick={() => {}} />
         </div>
       </div>
-      <NiwiBlogSettingMenu />
+      {!showSetting ? null : <NiwiBlogSettingMenu blogId={blogId} />}
     </section>
   );
 }

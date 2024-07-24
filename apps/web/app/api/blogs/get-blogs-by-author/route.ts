@@ -51,6 +51,9 @@ export async function GET(req: Request) {
         userId: data.authorId,
         isPublished: data.publishStatus,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         user: {
           select: {

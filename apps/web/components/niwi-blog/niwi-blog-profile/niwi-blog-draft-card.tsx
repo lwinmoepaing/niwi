@@ -10,6 +10,8 @@ type NiwiBlogDraftCardProps = {
   estimateTime: string;
   currentAuthId?: string;
   date: string;
+  blogId: string;
+  showSetting?: boolean;
 };
 
 function NiwiBlogDraftCard({
@@ -19,11 +21,15 @@ function NiwiBlogDraftCard({
   profileLink,
   estimateTime,
   date,
+  blogId,
+  showSetting,
 }: NiwiBlogDraftCardProps) {
   return (
     <section className="niwi-blog-profile-container">
       <h1 className="niwi-blog-profile-header">
-        {!title || title === "-" ? "Untitled Blog" : title}
+        <Link href={`/dashboard/blogs/${blogId}`} className="link">
+          {!title || title === "-" ? "Untitled Blog" : title}
+        </Link>
       </h1>
       <div className="niwi-blog-profile-row">
         <Link href={profileLink}>
@@ -42,7 +48,7 @@ function NiwiBlogDraftCard({
           </div>
         </div>
       </div>
-      <NiwiBlogSettingMenu />
+      {!showSetting ? null : <NiwiBlogSettingMenu blogId={blogId} />}
     </section>
   );
 }

@@ -2,9 +2,14 @@
 
 import { cn } from "@/libs/utils";
 import { Delete, Edit } from "lucide-react";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-function NiwiBlogSettingMenu() {
+type NiwiBlogSettingMenuProps = {
+  blogId: string;
+};
+
+function NiwiBlogSettingMenu({ blogId }: NiwiBlogSettingMenuProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const [active, setActive] = useState(false);
@@ -40,7 +45,11 @@ function NiwiBlogSettingMenu() {
       <div className={cn("menu", active && "active")}>
         <button type="button" className="">
           <Edit size={14} className="icon" />
-          <span className="button-text">Edit Blog</span>
+          <Link href={`/dashboard/blogs/${blogId}`} className="button-text">
+            Edit Blog
+          </Link>
+
+          {/* <span className="button-text">Edit Blog</span> */}
         </button>
         <button type="button" className="">
           <Delete size={14} className="icon" />

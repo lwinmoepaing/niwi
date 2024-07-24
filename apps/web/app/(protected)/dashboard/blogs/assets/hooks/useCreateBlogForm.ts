@@ -24,7 +24,7 @@ const defaultValues = {
   contentJson: "",
 };
 
-const useCreateBlogForm = ({ currentAuthId }: { currentAuthId?: string }) => {
+const useCreateBlogForm = () => {
   const router = useRouter();
 
   const [editorResetKey, setEditorResetKey] = useState(() => nanoid());
@@ -62,7 +62,7 @@ const useCreateBlogForm = ({ currentAuthId }: { currentAuthId?: string }) => {
       if (newBlog) {
         const blogId = createBlogResponse.data?.newBlog?.id;
 
-        if (currentAuthId) createBlogCacheUpdate(newBlog, currentAuthId);
+        createBlogCacheUpdate(newBlog);
 
         router.push(`/dashboard/blogs/${blogId}`);
       }

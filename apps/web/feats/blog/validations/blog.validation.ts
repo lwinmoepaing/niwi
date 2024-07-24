@@ -9,6 +9,7 @@ export const createBlogSchema = z.object({
 export type CreateBlogFormValues = z.infer<typeof createBlogSchema>;
 
 export const saveBlogSchema = z.object({
+  title: z.string().min(1, "Title is required"),
   blogId: z.string().min(1, "BlogID is required"),
   content: z.string().min(1, "Content is required"),
   contentJson: z.string().min(1, "Content's JSON is required"),

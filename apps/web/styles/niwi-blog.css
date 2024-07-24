@@ -236,6 +236,19 @@
 .niwi-blog-profile-header {
   font-size: 24px;
   margin-bottom: 1rem;
+  padding-right: 40px;
+  transition: all 0.2s ease-in-out;
+}
+
+.niwi-blog-profile-header .link {
+  cursor: pointer;
+}
+
+.niwi-blog-profile-header .link:hover {
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to right, #f43f5e, #7e22ce, #60a5fa);
+  display: inline-block;
 }
 
 .niwi-blog-profile-row {

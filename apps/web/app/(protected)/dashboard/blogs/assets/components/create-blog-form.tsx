@@ -9,7 +9,7 @@ import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-
 
 function CreateBlogForm({ currentAuthId }: { currentAuthId?: string }) {
   const { onChangeValue, handleSubmit, editorResetKey, pending, isValidForm } =
-    useCreateBlogForm({ currentAuthId });
+    useCreateBlogForm();
 
   return (
     <>
@@ -41,6 +41,7 @@ function CreateBlogForm({ currentAuthId }: { currentAuthId?: string }) {
         estimateTime={"5 minutes to "}
         date={"Jun 21, 2024"}
         currentAuthId={currentAuthId}
+        blogId={""}
       />
 
       <NiwiTextEditor onChangeValue={onChangeValue} key={editorResetKey} />

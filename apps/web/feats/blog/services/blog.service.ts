@@ -8,6 +8,34 @@ import {
 import { nanoid } from "nanoid";
 import { Blog } from "@/types/blog-response";
 
+const getUserSelectRelation = (userId: string) =>
+  ({
+    user: {
+      select: {
+        id: true,
+        name: true,
+        image: true,
+      },
+    },
+    reactions: {
+      select: {
+        heart: true,
+        thumbsUp: true,
+        thumbsDown: true,
+      },
+    },
+    userBlogReaction: {
+      where: {
+        userId: userId,
+      },
+      select: {
+        reaction: true,
+        userId: true,
+        blogId: true,
+      },
+    },
+  }) as const;
+
 type CreateBlogProps = {
   title: string;
   content: string;
@@ -49,32 +77,7 @@ export const createBlog = async (blogProps: CreateBlogProps) => {
             id: newBlog.id,
           },
 
-          include: {
-            user: {
-              select: {
-                id: true,
-                name: true,
-                image: true,
-              },
-            },
-            reactions: {
-              select: {
-                heart: true,
-                thumbsUp: true,
-                thumbsDown: true,
-              },
-            },
-            userBlogReaction: {
-              where: {
-                userId: userId,
-              },
-              select: {
-                reaction: true,
-                userId: true,
-                blogId: true,
-              },
-            },
-          },
+          include: getUserSelectRelation(userId),
         });
 
         return [blogWithRelations, newBlogReactions];
@@ -136,6 +139,7 @@ export const searchSimilarBySlug = async (slug: string) => {
 };
 
 type SaveBlogProps = {
+  title: string;
   blogId: string;
   content: string;
   contentJson: string;
@@ -143,7 +147,7 @@ type SaveBlogProps = {
 };
 
 export const saveBlog = async (blogProps: SaveBlogProps) => {
-  const { blogId, content, contentJson, userId } = blogProps;
+  const { blogId, content, contentJson, userId, title } = blogProps;
 
   try {
     const { success, data: blog } = await getBlogById(blogId);
@@ -153,12 +157,14 @@ export const saveBlog = async (blogProps: SaveBlogProps) => {
     if (blog.userId !== userId)
       return responseError("User has no permission to update");
 
-    const updatedBlog = await prismaClient.blog.update({
+    const updatedBlog: Blog = await prismaClient.blog.update({
       where: { id: blogId },
       data: {
+        title,
         content,
         contentJson,
       },
+      include: getUserSelectRelation(userId),
     });
 
     return responseSuccess("Successfully save blog", updatedBlog);
@@ -191,8 +197,9 @@ export const publishBlog = async (blogProps: PublishBlogProps) => {
       await getBlogBySlug(slug);
 
     if (!isSlugFound || !blogBySlug || blogBySlug.id === blogId) {
-      const updatedBlog = await prismaClient.blog.update({
+      const updatedBlog: Blog = await prismaClient.blog.update({
         where: { id: blogId },
+        include: getUserSelectRelation(userId),
         data: {
           title,
           slug,

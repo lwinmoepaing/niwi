@@ -1,4 +1,5 @@
 import { publishBlogAction } from "@/feats/blog/actions/blog.action";
+import { publishBlogQueryCacheUpdate } from "@/feats/blog/services/blog-query-cache.service";
 import {
   PublishBlogFormValues,
   publishBlogSchema,
@@ -104,6 +105,10 @@ const usePreviewPublishForm = ({
     if (publishResponse?.success === true) {
       toast.success(publishResponse.message);
       onSuccess?.(form.getValues("slug"));
+
+      if (publishResponse.data) {
+        publishBlogQueryCacheUpdate(publishResponse.data);
+      }
       return;
     }
 

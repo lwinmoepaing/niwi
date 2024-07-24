@@ -2,15 +2,15 @@
 
 import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
 
-import { useGetBlogsByAuthor } from "@/feats/blog/api/get-blogs-by-author";
-import { Blog } from "@/types/blog-response";
-import { useInView } from "react-intersection-observer";
-import { memo, useMemo } from "react";
 import NiwiBlogDraftCard from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-draft-card";
 import {
   NiwiBlogProfileSkeleton,
   NiwiDraftBlogProfileSkeleton,
 } from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-skeletons";
+import { useGetBlogsByAuthor } from "@/feats/blog/api/get-blogs-by-author";
+import { Blog } from "@/types/blog-response";
+import { memo, useEffect, useMemo } from "react";
+import { useInView } from "react-intersection-observer";
 
 function BlogListByAuthor({
   authorId,
@@ -19,16 +19,19 @@ function BlogListByAuthor({
   authorId: string;
   publishStatus: boolean;
 }) {
-  const {
-    ref,
-    // inView
-  } = useInView({ threshold: 0 });
+  const { ref, inView } = useInView({ threshold: 0 });
 
-  const { data, isLoading } = useGetBlogsByAuthor({
+  const { data, isFetching, fetchNextPage, hasNextPage } = useGetBlogsByAuthor({
     pageNo: 1,
     authorId,
     publishStatus,
   });
+
+  useEffect(() => {
+    if (inView && !isFetching && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, isFetching, hasNextPage]);
 
   const blogList = useMemo<Blog[]>(() => {
     if (!data?.pages) return [];
@@ -53,15 +56,18 @@ function BlogListByAuthor({
             estimateTime={"5 minutes to "}
             date={"Jun 21, 2024"}
             currentAuthId={authorId}
+            blogId={item.id}
+            showSetting={true}
           />
         ))}
-        {isLoading && (
+        {isFetching ? (
           <>
             <NiwiBlogProfileSkeleton />
             <NiwiBlogProfileSkeleton />
           </>
+        ) : (
+          <div ref={ref} className="h-[20px]"></div>
         )}
-        <div ref={ref} className="h-[20px]"></div>
       </section>
     );
   }
@@ -78,16 +84,18 @@ function BlogListByAuthor({
           estimateTime={"5 minutes to "}
           date={"Jun 21, 2024"}
           currentAuthId={authorId}
+          blogId={item.id}
+          showSetting={true}
         />
       ))}
-      {isLoading && (
+      {isFetching ? (
         <>
           <NiwiDraftBlogProfileSkeleton />
           <NiwiDraftBlogProfileSkeleton />
-          <NiwiDraftBlogProfileSkeleton />
         </>
+      ) : (
+        <div ref={ref} className="h-[20px]"></div>
       )}
-      <div ref={ref} className="h-[20px]"></div>
     </section>
   );
 }
