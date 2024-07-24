@@ -11,6 +11,7 @@ import { useGetBlogsByAuthor } from "@/feats/blog/api/get-blogs-by-author";
 import { Blog } from "@/types/blog-response";
 import { memo, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
+import NiwiEmptyBlog from "@/components/niwi-blog/niwi-blog-profile/niwi-empty-blog";
 
 function BlogListByAuthor({
   authorId,
@@ -42,6 +43,20 @@ function BlogListByAuthor({
 
     return items;
   }, [data?.pages]);
+
+  if (!isFetching && blogList.length <= 0) {
+    return (
+      <>
+        <NiwiEmptyBlog
+          title={
+            publishStatus
+              ? "You haven’t published any blogs yet."
+              : undefined
+          }
+        />
+      </>
+    );
+  }
 
   if (publishStatus) {
     return (
