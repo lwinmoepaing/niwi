@@ -30,6 +30,8 @@ export const useGetBlogsByAuthor = ({
 }: GetBlogByAuthorIdProps) => {
   // Using useInfiniteQuery to handle paginated queries
   return useInfiniteQuery({
+    structuralSharing: (oldData, newData) =>
+      oldData === newData ? oldData : newData,
     initialPageParam: 1,
     queryKey: ["get-blogs-by-author", authorId, publishStatus],
     queryFn: ({ pageParam = 0 }) =>

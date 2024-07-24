@@ -1,5 +1,5 @@
 import { queryClient } from "@/libs/api/react-query";
-import { Blog, BlogsByAuthorResponse } from "@/types/blog-response";
+import { Blog, BlogsByAuthorResponse, SingleBlog } from "@/types/blog-response";
 import { InfiniteData } from "@tanstack/react-query";
 
 const getAuthorUnPublishedBlogQueryKey = (authorId: string) => {
@@ -7,6 +7,13 @@ const getAuthorUnPublishedBlogQueryKey = (authorId: string) => {
 };
 const getAuthorPublishedBlogQueryKey = (authorId: string) => {
   return ["get-blogs-by-author", authorId, true];
+};
+
+const getAllKeys = (authorId: string) => {
+  return [
+    getAuthorUnPublishedBlogQueryKey(authorId),
+    getAuthorPublishedBlogQueryKey(authorId),
+  ];
 };
 
 export const createBlogCacheUpdate = (data: Blog) => {
@@ -48,15 +55,12 @@ const updateFnForSavingBlog = (
 };
 
 export const updateBlogQueryCacheUpdate = (data: Blog) => {
-  const authorUnPublishKey = getAuthorUnPublishedBlogQueryKey(data.user.id);
-  const authorPublishKey = getAuthorPublishedBlogQueryKey(data.user.id);
-  const keys = [authorUnPublishKey, authorPublishKey];
+  const keys = getAllKeys(data.user.id);
 
   keys.forEach((key) => {
     const exisitingCache = queryClient.getQueryData(key);
 
     if (exisitingCache) {
-      // This ensures that only the specific pages data is updated.
       queryClient.setQueryData(
         key,
         (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -71,12 +75,13 @@ export const updateBlogQueryCacheUpdate = (data: Blog) => {
 };
 
 const updateFnForRemovingBlog = (
-  data: Blog,
+  data: Blog | SingleBlog,
   pages: BlogsByAuthorResponse[]
 ): BlogsByAuthorResponse[] => {
   return pages.reduce((prev, page) => {
     page.data = page.data.filter((item) => {
-      return item.id !== data.id;
+      const condition = item.id !== data.id;
+      return condition;
     });
 
     return [...prev, page];
@@ -117,4 +122,24 @@ export const publishBlogQueryCacheUpdate = (data: Blog) => {
       }
     );
   }
+};
+
+export const deleteBlogQueryCacheUpdate = (data: SingleBlog) => {
+  const keys = getAllKeys(data.userId);
+
+  keys.forEach((key) => {
+    const exisitingCache = queryClient.getQueryData(key);
+
+    if (exisitingCache) {
+      queryClient.setQueryData(
+        key,
+        (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
+          return {
+            ...oldData,
+            pages: updateFnForRemovingBlog(data, oldData.pages),
+          };
+        }
+      );
+    }
+  });
 };

@@ -11,6 +11,20 @@ export interface BlogsByAuthorResponse {
   meta: Meta;
 }
 
+export interface SingleBlog {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  contentJson: string;
+  isPublished: boolean;
+  previewImage: string | null;
+  userId: string;
+  reactionsId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface Blog {
   id: string;
   slug: string;

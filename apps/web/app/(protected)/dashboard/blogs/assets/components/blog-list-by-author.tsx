@@ -41,7 +41,7 @@ function BlogListByAuthor({
     }, [] as Blog[]);
 
     return items;
-  }, [data]);
+  }, [data?.pages]);
 
   if (publishStatus) {
     return (

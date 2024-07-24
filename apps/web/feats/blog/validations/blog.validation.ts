@@ -51,3 +51,9 @@ export const blogByAuthPaginationSchema = z.object({
   authorId: z.string().min(1, "Author ID is required"),
   publishStatus: z.boolean(),
 });
+
+export const deleteBlogByIdSchema = z.object({
+  blogId: z.string().min(1, "BlogID is required"),
+});
+
+export type DeleteBlogFormValues = z.infer<typeof deleteBlogByIdSchema>;

@@ -8,6 +8,7 @@ import {
 import { revalidatePath } from "next/cache";
 import {
   createBlog,
+  deleteBlog,
   publishBlog,
   saveBlog,
   updateFavoriteBlog,
@@ -15,6 +16,8 @@ import {
 import {
   CreateBlogFormValues,
   createBlogSchema,
+  deleteBlogByIdSchema,
+  DeleteBlogFormValues,
   FavoriteBlogFormValues,
   favoriteBlogSchema,
   PublishBlogFormValues,
@@ -106,7 +109,10 @@ export const publishBlogAction = async (
 
     revalidatePath("/dashboard/blogs/" + data.blogId);
 
-    return responseSuccess("Successfully saved your blog.", publishedBlog.data);
+    return responseSuccess(
+      "Successfully published your blog.",
+      publishedBlog.data
+    );
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);
@@ -141,6 +147,39 @@ export const favoriteBlogAction = async (
     }
 
     return responseError(updateStatus.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
+  }
+};
+
+export const deleteBlogAction = async (
+  _currentState: unknown,
+  blogData: DeleteBlogFormValues
+) => {
+  try {
+    const { error, data } = deleteBlogByIdSchema.safeParse(blogData);
+    if (error) {
+      return responseError(error.message, error.format());
+    }
+
+    const session = await auth();
+    if (!session?.user?.id) return responseError("No authentication data");
+
+    const deletedItem = await deleteBlog({
+      blogId: data.blogId,
+      userId: session.user.id,
+    });
+
+    if (deletedItem.success && deletedItem.data) {
+      return responseSuccess(
+        "Successfully deleted the blog.",
+        deletedItem.data
+      );
+    }
+
+    return responseError(deletedItem.message);
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);

@@ -286,3 +286,44 @@ export const updateFavoriteBlog = async (
     return responseError("Failed to favorite (or) unfavorite blog");
   }
 };
+
+type DeleteBlogProps = {
+  blogId: string;
+  userId: string;
+};
+
+export const deleteBlog = async (blogProps: DeleteBlogProps) => {
+  const { blogId, userId } = blogProps;
+
+  try {
+    const { success, data: blog } = await getBlogById(blogId);
+
+    if (!success || !blog) return responseError("Blog not found");
+
+    if (blog.userId !== userId)
+      return responseError("User has no permission to update");
+
+    const removedBlog = await prismaClient.$transaction(async (prisma) => {
+      await prisma.blogComment.deleteMany({
+        where: {
+          blogId: blogId,
+        },
+      });
+
+      const deletedBlog = await prisma.blog.delete({ where: { id: blogId } });
+
+      if (deletedBlog) {
+        await prisma.blogReactions.delete({
+          where: { id: deletedBlog.reactionsId },
+        });
+      }
+
+      return deletedBlog;
+    });
+
+    return responseSuccess("Blog is successfully deleted", removedBlog);
+  } catch (error) {
+    console.error("Transaction failed: ", error);
+    return responseError("Failed to publish blog");
+  }
+};
