@@ -316,6 +316,12 @@ export const deleteBlog = async (blogProps: DeleteBlogProps) => {
         },
       });
 
+      await prisma.userBlogReaction.deleteMany({
+        where: {
+          blogId,
+        },
+      });
+
       const deletedBlog = await prisma.blog.delete({ where: { id: blogId } });
 
       if (deletedBlog) {

@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Fri Jul 19 2024 19:30:38 GMT+0700 (Indochina Time)✨
+//🧩Don't Edit this file.✨Generated in Thu Jul 25 2024 23:54:43 GMT+0700 (Indochina Time)✨
 
 datasource db {
   provider = "mongodb"
@@ -19,6 +19,7 @@ model Blog {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
   slug         String  @unique
   title        String
+  subTitle     String?
   content      String
   contentJson  String
   isPublished  Boolean @default(false)
