@@ -9,6 +9,7 @@ import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
 import useBlogFavorite from "@/feats/blog/hooks/useBlogFavorite";
 import { cn } from "@/libs/utils";
 import NiwiBlogCommentsModal from "../niwi-blog-comments/niwi-blog-comments-modal";
+import { User } from "next-auth";
 
 type NiwiBlogProfileProps = {
   title: string;
@@ -16,13 +17,14 @@ type NiwiBlogProfileProps = {
   profileName: string;
   profileLink: string;
   estimateTime: string;
-  currentAuthId?: string;
   date: string;
   blogId: string;
+  blogAuthorId: string;
   showSetting?: boolean;
   favoriteCount: number;
   isFavorite: boolean;
   hideActions?: boolean;
+  currentAuth?: User;
 };
 
 function NiwiBlogProfile({
@@ -33,18 +35,19 @@ function NiwiBlogProfile({
   estimateTime,
   date,
   blogId,
+  blogAuthorId,
   showSetting,
   favoriteCount,
   isFavorite: parentFav,
   hideActions,
-  currentAuthId,
+  currentAuth,
 }: NiwiBlogProfileProps) {
   // Favorites (HeartIcon)
   const { favCount, favorite, onClickFavorite } = useBlogFavorite({
     blogId,
     isFavorite: parentFav,
     favoriteCount,
-    currentAuthId: currentAuthId ?? "",
+    currentAuthId: currentAuth?.id ?? "",
   });
 
   // Comments
@@ -109,9 +112,11 @@ function NiwiBlogProfile({
 
       {!isShowComment ? null : (
         <NiwiBlogCommentsModal
-          show={isShowComment}
           blogId={blogId}
+          blogAuthorId={blogAuthorId}
+          show={isShowComment}
           onClose={hideToShowCmt}
+          authUser={currentAuth}
         />
       )}
     </section>

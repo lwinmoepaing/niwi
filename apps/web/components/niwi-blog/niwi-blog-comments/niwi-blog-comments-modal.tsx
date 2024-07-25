@@ -3,46 +3,23 @@ import ModalCrossIcon from "@/components/niwi-ui/button/modal-cross-button";
 import NiwiOverlayPortal from "@/components/niwi-ui/overlay/niwi-overlay-portal";
 import { cn } from "@/libs/utils";
 import { memo, MouseEvent, useCallback } from "react";
-import NiwiBlogCommentSettingMenu from "./niwi-blog-comment-setting-menu";
-
-const NiwiComment = () => {
-  return (
-    <section className="niwi-blog-comment-item">
-      <div className="profile-section-container">
-        <div className="img-container"></div>
-        <div className="text-container">
-          <div className="pf-text">Lwin Moe Paing</div>
-          <div className="date-text">7 days ago</div>
-        </div>
-      </div>
-      <div className="message-text">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Et temporibus
-        </p>
-      </div>
-      <NiwiBlogCommentSettingMenu
-        commentId={""}
-        blogId={""}
-        onClickEdit={() => {}}
-      />
-    </section>
-  );
-};
+import NiwiBlogComment from "./niwi-blog-comment";
+import { User } from "next-auth";
 
 type NiwiBlogCommentsModalProps = {
   show: boolean;
   blogId: string;
-  currentAuthId?: string;
+  blogAuthorId: string;
+  authUser?: User;
   onClose: () => void;
 };
 
 function NiwiBlogCommentsModal({
+  blogAuthorId,
   show,
-  blogId,
   onClose,
+  authUser,
 }: NiwiBlogCommentsModalProps) {
-  console.log(blogId);
-
   const stopPropagation = useCallback(
     (e: MouseEvent<HTMLDivElement>) => e.stopPropagation(),
     []
@@ -51,27 +28,23 @@ function NiwiBlogCommentsModal({
   return (
     <NiwiOverlayPortal show={show}>
       <div className={cn("niwi-overlay", show && "active")} onClick={onClose}>
-        <div className="overflow-y-auto h-svh py-[16px]">
+        <div className="overflow-y-auto h-svh py-[16px] px-[20px]">
           <div className="niwi-blog-comments-modal" onClick={stopPropagation}>
             <ModalCrossIcon onClick={onClose} />
             <div className="niwi-blog-comment-item-container">
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
-              <NiwiComment />
+              <NiwiBlogComment
+                blogId={"1"}
+                blogAuthorId={blogAuthorId}
+                commentId={blogAuthorId}
+                commentContent="Lorem Ipsum Lorem Ipsum"
+                commentAuthorId={blogAuthorId}
+                commentAuthorImage={"/images/auth/profile.png"}
+                commentAuthorName={"Lwin"}
+                commentCreatedTime={"7 days ago"}
+                currentUser={authUser}
+                isEditMode={true}
+                onSave={() => {}}
+              />
             </div>
           </div>
         </div>

@@ -6,6 +6,11 @@ async function BlogsLandingPage() {
   const session = await auth();
   if (!session?.user?.id) return notFound();
 
-  return <BlogListLandingPage authorId={session.user.id} />;
+  return (
+    <BlogListLandingPage
+      authorId={session.user.id}
+      currentAuth={session?.user}
+    />
+  );
 }
 export default BlogsLandingPage;

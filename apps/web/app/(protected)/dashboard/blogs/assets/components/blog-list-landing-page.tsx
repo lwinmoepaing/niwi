@@ -6,8 +6,15 @@ import NavbarRightPortal from "@/components/niwi-ui/navbar/navbar-right-portal";
 import Link from "next/link";
 import { useState } from "react";
 import BlogListByAuthor from "./blog-list-by-author";
+import { User } from "next-auth";
 
-function BlogListLandingPage({ authorId }: { authorId: string }) {
+function BlogListLandingPage({
+  authorId,
+  currentAuth,
+}: {
+  authorId: string;
+  currentAuth?: User;
+}) {
   const [switcher, setSwitcher] = useState<"Draft" | "Publish">("Draft");
 
   return (
@@ -32,6 +39,7 @@ function BlogListLandingPage({ authorId }: { authorId: string }) {
               authorId={authorId}
               publishStatus={false}
               key={switcher}
+              currentAuth={currentAuth}
             />
           </>
         )}
@@ -44,6 +52,7 @@ function BlogListLandingPage({ authorId }: { authorId: string }) {
               authorId={authorId}
               publishStatus={true}
               key={switcher}
+              currentAuth={currentAuth}
             />
           </>
         )}

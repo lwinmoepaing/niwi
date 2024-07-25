@@ -12,13 +12,16 @@ import { Blog } from "@/types/blog-response";
 import { memo, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import NiwiEmptyBlog from "@/components/niwi-blog/niwi-blog-profile/niwi-empty-blog";
+import { User } from "next-auth";
 
 function BlogListByAuthor({
   authorId,
   publishStatus,
+  currentAuth,
 }: {
   authorId: string;
   publishStatus: boolean;
+  currentAuth?: User;
 }) {
   const { ref, inView } = useInView({ threshold: 0 });
 
@@ -68,8 +71,9 @@ function BlogListByAuthor({
             profileName={item.user.name}
             estimateTime={"5 minutes to "}
             date={"Jun 21, 2024"}
-            currentAuthId={authorId}
             blogId={item.id}
+            blogAuthorId={item.user.id}
+            currentAuth={currentAuth}
             showSetting={true}
             favoriteCount={item.reactions?.heart || 0}
             isFavorite={item.userBlogReaction.some(
@@ -100,7 +104,7 @@ function BlogListByAuthor({
           profileName={item.user.name}
           estimateTime={"5 minutes to "}
           date={"Jun 21, 2024"}
-          currentAuthId={authorId}
+          currentAuthId={currentAuth?.id}
           blogId={item.id}
           showSetting={true}
         />
