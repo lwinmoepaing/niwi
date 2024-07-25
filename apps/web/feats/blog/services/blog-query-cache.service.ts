@@ -159,13 +159,9 @@ const updateFnForFavoriteBlog = (
     page.data = page.data.map((item) => {
       const condition = item.id === data.blogId;
 
-      console.log({ condition, data, reactions: item.reactions });
-
       if (condition && item.reactions) {
         item.reactions = { ...item.reactions, heart: data.count };
       }
-
-      console.log({ updated: item.reactions });
 
       if (condition && item.userBlogReaction) {
         item.userBlogReaction = data.isFavorite
@@ -180,8 +176,6 @@ const updateFnForFavoriteBlog = (
               ]
             )
           : item.userBlogReaction.filter((item) => item.reaction !== "HEART");
-
-        console.log(item.userBlogReaction);
       }
 
       return item;
@@ -194,7 +188,6 @@ const updateFnForFavoriteBlog = (
 export const updateFavoriteBlogQueryCacheUpdate = (
   cacheProp: favBlogCacheProps
 ) => {
-  console.log("Updating Cache");
   const keys = getAllKeys(cacheProp.userId);
 
   keys.forEach((key) => {

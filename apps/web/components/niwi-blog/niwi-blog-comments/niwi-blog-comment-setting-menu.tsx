@@ -1,28 +1,27 @@
 "use client";
 
-import useDeleteBlogForm from "@/app/(protected)/dashboard/blogs/assets/hooks/useDeletedBlogForm";
-import Button from "@/components/niwi-ui/button/button";
-import ModalCrossIcon from "@/components/niwi-ui/button/modal-cross-button";
-import NiwiOverlayPortal from "@/components/niwi-ui/overlay/niwi-overlay-portal";
 import { cn } from "@/libs/utils";
-import { CircleDashed, FilePenLine, X } from "lucide-react";
-import Link from "next/link";
+import { FilePenLine, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type NiwiBlogSettingMenuProps = {
+type NiwiBlogCommentSettingMenuProps = {
+  commentId: string;
   blogId: string;
+  onClickEdit: () => void;
 };
 
-function NiwiBlogSettingMenu({ blogId }: NiwiBlogSettingMenuProps) {
+function NiwiBlogCommentSettingMenu({
+  onClickEdit,
+}: NiwiBlogCommentSettingMenuProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  const {
-    pending,
-    handleSubmit,
-    showDeleteDialog,
-    onShowDeleteDialog,
-    onCancelDeleteDialog,
-  } = useDeleteBlogForm({ blogId });
+  //   const {
+  //     pending,
+  //     handleSubmit,
+  //     showDeleteDialog,
+  //     onShowDeleteDialog,
+  //     onCancelDeleteDialog,
+  //   } = useDeleteBlogForm({ commentId });
 
   const [active, setActive] = useState(false);
 
@@ -54,20 +53,18 @@ function NiwiBlogSettingMenu({ blogId }: NiwiBlogSettingMenuProps) {
       <div className="dot" />
       <div className="dot" />
 
-      <div className={cn("menu", active && "active")}>
-        <button type="button" className="">
+      <div className={cn("menu min-w-[150px]", active && "active")}>
+        <button type="button" className="" onClick={onClickEdit}>
           <FilePenLine size={14} className="icon" />
-          <Link href={`/dashboard/blogs/${blogId}`} className="button-text">
-            Edit Blog
-          </Link>
+          <span className="button-text">Edit Comment</span>
         </button>
-        <button type="button" className="" onClick={onShowDeleteDialog}>
+        <button type="button" className="" onClick={() => {}}>
           <X size={14} className="icon" />
-          <span className="button-text">Delete Blog</span>
+          <span className="button-text">Delete Comment</span>
         </button>
       </div>
 
-      {showDeleteDialog && (
+      {/* {showDeleteDialog && (
         <NiwiOverlayPortal show={showDeleteDialog}>
           <div
             className={cn("niwi-overlay", showDeleteDialog && "active")}
@@ -103,8 +100,8 @@ function NiwiBlogSettingMenu({ blogId }: NiwiBlogSettingMenuProps) {
             </div>
           </div>
         </NiwiOverlayPortal>
-      )}
+      )} */}
     </div>
   );
 }
-export default NiwiBlogSettingMenu;
+export default NiwiBlogCommentSettingMenu;

@@ -8,6 +8,7 @@ import NiwiBookmarkIcon from "../niwi-blog-icons/niwi-bookmark-icon";
 import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
 import useBlogFavorite from "@/feats/blog/hooks/useBlogFavorite";
 import { cn } from "@/libs/utils";
+import NiwiBlogCommentsModal from "../niwi-blog-comments/niwi-blog-comments-modal";
 
 type NiwiBlogProfileProps = {
   title: string;
@@ -38,6 +39,7 @@ function NiwiBlogProfile({
   hideActions,
   currentAuthId,
 }: NiwiBlogProfileProps) {
+  // Favorites (HeartIcon)
   const { favCount, favorite, onClickFavorite } = useBlogFavorite({
     blogId,
     isFavorite: parentFav,
@@ -45,15 +47,14 @@ function NiwiBlogProfile({
     currentAuthId: currentAuthId ?? "",
   });
 
+  // Comments
+  const [isShowComment, setIsShowComment] = useState(false);
+  const clickToShowCmt = useCallback(() => setIsShowComment(true), []);
+  const hideToShowCmt = useCallback(() => setIsShowComment(false), []);
+
+  // Bookmarks
   const [isBookmark, setIsBookmark] = useState(false);
   const [messageCount] = useState(0);
-
-  // const [isFavorite, setIsFavorite] = useState(false);
-  // const toggleFavorite = useCallback(() => {
-  //   setIsFavorite((prev) => !prev);
-  //   setCount((prev) => (prev === 10 ? prev + 1 : prev - 1));
-  // }, []);
-
   const toggleBookmark = useCallback(() => {
     setIsBookmark((prev) => !prev);
   }, []);
@@ -92,7 +93,7 @@ function NiwiBlogProfile({
           </span>
         </div>
         <div className="niwi-blog-profile-actions-container message-container">
-          <NiwiBlogMessageIcon onClick={() => {}} />
+          <NiwiBlogMessageIcon onClick={clickToShowCmt} />
           <span className="counter" onClick={() => {}}>
             {messageCount <= 0 ? "" : messageCount}
           </span>
@@ -105,6 +106,14 @@ function NiwiBlogProfile({
         </div>
       </div>
       {!showSetting ? null : <NiwiBlogSettingMenu blogId={blogId} />}
+
+      {!isShowComment ? null : (
+        <NiwiBlogCommentsModal
+          show={isShowComment}
+          blogId={blogId}
+          onClose={hideToShowCmt}
+        />
+      )}
     </section>
   );
 }

@@ -9,6 +9,8 @@
   /* Blog Profile */
   --niwi-blog-profile-bg-color: #fff;
   --niwi-dark-blog-profile-bg-color: #313339;
+
+  /* Blog Comment */
 }
 
 /*=============================================
@@ -576,4 +578,118 @@
 .niwi-blog-setting-menu .menu .icon {
   display: inline-block;
   margin-right: 0.45rem;
+}
+
+/*=============================================
+=           Niwi Blog Comment Modal           =
+=============================================*/
+
+.niwi-blog-comments-modal {
+  background-color: var(--niwi-overlay-content-bg-color, white);
+  background: white;
+  border-radius: 20px;
+
+  width: 100%;
+  max-width: 560px;
+  margin: 0px auto;
+
+  /* Shadow */
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)),
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+
+  /* Animation */
+  animation-name: niwi-blog-comments-modal-animation;
+  animation-duration: 0.2s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes niwi-blog-comments-modal-animation {
+  0% {
+    opacity: 0;
+    scale: 0.98;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.dark .niwi-blog-comments-modal {
+  background-color: var(--niwi-dark-overlay-content-bg-color, #2b2d31);
+}
+
+/*=============================================
+=           Niwi Blog Comment Item            =
+=============================================*/
+
+.niwi-blog-comment-item-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.75rem;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.niwi-blog-comment-item {
+  position: relative;
+  border-radius: 1rem;
+  border-width: 1px;
+  padding-top: 14px;
+  padding-bottom: 20px;
+  margin-left: 22px;
+  margin-right: 22px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  background-color: #ffffff;
+  border-color: #efefef;
+}
+
+.dark .niwi-blog-comment-item {
+  background-color: #313339;
+  border-color: #313339;
+}
+
+.niwi-blog-comment-item .profile-section-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.niwi-blog-comment-item .profile-section-container .img-container {
+  border-radius: 16px;
+  width: 32px;
+  height: 32px;
+  background-color: #ebebeb;
+}
+
+.dark .niwi-blog-comment-item .profile-section-container .img-container {
+  background-color: #2b2d31;
+}
+
+.niwi-blog-comment-item .profile-section-container .text-container {
+  margin-left: 0.75rem;
+}
+.niwi-blog-comment-item .profile-section-container .text-container .pf-text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.niwi-blog-comment-item .profile-section-container .text-container .date-text {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.niwi-blog-comment-item .message-text {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  padding-left: 2.75rem;
+  padding-right: 20px;
+}
+
+.niwi-blog-comment-item .niwi-blog-setting-menu {
+  z-index: 100;
 }

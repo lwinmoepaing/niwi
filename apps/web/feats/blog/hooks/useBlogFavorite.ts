@@ -23,7 +23,7 @@ const countCalculation = (
   }
 };
 
-const delay = 1000;
+const delay = 500;
 
 function useBlogFavorite({
   blogId,
