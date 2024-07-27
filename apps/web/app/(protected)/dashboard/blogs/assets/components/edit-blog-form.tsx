@@ -21,6 +21,7 @@ function EditBlogForm({
   currentAuth,
   favoriteCount,
   isFavorite,
+  blogAuthorId,
 }: {
   contentJson: string;
   content: string;
@@ -29,6 +30,7 @@ function EditBlogForm({
   slug: string;
   title: string;
   currentAuth?: User;
+  blogAuthorId: string;
   favoriteCount: number;
   isFavorite: boolean;
 }) {
@@ -113,8 +115,9 @@ function EditBlogForm({
         blogId={blogId}
         favoriteCount={favoriteCount}
         isFavorite={isFavorite}
-        currentAuthId={currentAuth?.id}
+        currentAuth={currentAuth}
         hideActions={!isPublished}
+        blogAuthorId={blogAuthorId}
       />
 
       <NiwiTextEditor

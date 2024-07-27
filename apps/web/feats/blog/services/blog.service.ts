@@ -363,6 +363,15 @@ export const createBlogComment = async (
         userId,
         content: comment,
       },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
     });
 
     return responseSuccess("Comment is successfully created", createdNewBlog);

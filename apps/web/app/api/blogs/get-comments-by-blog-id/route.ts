@@ -1,5 +1,4 @@
-import { blogByAuthPaginationSchema } from "@/feats/blog/validations/blog.validation";
-import { auth } from "@/libs/auth/next-auth";
+import { blogCommentsByBlogIdPaginationSchema } from "@/feats/blog/validations/blog.validation";
 import prismaClient from "@/libs/db/prismaClient";
 import { responseAPI } from "@/libs/response/response-helper";
 import { StatusCodes } from "http-status-codes";
@@ -9,10 +8,11 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const queryParams = Object.fromEntries(searchParams.entries());
 
-    const { success, data, error } = blogByAuthPaginationSchema.safeParse({
-      ...queryParams,
-      publishStatus: queryParams.publishStatus === "true",
-    });
+    const { success, data, error } =
+      blogCommentsByBlogIdPaginationSchema.safeParse({
+        ...queryParams,
+        publishStatus: queryParams.publishStatus === "true",
+      });
 
     if (!success) {
       return responseAPI({
@@ -22,37 +22,25 @@ export async function GET(req: Request) {
       });
     }
 
-    const session = await auth();
-    if (!session?.user?.id) {
-      return responseAPI({
-        message: "Your request is unathorized",
-        statusCode: StatusCodes.UNAUTHORIZED,
-      });
-    }
-
-    const LIMIT_COUNT = 5 as const;
+    const LIMIT_COUNT = 8 as const;
     const page = data.page;
     const skip = (page - 1) * LIMIT_COUNT;
 
-    // Get the total count of blogs
-    const totalCount = await prismaClient.blog.count({
+    // Get the total count of comments
+    const totalCount = await prismaClient.blogComment.count({
       where: {
-        userId: data.authorId,
+        blogId: data.blogId,
       },
     });
 
     // Calculate total pages
     const totalPages = Math.ceil(totalCount / LIMIT_COUNT);
 
-    const blogs = await prismaClient.blog.findMany({
+    const comments = await prismaClient.blogComment.findMany({
       skip: skip,
       take: LIMIT_COUNT,
       where: {
-        userId: data.authorId,
-        isPublished: data.publishStatus,
-      },
-      orderBy: {
-        createdAt: "desc",
+        blogId: data.blogId,
       },
       include: {
         user: {
@@ -62,25 +50,9 @@ export async function GET(req: Request) {
             image: true,
           },
         },
-
-        reactions: {
-          select: {
-            heart: true,
-            thumbsUp: true,
-            thumbsDown: true,
-          },
-        },
-
-        userBlogReaction: {
-          where: {
-            userId: session?.user?.id,
-          },
-          select: {
-            reaction: true,
-            userId: true,
-            blogId: true,
-          },
-        },
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 
@@ -93,13 +65,13 @@ export async function GET(req: Request) {
     } as const;
 
     return responseAPI({
-      message: "Fetched blogs successfully.",
+      message: "Fetched comments successfully.",
       statusCode: StatusCodes.OK,
-      data: blogs,
+      data: comments,
       meta,
     });
   } catch (err) {
-    let message = "Blog List Service is not currently available";
+    let message = "Blog's Comment Service is not currently available";
     if (err instanceof Error) message = err.message;
 
     return responseAPI({

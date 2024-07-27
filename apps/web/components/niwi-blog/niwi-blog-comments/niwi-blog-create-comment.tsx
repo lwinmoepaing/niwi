@@ -34,7 +34,7 @@ const NiwiBlogCreateComment = ({
         </div>
         <div className="text-container">
           <div className="pf-text">{currentUser?.name || ""}</div>
-          <div className="date-text">{"Now.."}</div>
+          <div className="date-text">{"Create new comment ..."}</div>
         </div>
       </div>
       <div className="message-text">

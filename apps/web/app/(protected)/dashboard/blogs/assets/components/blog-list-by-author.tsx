@@ -45,7 +45,7 @@ function BlogListByAuthor({
     }, [] as Blog[]);
 
     return items;
-  }, [data?.pages]);
+  }, [data]);
 
   if (!isFetching && blogList.length <= 0) {
     return (

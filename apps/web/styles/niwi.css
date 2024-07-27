@@ -369,7 +369,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 9999px;
-  drop-shadow: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
   width: 36px;
   height: 36px;
   top: -12px;

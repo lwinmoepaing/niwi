@@ -7,6 +7,7 @@ import {
   updateBlogCommentSchema,
 } from "../validations/blog.validation";
 import toast from "react-hot-toast";
+import { addNewCommentQueryCacheUpdate } from "../services/blog-query-cache.service";
 
 const useBlogComment = ({ blogId }: { blogId: string }) => {
   const [createCommentResponse, dispatchForm, createCommentLoading] =
@@ -34,10 +35,9 @@ const useBlogComment = ({ blogId }: { blogId: string }) => {
     if (createCommentResponse?.success === true) {
       toast.success(createCommentResponse.message);
 
-      const newBlog = createCommentResponse.data;
-      if (newBlog) {
-        // const blogId = createCommentResponse.data?.blogId;
-        // createBlogCacheUpdate(newBlog);
+      const newComment = createCommentResponse.data;
+      if (newComment) {
+        addNewCommentQueryCacheUpdate(newComment);
       }
 
       resetForm();

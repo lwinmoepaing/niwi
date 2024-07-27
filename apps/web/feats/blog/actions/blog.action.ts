@@ -210,7 +210,10 @@ export const createBlogCommentAction = async (
     });
 
     if (newComment.success && newComment.data) {
-      return responseSuccess("Successfully deleted the blog.", newComment.data);
+      return responseSuccess(
+        "Successfully created the comment.",
+        newComment.data
+      );
     }
 
     return responseError(newComment.message);

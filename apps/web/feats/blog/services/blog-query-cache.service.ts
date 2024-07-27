@@ -1,5 +1,11 @@
 import { queryClient } from "@/libs/api/react-query";
-import { Blog, BlogsByAuthorResponse, SingleBlog } from "@/types/blog-response";
+import {
+  Blog,
+  BlogComment,
+  BlogsByAuthorResponse,
+  BlogsCommentsByBlogIdResponse,
+  SingleBlog,
+} from "@/types/blog-response";
 import { InfiniteData } from "@tanstack/react-query";
 
 const getAuthorUnPublishedBlogQueryKey = (authorId: string) => {
@@ -7,6 +13,9 @@ const getAuthorUnPublishedBlogQueryKey = (authorId: string) => {
 };
 const getAuthorPublishedBlogQueryKey = (authorId: string) => {
   return ["get-blogs-by-author", authorId, true];
+};
+const getCommentByBlogIdQueryKey = (blodId: string) => {
+  return ["get-blog-comments-by-blog-id", blodId];
 };
 
 const getAllKeys = (authorId: string) => {
@@ -192,7 +201,6 @@ export const updateFavoriteBlogQueryCacheUpdate = (
 
   keys.forEach((key) => {
     const exisitingCache = queryClient.getQueryData(key);
-
     if (exisitingCache) {
       queryClient.setQueryData(
         key,
@@ -205,4 +213,29 @@ export const updateFavoriteBlogQueryCacheUpdate = (
       );
     }
   });
+};
+
+export const addNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
+  const cacheCommentKey = getCommentByBlogIdQueryKey(blogComment.blogId);
+  const exisitingCacheComment = queryClient.getQueryData(cacheCommentKey);
+
+  console.log({ blogComment });
+  console.log({ exisitingCacheComment });
+
+  if (exisitingCacheComment) {
+    queryClient.setQueryData(
+      cacheCommentKey,
+      (oldData: InfiniteData<BlogsCommentsByBlogIdResponse, unknown>) => {
+        if (oldData.pages[0]?.data) {
+          console.log("Found First Array");
+          oldData.pages[0].data = [blogComment, ...oldData.pages[0].data];
+          console.log("Adding Data");
+        }
+        return {
+          ...oldData,
+          pages: oldData.pages,
+        };
+      }
+    );
+  }
 };

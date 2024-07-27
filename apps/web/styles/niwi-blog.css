@@ -590,8 +590,8 @@
   border-radius: 20px;
 
   width: 100%;
-  max-width: 560px;
-  margin: 0px auto;
+  max-width: 420px;
+  margin: 0px 0px 0px auto;
 
   /* Shadow */
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)),
@@ -599,19 +599,20 @@
 
   /* Animation */
   animation-name: niwi-blog-comments-modal-animation;
-  animation-duration: 0.2s;
+  animation-duration: 0.4s;
   animation-delay: 0s;
   animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
 }
 
 @keyframes niwi-blog-comments-modal-animation {
   0% {
     opacity: 0;
-    scale: 0.98;
+    transform: translateX(420px);
   }
   100% {
     opacity: 1;
-    scale: 1;
+    transform: translateX(0);
   }
 }
 

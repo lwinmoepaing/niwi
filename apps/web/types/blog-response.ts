@@ -5,6 +5,26 @@ export interface CheckBlogStausResponse {
   errors?: unknown;
 }
 
+export interface BlogsCommentsByBlogIdResponse {
+  message: string;
+  data: BlogComment[];
+  meta: Meta;
+}
+
+export interface BlogComment {
+  id: string;
+  content: string;
+  userId: string;
+  blogId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user: {
+    id: string;
+    name: string;
+    image: string;
+  };
+}
+
 export interface BlogsByAuthorResponse {
   message: string;
   data: Blog[];

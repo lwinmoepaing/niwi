@@ -1,45 +1,41 @@
 import axiosClient from "@/libs/api/axios-client";
-import { BlogsByAuthorResponse } from "@/types/blog-response";
+import { BlogsCommentsByBlogIdResponse } from "@/types/blog-response";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const API_LIST = {
-  getBlogByAuthorAPI: "/api/blogs/get-blogs-by-author",
+  getCommentsByBlogId: "/api/blogs/get-comments-by-blog-id",
 };
 
-type GetBlogByAuthorIdProps = {
+type GetCommentsByBlodIdProps = {
   pageNo: number;
-  authorId: string;
-  publishStatus: boolean;
+  blogId: string;
 };
 
-const getBlogsByAuthor = async ({
+const getCommentsByBlogId = async ({
   pageNo = 1,
-  authorId,
-  publishStatus,
-}: GetBlogByAuthorIdProps): Promise<BlogsByAuthorResponse> => {
+  blogId,
+}: GetCommentsByBlodIdProps): Promise<BlogsCommentsByBlogIdResponse> => {
   // Fetches blogs by author with pagination
   const response = (await axiosClient.get(
-    `${API_LIST.getBlogByAuthorAPI}?page=${pageNo}&authorId=${authorId}&publishStatus=${publishStatus?.toString()}`
-  )) as BlogsByAuthorResponse;
+    `${API_LIST.getCommentsByBlogId}?blogId=${blogId}&page=${pageNo}`
+  )) as BlogsCommentsByBlogIdResponse;
   return response;
 };
 
-export const useGetBlogsByAuthor = ({
-  authorId,
-  publishStatus,
-}: GetBlogByAuthorIdProps) => {
+export const useGetCommentsByBlogId = ({
+  blogId,
+}: GetCommentsByBlodIdProps) => {
   // Using useInfiniteQuery to handle paginated queries
   return useInfiniteQuery({
     structuralSharing: (oldData, newData) =>
       oldData === newData ? oldData : newData,
     initialPageParam: 1,
     staleTime: 1000 * 60,
-    queryKey: ["get-blogs-by-author", authorId, publishStatus],
+    queryKey: ["get-blog-comments-by-blog-id", blogId],
     queryFn: ({ pageParam = 0 }) =>
-      getBlogsByAuthor({
+      getCommentsByBlogId({
         pageNo: pageParam as number,
-        authorId: authorId,
-        publishStatus: publishStatus,
+        blogId,
       }),
     getNextPageParam: (lastPage) => {
       return lastPage?.meta?.hasNextPage

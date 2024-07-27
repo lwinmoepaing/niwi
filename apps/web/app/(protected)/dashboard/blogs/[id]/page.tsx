@@ -22,7 +22,13 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
     <article>
       <div className="max-w-[860px] mx-auto">
         <h2>
-          <Link href="/dashboard/blogs" className="hover:text-blue-500 transition-all">Blog</Link> / ID - {blog.id}
+          <Link
+            href="/dashboard/blogs"
+            className="hover:text-blue-500 transition-all"
+          >
+            Blog
+          </Link>{" "}
+          / ID - {blog.id}
         </h2>
       </div>
       <EditBlogForm
@@ -32,6 +38,7 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
         publishStatus={blog.isPublished}
         slug={blog.slug}
         title={blog.title}
+        blogAuthorId={blog.user.id}
         currentAuth={session?.user}
         favoriteCount={blog.reactions?.heart || 0}
         isFavorite={blog.userBlogReaction.some(
