@@ -1,9 +1,9 @@
 "use client";
-import { Play } from "lucide-react";
+import useBlogEditComment from "@/feats/blog/hooks/useBlogEditComment";
+import { CircleDashed, Play } from "lucide-react";
 import { User } from "next-auth";
 import Image from "next/image";
 import {
-  ChangeEvent,
   KeyboardEvent,
   memo,
   useCallback,
@@ -41,7 +41,7 @@ const NiwiBlogComment = ({
 
   const [isEdit, setIsEdit] = useState(false);
 
-  const isOwner = useMemo(() => {
+  const isBlogOwner = useMemo(() => {
     return blogAuthorId === currentUser?.id;
   }, []);
 
@@ -53,17 +53,25 @@ const NiwiBlogComment = ({
     if (e.key === "Escape") setIsEdit(false);
   }, []);
 
-  const onChangeText = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    console.log({ value });
-  }, []);
-
-  const onClickEdit = useCallback(() => {
-    if (isOwner || isCommentOwner) {
-      // ref.current?.focus();
-      setIsEdit((prev) => !prev);
+  const onOpenEdit = useCallback(() => {
+    if (isCommentOwner) {
+      setIsEdit(true);
     }
-  }, [isOwner, isCommentOwner, ref?.current]);
+  }, [isCommentOwner, ref?.current]);
+
+  const onCloseEdit = useCallback(() => {
+    if (isCommentOwner) {
+      setIsEdit(false);
+    }
+  }, [isCommentOwner, ref?.current]);
+
+  const { editCommentForm, editCommentLoading, editCommentSubmit } =
+    useBlogEditComment({
+      blogId,
+      commentId,
+      comment: commentContent,
+      onSave: onCloseEdit,
+    });
 
   return (
     <section className="niwi-blog-comment-item">
@@ -83,29 +91,42 @@ const NiwiBlogComment = ({
       </div>
       <div className="message-text">
         {!isEdit ? (
-          <p onDoubleClick={onClickEdit}>{commentContent}</p>
+          <p onDoubleClick={onOpenEdit}>{commentContent}</p>
         ) : (
-          <>
+          <form
+            action={() => editCommentSubmit()}
+          >
             <TextareaAutosize
-              ref={ref}
               className="textarea"
-              onChange={onChangeText}
-              onKeyUp={onEscape}
-              defaultValue={commentContent}
               minRows={2}
+              {...editCommentForm.register("comment")}
+              onKeyUp={onEscape}
+              disabled={editCommentLoading}
             />
-            <span className="sent-button">
-              <Play size={12} />
-            </span>
-          </>
+            
+            <button
+              className="sent-button"
+              type="submit"
+              disabled={editCommentLoading}
+            >
+              {editCommentLoading ? (
+                <CircleDashed className="animate-spin" size={12} />
+              ) : (
+                <Play size={12} />
+              )}
+            </button>
+          </form>
         )}
       </div>
-      {isOwner || isCommentOwner ? (
+      {isBlogOwner || isCommentOwner ? (
         <NiwiBlogCommentSettingMenu
           commentId={commentId}
           blogId={blogId}
-          onClickEdit={onClickEdit}
+          commentContent={commentContent}
+          onOpenEdit={onOpenEdit}
+          onCloseEdit={onCloseEdit}
           isEdidMode={isEdit}
+          isEditableForOwner={isCommentOwner}
         />
       ) : null}
     </section>

@@ -27,27 +27,17 @@ function NiwiBlogCommentsModal({
   authUser,
 }: NiwiBlogCommentsModalProps) {
   const { inView } = useInView({ threshold: 0 });
-
   const { data, isFetching, fetchNextPage, hasNextPage } =
     useGetCommentsByBlogId({
       pageNo: 1,
       blogId,
     });
 
-  useEffect(() => {
-    if (inView && !isFetching && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, isFetching, hasNextPage]);
-
   const commentList = useMemo<BlogComment[]>(() => {
     if (!data?.pages) return [];
-
-    const items = data.pages.reduce((prev, next) => {
+    return data.pages.reduce((prev, next) => {
       return [...prev, ...next.data];
     }, [] as BlogComment[]);
-
-    return items;
   }, [data]);
 
   const isEmptyList = useMemo(() => {
@@ -59,6 +49,12 @@ function NiwiBlogCommentsModal({
     []
   );
 
+  useEffect(() => {
+    if (inView && !isFetching && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, isFetching, hasNextPage]);
+
   return (
     <NiwiOverlayPortal show={show}>
       <div className={cn("niwi-overlay", show && "active")} onClick={onClose}>
@@ -67,13 +63,17 @@ function NiwiBlogCommentsModal({
             <ModalCrossIcon onClick={onClose} />
             <div className="niwi-blog-comment-item-container">
               <NiwiBlogCreateComment blogId={blogId} currentUser={authUser} />
-              {isEmptyList && <p className="px-[30px] text-center text-[12px] mt-2">Empty Comments</p>}
+              {isEmptyList && (
+                <p className="px-[30px] text-center text-[12px] mt-2">
+                  Empty Comments
+                </p>
+              )}
               {commentList.map((comment) => (
                 <NiwiBlogComment
                   key={comment.id}
                   blogId={blogId}
                   blogAuthorId={blogAuthorId}
-                  commentId={blogAuthorId}
+                  commentId={comment.id}
                   commentAuthorId={comment.userId}
                   commentContent={comment.content}
                   commentAuthorImage={comment.user.image}

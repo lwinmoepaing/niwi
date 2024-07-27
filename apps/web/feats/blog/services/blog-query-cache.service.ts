@@ -219,21 +219,50 @@ export const addNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
   const cacheCommentKey = getCommentByBlogIdQueryKey(blogComment.blogId);
   const exisitingCacheComment = queryClient.getQueryData(cacheCommentKey);
 
-  console.log({ blogComment });
-  console.log({ exisitingCacheComment });
-
   if (exisitingCacheComment) {
     queryClient.setQueryData(
       cacheCommentKey,
       (oldData: InfiniteData<BlogsCommentsByBlogIdResponse, unknown>) => {
         if (oldData.pages[0]?.data) {
-          console.log("Found First Array");
           oldData.pages[0].data = [blogComment, ...oldData.pages[0].data];
-          console.log("Adding Data");
         }
         return {
           ...oldData,
           pages: oldData.pages,
+        };
+      }
+    );
+  }
+};
+
+const updateFnForUpdateComment = (
+  data: BlogComment,
+  pages: BlogsCommentsByBlogIdResponse[]
+): BlogsCommentsByBlogIdResponse[] => {
+  return pages.reduce((prev, page) => {
+    page.data = page.data.map((item) => {
+      const condition = item.id === data.id;
+      if (condition) {
+        item.content = data.content;
+      }
+      return item;
+    });
+
+    return [...prev, page];
+  }, [] as BlogsCommentsByBlogIdResponse[]);
+};
+
+export const updateNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
+  const cacheCommentKey = getCommentByBlogIdQueryKey(blogComment.blogId);
+  const exisitingCacheComment = queryClient.getQueryData(cacheCommentKey);
+
+  if (exisitingCacheComment) {
+    queryClient.setQueryData(
+      cacheCommentKey,
+      (oldData: InfiniteData<BlogsCommentsByBlogIdResponse, unknown>) => {
+        return {
+          ...oldData,
+          pages: updateFnForUpdateComment(blogComment, oldData.pages),
         };
       }
     );

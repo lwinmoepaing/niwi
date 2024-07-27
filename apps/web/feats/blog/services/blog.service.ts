@@ -337,7 +337,7 @@ export const deleteBlog = async (blogProps: DeleteBlogProps) => {
     return responseSuccess("Blog is successfully deleted", removedBlog);
   } catch (error) {
     console.error("Transaction failed: ", error);
-    return responseError("Failed to publish blog");
+    return responseError("Failed to delete blog");
   }
 };
 
@@ -377,6 +377,47 @@ export const createBlogComment = async (
     return responseSuccess("Comment is successfully created", createdNewBlog);
   } catch (error) {
     console.error("Transaction failed: ", error);
-    return responseError("Failed to publish blog");
+    return responseError("Failed to create comment blog");
+  }
+};
+
+type EditedBlogCommentProps = CreateBlogCommentProps & {
+  commentId: string;
+};
+
+export const updateBlogComment = async (
+  commentProps: EditedBlogCommentProps
+) => {
+  const { blogId, userId, comment, commentId } = commentProps;
+
+  try {
+    const { success, data: blog } = await getBlogById(blogId);
+
+    if (!success || !blog) return responseError("Blog not found");
+
+    if (userId !== blog.userId) return responseError("Not authorized");
+
+    const updatedComment = await prismaClient.blogComment.update({
+      where: {
+        id: commentId,
+      },
+      data: {
+        content: comment,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
+    });
+
+    return responseSuccess("Comment is successfully updated.", updatedComment);
+  } catch (error) {
+    console.error("Transaction failed: ", error);
+    return responseError("Failed to update comment");
   }
 };

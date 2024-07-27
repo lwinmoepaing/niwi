@@ -1,20 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { createBlogCommentAction } from "../actions/blog.action";
-import {
-  UpdateBlogCommentFormValues,
-  updateBlogCommentSchema,
-} from "../validations/blog.validation";
 import toast from "react-hot-toast";
+import { createBlogCommentAction } from "../actions/blog.action";
 import { addNewCommentQueryCacheUpdate } from "../services/blog-query-cache.service";
+import {
+  CreateBlogCommentFormValues,
+  createBlogCommentSchema,
+} from "../validations/blog.validation";
 
 const useBlogComment = ({ blogId }: { blogId: string }) => {
   const [createCommentResponse, dispatchForm, createCommentLoading] =
     useActionState(createBlogCommentAction, undefined);
 
-  const createCommentForm = useForm<UpdateBlogCommentFormValues>({
-    resolver: zodResolver(updateBlogCommentSchema),
+  const createCommentForm = useForm<CreateBlogCommentFormValues>({
+    resolver: zodResolver(createBlogCommentSchema),
     defaultValues: {
       comment: "",
       blogId,

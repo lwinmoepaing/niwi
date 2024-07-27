@@ -12,9 +12,12 @@ import {
   deleteBlog,
   publishBlog,
   saveBlog,
+  updateBlogComment,
   updateFavoriteBlog,
 } from "../services/blog.service";
 import {
+  CreateBlogCommentFormValues,
+  createBlogCommentSchema,
   CreateBlogFormValues,
   createBlogSchema,
   deleteBlogByIdSchema,
@@ -192,10 +195,10 @@ export const deleteBlogAction = async (
 
 export const createBlogCommentAction = async (
   _currentState: unknown,
-  commentData: UpdateBlogCommentFormValues
+  commentData: CreateBlogCommentFormValues
 ) => {
   try {
-    const { error, data } = updateBlogCommentSchema.safeParse(commentData);
+    const { error, data } = createBlogCommentSchema.safeParse(commentData);
     if (error) {
       return responseError(error.message, error.format());
     }
@@ -217,6 +220,39 @@ export const createBlogCommentAction = async (
     }
 
     return responseError(newComment.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
+  }
+};
+
+export const updateBlogCommentAction = async (
+  _currentState: unknown,
+  commentData: UpdateBlogCommentFormValues
+) => {
+  try {
+    const { error, data } = updateBlogCommentSchema.safeParse(commentData);
+    if (error) {
+      return responseError(error.message, error.format());
+    }
+
+    const session = await auth();
+    if (!session?.user?.id) return responseError("No authentication data");
+
+    const updatedData = await updateBlogComment({
+      userId: session?.user?.id,
+      ...data,
+    });
+
+    if (updatedData.success && updatedData.data) {
+      return responseSuccess(
+        "Successfully created the comment.",
+        updatedData.data
+      );
+    }
+
+    return responseError(updatedData.message);
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);

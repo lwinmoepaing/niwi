@@ -5,25 +5,22 @@ import { FilePenLine, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type NiwiBlogCommentSettingMenuProps = {
+  commentContent: string;
   commentId: string;
   blogId: string;
   isEdidMode: boolean;
-  onClickEdit: () => void;
+  isEditableForOwner: boolean;
+  onOpenEdit: () => void;
+  onCloseEdit: () => void;
 };
 
 function NiwiBlogCommentSettingMenu({
-  onClickEdit,
+  onOpenEdit,
+  onCloseEdit,
   isEdidMode,
+  isEditableForOwner,
 }: NiwiBlogCommentSettingMenuProps) {
   const ref = useRef<HTMLDivElement>(null);
-
-  //   const {
-  //     pending,
-  //     handleSubmit,
-  //     showDeleteDialog,
-  //     onShowDeleteDialog,
-  //     onCancelDeleteDialog,
-  //   } = useDeleteBlogForm({ commentId });
 
   const [active, setActive] = useState(false);
 
@@ -56,61 +53,25 @@ function NiwiBlogCommentSettingMenu({
       <div className="dot" />
 
       <div className={cn("menu min-w-[150px]", active && "active")}>
-        {isEdidMode ? (
-          <button type="button" className="" onClick={onClickEdit}>
-            <FilePenLine size={14} className="icon" />
-            <span className="button-text">Cancel Editing</span>
-          </button>
-        ) : (
-          <button type="button" className="" onClick={onClickEdit}>
-            <FilePenLine size={14} className="icon" />
-            <span className="button-text">Edit Comment</span>
-          </button>
-        )}
+        {isEditableForOwner ? (
+          isEdidMode ? (
+            <button type="button" className="" onClick={onCloseEdit}>
+              <FilePenLine size={14} className="icon" />
+              <span className="button-text">Cancel Editing</span>
+            </button>
+          ) : (
+            <button type="button" className="" onClick={onOpenEdit}>
+              <FilePenLine size={14} className="icon" />
+              <span className="button-text">Edit Comment</span>
+            </button>
+          )
+        ) : null}
 
         <button type="button" className="" onClick={() => {}}>
           <X size={14} className="icon" />
           <span className="button-text">Delete Comment</span>
         </button>
       </div>
-
-      {/* {showDeleteDialog && (
-        <NiwiOverlayPortal show={showDeleteDialog}>
-          <div
-            className={cn("niwi-overlay", showDeleteDialog && "active")}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="niwi-overlay-content">
-              <h2 className="niwi-logo-text header">
-                Are you sure to delete this blog ?
-              </h2>
-              <div className="niwi-overlay-actions">
-                <Button
-                  className="flex-1"
-                  disabled={pending}
-                  variant={"outline"}
-                  onClick={onCancelDeleteDialog}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  className="flex-1"
-                  disabled={pending}
-                  onClick={handleSubmit}
-                >
-                  {pending ? (
-                    <CircleDashed className="animate-spin" />
-                  ) : (
-                    "Confirm"
-                  )}
-                </Button>
-              </div>
-
-              <ModalCrossIcon onClick={onCancelDeleteDialog} />
-            </div>
-          </div>
-        </NiwiOverlayPortal>
-      )} */}
     </div>
   );
 }
