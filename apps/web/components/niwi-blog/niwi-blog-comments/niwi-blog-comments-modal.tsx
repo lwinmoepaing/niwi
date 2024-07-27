@@ -5,6 +5,7 @@ import { cn } from "@/libs/utils";
 import { memo, MouseEvent, useCallback } from "react";
 import NiwiBlogComment from "./niwi-blog-comment";
 import { User } from "next-auth";
+import NiwiBlogCreateComment from "./niwi-blog-create-comment";
 
 type NiwiBlogCommentsModalProps = {
   show: boolean;
@@ -15,6 +16,7 @@ type NiwiBlogCommentsModalProps = {
 };
 
 function NiwiBlogCommentsModal({
+  blogId,
   blogAuthorId,
   show,
   onClose,
@@ -32,8 +34,9 @@ function NiwiBlogCommentsModal({
           <div className="niwi-blog-comments-modal" onClick={stopPropagation}>
             <ModalCrossIcon onClick={onClose} />
             <div className="niwi-blog-comment-item-container">
+              <NiwiBlogCreateComment blogId={blogId} currentUser={authUser} />
               <NiwiBlogComment
-                blogId={"1"}
+                blogId={blogId}
                 blogAuthorId={blogAuthorId}
                 commentId={blogAuthorId}
                 commentContent="Lorem Ipsum Lorem Ipsum"
@@ -42,8 +45,6 @@ function NiwiBlogCommentsModal({
                 commentAuthorName={"Lwin"}
                 commentCreatedTime={"7 days ago"}
                 currentUser={authUser}
-                isEditMode={true}
-                onSave={() => {}}
               />
             </div>
           </div>

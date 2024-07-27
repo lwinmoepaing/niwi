@@ -7,11 +7,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 type NiwiBlogCommentSettingMenuProps = {
   commentId: string;
   blogId: string;
+  isEdidMode: boolean;
   onClickEdit: () => void;
 };
 
 function NiwiBlogCommentSettingMenu({
   onClickEdit,
+  isEdidMode,
 }: NiwiBlogCommentSettingMenuProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -54,10 +56,18 @@ function NiwiBlogCommentSettingMenu({
       <div className="dot" />
 
       <div className={cn("menu min-w-[150px]", active && "active")}>
-        <button type="button" className="" onClick={onClickEdit}>
-          <FilePenLine size={14} className="icon" />
-          <span className="button-text">Edit Comment</span>
-        </button>
+        {isEdidMode ? (
+          <button type="button" className="" onClick={onClickEdit}>
+            <FilePenLine size={14} className="icon" />
+            <span className="button-text">Cancel Editing</span>
+          </button>
+        ) : (
+          <button type="button" className="" onClick={onClickEdit}>
+            <FilePenLine size={14} className="icon" />
+            <span className="button-text">Edit Comment</span>
+          </button>
+        )}
+
         <button type="button" className="" onClick={() => {}}>
           <X size={14} className="icon" />
           <span className="button-text">Delete Comment</span>

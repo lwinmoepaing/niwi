@@ -8,6 +8,7 @@ import {
 import { revalidatePath } from "next/cache";
 import {
   createBlog,
+  createBlogComment,
   deleteBlog,
   publishBlog,
   saveBlog,
@@ -24,6 +25,8 @@ import {
   publishBlogSchema,
   SaveBlogFormValues,
   saveBlogSchema,
+  UpdateBlogCommentFormValues,
+  updateBlogCommentSchema,
 } from "../validations/blog.validation";
 
 export const createBlogAction = async (
@@ -180,6 +183,37 @@ export const deleteBlogAction = async (
     }
 
     return responseError(deletedItem.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
+  }
+};
+
+export const createBlogCommentAction = async (
+  _currentState: unknown,
+  commentData: UpdateBlogCommentFormValues
+) => {
+  try {
+    const { error, data } = updateBlogCommentSchema.safeParse(commentData);
+    if (error) {
+      return responseError(error.message, error.format());
+    }
+
+    const session = await auth();
+    if (!session?.user?.id) return responseError("No authentication data");
+
+    const newComment = await createBlogComment({
+      blogId: data.blogId,
+      userId: session.user.id,
+      comment: data.comment,
+    });
+
+    if (newComment.success && newComment.data) {
+      return responseSuccess("Successfully deleted the blog.", newComment.data);
+    }
+
+    return responseError(newComment.message);
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);

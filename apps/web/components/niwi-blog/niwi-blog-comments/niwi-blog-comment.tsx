@@ -1,8 +1,18 @@
 "use client";
+import { Play } from "lucide-react";
 import { User } from "next-auth";
-import { memo, useMemo } from "react";
-import NiwiBlogCommentSettingMenu from "./niwi-blog-comment-setting-menu";
 import Image from "next/image";
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  memo,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import TextareaAutosize from "react-textarea-autosize";
+import NiwiBlogCommentSettingMenu from "./niwi-blog-comment-setting-menu";
 
 type NiwiBlogCommentProps = {
   blogId: string;
@@ -14,8 +24,6 @@ type NiwiBlogCommentProps = {
   commentAuthorName: string;
   commentCreatedTime: string;
   currentUser?: User;
-  isEditMode?: boolean;
-  onSave: () => void;
 };
 
 const NiwiBlogComment = ({
@@ -29,6 +37,10 @@ const NiwiBlogComment = ({
   commentAuthorName,
   currentUser,
 }: NiwiBlogCommentProps) => {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  const [isEdit, setIsEdit] = useState(false);
+
   const isOwner = useMemo(() => {
     return blogAuthorId === currentUser?.id;
   }, []);
@@ -36,6 +48,22 @@ const NiwiBlogComment = ({
   const isCommentOwner = useMemo(() => {
     return commentAuthorId === currentUser?.id;
   }, []);
+
+  const onEscape = useCallback((e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Escape") setIsEdit(false);
+  }, []);
+
+  const onChangeText = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    console.log({ value });
+  }, []);
+
+  const onClickEdit = useCallback(() => {
+    if (isOwner || isCommentOwner) {
+      // ref.current?.focus();
+      setIsEdit((prev) => !prev);
+    }
+  }, [isOwner, isCommentOwner, ref?.current]);
 
   return (
     <section className="niwi-blog-comment-item">
@@ -54,13 +82,30 @@ const NiwiBlogComment = ({
         </div>
       </div>
       <div className="message-text">
-        <p>{commentContent}</p>
+        {!isEdit ? (
+          <p onDoubleClick={onClickEdit}>{commentContent}</p>
+        ) : (
+          <>
+            <TextareaAutosize
+              ref={ref}
+              className="textarea"
+              onChange={onChangeText}
+              onKeyUp={onEscape}
+              defaultValue={commentContent}
+              minRows={2}
+            />
+            <span className="sent-button">
+              <Play size={12} />
+            </span>
+          </>
+        )}
       </div>
       {isOwner || isCommentOwner ? (
         <NiwiBlogCommentSettingMenu
           commentId={commentId}
           blogId={blogId}
-          onClickEdit={() => {}}
+          onClickEdit={onClickEdit}
+          isEdidMode={isEdit}
         />
       ) : null}
     </section>

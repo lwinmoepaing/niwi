@@ -233,6 +233,7 @@ type ToggleFavoriteBlogProps = {
   userId: string;
   isFavorite: boolean;
 };
+
 export const updateFavoriteBlog = async (
   blogProps: ToggleFavoriteBlogProps
 ) => {
@@ -334,6 +335,37 @@ export const deleteBlog = async (blogProps: DeleteBlogProps) => {
     });
 
     return responseSuccess("Blog is successfully deleted", removedBlog);
+  } catch (error) {
+    console.error("Transaction failed: ", error);
+    return responseError("Failed to publish blog");
+  }
+};
+
+type CreateBlogCommentProps = {
+  userId: string;
+  blogId: string;
+  comment: string;
+};
+
+export const createBlogComment = async (
+  commentProps: CreateBlogCommentProps
+) => {
+  const { blogId, userId, comment } = commentProps;
+
+  try {
+    const { success, data: blog } = await getBlogById(blogId);
+
+    if (!success || !blog) return responseError("Blog not found");
+
+    const createdNewBlog = await prismaClient.blogComment.create({
+      data: {
+        blogId,
+        userId,
+        content: comment,
+      },
+    });
+
+    return responseSuccess("Comment is successfully created", createdNewBlog);
   } catch (error) {
     console.error("Transaction failed: ", error);
     return responseError("Failed to publish blog");

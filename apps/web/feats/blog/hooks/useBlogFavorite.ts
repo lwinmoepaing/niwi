@@ -23,7 +23,7 @@ const countCalculation = (
   }
 };
 
-const delay = 500;
+const delay = 300;
 
 function useBlogFavorite({
   blogId,
@@ -91,7 +91,6 @@ function useBlogFavorite({
       toast.error(favoriteBlogResponse.message);
       const currentValue = getValues("isFavorite");
       setOptimisticFav(currentValue);
-      setOptimisticFavCount(favoriteCount);
       setOptimisticFavCount(
         countCalculation(parentIsFav, favoriteCount, currentValue)
       );
@@ -117,7 +116,7 @@ function useBlogFavorite({
     setClickCount((prev) => prev + 1);
   }, [favoriteCount, parentIsFav]);
 
-  // Debounce for 2 seconds
+  // Debounce for 300 miliseconds
   useEffect(() => {
     if (clickCount <= 0) return;
 

@@ -57,3 +57,12 @@ export const deleteBlogByIdSchema = z.object({
 });
 
 export type DeleteBlogFormValues = z.infer<typeof deleteBlogByIdSchema>;
+
+export const updateBlogCommentSchema = z.object({
+  blogId: z.string().min(1, "BlogID is required"),
+  comment: z.string().min(1, "Comment is required"),
+});
+
+export type UpdateBlogCommentFormValues = z.infer<
+  typeof updateBlogCommentSchema
+>;

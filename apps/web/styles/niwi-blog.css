@@ -636,7 +636,7 @@
   border-radius: 1rem;
   border-width: 1px;
   padding-top: 14px;
-  padding-bottom: 20px;
+  padding-bottom: 16px;
   margin-left: 22px;
   margin-right: 22px;
   padding-left: 10px;
@@ -683,13 +683,58 @@
 }
 
 .niwi-blog-comment-item .message-text {
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
   font-size: 0.75rem;
   line-height: 1rem;
-  padding-left: 2.75rem;
+  padding-left: 2rem;
   padding-right: 20px;
+  position: relative;
+}
+
+.niwi-blog-comment-item .message-text p,
+.niwi-blog-comment-item .message-text textarea {
+  padding-left: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.24rem;
+  padding-right: 1.75rem;
 }
 
 .niwi-blog-comment-item .niwi-blog-setting-menu {
   z-index: 100;
+}
+
+.niwi-blog-comment-item .textarea {
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #efefef;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+.dark .niwi-blog-comment-item .textarea {
+  background-color: #232528;
+}
+
+.niwi-blog-comment-item .message-text .sent-button {
+  position: absolute;
+  right: 1.65rem;
+  bottom: 0.5rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff21be, #60a5fa);
+  opacity: 0.75;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.niwi-blog-comment-item .message-text .sent-button svg {
+  position: relative;
+  left: 0.5px;
 }
