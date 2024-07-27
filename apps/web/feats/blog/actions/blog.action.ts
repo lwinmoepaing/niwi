@@ -10,6 +10,7 @@ import {
   createBlog,
   createBlogComment,
   deleteBlog,
+  deleteBlogComment,
   publishBlog,
   saveBlog,
   updateBlogComment,
@@ -21,6 +22,8 @@ import {
   CreateBlogFormValues,
   createBlogSchema,
   deleteBlogByIdSchema,
+  DeleteBlogCommentFormValues,
+  deleteBlogCommentSchema,
   DeleteBlogFormValues,
   FavoriteBlogFormValues,
   favoriteBlogSchema,
@@ -253,6 +256,39 @@ export const updateBlogCommentAction = async (
     }
 
     return responseError(updatedData.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
+  }
+};
+
+export const deleteBlogCommentAction = async (
+  _currentState: unknown,
+  commentData: DeleteBlogCommentFormValues
+) => {
+  try {
+    const { error, data } = deleteBlogCommentSchema.safeParse(commentData);
+    if (error) {
+      return responseError(error.message, error.format());
+    }
+
+    const session = await auth();
+    if (!session?.user?.id) return responseError("No authentication data");
+
+    const deletedComment = await deleteBlogComment({
+      userId: session.user.id,
+      commentId: data.commentId,
+    });
+
+    if (deletedComment.success && deletedComment.data) {
+      return responseSuccess(
+        "Successfully deleted the comment.",
+        deletedComment.data
+      );
+    }
+
+    return responseError("Error");
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);

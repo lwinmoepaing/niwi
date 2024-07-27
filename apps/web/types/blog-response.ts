@@ -25,6 +25,15 @@ export interface BlogComment {
   };
 }
 
+export interface SingleBlogComment {
+  id: string;
+  content: string;
+  userId: string;
+  blogId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface BlogsByAuthorResponse {
   message: string;
   data: Blog[];

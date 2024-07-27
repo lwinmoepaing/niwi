@@ -99,9 +99,9 @@ export type DeleteBlogFormValues = z.infer<typeof deleteBlogByIdSchema>;
 export const updateBlogCommentSchema = z.object({
   commentId: z
     .string()
-    .min(1, "BlogID is required")
+    .min(1, "CommentID is required")
     .refine((val) => isValidObjectId(val), {
-      message: "Invalid BlogID.",
+      message: "Invalid CommentID.",
     }),
   blogId: z
     .string()
@@ -128,4 +128,23 @@ export const createBlogCommentSchema = z.object({
 
 export type CreateBlogCommentFormValues = z.infer<
   typeof createBlogCommentSchema
+>;
+
+export const deleteBlogCommentSchema = z.object({
+  userId: z
+    .string()
+    .min(1, "Author ID is required")
+    .refine((val) => isValidObjectId(val), {
+      message: "Invalid Author ID.",
+    }),
+  commentId: z
+    .string()
+    .min(1, "CommentID is required")
+    .refine((val) => isValidObjectId(val), {
+      message: "Invalid CommentID.",
+    }),
+});
+
+export type DeleteBlogCommentFormValues = z.infer<
+  typeof deleteBlogCommentSchema
 >;

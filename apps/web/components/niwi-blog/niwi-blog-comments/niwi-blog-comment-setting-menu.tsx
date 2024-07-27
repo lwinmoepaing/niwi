@@ -1,13 +1,13 @@
 "use client";
 
+import useBlogDeleteComment from "@/feats/blog/hooks/useBlogDeleteComment";
 import { cn } from "@/libs/utils";
-import { FilePenLine, X } from "lucide-react";
+import { CircleDashed, FilePenLine, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type NiwiBlogCommentSettingMenuProps = {
-  commentContent: string;
   commentId: string;
-  blogId: string;
+  commentAuthorId: string;
   isEdidMode: boolean;
   isEditableForOwner: boolean;
   onOpenEdit: () => void;
@@ -15,14 +15,21 @@ type NiwiBlogCommentSettingMenuProps = {
 };
 
 function NiwiBlogCommentSettingMenu({
-  onOpenEdit,
-  onCloseEdit,
+  commentId,
+  commentAuthorId,
   isEdidMode,
   isEditableForOwner,
+  onOpenEdit,
+  onCloseEdit,
 }: NiwiBlogCommentSettingMenuProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const [active, setActive] = useState(false);
+
+  const { deleteCommentLoading, deleteCommentSubmit } = useBlogDeleteComment({
+    authorId: commentAuthorId,
+    commentId,
+  });
 
   const toggleActive = useCallback(() => {
     setActive((prev) => !prev);
@@ -48,9 +55,15 @@ function NiwiBlogCommentSettingMenu({
       onClick={toggleActive}
       ref={ref}
     >
-      <div className="dot" />
-      <div className="dot" />
-      <div className="dot" />
+      {!deleteCommentLoading ? (
+        <>
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+        </>
+      ) : (
+        <CircleDashed className="animate-spin text-[#ff4175]" />
+      )}
 
       <div className={cn("menu min-w-[150px]", active && "active")}>
         {isEditableForOwner ? (
@@ -67,7 +80,11 @@ function NiwiBlogCommentSettingMenu({
           )
         ) : null}
 
-        <button type="button" className="" onClick={() => {}}>
+        <button
+          type="button"
+          className=""
+          onClick={() => deleteCommentSubmit()}
+        >
           <X size={14} className="icon" />
           <span className="button-text">Delete Comment</span>
         </button>

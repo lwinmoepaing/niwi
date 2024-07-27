@@ -93,9 +93,7 @@ const NiwiBlogComment = ({
         {!isEdit ? (
           <p onDoubleClick={onOpenEdit}>{commentContent}</p>
         ) : (
-          <form
-            action={() => editCommentSubmit()}
-          >
+          <form action={() => editCommentSubmit()}>
             <TextareaAutosize
               className="textarea"
               minRows={2}
@@ -103,7 +101,7 @@ const NiwiBlogComment = ({
               onKeyUp={onEscape}
               disabled={editCommentLoading}
             />
-            
+
             <button
               className="sent-button"
               type="submit"
@@ -120,9 +118,8 @@ const NiwiBlogComment = ({
       </div>
       {isBlogOwner || isCommentOwner ? (
         <NiwiBlogCommentSettingMenu
+          commentAuthorId={commentAuthorId}
           commentId={commentId}
-          blogId={blogId}
-          commentContent={commentContent}
           onOpenEdit={onOpenEdit}
           onCloseEdit={onCloseEdit}
           isEdidMode={isEdit}

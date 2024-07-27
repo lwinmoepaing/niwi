@@ -5,6 +5,7 @@ import {
   BlogsByAuthorResponse,
   BlogsCommentsByBlogIdResponse,
   SingleBlog,
+  SingleBlogComment,
 } from "@/types/blog-response";
 import { InfiniteData } from "@tanstack/react-query";
 
@@ -263,6 +264,41 @@ export const updateNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
         return {
           ...oldData,
           pages: updateFnForUpdateComment(blogComment, oldData.pages),
+        };
+      }
+    );
+  }
+};
+
+const updateFnForRemovingComment = (
+  data: BlogComment | SingleBlogComment,
+  pages: BlogsCommentsByBlogIdResponse[]
+): BlogsCommentsByBlogIdResponse[] => {
+  return pages.reduce((prev, page) => {
+    page.data = page.data.filter((item) => {
+      const condition = item.id !== data.id;
+
+      console.log(condition, item);
+      return condition;
+    });
+
+    return [...prev, page];
+  }, [] as BlogsCommentsByBlogIdResponse[]);
+};
+
+export const deleteCommentQueryCacheUpdate = (
+  blogComment: BlogComment | SingleBlogComment
+) => {
+  const cacheCommentKey = getCommentByBlogIdQueryKey(blogComment.blogId);
+  const exisitingCacheComment = queryClient.getQueryData(cacheCommentKey);
+
+  if (exisitingCacheComment) {
+    queryClient.setQueryData(
+      cacheCommentKey,
+      (oldData: InfiniteData<BlogsCommentsByBlogIdResponse, unknown>) => {
+        return {
+          ...oldData,
+          pages: updateFnForRemovingComment(blogComment, oldData.pages),
         };
       }
     );

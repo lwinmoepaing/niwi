@@ -158,7 +158,7 @@ export const saveBlog = async (blogProps: SaveBlogProps) => {
   try {
     const { success, data: blog } = await getBlogById(blogId);
 
-    if (!success || !blog) return responseError("Blog not found");
+    if (!success || !blog) return responseError("Blog is not found");
 
     if (blog.userId !== userId)
       return responseError("User has no permission to update");
@@ -193,7 +193,7 @@ export const publishBlog = async (blogProps: PublishBlogProps) => {
   try {
     const { success, data: blog } = await getBlogById(blogId);
 
-    if (!success || !blog) return responseError("Blog not found");
+    if (!success || !blog) return responseError("Blog is not found");
 
     if (blog.userId !== userId)
       return responseError("User has no permission to update");
@@ -242,7 +242,7 @@ export const updateFavoriteBlog = async (
   try {
     const { success, data: blog } = await getBlogById(blogId);
 
-    if (!success || !blog) return responseError("Blog not found");
+    if (!success || !blog) return responseError("Blog is not found");
 
     const defaultProps = {
       userId,
@@ -305,7 +305,7 @@ export const deleteBlog = async (blogProps: DeleteBlogProps) => {
   try {
     const { success, data: blog } = await getBlogById(blogId);
 
-    if (!success || !blog) return responseError("Blog not found");
+    if (!success || !blog) return responseError("Blog is not found");
 
     if (blog.userId !== userId)
       return responseError("User has no permission to update");
@@ -341,6 +341,17 @@ export const deleteBlog = async (blogProps: DeleteBlogProps) => {
   }
 };
 
+export const getCommentById = async (commentId: string) => {
+  try {
+    const comment = await prismaClient.blogComment.findUnique({
+      where: { id: commentId },
+    });
+    return responseSuccess(`Successfully fetched comment.`, comment);
+  } catch (e) {
+    return responseError((e as Error).message);
+  }
+};
+
 type CreateBlogCommentProps = {
   userId: string;
   blogId: string;
@@ -355,7 +366,7 @@ export const createBlogComment = async (
   try {
     const { success, data: blog } = await getBlogById(blogId);
 
-    if (!success || !blog) return responseError("Blog not found");
+    if (!success || !blog) return responseError("Blog is not found");
 
     const createdNewBlog = await prismaClient.blogComment.create({
       data: {
@@ -393,7 +404,7 @@ export const updateBlogComment = async (
   try {
     const { success, data: blog } = await getBlogById(blogId);
 
-    if (!success || !blog) return responseError("Blog not found");
+    if (!success || !blog) return responseError("Blog is not found");
 
     if (userId !== blog.userId) return responseError("Not authorized");
 
@@ -419,5 +430,36 @@ export const updateBlogComment = async (
   } catch (error) {
     console.error("Transaction failed: ", error);
     return responseError("Failed to update comment");
+  }
+};
+
+type DeleteBlogCommentProps = {
+  userId: string;
+  commentId: string;
+};
+
+export const deleteBlogComment = async (blogProps: DeleteBlogCommentProps) => {
+  const { commentId, userId } = blogProps;
+
+  try {
+    const { success, data: comment } = await getCommentById(commentId);
+
+    if (!success || !comment) return responseError("Comment is not found");
+
+    if (comment.userId !== userId)
+      return responseError("User has no permission to update");
+
+    const removedBlog = await prismaClient.blogComment.delete({
+      where: { id: comment.id },
+    });
+
+    if (removedBlog) {
+      return responseSuccess("Comment is successfully deleted", removedBlog);
+    }
+
+    return responseError("Failed to delete comment");
+  } catch (error) {
+    console.error("Transaction failed: ", error);
+    return responseError("Failed to delete comment");
   }
 };
