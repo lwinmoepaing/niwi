@@ -81,6 +81,12 @@ export async function GET(req: Request) {
             blogId: true,
           },
         },
+
+        _count: {
+          select: {
+            blogComments: true,
+          },
+        },
       },
     });
 

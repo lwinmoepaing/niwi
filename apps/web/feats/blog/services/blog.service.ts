@@ -34,6 +34,12 @@ const getUserSelectRelation = (userId: string) =>
         blogId: true,
       },
     },
+
+    _count: {
+      select: {
+        blogComments: true,
+      },
+    },
   }) as const;
 
 type CreateBlogProps = {

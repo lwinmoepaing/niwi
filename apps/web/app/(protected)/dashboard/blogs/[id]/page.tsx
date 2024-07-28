@@ -44,6 +44,7 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
         isFavorite={blog.userBlogReaction.some(
           (item) => item.reaction === "HEART"
         )}
+        commentCount={blog._count?.blogComments || 0}
       />
     </article>
   );

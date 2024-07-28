@@ -79,6 +79,7 @@ function BlogListByAuthor({
             isFavorite={item.userBlogReaction.some(
               (item) => item.reaction === "HEART"
             )}
+            commentCount={item._count?.blogComments || 0}
           />
         ))}
         {isFetching ? (

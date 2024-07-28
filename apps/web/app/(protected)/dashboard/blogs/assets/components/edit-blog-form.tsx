@@ -22,6 +22,7 @@ function EditBlogForm({
   favoriteCount,
   isFavorite,
   blogAuthorId,
+  commentCount
 }: {
   contentJson: string;
   content: string;
@@ -33,6 +34,7 @@ function EditBlogForm({
   blogAuthorId: string;
   favoriteCount: number;
   isFavorite: boolean;
+  commentCount: number;
 }) {
   const {
     onChangeValue,
@@ -118,6 +120,7 @@ function EditBlogForm({
         currentAuth={currentAuth}
         hideActions={!isPublished}
         blogAuthorId={blogAuthorId}
+        commentCount={commentCount}
       />
 
       <NiwiTextEditor

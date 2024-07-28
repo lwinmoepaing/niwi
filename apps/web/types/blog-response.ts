@@ -50,6 +50,9 @@ export interface SingleBlog {
   previewImage: string | null;
   userId: string;
   reactionsId: string;
+  _count?: {
+    blogComments?: number;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -64,6 +67,9 @@ export interface Blog {
   previewImage: string | null;
   userId: string;
   reactionsId: string;
+  _count?: {
+    blogComments?: number;
+  };
   createdAt: Date;
   updatedAt: Date;
   user: User;
