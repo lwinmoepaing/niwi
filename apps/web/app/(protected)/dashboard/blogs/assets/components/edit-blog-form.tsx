@@ -10,31 +10,16 @@ import Link from "next/link";
 import config from "@/config";
 import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
 import { User } from "next-auth";
+import { useEffect, useMemo } from "react";
+import { Blog } from "@/types/blog-response";
+import useBlogStore from "@/stores/blog/blog.store";
 
 function EditBlogForm({
-  contentJson,
-  content,
-  blogId,
-  publishStatus,
-  slug,
-  title: parentTitle,
   currentAuth,
-  favoriteCount,
-  isFavorite,
-  blogAuthorId,
-  commentCount
+  blog,
 }: {
-  contentJson: string;
-  content: string;
-  blogId: string;
-  publishStatus: boolean;
-  slug: string;
-  title: string;
   currentAuth?: User;
-  blogAuthorId: string;
-  favoriteCount: number;
-  isFavorite: boolean;
-  commentCount: number;
+  blog: Blog;
 }) {
   const {
     onChangeValue,
@@ -51,13 +36,26 @@ function EditBlogForm({
     images,
     slugName,
   } = useEditBlogForm({
-    contentJson,
-    content,
-    blogId,
-    publishStatus,
-    slug,
-    title: parentTitle,
+    contentJson: blog.contentJson,
+    content: blog.content,
+    blogId: blog.id,
+    publishStatus: blog.isPublished,
+    slug: blog.slug,
+    title: blog.title,
   });
+
+  const [currentBlog, setCurrentBlog] = useBlogStore((store) => [
+    store.currentBlog,
+    store.setCurrentBlog,
+  ]);
+
+  const isFavorite = useMemo(() => {
+    return blog.userBlogReaction.some((item) => item.reaction === "HEART");
+  }, [blog]);
+
+  useEffect(() => {
+    setCurrentBlog(blog);
+  }, [blog]);
 
   return (
     <>
@@ -103,7 +101,7 @@ function EditBlogForm({
         title={title}
         subTitle={subTitle}
         images={images}
-        blogId={blogId}
+        blogId={blog.id}
         onSuccess={handleOnPublishingSuccess}
       />
 
@@ -114,18 +112,18 @@ function EditBlogForm({
         profileName={currentAuth?.name || "-"}
         estimateTime={"estimate time to "}
         date={"Jun 21, 2024"}
-        blogId={blogId}
-        favoriteCount={favoriteCount}
+        blogId={blog.id}
+        favoriteCount={blog.reactions?.heart || 0}
         isFavorite={isFavorite}
         currentAuth={currentAuth}
         hideActions={!isPublished}
-        blogAuthorId={blogAuthorId}
-        commentCount={commentCount}
+        blogAuthorId={blog.user.id}
+        commentCount={currentBlog?._count?.blogComments || 0}
       />
 
       <NiwiTextEditor
         onChangeValue={onChangeValue}
-        initializeData={contentJson}
+        initializeData={blog.contentJson}
       />
     </>
   );

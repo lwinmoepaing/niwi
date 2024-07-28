@@ -62,7 +62,9 @@ function NiwiBlogCommentsModal({
           <div className="niwi-blog-comments-modal" onClick={stopPropagation}>
             <ModalCrossIcon onClick={onClose} />
             <div className="niwi-blog-comment-item-container">
-              <NiwiBlogCreateComment blogId={blogId} currentUser={authUser} />
+              {!!authUser && (
+                <NiwiBlogCreateComment blogId={blogId} currentUser={authUser} />
+              )}
               {isEmptyList && (
                 <p className="px-[30px] text-center text-[12px] mt-2">
                   Empty Comments

@@ -16,7 +16,7 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
 
   if (!success || !data || !session?.user) return notFound();
 
-  if (blog.user.id !== session.user.id) return <> Not Permission</>;
+  if (blog.user.id !== session.user.id) return <> Not Permission </>;
 
   return (
     <article>
@@ -31,21 +31,7 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
           / ID - {blog.id}
         </h2>
       </div>
-      <EditBlogForm
-        contentJson={blog.contentJson}
-        content={blog.content}
-        blogId={blog.id}
-        publishStatus={blog.isPublished}
-        slug={blog.slug}
-        title={blog.title}
-        blogAuthorId={blog.user.id}
-        currentAuth={session?.user}
-        favoriteCount={blog.reactions?.heart || 0}
-        isFavorite={blog.userBlogReaction.some(
-          (item) => item.reaction === "HEART"
-        )}
-        commentCount={blog._count?.blogComments || 0}
-      />
+      <EditBlogForm blog={blog} currentAuth={session.user} />
     </article>
   );
 };

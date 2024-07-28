@@ -26,6 +26,7 @@ type NiwiBlogProfileProps = {
   commentCount: number;
   hideActions?: boolean;
   currentAuth?: User;
+  disabledLink?: boolean;
 };
 
 function NiwiBlogProfile({
@@ -43,6 +44,7 @@ function NiwiBlogProfile({
   hideActions,
   currentAuth,
   commentCount,
+  disabledLink,
 }: NiwiBlogProfileProps) {
   // Favorites (HeartIcon)
   const { favCount, favorite, onClickFavorite } = useBlogFavorite({
@@ -66,9 +68,13 @@ function NiwiBlogProfile({
   return (
     <section className="niwi-blog-profile-container">
       <h1 className="niwi-blog-profile-header">
-        <Link href={`/dashboard/blogs/${blogId}`} className="link">
-          {!title || title === "-" ? "Untitled Blog" : title}
-        </Link>
+        {disabledLink ? (
+          <span className="link">{title}</span>
+        ) : (
+          <Link href={`/dashboard/blogs/${blogId}`} className="link">
+            {!title || title === "-" ? "Untitled Blog" : title}
+          </Link>
+        )}
       </h1>
       <div className="niwi-blog-profile-row">
         <Link href={profileLink}>

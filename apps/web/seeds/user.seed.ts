@@ -16,7 +16,7 @@ const users: UserType[] = [
     role: "ADMIN",
     email: "admin@gmail.com",
     password: "123456",
-    image: "/images/auth/profile.png",
+    image: "/images/auth/admin-profile.png",
   },
   {
     name: "Niwi-User",

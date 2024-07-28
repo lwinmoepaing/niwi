@@ -1,13 +1,14 @@
+import useBlogStore from "@/stores/blog/blog.store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { deleteBlogCommentAction } from "../actions/blog.action";
+import { deleteCommentQueryCacheUpdate } from "../services/blog-query-cache.service";
 import {
   DeleteBlogCommentFormValues,
   deleteBlogCommentSchema,
 } from "../validations/blog.validation";
-import { deleteCommentQueryCacheUpdate } from "../services/blog-query-cache.service";
 
 const useBlogDeleteComment = ({
   authorId,
@@ -16,6 +17,11 @@ const useBlogDeleteComment = ({
   authorId: string;
   commentId: string;
 }) => {
+  const [currentBlog, updateComment] = useBlogStore((store) => [
+    store.currentBlog,
+    store.updateComment,
+  ]);
+
   const [deleteCommentResponse, dispatchForm, deleteCommentLoading] =
     useActionState(deleteBlogCommentAction, undefined);
 
@@ -40,6 +46,10 @@ const useBlogDeleteComment = ({
           },
           { keepDefaultValues: false }
         );
+
+        if (currentBlog) {
+          updateComment("DECREMENT");
+        }
       }
       return;
     }

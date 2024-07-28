@@ -32,7 +32,6 @@ export const useCheckSlugAvailable = ({
       // Handling Revalidation or something like that.
       // invalidate queries !!
       // -- other processing
-
       onSuccess?.(...args);
     },
     ...restConfig,

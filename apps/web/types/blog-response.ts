@@ -57,24 +57,16 @@ export interface SingleBlog {
   updatedAt: Date;
 }
 
-export interface Blog {
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  contentJson: string;
-  isPublished: boolean;
-  previewImage: string | null;
-  userId: string;
-  reactionsId: string;
-  _count?: {
-    blogComments?: number;
-  };
-  createdAt: Date;
-  updatedAt: Date;
+export interface Blog extends SingleBlog {
   user: User;
   reactions: Reactions | null;
   userBlogReaction: UserBlogReaction[];
+}
+
+export interface PublishedBlog extends SingleBlog {
+  user: User;
+  reactions: Reactions | null;
+  userBlogReaction?: UserBlogReaction[];
 }
 
 export interface UserBlogReaction {

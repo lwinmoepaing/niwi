@@ -1,4 +1,5 @@
 import { queryClient } from "@/libs/api/react-query";
+import useBlogStore from "@/stores/blog/blog.store";
 import {
   Blog,
   BlogComment,
@@ -216,6 +217,54 @@ export const updateFavoriteBlogQueryCacheUpdate = (
   });
 };
 
+const updateFnForBlogCommentCount = (
+  data: { blogId: string; type: "DECREMENT" | "INCREMENT" },
+  pages: BlogsByAuthorResponse[]
+): BlogsByAuthorResponse[] => {
+  return pages.reduce((prev, page) => {
+    page.data = page.data.map((item) => {
+      const condition = item.id === data.blogId;
+
+      if (condition && data.type === "INCREMENT") {
+        if (item?._count?.blogComments) {
+          item._count.blogComments += 1;
+        } else {
+          item._count = { blogComments: 1 };
+        }
+      }
+
+      if (condition && data.type === "DECREMENT") {
+        if (item?._count?.blogComments && item?._count?.blogComments >= 0) {
+          item._count.blogComments -= 1;
+        } else {
+          item._count = { blogComments: 0 };
+        }
+      }
+
+      return item;
+    });
+
+    return [...prev, page];
+  }, [] as BlogsByAuthorResponse[]);
+};
+
+const updateFnForUpdateComment = (
+  data: BlogComment,
+  pages: BlogsCommentsByBlogIdResponse[]
+): BlogsCommentsByBlogIdResponse[] => {
+  return pages.reduce((prev, page) => {
+    page.data = page.data.map((item) => {
+      const condition = item.id === data.id;
+      if (condition) {
+        item.content = data.content;
+      }
+      return item;
+    });
+
+    return [...prev, page];
+  }, [] as BlogsCommentsByBlogIdResponse[]);
+};
+
 export const addNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
   const cacheCommentKey = getCommentByBlogIdQueryKey(blogComment.blogId);
   const exisitingCacheComment = queryClient.getQueryData(cacheCommentKey);
@@ -234,23 +283,29 @@ export const addNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
       }
     );
   }
-};
 
-const updateFnForUpdateComment = (
-  data: BlogComment,
-  pages: BlogsCommentsByBlogIdResponse[]
-): BlogsCommentsByBlogIdResponse[] => {
-  return pages.reduce((prev, page) => {
-    page.data = page.data.map((item) => {
-      const condition = item.id === data.id;
-      if (condition) {
-        item.content = data.content;
-      }
-      return item;
-    });
+  const keysForBlog = [getAuthorPublishedBlogQueryKey(blogComment.userId)];
+  keysForBlog.forEach((key) => {
+    const exisitingCache = queryClient.getQueryData(key);
 
-    return [...prev, page];
-  }, [] as BlogsCommentsByBlogIdResponse[]);
+    if (exisitingCache) {
+      queryClient.setQueryData(
+        key,
+        (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
+          return {
+            ...oldData,
+            pages: updateFnForBlogCommentCount(
+              {
+                blogId: blogComment.blogId,
+                type: "INCREMENT",
+              },
+              oldData.pages
+            ),
+          };
+        }
+      );
+    }
+  });
 };
 
 export const updateNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
@@ -277,8 +332,6 @@ const updateFnForRemovingComment = (
   return pages.reduce((prev, page) => {
     page.data = page.data.filter((item) => {
       const condition = item.id !== data.id;
-
-      console.log(condition, item);
       return condition;
     });
 
@@ -303,4 +356,27 @@ export const deleteCommentQueryCacheUpdate = (
       }
     );
   }
+
+  const keysForBlog = [getAuthorPublishedBlogQueryKey(blogComment.userId)];
+  keysForBlog.forEach((key) => {
+    const exisitingCache = queryClient.getQueryData(key);
+
+    if (exisitingCache) {
+      queryClient.setQueryData(
+        key,
+        (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
+          return {
+            ...oldData,
+            pages: updateFnForBlogCommentCount(
+              {
+                blogId: blogComment.blogId,
+                type: "DECREMENT",
+              },
+              oldData.pages
+            ),
+          };
+        }
+      );
+    }
+  });
 };

@@ -288,7 +288,7 @@ export const deleteBlogCommentAction = async (
       );
     }
 
-    return responseError("Error");
+    return responseError(deletedComment.message);
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);

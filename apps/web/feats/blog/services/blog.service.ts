@@ -6,7 +6,8 @@ import {
   responseSuccess,
 } from "@/libs/response/response-helper";
 import { nanoid } from "nanoid";
-import { Blog, SingleBlog } from "@/types/blog-response";
+import { Blog, PublishedBlog, SingleBlog } from "@/types/blog-response";
+import { auth } from "@/libs/auth/next-auth";
 
 const getUserSelectRelation = (userId: string) =>
   ({
@@ -24,6 +25,7 @@ const getUserSelectRelation = (userId: string) =>
         thumbsDown: true,
       },
     },
+
     userBlogReaction: {
       where: {
         userId: userId,
@@ -32,6 +34,30 @@ const getUserSelectRelation = (userId: string) =>
         reaction: true,
         userId: true,
         blogId: true,
+      },
+    },
+
+    _count: {
+      select: {
+        blogComments: true,
+      },
+    },
+  }) as const;
+
+const getUserSelectRelationWithoutAuth = () =>
+  ({
+    user: {
+      select: {
+        id: true,
+        name: true,
+        image: true,
+      },
+    },
+    reactions: {
+      select: {
+        heart: true,
+        thumbsUp: true,
+        thumbsDown: true,
       },
     },
 
@@ -95,7 +121,6 @@ export const createBlog = async (blogProps: CreateBlogProps) => {
       newBlogReactions,
     });
   } catch (error) {
-    console.error("Transaction failed: ", error);
     return responseError("Failed to create blog or reactions");
   }
 };
@@ -117,7 +142,14 @@ export const getBlogById = async (id: string, userId?: string) => {
 
 export const getBlogBySlug = async (slug: string) => {
   try {
-    const blog = await prismaClient.blog.findUnique({ where: { slug } });
+    const session = await auth();
+    const userID = session?.user?.id;
+    const blog = (await prismaClient.blog.findUnique({
+      where: { slug },
+      include: userID
+        ? getUserSelectRelation(userID)
+        : getUserSelectRelationWithoutAuth(),
+    })) as PublishedBlog;
     return responseSuccess(
       `Successfully fetched blog by slug name ${slug}`,
       blog
@@ -181,7 +213,6 @@ export const saveBlog = async (blogProps: SaveBlogProps) => {
 
     return responseSuccess("Successfully save blog", updatedBlog);
   } catch (error) {
-    console.error("Transaction failed: ", error);
     return responseError("Failed to save blog .");
   }
 };
@@ -229,7 +260,6 @@ export const publishBlog = async (blogProps: PublishBlogProps) => {
       suggest,
     });
   } catch (error) {
-    console.error("Transaction failed: ", error);
     return responseError("Failed to publish blog", { suggest: "" });
   }
 };
@@ -342,7 +372,6 @@ export const deleteBlog = async (blogProps: DeleteBlogProps) => {
 
     return responseSuccess("Blog is successfully deleted", removedBlog);
   } catch (error) {
-    console.error("Transaction failed: ", error);
     return responseError("Failed to delete blog");
   }
 };
@@ -393,7 +422,6 @@ export const createBlogComment = async (
 
     return responseSuccess("Comment is successfully created", createdNewBlog);
   } catch (error) {
-    console.error("Transaction failed: ", error);
     return responseError("Failed to create comment blog");
   }
 };
@@ -434,7 +462,6 @@ export const updateBlogComment = async (
 
     return responseSuccess("Comment is successfully updated.", updatedComment);
   } catch (error) {
-    console.error("Transaction failed: ", error);
     return responseError("Failed to update comment");
   }
 };
@@ -453,7 +480,7 @@ export const deleteBlogComment = async (blogProps: DeleteBlogCommentProps) => {
     if (!success || !comment) return responseError("Comment is not found");
 
     if (comment.userId !== userId)
-      return responseError("User has no permission to update");
+      return responseError("User has no permission to delete");
 
     const removedBlog = await prismaClient.blogComment.delete({
       where: { id: comment.id },
@@ -465,7 +492,6 @@ export const deleteBlogComment = async (blogProps: DeleteBlogCommentProps) => {
 
     return responseError("Failed to delete comment");
   } catch (error) {
-    console.error("Transaction failed: ", error);
     return responseError("Failed to delete comment");
   }
 };

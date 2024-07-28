@@ -664,6 +664,7 @@
   width: 32px;
   height: 32px;
   background-color: #ebebeb;
+  overflow: hidden;
 }
 
 .dark .niwi-blog-comment-item .profile-section-container .img-container {

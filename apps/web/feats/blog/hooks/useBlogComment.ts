@@ -8,8 +8,14 @@ import {
   CreateBlogCommentFormValues,
   createBlogCommentSchema,
 } from "../validations/blog.validation";
+import useBlogStore from "@/stores/blog/blog.store";
 
 const useBlogComment = ({ blogId }: { blogId: string }) => {
+  const [currentBlog, updateComment] = useBlogStore((store) => [
+    store.currentBlog,
+    store.updateComment,
+  ]);
+
   const [createCommentResponse, dispatchForm, createCommentLoading] =
     useActionState(createBlogCommentAction, undefined);
 
@@ -38,6 +44,10 @@ const useBlogComment = ({ blogId }: { blogId: string }) => {
       const newComment = createCommentResponse.data;
       if (newComment) {
         addNewCommentQueryCacheUpdate(newComment);
+      }
+
+      if (currentBlog) {
+        updateComment("INCREMENT");
       }
 
       resetForm();
