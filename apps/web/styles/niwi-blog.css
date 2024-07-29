@@ -345,7 +345,8 @@
   top: 1.5px;
 }
 
-.niwi-blog-profile-actions-container.message-container {
+.niwi-blog-profile-actions-container.standalone-icon {
+  top: 1.5px;
 }
 
 .niwi-blog-profile-actions-container:hover .animated-star {
@@ -741,3 +742,74 @@
   left: 0.5px;
 }
 
+/*=============================================
+=           Niwi Blog Share Setting           =
+=============================================*/
+.niwi-blog-share-icon-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+.niwi-blog-share-icon-container .niwi-share-setting {
+  position: absolute;
+  width: 180px;
+  background-color: black;
+  top: -104px;
+  left: -13px;
+  border-radius: 14px;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  text-align: left;
+  background-color: #f4f4f5;
+  row-gap: 4px;
+
+  transition: all 0.2s ease-in-out;
+  scale: 0.95;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.niwi-blog-share-icon-container.active .niwi-share-setting {
+  scale: 1;
+  visibility: visible;
+  opacity: 1;
+}
+
+.dark .niwi-blog-share-icon-container .niwi-share-setting {
+  background-color: #282a2e;
+}
+
+.niwi-blog-share-icon-container .niwi-share-setting::after {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #f4f4f5;
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 12px;
+}
+
+.dark .niwi-blog-share-icon-container .niwi-share-setting::after {
+  border-top: 10px solid #282a2e;
+}
+
+.niwi-blog-share-icon-container button {
+  padding: 0px 0;
+  display: block;
+}
+
+.niwi-blog-share-icon-container .color-text:hover {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(to right, #f43f5e, #7e22ce, #60a5fa);
+  display: inline-block;
+}

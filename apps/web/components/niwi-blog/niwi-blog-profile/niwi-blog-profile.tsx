@@ -3,17 +3,18 @@ import useBlogFavorite from "@/feats/blog/hooks/useBlogFavorite";
 import dateUtil from "@/libs/date/date-util";
 import { cn } from "@/libs/utils";
 import { PublishedBlog } from "@/types/blog-response";
+import { CircleDashed } from "lucide-react";
 import { User } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import NiwiBlogCommentsModal from "../niwi-blog-comments/niwi-blog-comments-modal";
 import NiwiBlogHeartIcon from "../niwi-blog-icons/niwi-blog-heart-icon";
 import NiwiBlogMessageIcon from "../niwi-blog-icons/niwi-blog-message-icon";
-import NiwiBlogShareIcon from "../niwi-blog-icons/niwi-blog-share-icon";
 import NiwiBookmarkIcon from "../niwi-blog-icons/niwi-bookmark-icon";
+import NiwiBlogShareSetting from "../niwi-blog-share/niwi-blog-share-setting";
 import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
-import { CircleDashed } from "lucide-react";
+import config from "@/config";
 
 type NiwiBlogProfileProps = {
   blog: PublishedBlog;
@@ -56,14 +57,18 @@ function NiwiBlogProfile({
   const clickToShowCmt = useCallback(() => setIsShowComment(true), []);
   const hideToShowCmt = useCallback(() => setIsShowComment(false), []);
 
+  const blogTitle = useMemo(() => {
+    return !blog.title || blog.title === "-" ? "Untitled Blog" : blog.title;
+  }, [blog?.title]);
+
   return (
     <section className="niwi-blog-profile-container">
       <h1 className="niwi-blog-profile-header">
         {disabledLink ? (
-          <span className="link">{blog.title}</span>
+          <span className="link">{blogTitle}</span>
         ) : (
           <Link href={`/dashboard/blogs/${blog.id}`} className="link">
-            {!blog.title || blog.title === "-" ? "Untitled Blog" : blog.title}
+            {blogTitle}
           </Link>
         )}
       </h1>
@@ -105,15 +110,17 @@ function NiwiBlogProfile({
             {commentCount <= 0 ? "" : commentCount}
           </span>
         </div>
-        <div className="niwi-blog-profile-actions-container">
+        <div className="niwi-blog-profile-actions-container standalone-icon">
           {bookmarkLoading ? (
-             <CircleDashed className="animate-spin" size={12} />
+            <CircleDashed className="animate-spin" size={12} />
           ) : (
             <NiwiBookmarkIcon onClick={onClickBookmark} active={isBookmark} />
           )}
         </div>
-        <div className="niwi-blog-profile-actions-container">
-          <NiwiBlogShareIcon onClick={() => {}} />
+        <div className="niwi-blog-profile-actions-container standalone-icon">
+          <NiwiBlogShareSetting
+            link={`${config.domainUrl}/blogs/${blog.slug}`}
+          />
         </div>
       </div>
       {!showSetting ? null : <NiwiBlogSettingMenu blogId={blog.id} />}

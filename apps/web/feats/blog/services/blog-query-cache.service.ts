@@ -37,8 +37,8 @@ export const createBlogCacheUpdate = (data: Blog) => {
   const keys = [authorUnPublishKey];
 
   keys.forEach((key) => {
-    const exisitingCache = queryClient.getQueryData(key);
-    if (exisitingCache) {
+    const existingCache = queryClient.getQueryData(key);
+    if (existingCache) {
       queryClient.setQueryData(
         key,
         (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -74,9 +74,9 @@ export const updateBlogQueryCacheUpdate = (data: Blog) => {
   const keys = getAllKeys(data.user.id);
 
   keys.forEach((key) => {
-    const exisitingCache = queryClient.getQueryData(key);
+    const existingCache = queryClient.getQueryData(key);
 
-    if (exisitingCache) {
+    if (existingCache) {
       queryClient.setQueryData(
         key,
         (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -109,8 +109,8 @@ export const publishBlogQueryCacheUpdate = (data: Blog) => {
   const authorPublishKey = getAuthorPublishedBlogQueryKey(data.user.id);
 
   // First when publish, we need to remove from unpublish list
-  const exisitingUnpublishCache = queryClient.getQueryData(authorUnPublishKey);
-  if (exisitingUnpublishCache) {
+  const existingUnpublishCache = queryClient.getQueryData(authorUnPublishKey);
+  if (existingUnpublishCache) {
     queryClient.setQueryData(
       authorUnPublishKey,
       (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -123,8 +123,8 @@ export const publishBlogQueryCacheUpdate = (data: Blog) => {
   }
 
   // Adding Blog to Published List
-  const exisitingPublishCache = queryClient.getQueryData(authorPublishKey);
-  if (exisitingPublishCache) {
+  const existingPublishCache = queryClient.getQueryData(authorPublishKey);
+  if (existingPublishCache) {
     queryClient.setQueryData(
       authorPublishKey,
       (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -144,9 +144,8 @@ export const deleteBlogQueryCacheUpdate = (data: SingleBlog) => {
   const keys = getAllKeys(data.userId);
 
   keys.forEach((key) => {
-    const exisitingCache = queryClient.getQueryData(key);
-
-    if (exisitingCache) {
+    const existingCache = queryClient.getQueryData(key);
+    if (existingCache) {
       queryClient.setQueryData(
         key,
         (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -158,6 +157,27 @@ export const deleteBlogQueryCacheUpdate = (data: SingleBlog) => {
       );
     }
   });
+
+  const bookmarkKey = getBookmarkKeyByUserId(data.userId);
+  const existingBookmarkKey = queryClient.getQueryData(bookmarkKey);
+
+  if (existingBookmarkKey) {
+    queryClient.setQueryData(
+      bookmarkKey,
+      (oldData: InfiniteData<BookmarkBlogResponse, unknown>) => {
+        const resPages = oldData.pages.reduce((prev, page) => {
+          page.data = page.data.filter((item) => {
+            return item.blog.id !== data.id;
+          });
+          return [...prev, page];
+        }, [] as BookmarkBlogResponse[]);
+        return {
+          ...oldData,
+          pages: resPages,
+        };
+      }
+    );
+  }
 };
 
 type favBlogCacheProps = {
@@ -207,8 +227,8 @@ export const updateFavoriteBlogQueryCacheUpdate = (
   const keys = getAllKeys(cacheProp.userId);
 
   keys.forEach((key) => {
-    const exisitingCache = queryClient.getQueryData(key);
-    if (exisitingCache) {
+    const existingCache = queryClient.getQueryData(key);
+    if (existingCache) {
       queryClient.setQueryData(
         key,
         (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -272,9 +292,9 @@ const updateFnForUpdateComment = (
 
 export const addNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
   const cacheCommentKey = getCommentByBlogIdQueryKey(blogComment.blogId);
-  const exisitingCacheComment = queryClient.getQueryData(cacheCommentKey);
+  const existingCacheComment = queryClient.getQueryData(cacheCommentKey);
 
-  if (exisitingCacheComment) {
+  if (existingCacheComment) {
     queryClient.setQueryData(
       cacheCommentKey,
       (oldData: InfiniteData<BlogsCommentsByBlogIdResponse, unknown>) => {
@@ -291,9 +311,9 @@ export const addNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
 
   const keysForBlog = [getAuthorPublishedBlogQueryKey(blogComment.userId)];
   keysForBlog.forEach((key) => {
-    const exisitingCache = queryClient.getQueryData(key);
+    const existingCache = queryClient.getQueryData(key);
 
-    if (exisitingCache) {
+    if (existingCache) {
       queryClient.setQueryData(
         key,
         (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -311,13 +331,38 @@ export const addNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
       );
     }
   });
+
+  const cacheBookmarkKey = getBookmarkKeyByUserId(blogComment.userId);
+  const existingBookmarkKey = queryClient.getQueryData(cacheBookmarkKey);
+  if (existingBookmarkKey) {
+    queryClient.setQueryData(
+      cacheBookmarkKey,
+      (oldData: InfiniteData<BookmarkBlogResponse, unknown>) => {
+        const pages = oldData.pages.reduce((prev, page) => {
+          page.data.forEach((bookmark) => {
+            if (bookmark.blog.id === blogComment.blogId) {
+              if (bookmark.blog?._count?.blogComments) {
+                bookmark.blog._count.blogComments += 1;
+              } else {
+                bookmark.blog._count = { blogComments: 1 };
+              }
+            }
+          });
+          return [...prev, page];
+        }, [] as BookmarkBlogResponse[]);
+        return {
+          ...oldData,
+          pages,
+        };
+      }
+    );
+  }
 };
 
 export const updateNewCommentQueryCacheUpdate = (blogComment: BlogComment) => {
   const cacheCommentKey = getCommentByBlogIdQueryKey(blogComment.blogId);
-  const exisitingCacheComment = queryClient.getQueryData(cacheCommentKey);
-
-  if (exisitingCacheComment) {
+  const existingCacheComment = queryClient.getQueryData(cacheCommentKey);
+  if (existingCacheComment) {
     queryClient.setQueryData(
       cacheCommentKey,
       (oldData: InfiniteData<BlogsCommentsByBlogIdResponse, unknown>) => {
@@ -348,9 +393,9 @@ export const deleteCommentQueryCacheUpdate = (
   blogComment: BlogComment | SingleBlogComment
 ) => {
   const cacheCommentKey = getCommentByBlogIdQueryKey(blogComment.blogId);
-  const exisitingCacheComment = queryClient.getQueryData(cacheCommentKey);
+  const existingCacheComment = queryClient.getQueryData(cacheCommentKey);
 
-  if (exisitingCacheComment) {
+  if (existingCacheComment) {
     queryClient.setQueryData(
       cacheCommentKey,
       (oldData: InfiniteData<BlogsCommentsByBlogIdResponse, unknown>) => {
@@ -364,9 +409,9 @@ export const deleteCommentQueryCacheUpdate = (
 
   const keysForBlog = [getAuthorPublishedBlogQueryKey(blogComment.userId)];
   keysForBlog.forEach((key) => {
-    const exisitingCache = queryClient.getQueryData(key);
+    const existingCache = queryClient.getQueryData(key);
 
-    if (exisitingCache) {
+    if (existingCache) {
       queryClient.setQueryData(
         key,
         (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -384,6 +429,35 @@ export const deleteCommentQueryCacheUpdate = (
       );
     }
   });
+
+  const cacheBookmarkKey = getBookmarkKeyByUserId(blogComment.userId);
+  const existingBookmarkKey = queryClient.getQueryData(cacheBookmarkKey);
+  if (existingBookmarkKey) {
+    queryClient.setQueryData(
+      cacheBookmarkKey,
+      (oldData: InfiniteData<BookmarkBlogResponse, unknown>) => {
+        const pages = oldData.pages.reduce((prev, page) => {
+          page.data.forEach((bookmark) => {
+            if (bookmark.blog.id === blogComment.blogId) {
+              if (
+                bookmark.blog?._count?.blogComments &&
+                bookmark.blog?._count?.blogComments >= 0
+              ) {
+                bookmark.blog._count.blogComments -= 1;
+              } else {
+                bookmark.blog._count = { blogComments: 0 };
+              }
+            }
+          });
+          return [...prev, page];
+        }, [] as BookmarkBlogResponse[]);
+        return {
+          ...oldData,
+          pages,
+        };
+      }
+    );
+  }
 };
 
 type BookmarkCache = {
@@ -441,8 +515,8 @@ export const updateBookmarkBlogQueryCacheUpdate = (
   const queryBlogListKeys = getAllKeys(cacheProp.userId);
 
   queryBlogListKeys.forEach((key) => {
-    const exisitingCache = queryClient.getQueryData(key);
-    if (exisitingCache) {
+    const existingCache = queryClient.getQueryData(key);
+    if (existingCache) {
       queryClient.setQueryData(
         key,
         (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
@@ -456,13 +530,12 @@ export const updateBookmarkBlogQueryCacheUpdate = (
   });
 
   const queryBookmarksKey = getBookmarkKeyByUserId(cacheProp.userId);
-  const exisitingCache = queryClient.getQueryData(queryBookmarksKey);
+  const existingCache = queryClient.getQueryData(queryBookmarksKey);
 
-  if (exisitingCache) {
+  if (existingCache) {
     queryClient.setQueryData(
       queryBookmarksKey,
       (oldData: InfiniteData<BookmarkBlogResponse, unknown>) => {
-        console.log(oldData);
         return {
           ...oldData,
           pages: updateFnForBookmarkList(cacheProp, oldData.pages),

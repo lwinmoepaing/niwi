@@ -49,7 +49,7 @@ function BlogListByBookmark({ currentAuth }: { currentAuth?: User }) {
           key={item.id}
           blog={item.blog}
           currentAuth={currentAuth}
-          showSetting={true}
+          showSetting={false}
           isBookmark={(item.blog._count?.blogBookmarks || 0) > 0 || false}
           isFavorite={item.blog.userBlogReaction.some(
             (item) => item.reaction === "HEART"

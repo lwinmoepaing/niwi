@@ -36,7 +36,7 @@ export const useGetBlogsByAuthor = ({
     structuralSharing: (oldData, newData) =>
       oldData === newData ? oldData : newData,
     initialPageParam: 1,
-    staleTime: 1000 * 60,
+    staleTime: Infinity,
     queryKey: publishStatus
       ? getAuthorPublishedBlogQueryKey(authorId)
       : getAuthorUnPublishedBlogQueryKey(authorId),

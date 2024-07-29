@@ -1,13 +1,9 @@
 import { Share } from "lucide-react";
 import Image from "next/image";
 
-type NiwiBlogShareIconProps = {
-  onClick: () => void;
-};
-
-function NiwiBlogShareIcon({ onClick }: NiwiBlogShareIconProps) {
+function NiwiBlogShareIcon() {
   return (
-    <button className="message" onClick={onClick} type="button">
+    <button className="message" type="button">
       <Share size={16} className="fill-stroke" />
       <Image
         src="/images/icons/shining-star.gif"
