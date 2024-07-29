@@ -69,8 +69,6 @@ const useEditBlogForm = ({
 
   const submit = useCallback(
     async (values: SaveBlogFormValues) => {
-      console.log({ title });
-
       dispatchSaveBlog({ ...values, title });
     },
     [dispatchSaveBlog, title]

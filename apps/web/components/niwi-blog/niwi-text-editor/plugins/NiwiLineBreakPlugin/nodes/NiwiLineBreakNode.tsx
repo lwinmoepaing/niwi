@@ -30,9 +30,8 @@ const KLASS = {
 };
 
 export function convertNiwiLineBreak(
-  domNode: HTMLDivElement
+  _domNode: HTMLDivElement
 ): DOMConversionOutput | null {
-  console.log("Getting Dom", domNode);
   const node = $createNiwiLineBreakNode();
   return {
     node,

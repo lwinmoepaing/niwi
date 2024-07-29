@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Thu Jul 25 2024 23:54:43 GMT+0700 (Indochina Time)✨
+//🧩Don't Edit this file.✨Generated in Mon Jul 29 2024 11:01:16 GMT+0700 (Indochina Time)✨
 
 datasource db {
   provider = "mongodb"
@@ -36,6 +36,9 @@ model Blog {
 
   // Blog has many user reactions
   userBlogReaction UserBlogReaction[]
+
+  // Blog Bookmarks
+  blogBookmarks UserBlogBookmark[]
 
   // DateTime
   createdAt DateTime @default(now())
@@ -80,6 +83,20 @@ model UserBlogReaction {
   @@unique([userId, blogId, reaction])
 }
 
+model UserBlogBookmark {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // User Bookmark Blog
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+
+  // User bookmarked Blog
+  blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String @db.ObjectId
+
+  @@unique([userId, blogId])
+}
+
 enum UserRole {
   USER
   ADMIN
@@ -117,5 +134,6 @@ model User {
   blogs             Blog[]
   blogComments      BlogComment[] // New field to track user comments
   userBlogReactions UserBlogReaction[] // New field to track user reactions
+  userBookmarks     UserBlogBookmark[] // New field to track user bookmarks
   // end 
 }

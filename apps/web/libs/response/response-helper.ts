@@ -24,7 +24,7 @@ type ResponseApiProps = {
 
 type ResponseMeta = {
   currentPage: number;
-  previousPage: number | null;
+  previousPage?: number | null;
   totalPage: number;
   hasNextPage: boolean;
   hasPreviousPage: boolean;

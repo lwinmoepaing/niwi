@@ -47,7 +47,6 @@ export const htmlConfig: HTMLConfig = {
         }
 
         if (isLastChildLineBreak) {
-          console.log("Last Child Line Break");
           const br = document.createElement("br");
 
           setTimeout(() => {

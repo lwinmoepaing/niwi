@@ -8,8 +8,9 @@ import {
 import { nanoid } from "nanoid";
 import { Blog, PublishedBlog, SingleBlog } from "@/types/blog-response";
 import { auth } from "@/libs/auth/next-auth";
+import { generateMetaForPagination } from "@/libs/utils";
 
-const getUserSelectRelation = (userId: string) =>
+export const getUserSelectRelation = (userId: string) =>
   ({
     user: {
       select: {
@@ -40,11 +41,16 @@ const getUserSelectRelation = (userId: string) =>
     _count: {
       select: {
         blogComments: true,
+        blogBookmarks: {
+          where: {
+            userId: userId,
+          },
+        },
       },
     },
   }) as const;
 
-const getUserSelectRelationWithoutAuth = () =>
+export const getUserSelectRelationWithoutAuth = () =>
   ({
     user: {
       select: {
@@ -150,6 +156,7 @@ export const getBlogBySlug = async (slug: string) => {
         ? getUserSelectRelation(userID)
         : getUserSelectRelationWithoutAuth(),
     })) as PublishedBlog;
+
     return responseSuccess(
       `Successfully fetched blog by slug name ${slug}`,
       blog
@@ -494,4 +501,150 @@ export const deleteBlogComment = async (blogProps: DeleteBlogCommentProps) => {
   } catch (error) {
     return responseError("Failed to delete comment");
   }
+};
+
+type UpdateBookmarkBlogProps = {
+  blogId: string;
+  userId: string;
+  isBookmark: boolean;
+};
+
+export const updateBookMarkBlog = async (
+  blogProps: UpdateBookmarkBlogProps
+) => {
+  const { blogId, userId, isBookmark } = blogProps;
+
+  try {
+    const { success, data: blog } = await getBlogById(blogId);
+
+    if (!success || !blog) return responseError("Blog is not found");
+
+    const defaultProps = {
+      userId,
+      blogId,
+    } as const;
+
+    const resData = await prismaClient.$transaction(async (prisma) => {
+      const searchUserBlogBookmark = await prisma.userBlogBookmark.findFirst({
+        where: defaultProps,
+      });
+
+      // First time reaction for this blog
+      if (!searchUserBlogBookmark) {
+        await prisma.userBlogBookmark.create({
+          data: defaultProps,
+        });
+
+        return { blogId, userId, isBookmark };
+      }
+
+      if (isBookmark) {
+        return { blogId, userId, isBookmark };
+      }
+
+      await prisma.userBlogBookmark.delete({
+        where: {
+          id: searchUserBlogBookmark.id,
+        },
+      });
+
+      return { blogId, userId, isBookmark };
+    });
+    return responseSuccess("Successfully created blog", resData);
+  } catch (error) {
+    return responseError("Failed to favorite (or) unfavorite blog");
+  }
+};
+
+type GetBlogByAuthorIdProps = {
+  authorId: string;
+  page: number;
+  publishStatus: boolean;
+  userId?: string;
+};
+
+export const getBlogByAuthor = async ({
+  authorId,
+  page,
+  publishStatus,
+  userId,
+}: GetBlogByAuthorIdProps) => {
+  const LIMIT_COUNT = 5 as const;
+  const skip = (page - 1) * LIMIT_COUNT;
+
+  // Get the total count of blogs
+  const totalCount = await prismaClient.blog.count({
+    where: {
+      userId: authorId,
+    },
+  });
+
+  // Calculate total pages
+  const totalPages = Math.ceil(totalCount / LIMIT_COUNT);
+
+  const blogs = await prismaClient.blog.findMany({
+    skip: skip,
+    take: LIMIT_COUNT,
+    where: {
+      userId: authorId,
+      isPublished: publishStatus,
+    },
+    orderBy: { createdAt: "desc" },
+    include: userId
+      ? getUserSelectRelation(userId)
+      : getUserSelectRelationWithoutAuth(),
+  });
+
+  const meta = generateMetaForPagination({ page, totalPages });
+
+  return {
+    data: blogs,
+    meta,
+  };
+};
+
+type GetCommentsByBlogIdProps = {
+  page: number;
+  blogId: string;
+};
+
+export const getCommentsByBlogId = async ({
+  page,
+  blogId,
+}: GetCommentsByBlogIdProps) => {
+  const LIMIT_COUNT = 8 as const;
+  const skip = (page - 1) * LIMIT_COUNT;
+
+  // Get the total count of comments
+  const totalCount = await prismaClient.blogComment.count({
+    where: {
+      blogId: blogId,
+    },
+  });
+
+  // Calculate total pages
+  const totalPages = Math.ceil(totalCount / LIMIT_COUNT);
+
+  const comments = await prismaClient.blogComment.findMany({
+    skip: skip,
+    take: LIMIT_COUNT,
+    where: { blogId },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const meta = generateMetaForPagination({ page, totalPages });
+
+  return {
+    meta,
+    data: comments,
+  };
 };

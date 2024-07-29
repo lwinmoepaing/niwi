@@ -35,5 +35,6 @@ model User {
     blogs             Blog[]
     blogComments      BlogComment[] // New field to track user comments
     userBlogReactions UserBlogReaction[] // New field to track user reactions
+    userBookmarks     UserBlogBookmark[] // New field to track user bookmarks
     // end 
 }

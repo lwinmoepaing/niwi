@@ -13,6 +13,7 @@ import { memo, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import NiwiEmptyBlog from "@/components/niwi-blog/niwi-blog-profile/niwi-empty-blog";
 import { User } from "next-auth";
+import dateUtil from "@/libs/date/date-util";
 
 function BlogListByAuthor({
   authorId,
@@ -70,12 +71,13 @@ function BlogListByAuthor({
             profileImg={item.user.image}
             profileName={item.user.name}
             estimateTime={"5 minutes to "}
-            date={"Jun 21, 2024"}
+            date={dateUtil(item.createdAt).format("MMM D, YYYY")}
             blogId={item.id}
             blogAuthorId={item.user.id}
             currentAuth={currentAuth}
             showSetting={true}
             favoriteCount={item.reactions?.heart || 0}
+            isBookmark={(item._count?.blogBookmarks || 0) > 0 || false}
             isFavorite={item.userBlogReaction.some(
               (item) => item.reaction === "HEART"
             )}
@@ -104,7 +106,7 @@ function BlogListByAuthor({
           profileImg={item.user.image}
           profileName={item.user.name}
           estimateTime={"5 minutes to "}
-          date={"Jun 21, 2024"}
+          date={dateUtil(item.createdAt).format("MMM D, YYYY")}
           currentAuthId={currentAuth?.id}
           blogId={item.id}
           showSetting={true}

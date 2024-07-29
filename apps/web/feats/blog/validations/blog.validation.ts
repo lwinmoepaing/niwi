@@ -62,7 +62,10 @@ export const blogByAuthPaginationSchema = z.object({
   page: z
     .string()
     .optional()
-    .transform((val) => parseInt(val || "1") || 1),
+    .transform((val) => {
+      const number = parseInt(val || "1");
+      return number && number >= 0 ? number : 1;
+    }),
   authorId: z
     .string()
     .min(1, "Author ID is required")
@@ -76,7 +79,10 @@ export const blogCommentsByBlogIdPaginationSchema = z.object({
   page: z
     .string()
     .optional()
-    .transform((val) => parseInt(val || "1") || 1),
+    .transform((val) => {
+      const number = parseInt(val || "1");
+      return number && number >= 0 ? number : 1;
+    }),
   blogId: z
     .string()
     .min(1, "BlogID is required")
@@ -148,3 +154,15 @@ export const deleteBlogCommentSchema = z.object({
 export type DeleteBlogCommentFormValues = z.infer<
   typeof deleteBlogCommentSchema
 >;
+
+export const bookmarkBlogSchema = z.object({
+  blogId: z
+    .string()
+    .min(1, "BlogID is required")
+    .refine((val) => isValidObjectId(val), {
+      message: "Invalid Blog ID.",
+    }),
+  isBookmark: z.boolean({ message: "Bookmark is required" }),
+});
+
+export type BookmarkBlogFormValues = z.infer<typeof bookmarkBlogSchema>;

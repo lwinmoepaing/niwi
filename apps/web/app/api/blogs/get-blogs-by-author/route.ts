@@ -1,6 +1,6 @@
+import { getBlogByAuthor } from "@/feats/blog/services/blog.service";
 import { blogByAuthPaginationSchema } from "@/feats/blog/validations/blog.validation";
 import { auth } from "@/libs/auth/next-auth";
-import prismaClient from "@/libs/db/prismaClient";
 import { responseAPI } from "@/libs/response/response-helper";
 import { StatusCodes } from "http-status-codes";
 
@@ -30,73 +30,12 @@ export async function GET(req: Request) {
       });
     }
 
-    const LIMIT_COUNT = 5 as const;
-    const page = data.page;
-    const skip = (page - 1) * LIMIT_COUNT;
-
-    // Get the total count of blogs
-    const totalCount = await prismaClient.blog.count({
-      where: {
-        userId: data.authorId,
-      },
+    const { data: blogs, meta } = await getBlogByAuthor({
+      authorId: data.authorId,
+      page: data.page,
+      publishStatus: data.publishStatus,
+      userId: session?.user?.id,
     });
-
-    // Calculate total pages
-    const totalPages = Math.ceil(totalCount / LIMIT_COUNT);
-
-    const blogs = await prismaClient.blog.findMany({
-      skip: skip,
-      take: LIMIT_COUNT,
-      where: {
-        userId: data.authorId,
-        isPublished: data.publishStatus,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            image: true,
-          },
-        },
-
-        reactions: {
-          select: {
-            heart: true,
-            thumbsUp: true,
-            thumbsDown: true,
-          },
-        },
-
-        userBlogReaction: {
-          where: {
-            userId: session?.user?.id,
-          },
-          select: {
-            reaction: true,
-            userId: true,
-            blogId: true,
-          },
-        },
-
-        _count: {
-          select: {
-            blogComments: true,
-          },
-        },
-      },
-    });
-
-    const meta = {
-      currentPage: page,
-      previousPage: page > 1 ? page - 1 : null,
-      totalPage: totalPages,
-      hasNextPage: page < totalPages,
-      hasPreviousPage: page > 1,
-    } as const;
 
     return responseAPI({
       message: "Fetched blogs successfully.",

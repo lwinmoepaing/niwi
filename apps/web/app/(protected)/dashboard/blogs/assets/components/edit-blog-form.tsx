@@ -13,6 +13,7 @@ import { User } from "next-auth";
 import { useEffect, useMemo } from "react";
 import { Blog } from "@/types/blog-response";
 import useBlogStore from "@/stores/blog/blog.store";
+import dateUtil from "@/libs/date/date-util";
 
 function EditBlogForm({
   currentAuth,
@@ -111,10 +112,11 @@ function EditBlogForm({
         profileImg={currentAuth?.image || "/images/auth/profile.png"}
         profileName={currentAuth?.name || "-"}
         estimateTime={"estimate time to "}
-        date={"Jun 21, 2024"}
+        date={dateUtil(blog.createdAt).format("MMM D, YYYY")}
         blogId={blog.id}
         favoriteCount={blog.reactions?.heart || 0}
         isFavorite={isFavorite}
+        isBookmark={(blog._count?.blogBookmarks || 0) > 0 || false}
         currentAuth={currentAuth}
         hideActions={!isPublished}
         blogAuthorId={blog.user.id}

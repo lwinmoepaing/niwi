@@ -11,20 +11,6 @@ export interface BlogsCommentsByBlogIdResponse {
   meta: Meta;
 }
 
-export interface BlogComment {
-  id: string;
-  content: string;
-  userId: string;
-  blogId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  user: {
-    id: string;
-    name: string;
-    image: string;
-  };
-}
-
 export interface SingleBlogComment {
   id: string;
   content: string;
@@ -32,6 +18,14 @@ export interface SingleBlogComment {
   blogId: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface BlogComment extends SingleBlogComment {
+  user: {
+    id: string;
+    name: string;
+    image: string;
+  };
 }
 
 export interface BlogsByAuthorResponse {
@@ -52,6 +46,7 @@ export interface SingleBlog {
   reactionsId: string;
   _count?: {
     blogComments?: number;
+    blogBookmarks?: number;
   };
   createdAt: Date;
   updatedAt: Date;
@@ -88,7 +83,7 @@ export interface Reactions {
 
 export interface Meta {
   currentPage: number;
-  previousPage?: number;
+  previousPage?: number | null;
   totalPage: number;
   hasNextPage: boolean;
   hasPreviousPage: boolean;

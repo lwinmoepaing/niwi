@@ -1,15 +1,16 @@
+import useBlogBookmark from "@/feats/blog/hooks/useBlogBookmark";
+import useBlogFavorite from "@/feats/blog/hooks/useBlogFavorite";
+import { cn } from "@/libs/utils";
+import { User } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
+import NiwiBlogCommentsModal from "../niwi-blog-comments/niwi-blog-comments-modal";
 import NiwiBlogHeartIcon from "../niwi-blog-icons/niwi-blog-heart-icon";
 import NiwiBlogMessageIcon from "../niwi-blog-icons/niwi-blog-message-icon";
 import NiwiBlogShareIcon from "../niwi-blog-icons/niwi-blog-share-icon";
 import NiwiBookmarkIcon from "../niwi-blog-icons/niwi-bookmark-icon";
 import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
-import useBlogFavorite from "@/feats/blog/hooks/useBlogFavorite";
-import { cn } from "@/libs/utils";
-import NiwiBlogCommentsModal from "../niwi-blog-comments/niwi-blog-comments-modal";
-import { User } from "next-auth";
 
 type NiwiBlogProfileProps = {
   title: string;
@@ -23,6 +24,7 @@ type NiwiBlogProfileProps = {
   showSetting?: boolean;
   favoriteCount: number;
   isFavorite: boolean;
+  isBookmark: boolean;
   commentCount: number;
   hideActions?: boolean;
   currentAuth?: User;
@@ -41,6 +43,7 @@ function NiwiBlogProfile({
   showSetting,
   favoriteCount,
   isFavorite: parentFav,
+  isBookmark: parentIsBookmark,
   hideActions,
   currentAuth,
   commentCount,
@@ -54,16 +57,17 @@ function NiwiBlogProfile({
     currentAuthId: currentAuth?.id ?? "",
   });
 
+  // Bookmark Blog
+  const { isBookmark, onClickBookmark } = useBlogBookmark({
+    blogId,
+    isBookmark: parentIsBookmark,
+    currentAuthId: currentAuth?.id ?? "",
+  });
+
   // Comments
   const [isShowComment, setIsShowComment] = useState(false);
   const clickToShowCmt = useCallback(() => setIsShowComment(true), []);
   const hideToShowCmt = useCallback(() => setIsShowComment(false), []);
-
-  // Bookmarks
-  const [isBookmark, setIsBookmark] = useState(false);
-  const toggleBookmark = useCallback(() => {
-    setIsBookmark((prev) => !prev);
-  }, []);
 
   return (
     <section className="niwi-blog-profile-container">
@@ -109,7 +113,7 @@ function NiwiBlogProfile({
           </span>
         </div>
         <div className="niwi-blog-profile-actions-container">
-          <NiwiBookmarkIcon onClick={toggleBookmark} active={isBookmark} />
+          <NiwiBookmarkIcon onClick={onClickBookmark} active={isBookmark} />
         </div>
         <div className="niwi-blog-profile-actions-container">
           <NiwiBlogShareIcon onClick={() => {}} />

@@ -17,6 +17,30 @@ export function checkPageNoIsValid(page: string | string[] | undefined) {
   return parsedPage.data || 1;
 }
 
+interface PaginateMeta {
+  currentPage: number;
+  previousPage?: number | null;
+  totalPage: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+export function generateMetaForPagination({
+  page,
+  totalPages,
+}: {
+  page: number;
+  totalPages: number;
+}): PaginateMeta {
+  return {
+    currentPage: page,
+    previousPage: page > 1 ? page - 1 : null,
+    totalPage: totalPages,
+    hasNextPage: page < totalPages,
+    hasPreviousPage: page > 1,
+  };
+}
+
 export function getPagniationPath({
   page,
   limitCount,

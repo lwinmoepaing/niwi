@@ -14,9 +14,12 @@ import {
   publishBlog,
   saveBlog,
   updateBlogComment,
+  updateBookMarkBlog,
   updateFavoriteBlog,
 } from "../services/blog.service";
 import {
+  BookmarkBlogFormValues,
+  bookmarkBlogSchema,
   CreateBlogCommentFormValues,
   createBlogCommentSchema,
   CreateBlogFormValues,
@@ -289,6 +292,40 @@ export const deleteBlogCommentAction = async (
     }
 
     return responseError(deletedComment.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
+  }
+};
+
+export const bookmarkBlogAction = async (
+  _currentState: unknown,
+  blogData: BookmarkBlogFormValues
+) => {
+  try {
+    const { error, data } = bookmarkBlogSchema.safeParse(blogData);
+    if (error) {
+      return responseError(error.message, error.format());
+    }
+
+    const session = await auth();
+    if (!session?.user?.id) return responseError("No authentication data");
+
+    const updateStatus = await updateBookMarkBlog({
+      blogId: data.blogId,
+      userId: session.user.id,
+      isBookmark: data.isBookmark,
+    });
+
+    if (updateStatus.success && updateStatus.data) {
+      return responseSuccess(
+        "Successfully updated favorite status on blog",
+        updateStatus.data
+      );
+    }
+
+    return responseError(updateStatus.message);
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);
