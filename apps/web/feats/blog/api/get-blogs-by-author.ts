@@ -1,6 +1,10 @@
 import axiosClient from "@/libs/api/axios-client";
 import { BlogsByAuthorResponse } from "@/types/blog-response";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  getAuthorPublishedBlogQueryKey,
+  getAuthorUnPublishedBlogQueryKey,
+} from "../services/blog-query-cache.service";
 
 const API_LIST = {
   getBlogByAuthorAPI: "/api/blogs/get-blogs-by-author",
@@ -17,7 +21,6 @@ const getBlogsByAuthor = async ({
   authorId,
   publishStatus,
 }: GetBlogByAuthorIdProps): Promise<BlogsByAuthorResponse> => {
-  // Fetches blogs by author with pagination
   const response = (await axiosClient.get(
     `${API_LIST.getBlogByAuthorAPI}?page=${pageNo}&authorId=${authorId}&publishStatus=${publishStatus?.toString()}`
   )) as BlogsByAuthorResponse;
@@ -34,7 +37,9 @@ export const useGetBlogsByAuthor = ({
       oldData === newData ? oldData : newData,
     initialPageParam: 1,
     staleTime: 1000 * 60,
-    queryKey: ["get-blogs-by-author", authorId, publishStatus],
+    queryKey: publishStatus
+      ? getAuthorPublishedBlogQueryKey(authorId)
+      : getAuthorUnPublishedBlogQueryKey(authorId),
     queryFn: ({ pageParam = 0 }) =>
       getBlogsByAuthor({
         pageNo: pageParam as number,

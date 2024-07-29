@@ -4,13 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { bookmarkBlogAction } from "../actions/blog.action";
+import { updateBookmarkBlogAction } from "../actions/blog.action";
+import { updateBookmarkBlogQueryCacheUpdate } from "../services/blog-query-cache.service";
 import {
   BookmarkBlogFormValues,
   bookmarkBlogSchema,
 } from "../validations/blog.validation";
 
-const delay = 300;
+const delay = 150;
 
 function useBlogBookmark({
   blogId,
@@ -23,10 +24,8 @@ function useBlogBookmark({
 }) {
   const [clickCount, setClickCount] = useState<number>(0);
 
-  const [bookmarkBlogResponse, dispatchBookmarkBlog] = useActionState(
-    bookmarkBlogAction,
-    undefined
-  );
+  const [bookmarkBlogResponse, dispatchBookmarkBlog, bookmarkLoading] =
+    useActionState(updateBookmarkBlogAction, undefined);
 
   const [optimisticBookmark, setOptimisticBookmark] =
     useState<boolean>(parentIsBookmark);
@@ -42,7 +41,9 @@ function useBlogBookmark({
 
   useEffect(() => {
     if (bookmarkBlogResponse?.success === true) {
-      // toast.success(bookmarkBlogResponse.message);
+      if (bookmarkBlogResponse.message) {
+        toast.success(bookmarkBlogResponse.message);
+      }
 
       if (bookmarkBlogResponse.data) {
         reset(
@@ -55,11 +56,12 @@ function useBlogBookmark({
 
         setOptimisticBookmark(bookmarkBlogResponse.data.isBookmark);
 
-        // updateFavoriteBlogQueryCacheUpdate({
-        //   blogId: bookmarkBlogResponse.data.blogId,
-        //   userId: currentAuthId,
-        //   isFavorite: bookmarkBlogResponse.data.isFavorite,
-        // });
+        updateBookmarkBlogQueryCacheUpdate({
+          blogId: bookmarkBlogResponse.data.blogId,
+          userId: currentAuthId,
+          isBookmark: bookmarkBlogResponse.data.isBookmark,
+          blog: bookmarkBlogResponse.data.bookmarkBlog,
+        });
       }
       return;
     }
@@ -87,7 +89,7 @@ function useBlogBookmark({
     setClickCount((prev) => prev + 1);
   }, [parentIsBookmark]);
 
-  // Debounce for 300 miliseconds
+  // Debounce for 150 miliseconds
   useEffect(() => {
     if (clickCount <= 0) return;
 
@@ -101,6 +103,7 @@ function useBlogBookmark({
   }, [clickCount, optimisticBookmark]);
 
   return {
+    bookmarkLoading,
     isBookmark: optimisticBookmark,
     onClickBookmark,
   };

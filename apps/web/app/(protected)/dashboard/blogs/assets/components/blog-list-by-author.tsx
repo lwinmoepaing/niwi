@@ -66,22 +66,14 @@ function BlogListByAuthor({
         {blogList.map((item) => (
           <NiwiBlogProfile
             key={item.id}
-            title={item.title}
-            profileLink={`/dashboard/profile/${item.user.id}`}
-            profileImg={item.user.image}
-            profileName={item.user.name}
-            estimateTime={"5 minutes to "}
-            date={dateUtil(item.createdAt).format("MMM D, YYYY")}
-            blogId={item.id}
-            blogAuthorId={item.user.id}
+            blog={item}
             currentAuth={currentAuth}
-            showSetting={true}
-            favoriteCount={item.reactions?.heart || 0}
             isBookmark={(item._count?.blogBookmarks || 0) > 0 || false}
             isFavorite={item.userBlogReaction.some(
               (item) => item.reaction === "HEART"
             )}
             commentCount={item._count?.blogComments || 0}
+            showSetting={true}
           />
         ))}
         {isFetching ? (

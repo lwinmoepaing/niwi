@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import BlogListByAuthor from "./blog-list-by-author";
 import { User } from "next-auth";
+import BlogListByBookmark from "./blog-list-by-bookmark";
 
 function BlogListLandingPage({
   authorId,
@@ -15,7 +16,9 @@ function BlogListLandingPage({
   authorId: string;
   currentAuth?: User;
 }) {
-  const [switcher, setSwitcher] = useState<"Draft" | "Publish">("Draft");
+  const [switcher, setSwitcher] = useState<"Draft" | "Publish" | "Bookmark">(
+    "Draft"
+  );
 
   return (
     <>
@@ -34,27 +37,23 @@ function BlogListLandingPage({
 
       <div className="w-full md:max-w-[60%]">
         {switcher === "Draft" && (
-          <>
-            <BlogListByAuthor
-              authorId={authorId}
-              publishStatus={false}
-              key={switcher}
-              currentAuth={currentAuth}
-            />
-          </>
+          <BlogListByAuthor
+            authorId={authorId}
+            publishStatus={false}
+            key={switcher}
+            currentAuth={currentAuth}
+          />
         )}
-      </div>
-
-      <div className="w-full md:max-w-[60%]">
         {switcher === "Publish" && (
-          <>
-            <BlogListByAuthor
-              authorId={authorId}
-              publishStatus={true}
-              key={switcher}
-              currentAuth={currentAuth}
-            />
-          </>
+          <BlogListByAuthor
+            authorId={authorId}
+            publishStatus={true}
+            key={switcher}
+            currentAuth={currentAuth}
+          />
+        )}
+        {switcher === "Bookmark" && (
+          <BlogListByBookmark currentAuth={currentAuth} />
         )}
       </div>
     </>

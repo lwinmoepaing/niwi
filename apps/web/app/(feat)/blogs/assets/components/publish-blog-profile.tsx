@@ -1,7 +1,6 @@
 "use client";
 
 import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
-import dateUtil from "@/libs/date/date-util";
 import useBlogStore from "@/stores/blog/blog.store";
 import { PublishedBlog } from "@/types/blog-response";
 import { User } from "next-auth";
@@ -30,21 +29,12 @@ function PublishBLogProfile({
 
   return (
     <NiwiBlogProfile
-      title={blog.title || "--"}
-      profileLink={`/profile/${blog.user?.id || ""}`}
-      profileImg={blog.user?.image || "/images/auth/profile.png"}
-      profileName={blog.user?.name || "-"}
-      estimateTime={"estimate time to "}
-      date={dateUtil(blog.createdAt).format("MMM D, YYYY")}
-      blogId={blog.id}
-      favoriteCount={blog.reactions?.heart || 0}
-      isFavorite={isFavorite}
-      isBookmark={(blog._count?.blogBookmarks || 0) > 0 || false}
+      blog={blog}
       currentAuth={currentAuth}
-      hideActions={!blog.isPublished}
-      blogAuthorId={blog.user.id}
-      commentCount={currentBlog?._count?.blogComments || 0}
+      isBookmark={(blog._count?.blogBookmarks || 0) > 0 || false}
       disabledLink={true}
+      isFavorite={isFavorite}
+      commentCount={currentBlog?._count?.blogComments || 0}
     />
   );
 }

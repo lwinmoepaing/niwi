@@ -4,26 +4,32 @@ import {
   BlogComment,
   BlogsByAuthorResponse,
   BlogsCommentsByBlogIdResponse,
+  BookmarkBlog,
+  BookmarkBlogResponse,
   SingleBlog,
   SingleBlogComment,
 } from "@/types/blog-response";
 import { InfiniteData } from "@tanstack/react-query";
 
-const getAuthorUnPublishedBlogQueryKey = (authorId: string) => {
+export const getAuthorUnPublishedBlogQueryKey = (authorId: string) => {
   return ["get-blogs-by-author", authorId, false];
 };
-const getAuthorPublishedBlogQueryKey = (authorId: string) => {
+export const getAuthorPublishedBlogQueryKey = (authorId: string) => {
   return ["get-blogs-by-author", authorId, true];
 };
-const getCommentByBlogIdQueryKey = (blodId: string) => {
+export const getCommentByBlogIdQueryKey = (blodId: string) => {
   return ["get-blog-comments-by-blog-id", blodId];
 };
 
-const getAllKeys = (authorId: string) => {
+export const getAllKeys = (authorId: string) => {
   return [
     getAuthorUnPublishedBlogQueryKey(authorId),
     getAuthorPublishedBlogQueryKey(authorId),
   ];
+};
+
+export const getBookmarkKeyByUserId = (userId: string) => {
+  return ["get-bookmarked-blogs", userId];
 };
 
 export const createBlogCacheUpdate = (data: Blog) => {
@@ -378,4 +384,90 @@ export const deleteCommentQueryCacheUpdate = (
       );
     }
   });
+};
+
+type BookmarkCache = {
+  blogId: string;
+  userId: string;
+  isBookmark: boolean;
+  blog: BookmarkBlog | null;
+};
+
+const updateFnForBookmarkBlogList = (
+  data: BookmarkCache,
+  pages: BlogsByAuthorResponse[]
+): BlogsByAuthorResponse[] => {
+  return pages.reduce((prev, page) => {
+    page.data = page.data.map((item) => {
+      const condition = item.id === data.blogId;
+      if (condition && item?._count) {
+        item._count.blogBookmarks = data.isBookmark ? 1 : 0;
+      }
+      return item;
+    });
+
+    return [...prev, page];
+  }, [] as BlogsByAuthorResponse[]);
+};
+
+const updateFnForBookmarkList = (
+  data: BookmarkCache,
+  pages: BookmarkBlogResponse[]
+): BookmarkBlogResponse[] => {
+  const bookmarkBlog = data.blog;
+
+  if (data.isBookmark && bookmarkBlog) {
+    if (pages?.[0]?.data) {
+      if (bookmarkBlog.blog._count) {
+        bookmarkBlog.blog._count.blogBookmarks = 1;
+      }
+      pages[0].data = [bookmarkBlog, ...pages[0].data];
+    }
+    return pages;
+  }
+
+  return pages.reduce((prev, page) => {
+    page.data = page.data.filter((item) => {
+      return item.blog.id !== data.blogId;
+    });
+
+    return [...prev, page];
+  }, [] as BookmarkBlogResponse[]);
+};
+
+export const updateBookmarkBlogQueryCacheUpdate = (
+  cacheProp: BookmarkCache
+) => {
+  const queryBlogListKeys = getAllKeys(cacheProp.userId);
+
+  queryBlogListKeys.forEach((key) => {
+    const exisitingCache = queryClient.getQueryData(key);
+    if (exisitingCache) {
+      queryClient.setQueryData(
+        key,
+        (oldData: InfiniteData<BlogsByAuthorResponse, unknown>) => {
+          return {
+            ...oldData,
+            pages: updateFnForBookmarkBlogList(cacheProp, oldData.pages),
+          };
+        }
+      );
+    }
+  });
+
+  const queryBookmarksKey = getBookmarkKeyByUserId(cacheProp.userId);
+  const exisitingCache = queryClient.getQueryData(queryBookmarksKey);
+
+  if (exisitingCache) {
+    queryClient.setQueryData(
+      queryBookmarksKey,
+      (oldData: InfiniteData<BookmarkBlogResponse, unknown>) => {
+        console.log(oldData);
+        return {
+          ...oldData,
+          pages: updateFnForBookmarkList(cacheProp, oldData.pages),
+        };
+      }
+    );
+  }
 };

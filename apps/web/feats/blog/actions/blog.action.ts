@@ -11,6 +11,7 @@ import {
   createBlogComment,
   deleteBlog,
   deleteBlogComment,
+  getBookmarkedBlogs,
   publishBlog,
   saveBlog,
   updateBlogComment,
@@ -299,7 +300,7 @@ export const deleteBlogCommentAction = async (
   }
 };
 
-export const bookmarkBlogAction = async (
+export const updateBookmarkBlogAction = async (
   _currentState: unknown,
   blogData: BookmarkBlogFormValues
 ) => {
@@ -319,13 +320,36 @@ export const bookmarkBlogAction = async (
     });
 
     if (updateStatus.success && updateStatus.data) {
-      return responseSuccess(
-        "Successfully updated favorite status on blog",
-        updateStatus.data
-      );
+      const message = data.isBookmark
+        ? "Successfully updated Bookmark this blog."
+        : "Successfully removed Bookmark this blog.";
+
+      return responseSuccess(message, updateStatus.data);
     }
 
     return responseError(updateStatus.message);
+  } catch (err) {
+    if (err instanceof Error) {
+      return responseError(err.message);
+    }
+  }
+};
+
+export const getBookmarkBlogAction = async (_currentState: unknown) => {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) return responseError("No authentication data");
+
+    const data = await getBookmarkedBlogs({
+      page: 1,
+      userId: session?.user?.id,
+    });
+
+    if (data) {
+      return responseSuccess("Successfully get bookmark blogs", data);
+    }
+
+    return responseError("Can't get bookmark blogs");
   } catch (err) {
     if (err instanceof Error) {
       return responseError(err.message);

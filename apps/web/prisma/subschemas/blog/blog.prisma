@@ -83,5 +83,9 @@ model UserBlogBookmark {
     blog   Blog   @relation(fields: [blogId], references: [id])
     blogId String @db.ObjectId
 
+    // DateTime
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
     @@unique([userId, blogId])
 }

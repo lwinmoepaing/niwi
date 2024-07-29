@@ -155,6 +155,16 @@ export type DeleteBlogCommentFormValues = z.infer<
   typeof deleteBlogCommentSchema
 >;
 
+export const bookmarkBlogPaginationSchema = z.object({
+  page: z
+    .string()
+    .optional()
+    .transform((val) => {
+      const number = parseInt(val || "1");
+      return number && number >= 0 ? number : 1;
+    }),
+});
+
 export const bookmarkBlogSchema = z.object({
   blogId: z
     .string()

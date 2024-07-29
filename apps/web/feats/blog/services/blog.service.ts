@@ -6,9 +6,29 @@ import {
   responseSuccess,
 } from "@/libs/response/response-helper";
 import { nanoid } from "nanoid";
-import { Blog, PublishedBlog, SingleBlog } from "@/types/blog-response";
+import {
+  Blog,
+  BookmarkBlog,
+  PublishedBlog,
+  SingleBlog,
+} from "@/types/blog-response";
 import { auth } from "@/libs/auth/next-auth";
 import { generateMetaForPagination } from "@/libs/utils";
+
+export const serializeSelectorField = () => {
+  return {
+    id: true,
+    slug: true,
+    subTitle: true,
+    title: true,
+    isPublished: true,
+    previewImage: true,
+    userId: true,
+    reactionsId: true,
+    createdAt: true,
+    updatedAt: true,
+  } as const;
+};
 
 export const getUserSelectRelation = (userId: string) =>
   ({
@@ -229,10 +249,11 @@ type PublishBlogProps = {
   title: string;
   slug: string;
   userId: string;
+  subTitle: string;
 };
 
 export const publishBlog = async (blogProps: PublishBlogProps) => {
-  const { blogId, userId, slug, title } = blogProps;
+  const { blogId, userId, slug, title, subTitle } = blogProps;
 
   try {
     const { success, data: blog } = await getBlogById(blogId);
@@ -252,6 +273,7 @@ export const publishBlog = async (blogProps: PublishBlogProps) => {
         include: getUserSelectRelation(userId),
         data: {
           title,
+          subTitle,
           slug,
           isPublished: true,
         },
@@ -355,15 +377,15 @@ export const deleteBlog = async (blogProps: DeleteBlogProps) => {
 
     const removedBlog = await prismaClient.$transaction(async (prisma) => {
       await prisma.blogComment.deleteMany({
-        where: {
-          blogId: blogId,
-        },
+        where: { blogId },
       });
 
       await prisma.userBlogReaction.deleteMany({
-        where: {
-          blogId,
-        },
+        where: { blogId },
+      });
+
+      await prisma.userBlogBookmark.deleteMany({
+        where: { blogId },
       });
 
       const deletedBlog = await prisma.blog.delete({ where: { id: blogId } });
@@ -531,15 +553,23 @@ export const updateBookMarkBlog = async (
 
       // First time reaction for this blog
       if (!searchUserBlogBookmark) {
-        await prisma.userBlogBookmark.create({
+        const newBookmark = await prisma.userBlogBookmark.create({
           data: defaultProps,
+          include: {
+            blog: {
+              select: {
+                ...serializeSelectorField(),
+                ...getUserSelectRelation(userId),
+              },
+            },
+          },
         });
 
-        return { blogId, userId, isBookmark };
+        return { blogId, userId, isBookmark, bookmarkBlog: newBookmark };
       }
 
       if (isBookmark) {
-        return { blogId, userId, isBookmark };
+        return { blogId, userId, isBookmark, bookmarkBlog: null };
       }
 
       await prisma.userBlogBookmark.delete({
@@ -548,7 +578,7 @@ export const updateBookMarkBlog = async (
         },
       });
 
-      return { blogId, userId, isBookmark };
+      return { blogId, userId, isBookmark, bookmarkBlog: null };
     });
     return responseSuccess("Successfully created blog", resData);
   } catch (error) {
@@ -572,7 +602,6 @@ export const getBlogByAuthor = async ({
   const LIMIT_COUNT = 5 as const;
   const skip = (page - 1) * LIMIT_COUNT;
 
-  // Get the total count of blogs
   const totalCount = await prismaClient.blog.count({
     where: {
       userId: authorId,
@@ -590,9 +619,15 @@ export const getBlogByAuthor = async ({
       isPublished: publishStatus,
     },
     orderBy: { createdAt: "desc" },
-    include: userId
-      ? getUserSelectRelation(userId)
-      : getUserSelectRelationWithoutAuth(),
+    select: userId
+      ? {
+          ...serializeSelectorField(),
+          ...getUserSelectRelation(userId),
+        }
+      : {
+          ...serializeSelectorField(),
+          ...getUserSelectRelationWithoutAuth(),
+        },
   });
 
   const meta = generateMetaForPagination({ page, totalPages });
@@ -615,7 +650,6 @@ export const getCommentsByBlogId = async ({
   const LIMIT_COUNT = 8 as const;
   const skip = (page - 1) * LIMIT_COUNT;
 
-  // Get the total count of comments
   const totalCount = await prismaClient.blogComment.count({
     where: {
       blogId: blogId,
@@ -640,6 +674,50 @@ export const getCommentsByBlogId = async ({
     },
     orderBy: { createdAt: "desc" },
   });
+
+  const meta = generateMetaForPagination({ page, totalPages });
+
+  return {
+    meta,
+    data: comments,
+  };
+};
+
+type GetBookmarkedBlogsProps = {
+  page: number;
+  userId: string;
+};
+
+export const getBookmarkedBlogs = async ({
+  page,
+  userId,
+}: GetBookmarkedBlogsProps) => {
+  const LIMIT_COUNT = 8 as const;
+  const skip = (page - 1) * LIMIT_COUNT;
+
+  const totalCount = await prismaClient.userBlogBookmark.count({
+    where: {
+      userId,
+    },
+  });
+
+  // Calculate total pages
+  const totalPages = Math.ceil(totalCount / LIMIT_COUNT);
+
+  const comments = (await prismaClient.userBlogBookmark.findMany({
+    skip: skip,
+    take: LIMIT_COUNT,
+    where: { userId },
+    include: {
+      blog: {
+        select: {
+          ...serializeSelectorField(),
+          ...getUserSelectRelation(userId),
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  })) as BookmarkBlog[];
 
   const meta = generateMetaForPagination({ page, totalPages });
 

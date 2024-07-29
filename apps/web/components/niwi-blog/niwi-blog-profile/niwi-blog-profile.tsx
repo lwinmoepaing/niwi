@@ -1,6 +1,8 @@
 import useBlogBookmark from "@/feats/blog/hooks/useBlogBookmark";
 import useBlogFavorite from "@/feats/blog/hooks/useBlogFavorite";
+import dateUtil from "@/libs/date/date-util";
 import { cn } from "@/libs/utils";
+import { PublishedBlog } from "@/types/blog-response";
 import { User } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,37 +13,22 @@ import NiwiBlogMessageIcon from "../niwi-blog-icons/niwi-blog-message-icon";
 import NiwiBlogShareIcon from "../niwi-blog-icons/niwi-blog-share-icon";
 import NiwiBookmarkIcon from "../niwi-blog-icons/niwi-bookmark-icon";
 import NiwiBlogSettingMenu from "./niwi-blog-setting-menu";
+import { CircleDashed } from "lucide-react";
 
 type NiwiBlogProfileProps = {
-  title: string;
-  profileImg: string;
-  profileName: string;
-  profileLink: string;
-  estimateTime: string;
-  date: string;
-  blogId: string;
-  blogAuthorId: string;
+  blog: PublishedBlog;
   showSetting?: boolean;
-  favoriteCount: number;
   isFavorite: boolean;
   isBookmark: boolean;
-  commentCount: number;
   hideActions?: boolean;
   currentAuth?: User;
+  commentCount: number;
   disabledLink?: boolean;
 };
 
 function NiwiBlogProfile({
-  title,
-  profileImg,
-  profileName,
-  profileLink,
-  estimateTime,
-  date,
-  blogId,
-  blogAuthorId,
+  blog,
   showSetting,
-  favoriteCount,
   isFavorite: parentFav,
   isBookmark: parentIsBookmark,
   hideActions,
@@ -51,15 +38,15 @@ function NiwiBlogProfile({
 }: NiwiBlogProfileProps) {
   // Favorites (HeartIcon)
   const { favCount, favorite, onClickFavorite } = useBlogFavorite({
-    blogId,
+    blogId: blog.id,
     isFavorite: parentFav,
-    favoriteCount,
+    favoriteCount: blog.reactions?.heart || 0,
     currentAuthId: currentAuth?.id ?? "",
   });
 
   // Bookmark Blog
-  const { isBookmark, onClickBookmark } = useBlogBookmark({
-    blogId,
+  const { isBookmark, onClickBookmark, bookmarkLoading } = useBlogBookmark({
+    blogId: blog.id,
     isBookmark: parentIsBookmark,
     currentAuthId: currentAuth?.id ?? "",
   });
@@ -73,26 +60,32 @@ function NiwiBlogProfile({
     <section className="niwi-blog-profile-container">
       <h1 className="niwi-blog-profile-header">
         {disabledLink ? (
-          <span className="link">{title}</span>
+          <span className="link">{blog.title}</span>
         ) : (
-          <Link href={`/dashboard/blogs/${blogId}`} className="link">
-            {!title || title === "-" ? "Untitled Blog" : title}
+          <Link href={`/dashboard/blogs/${blog.id}`} className="link">
+            {!blog.title || blog.title === "-" ? "Untitled Blog" : blog.title}
           </Link>
         )}
       </h1>
       <div className="niwi-blog-profile-row">
-        <Link href={profileLink}>
+        <Link href={`/profile/${blog.user?.id || ""}`}>
           <div className="niwi-blog-profile-image">
-            <Image width={44} height={44} src={profileImg} alt={profileName} />
+            <Image
+              width={44}
+              height={44}
+              src={blog.user?.image || "/images/auth/profile.png"}
+              alt={blog.user?.name || "-"}
+            />
           </div>
         </Link>
         <div className="niwi-blog-profile-right-section">
           <div className="niwi-blog-profile-name-container">
-            <h3>{profileName}</h3>
+            <h3>{blog.user?.name || "-"}</h3>
           </div>
           <div className="niwi-blog-profile-datetime-container">
             <h4>
-              {estimateTime} read · {date}
+              {"estimate time to"} read ·{" "}
+              {dateUtil(blog.createdAt).format("MMM D, YYYY")}
             </h4>
           </div>
         </div>
@@ -113,18 +106,22 @@ function NiwiBlogProfile({
           </span>
         </div>
         <div className="niwi-blog-profile-actions-container">
-          <NiwiBookmarkIcon onClick={onClickBookmark} active={isBookmark} />
+          {bookmarkLoading ? (
+             <CircleDashed className="animate-spin" size={12} />
+          ) : (
+            <NiwiBookmarkIcon onClick={onClickBookmark} active={isBookmark} />
+          )}
         </div>
         <div className="niwi-blog-profile-actions-container">
           <NiwiBlogShareIcon onClick={() => {}} />
         </div>
       </div>
-      {!showSetting ? null : <NiwiBlogSettingMenu blogId={blogId} />}
+      {!showSetting ? null : <NiwiBlogSettingMenu blogId={blog.id} />}
 
       {!isShowComment ? null : (
         <NiwiBlogCommentsModal
-          blogId={blogId}
-          blogAuthorId={blogAuthorId}
+          blogId={blog.id}
+          blogAuthorId={blog.user.id}
           show={isShowComment}
           onClose={hideToShowCmt}
           authUser={currentAuth}

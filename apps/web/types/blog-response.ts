@@ -38,8 +38,8 @@ export interface SingleBlog {
   id: string;
   slug: string;
   title: string;
-  content: string;
-  contentJson: string;
+  content?: string;
+  contentJson?: string;
   isPublished: boolean;
   previewImage: string | null;
   userId: string;
@@ -87,4 +87,18 @@ export interface Meta {
   totalPage: number;
   hasNextPage: boolean;
   hasPreviousPage: boolean;
+}
+
+export interface BookmarkBlog {
+  id: string;
+  userId: string;
+  blogId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  blog: Blog;
+}
+export interface BookmarkBlogResponse {
+  message: string;
+  data: BookmarkBlog[];
+  meta: Meta;
 }

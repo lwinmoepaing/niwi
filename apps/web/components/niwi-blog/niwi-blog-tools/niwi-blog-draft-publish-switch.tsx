@@ -3,7 +3,7 @@
 import { cn } from "@/libs/utils";
 import { useEffect, useState } from "react";
 
-type StatusType = "Draft" | "Publish";
+type StatusType = "Draft" | "Publish" | "Bookmark";
 
 type NiwiBlogDraftPublishSwitcherProps = {
   onChangeStatus: (status: StatusType) => void;
@@ -19,19 +19,23 @@ function NiwiBlogDraftPublishSwitcher({
   }, [status]);
 
   return (
-    <div className="border rounded-full py-1 px-1 relative text-[14px] dark:border-[#1d1f23]">
+    <div className="relative border rounded-full py-1 px-1 text-[14px] dark:border-[#1d1f23]">
       <div
         className={cn(
-          "absolute w-[50%] h-[90%] top-[2px] bg-white dark:bg-[#1d1f23]  rounded-full",
+          "absolute w-[33.33%] h-[90%] top-[2px] bg-white dark:bg-[#1d1f23]  rounded-full",
           "transition-all duration-[500ms] ease-in-out shadow-sm niwi-blog-switcher-animation",
-          status === "Draft" ? "left-[2px] forward" : "left-[48%] reverse"
+          status === "Draft"
+            ? "left-[2px] forward"
+            : status === "Publish"
+              ? "left-[33%] forward"
+              : "left-[66%] forward"
         )}
       ></div>
 
       <button
         type="button"
         className={cn(
-          "w-[68px] mx-[2px] my-[2px] text-center relative transition-all duration-200 ease-in-out niwi-blog-switcher-animation",
+          "w-[76px] mx-[2px] my-[2px] text-center relative transition-all duration-200 ease-in-out niwi-blog-switcher-animation",
           status === "Draft" ? "niwi-logo-text font-bold forward" : ""
         )}
         onClick={() => setStatus("Draft")}
@@ -41,12 +45,22 @@ function NiwiBlogDraftPublishSwitcher({
       <button
         type="button"
         className={cn(
-          "w-[68px] mx-[2px] my-[2px] text-center relative transition-all duration-200 ease-in-out niwi-blog-switcher-animation",
+          "w-[76px] mx-[2px] my-[2px] text-center relative transition-all duration-200 ease-in-out niwi-blog-switcher-animation",
           status === "Publish" ? "niwi-logo-text font-bold forward" : ""
         )}
         onClick={() => setStatus("Publish")}
       >
         Publish
+      </button>
+      <button
+        type="button"
+        className={cn(
+          "w-[76px] mx-[2px] my-[2px] text-center relative transition-all duration-200 ease-in-out niwi-blog-switcher-animation",
+          status === "Bookmark" ? "niwi-logo-text font-bold forward" : ""
+        )}
+        onClick={() => setStatus("Bookmark")}
+      >
+        Bookmark
       </button>
     </div>
   );

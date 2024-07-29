@@ -1,19 +1,18 @@
 "use client";
 
+import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
 import NiwiTextEditor from "@/components/niwi-blog/niwi-text-editor/niwi-text-editor";
 import Button from "@/components/niwi-ui/button/button";
 import NavbarRightPortal from "@/components/niwi-ui/navbar/navbar-right-portal";
+import config from "@/config";
+import useBlogStore from "@/stores/blog/blog.store";
+import { Blog } from "@/types/blog-response";
 import { CircleDashed } from "lucide-react";
+import { User } from "next-auth";
+import Link from "next/link";
+import { useEffect, useMemo } from "react";
 import useEditBlogForm from "../hooks/useEditBlogForm";
 import PreviewPublishModal from "./preview-publish-modal";
-import Link from "next/link";
-import config from "@/config";
-import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
-import { User } from "next-auth";
-import { useEffect, useMemo } from "react";
-import { Blog } from "@/types/blog-response";
-import useBlogStore from "@/stores/blog/blog.store";
-import dateUtil from "@/libs/date/date-util";
 
 function EditBlogForm({
   currentAuth,
@@ -37,8 +36,8 @@ function EditBlogForm({
     images,
     slugName,
   } = useEditBlogForm({
-    contentJson: blog.contentJson,
-    content: blog.content,
+    contentJson: blog.contentJson || "",
+    content: blog.content || "",
     blogId: blog.id,
     publishStatus: blog.isPublished,
     slug: blog.slug,
@@ -107,19 +106,11 @@ function EditBlogForm({
       />
 
       <NiwiBlogProfile
-        title={title || "Title will be generated from your editor..."}
-        profileLink={`/dashboard/profile/${currentAuth?.id || ""}`}
-        profileImg={currentAuth?.image || "/images/auth/profile.png"}
-        profileName={currentAuth?.name || "-"}
-        estimateTime={"estimate time to "}
-        date={dateUtil(blog.createdAt).format("MMM D, YYYY")}
-        blogId={blog.id}
-        favoriteCount={blog.reactions?.heart || 0}
+        blog={blog}
         isFavorite={isFavorite}
         isBookmark={(blog._count?.blogBookmarks || 0) > 0 || false}
         currentAuth={currentAuth}
         hideActions={!isPublished}
-        blogAuthorId={blog.user.id}
         commentCount={currentBlog?._count?.blogComments || 0}
       />
 
