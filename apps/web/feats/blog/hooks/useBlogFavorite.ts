@@ -23,7 +23,7 @@ const countCalculation = (
   }
 };
 
-const delay = 300;
+const delay = 120;
 
 function useBlogFavorite({
   blogId,
@@ -116,7 +116,7 @@ function useBlogFavorite({
     setClickCount((prev) => prev + 1);
   }, [favoriteCount, parentIsFav]);
 
-  // Debounce for 300 miliseconds
+  // Debounce for 120 miliseconds
   useEffect(() => {
     if (clickCount <= 0) return;
 

@@ -73,6 +73,7 @@ export interface User {
   id: string;
   name: string;
   image: string;
+  shortLink: string;
 }
 
 export interface Reactions {

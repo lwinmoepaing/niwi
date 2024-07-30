@@ -37,6 +37,7 @@ export const getUserSelectRelation = (userId: string) =>
         id: true,
         name: true,
         image: true,
+        shortLink: true,
       },
     },
     reactions: {
@@ -77,6 +78,7 @@ export const getUserSelectRelationWithoutAuth = () =>
         id: true,
         name: true,
         image: true,
+        shortLink: true,
       },
     },
     reactions: {

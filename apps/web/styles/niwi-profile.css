@@ -1,0 +1,227 @@
+/*=============================================
+=                  Variables                  =
+=============================================*/
+
+:root {
+  /* Blog Profile */
+  --niwi-profile-bg-color: #fff;
+  --niwi-dark-profile-bg-color: #313339;
+
+  /* Blog Gradient Color 1 */
+
+  /* Blog Gradient Color 2 */
+}
+
+/*=============================================
+=                Profile Card                 =
+=============================================*/
+
+.niwi-profile-card-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  min-height: 470px;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--niwi-profile-bg-color);
+  border: 1px solid #c4c4c44a;
+}
+
+.dark .niwi-profile-card-container {
+  background-color: var(--niwi-dark-profile-bg-color);
+  border: 1px solid #5c5c5c4a;
+}
+
+.niwi-profile-card-image {
+  position: relative;
+  height: 155px;
+  background-color: #e4e4e4;
+  width: 100%;
+  border-radius: 20px 20px 0px 0px;
+  overflow: hidden;
+}
+
+.dark .niwi-profile-card-image {
+  background-color: #25272b;
+}
+
+.niwi-profile-card-image img {
+  object-fit: cover;
+}
+
+.niwi-profile-image-row {
+  height: 45px;
+  position: relative;
+}
+
+.niwi-profile-image {
+  width: 75px;
+  height: 75px;
+  position: relative;
+  border-radius: 32px;
+  top: -35px;
+  left: 15px;
+  overflow: hidden;
+  background-color: #f4f4f4;
+  border: 4px solid #ffffff;
+}
+
+.dark .niwi-profile-image {
+  border: 4px solid #313339;
+  background-color: #25272b;
+}
+
+.niwi-profile-image img {
+  object-fit: cover;
+}
+
+.niwi-profile-thinking-dot-color {
+  background: white;
+  box-shadow: 0 0 3px 2px #d9d9d975;
+  position: absolute;
+  opacity: 0;
+  scale: 0.5;
+  transition: all 0.2s ease-in-out;
+}
+
+.dark .niwi-profile-thinking-dot-color {
+  background: #1d1f23;
+  box-shadow: 0 0 3px 2px #3f3f3f69;
+  position: absolute;
+}
+
+.niwi-profile-active .niwi-profile-thinking-dot-color {
+  opacity: 1;
+  scale: 1;
+}
+
+.niwi-profile-thinking-dot-1 {
+  width: 10px;
+  height: 10px;
+  border-radius: 6px;
+  top: -31px;
+  left: 87px;
+}
+
+.niwi-profile-thinking-dot-2 {
+  width: 14px;
+  height: 14px;
+  border-radius: 10px;
+  top: -46px;
+  left: 99px;
+}
+
+.niwi-profile-thinking-dot-3 {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  top: -42px;
+  left: 118px;
+}
+
+.niwi-profile-active .niwi-profile-thinking-dot-1 {
+  transition-delay: 0s;
+}
+
+.niwi-profile-active .niwi-profile-thinking-dot-2 {
+  transition-delay: 0.1s;
+}
+
+.niwi-profile-active .niwi-profile-thinking-dot-3 {
+  transition-delay: 0.2s;
+}
+
+.niwi-profile-active .niwi-profile-thinking-box {
+  transition-delay: 0.4s;
+}
+
+.niwi-profile-thinking-box {
+  border-radius: 19px;
+  overflow: hidden;
+  min-height: 56px;
+  padding: 5px 2px 4px 2px;
+  position: absolute;
+  top: -15px;
+  left: 109px;
+  width: 175px;
+  font-size: 12px;
+}
+
+.niwi-profile-thinking-box .textarea {
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.niwi-profile-body {
+  padding: 0px 10px 20px 10px;
+}
+
+.niwi-profile-input {
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.niwi-profile-input.editor {
+  background-color: #efefef;
+}
+
+.dark .niwi-profile-input.editor {
+  background-color: #232528;
+}
+
+.niwi-profile-header {
+  width: 100%;
+  display: block;
+  padding: 5px 10px;
+  font-size: 1.1rem;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+h1.niwi-profile-header {
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to right, #f43f5e, #7e22ce, #60a5fa);
+  display: inline-block;
+  text-decoration: underline;
+  cursor: pointer;
+  width: auto;
+}
+
+.niwi-profile-sub-header {
+  width: 100%;
+  display: block;
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.niwi-profile-about-container {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding-top: 4px;
+  margin-top: 8px;
+}
+
+.dark .niwi-profile-about-container {
+  background-color: #272a2f;
+  border-radius: 10px;
+  padding-top: 4px;
+  margin-top: 8px;
+}
+
+.niwi-profile-dot-animate-active {
+  opacity: 1;
+  scale: 1;
+}
+
+.niwi-profile-about-container .editor-inner {
+  min-height: 146px;
+}

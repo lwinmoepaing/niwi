@@ -73,7 +73,7 @@ function NiwiBlogProfile({
         )}
       </h1>
       <div className="niwi-blog-profile-row">
-        <Link href={`/profile/${blog.user?.id || ""}`}>
+        <Link href={`/profile/${blog.user?.shortLink || ""}`}>
           <div className="niwi-blog-profile-image">
             <Image
               width={44}

@@ -1,11 +1,14 @@
 import Link from "next/link";
 import ProfileEditor from "../assets/components/profile-editor-form";
+import { auth } from "@/libs/auth/next-auth";
 
 type ProfileDetailPageProps = { params: { shortlink: string } };
 
 const ProfileDetailPage = async ({
   params: { shortlink },
 }: ProfileDetailPageProps) => {
+  const session = await auth();
+
   return (
     <div className="max-w-[860px] mx-auto w-full">
       <h2>
@@ -19,7 +22,7 @@ const ProfileDetailPage = async ({
       </h2>
 
       <section>
-        <ProfileEditor />
+        <ProfileEditor user={session?.user} />
       </section>
     </div>
   );
