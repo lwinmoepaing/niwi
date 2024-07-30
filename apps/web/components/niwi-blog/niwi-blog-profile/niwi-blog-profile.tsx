@@ -106,7 +106,7 @@ function NiwiBlogProfile({
         </div>
         <div className="niwi-blog-profile-actions-container message-container">
           <NiwiBlogMessageIcon onClick={clickToShowCmt} />
-          <span className="counter" onClick={() => {}}>
+          <span className="counter" onClick={clickToShowCmt}>
             {commentCount <= 0 ? "" : commentCount}
           </span>
         </div>

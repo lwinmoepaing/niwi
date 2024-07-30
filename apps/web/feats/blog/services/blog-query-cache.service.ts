@@ -221,11 +221,46 @@ const updateFnForFavoriteBlog = (
   }, [] as BlogsByAuthorResponse[]);
 };
 
+const updateFnForBookmarkBlog = (
+  data: favBlogCacheProps,
+  pages: BookmarkBlogResponse[]
+): BookmarkBlogResponse[] => {
+  return pages.reduce((prev, page) => {
+    page.data = page.data.map((item) => {
+      const condition = item.blog.id === data.blogId;
+
+      if (condition && item.blog.reactions) {
+        item.blog.reactions = { ...item.blog.reactions, heart: data.count };
+      }
+
+      if (condition && item.blog.userBlogReaction) {
+        item.blog.userBlogReaction = data.isFavorite
+          ? item.blog.userBlogReaction.reduce(
+              (prev, next) => [...prev, next],
+              [
+                {
+                  reaction: "HEART",
+                  userId: data.userId,
+                  blogId: data.blogId,
+                },
+              ]
+            )
+          : item.blog.userBlogReaction.filter(
+              (item) => item.reaction !== "HEART"
+            );
+      }
+
+      return item;
+    });
+
+    return [...prev, page];
+  }, [] as BookmarkBlogResponse[]);
+};
+
 export const updateFavoriteBlogQueryCacheUpdate = (
   cacheProp: favBlogCacheProps
 ) => {
   const keys = getAllKeys(cacheProp.userId);
-
   keys.forEach((key) => {
     const existingCache = queryClient.getQueryData(key);
     if (existingCache) {
@@ -240,6 +275,20 @@ export const updateFavoriteBlogQueryCacheUpdate = (
       );
     }
   });
+
+  const cacheBookmarkKey = getBookmarkKeyByUserId(cacheProp.userId);
+  const existingBookmarkKey = queryClient.getQueryData(cacheBookmarkKey);
+  if (existingBookmarkKey) {
+    queryClient.setQueryData(
+      cacheBookmarkKey,
+      (oldData: InfiniteData<BookmarkBlogResponse, unknown>) => {
+        return {
+          ...oldData,
+          pages: updateFnForBookmarkBlog(cacheProp, oldData.pages),
+        };
+      }
+    );
+  }
 };
 
 const updateFnForBlogCommentCount = (
