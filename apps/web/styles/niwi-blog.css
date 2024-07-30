@@ -264,6 +264,7 @@
   height: 44px;
   border-radius: 22px;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .niwi-blog-profile-right-section {

@@ -49,6 +49,7 @@
     "react-share": "^5.1.0",
     "react-textarea-autosize": "^8.5.3",
     "server-only": "^0.0.1",
+    "swappy": "^0.0.0",
     "tailwind-merge": "^2.3.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"

@@ -13,10 +13,23 @@ export const getUserByEmail = (email: string) => {
   return prismaClient.user.findUnique({ where: { email } });
 };
 
+export const createUserProfile = async () => {
+  return await prismaClient.userProfile.create({
+    data: {
+      aboutMe: "",
+      backgroundImage: "",
+      statusMessage: "",
+      gridProfile: [],
+    },
+  });
+};
+
 type CreateUserProps = {
   password: string;
   salt: string;
   name: string;
+  shortLink: string;
+  userProfileId: string;
   email?: string;
   image: string;
   role: "ADMIN" | "USER";

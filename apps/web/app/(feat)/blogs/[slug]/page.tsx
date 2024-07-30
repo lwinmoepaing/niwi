@@ -16,7 +16,7 @@ const BlogDetailPage = async ({ params: { slug } }: BlogDetailPageProps) => {
   return (
     <>
       <PublishBLogProfile blog={blog} currentAuth={session?.user} />
-      <NiwiHtmlView htmlText={blog.content} />
+      <NiwiHtmlView htmlText={blog.content || ""} />
     </>
   );
 };

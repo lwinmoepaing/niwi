@@ -1,5 +1,7 @@
+import appConfig from "@/config";
 import {
   createUser,
+  createUserProfile,
   getUserByEmail,
   getUserByFacebookIdOrEmail,
   getUserByGithubIdOrEmail,
@@ -16,17 +18,18 @@ import {
 import { nanoid } from "nanoid";
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
 import FacebookProvider from "next-auth/providers/facebook";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import TwitterProvider from "next-auth/providers/twitter";
 import { hashPassword, verifyPassword } from "../hash/hash";
 import nextAuthEdgeConfig from "./next-auth-for-edge";
-import appConfig from "@/config";
 
 const createNewUserForOAuth = async (
   name: string,
   email: string,
+  shortLink: string,
+  userProfileId: string,
   image: string,
   option: {
     provider?: "facebook" | "twitter" | "google" | "github";
@@ -40,6 +43,8 @@ const createNewUserForOAuth = async (
     password: hash,
     salt: salt,
     name,
+    shortLink,
+    userProfileId,
     email: !email ? undefined : email,
     role: "USER",
     image,
@@ -54,7 +59,9 @@ const config = {
   ...nextAuthEdgeConfig,
   callbacks: {
     ...nextAuthEdgeConfig.callbacks,
-    async signIn({ account, profile, user }) {
+    async signIn(props) {
+      const { account, profile, user } = props;
+
       if (account?.provider === "google") {
         const { success, data } = googleAuthSchema.safeParse(profile);
         if (!success) return false;
@@ -64,16 +71,21 @@ const config = {
             user.id = existUser.id;
             user.name = existUser.name;
             user.image = existUser.image;
+            user.shortLink = existUser.shortLink;
             return true;
           }
-
+          const userProfile = await createUserProfile();
+          if (!userProfile) return false;
           // New user from Google Authentication
           const newUser = await createNewUserForOAuth(
             data.name,
             data.email,
+            nanoid(),
+            userProfile.id,
             data.picture
           );
           user.id = newUser.id;
+          user.shortLink = newUser.shortLink;
         } catch (e) {
           return false;
         }
@@ -91,15 +103,23 @@ const config = {
             user.id = existUser.id;
             user.name = existUser.name;
             user.image = existUser.image;
+            user.shortLink = existUser.shortLink;
             return true;
           }
+
+          const userProfile = await createUserProfile();
+          if (!userProfile) return false;
+
           // New user from Github Authentication
           const newUser = await createNewUserForOAuth(
             data.name,
             data.email,
+            nanoid(),
+            userProfile.id,
             data.avatar_url,
             { provider: "github", id: data.id.toString() }
           );
+          user.shortLink = newUser.shortLink;
           user.id = newUser.id;
         } catch (e) {
           return false;
@@ -118,17 +138,25 @@ const config = {
             user.id = existUser.id;
             user.name = existUser.name;
             user.image = existUser.image;
+            user.shortLink = existUser.shortLink;
             return true;
           }
+
+          const userProfile = await createUserProfile();
+          if (!userProfile) return false;
+
           // New user from Facebook Authentication
           const newUser = await createNewUserForOAuth(
             data.name,
             data.email,
+            nanoid(),
+            userProfile.id,
             appConfig.defaultUserImage,
             { provider: "facebook", id: data.id.toString() }
           );
           user.id = newUser.id;
           user.image = newUser.image;
+          user.shortLink = newUser.shortLink;
         } catch (e) {
           return false;
         }
@@ -144,19 +172,25 @@ const config = {
             user.id = existUser.id;
             user.name = existUser.name;
             user.image = existUser.image;
+            user.shortLink = existUser.shortLink;
             return true;
           }
 
+          const userProfile = await createUserProfile();
+          if (!userProfile) return false;
           // New user from Twitter Authentication
           // Warning: Twitter Oauth@v2 don't give user's email address.
           const newUser = await createNewUserForOAuth(
             data.data.name,
             "",
+            nanoid(),
+            userProfile.id,
             appConfig.defaultUserImage,
             { provider: "twitter", id: data.data.id }
           );
           user.id = newUser.id;
           user.image = newUser.image;
+          user.shortLink = newUser.shortLink;
         } catch (e) {
           return false;
         }

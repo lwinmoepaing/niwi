@@ -22,6 +22,7 @@ import { AuthError } from "next-auth";
 import {
   checkResetPasswordKeyValid,
   createUser,
+  createUserProfile,
   getUserByEmail,
   updateUser,
 } from "../services/auth.service";
@@ -110,10 +111,15 @@ export async function signUpAction(
     if (user) {
       return responseError("User already exists");
     }
+
+    const profile = await createUserProfile();
+
     const { hash, salt } = hashPassword(password);
     const newUserData = {
       name,
       email,
+      shortLink: nanoid(),
+      userProfileId: profile.id,
       password: hash,
       salt,
       role: "USER",

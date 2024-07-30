@@ -146,6 +146,9 @@ importers:
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
+      swappy:
+        specifier: ^0.0.0
+        version: 0.0.0
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
@@ -3525,6 +3528,9 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  swappy@0.0.0:
+    resolution: {integrity: sha512-5gbyQw0gWqUelbkrFRdpzxiusgrTx4UMSqNdoGlj8E4qBq1T5KFKCb8a231eKsNypvxa6iNug7PePrW7wgbYbQ==}
 
   synckit@0.9.0:
     resolution: {integrity: sha512-7RnqIMq572L8PeEzKeBINYEJDDxpcH8JEgLwUqBd3TkofhFRbkq4QLR0u+36avGAhCRbk2nnmjcW9SE531hPDg==}
@@ -7553,6 +7559,8 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  swappy@0.0.0: {}
 
   synckit@0.9.0:
     dependencies:

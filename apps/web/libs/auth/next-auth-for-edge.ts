@@ -41,15 +41,23 @@ const nextAuthEdgeConfig = {
         token.email = user.email as string;
       }
 
+      if (trigger === "signIn") {
+        token.shortLink = user.shortLink;
+      }
+
       if (trigger === "update") {
         // When requesting update
       }
-
       return token;
     },
-    session: ({ session, token }) => {
+    session: (props) => {
+      const { session, token } = props;
       if (session) {
         session.user.id = token.userId as string;
+      }
+
+      if (token.shortLink) {
+        session.user.shortLink = token.shortLink;
       }
       return session;
     },
