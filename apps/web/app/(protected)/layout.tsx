@@ -14,7 +14,7 @@ export default async function DashboardLayout({ children }: Props) {
       <Navbar user={session?.user} />
       <section className="niwi-sidebar-container">
         <SideBar />
-        <main className="py-4 px-5 min-h-screen w-full">{children}</main>
+        <main className="py-4 px-5 min-h-screen w-full overflow-x-hidden">{children}</main>
       </section>
     </>
   );

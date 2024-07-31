@@ -7,9 +7,9 @@
   --niwi-profile-bg-color: #fff;
   --niwi-dark-profile-bg-color: #313339;
 
-  /* Blog Gradient Color 1 */
-
-  /* Blog Gradient Color 2 */
+  /* Setting Icon */
+  --niwi-profile-linked-setting-color: #f4f4f5;
+  --niwi-dark-profile-linked-setting-color: #1d1f23;
 }
 
 /*=============================================
@@ -25,6 +25,7 @@
   transition: all 0.3s ease-in-out;
   background-color: var(--niwi-profile-bg-color);
   border: 1px solid #c4c4c44a;
+  align-self: start;
 }
 
 .dark .niwi-profile-card-container {
@@ -224,4 +225,161 @@ h1.niwi-profile-header {
 
 .niwi-profile-about-container .editor-inner {
   min-height: 146px;
+}
+
+/*=============================================
+=               Profile Setting               =
+=============================================*/
+
+.niwi-profile-linked-container {
+  display: flex;
+  position: relative;
+  border-radius: 0.75rem;
+  width: 100%;
+  cursor: pointer;
+  height: 140px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  transition: all 0.1s ease-in-out;
+}
+
+.dark .niwi-profile-linked-container {
+  background: #272a2f;
+}
+
+.niwi-profile-linked-setting-container {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 4px;
+
+  /* Display */
+  min-height: 30px;
+  border-radius: 5px;
+}
+
+.dark .niwi-profile-linked-setting-icon {
+  background-color: var(--niwi-dark-profile-linked-setting-color);
+}
+
+.niwi-profile-linked-setting-icon {
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  border-radius: 18px;
+  /* Display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Transition */
+  transition: all 0.1s ease-in-out;
+  background-color: var(--niwi-profile-linked-setting-color);
+  position: relative;
+}
+
+.niwi-profile-linked-setting-icon:hover > svg {
+  rotate: 35deg;
+  transition: all 0.1s ease-in-out;
+}
+
+.niwi-profile-linked-setting-icon.close:hover {
+  background-color: #ee3e66;
+}
+
+.niwi-profile-linked-setting-icon .menu.active {
+  visibility: visible;
+  opacity: 1;
+  scale: 1;
+}
+
+.dark .niwi-profile-linked-setting-icon .menu {
+  background-color: var(--niwi-dark-profile-linked-setting-color);
+}
+
+.niwi-profile-linked-setting-icon .menu {
+  position: absolute;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 4px 2px 4px 4px;
+  top: 28px;
+  right: 0px;
+  scale: 0.95;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--niwi-profile-linked-setting-color);
+  display: flex;
+  flex-direction: row;
+  column-gap: 3px;
+}
+
+.niwi-profile-linked-setting-icon .menu .icon {
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  border-radius: 18px;
+  /* Display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Transition */
+  transition: all 0.1s ease-in-out;
+  background-color: #fff;
+  position: relative;
+}
+
+.dark .niwi-profile-linked-setting-icon .menu .icon {
+  background-color: #272a2f;
+}
+
+.niwi-profile-linked-setting-icon .menu .icon.active {
+  background-color: #60a5fa;
+  color: white;
+}
+
+.niwi-profile-swing-animation {
+  animation-name: niwi-profile-swing;
+  animation-duration: 1s;
+  animation-delay: 0s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+.niwi-profile-wrapper {
+  padding-left: 10px;
+  padding-right: 10px;
+  /* transition: width 0.1s ease-in-out; */
+  position: relative;
+}
+
+/* Swing Animation */
+
+@keyframes niwi-profile-swing {
+  20% {
+    -webkit-transform: rotate(1deg);
+    transform: rotate(1deg);
+  }
+
+  40% {
+    -webkit-transform: rotate(-1deg);
+    transform: rotate(-1deg);
+  }
+
+  60% {
+    -webkit-transform: rotate(0.5deg);
+    transform: rotate(0.5deg);
+  }
+
+  80% {
+    -webkit-transform: rotate(-0.5deg);
+    transform: rotate(-0.5deg);
+  }
+
+  to {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
 }

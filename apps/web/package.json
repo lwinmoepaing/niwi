@@ -42,6 +42,8 @@
     "next-auth": "5.0.0-beta.19",
     "prisma-multischema": "^1.1.4",
     "react": "19.0.0-rc-f994737d14-20240522",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "19.0.0-rc-f994737d14-20240522",
     "react-hook-form": "^7.51.2",
     "react-hot-toast": "^2.4.1",
@@ -49,7 +51,7 @@
     "react-share": "^5.1.0",
     "react-textarea-autosize": "^8.5.3",
     "server-only": "^0.0.1",
-    "swappy": "^0.0.0",
+    "swapy": "^0.1.0",
     "tailwind-merge": "^2.3.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
