@@ -258,6 +258,8 @@ h1.niwi-profile-header {
   /* Display */
   min-height: 30px;
   border-radius: 5px;
+
+  z-index: 100;
 }
 
 .dark .niwi-profile-linked-setting-icon {
@@ -351,8 +353,11 @@ h1.niwi-profile-header {
 .niwi-profile-wrapper {
   padding-left: 10px;
   padding-right: 10px;
-  /* transition: width 0.1s ease-in-out; */
   position: relative;
+}
+
+.niwi-profile-wrapper.animate {
+  transition: width 0.3s ease-in-out;
 }
 
 /* Swing Animation */
@@ -382,4 +387,15 @@ h1.niwi-profile-header {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+}
+
+.github-overflow {
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  /* max-w-[330px] w-full mx-auto overflow-hidden  */
+}
+
+.github-overflow * {
+  overflow: hidden !important;
 }

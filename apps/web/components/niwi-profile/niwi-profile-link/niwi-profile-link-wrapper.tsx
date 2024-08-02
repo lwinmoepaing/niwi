@@ -1,7 +1,14 @@
 "use client";
 
 import { cn } from "@/libs/utils";
-import { PropsWithChildren, useCallback, useEffect, useRef } from "react";
+import {
+  memo,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { useDrag, useDrop } from "react-dnd";
 import {
   acceptableType,
@@ -10,6 +17,7 @@ import {
 } from "./config/niwi-profile-config";
 import NiwiProfileDroppableSpace from "./niwi-profile-droppable-space";
 import NiwiProfileLinkSetting from "./niwi-profile-link-setting";
+import useProfileStore from "@/stores/profile/profile.store";
 
 type NiwiProfileLinkWrapperProps = PropsWithChildren<{
   item: LinkCardType;
@@ -36,6 +44,9 @@ function NiwiProfileLinkWrapper({
 }: NiwiProfileLinkWrapperProps) {
   const ref = useRef<HTMLDivElement>(null);
   const dropItemRef = useRef<HTMLDivElement>(null);
+  const [stopAnimateProfileLink] = useProfileStore((store) => [
+    store.stopAnimateProfileLink,
+  ]);
 
   const calculateSize = useCallback((size: SizeType) => {
     return size === "square"
@@ -88,6 +99,10 @@ function NiwiProfileLinkWrapper({
     [onPositionChange, item, index]
   );
 
+  const isStopAnimate = useMemo(() => {
+    return stopAnimateProfileLink.some((link) => item.id === link);
+  }, [stopAnimateProfileLink]);
+
   useEffect(() => {
     dragRef(ref);
     dropRef(dropItemRef);
@@ -95,7 +110,11 @@ function NiwiProfileLinkWrapper({
 
   return (
     <div
-      className={cn("niwi-profile-wrapper", calculateSize(size))}
+      className={cn(
+        "niwi-profile-wrapper",
+        isStopAnimate ? "" : "animate",
+        calculateSize(size)
+      )}
       style={{ opacity }}
       ref={ref}
     >
@@ -153,4 +172,4 @@ function NiwiProfileLinkWrapper({
   );
 }
 
-export default NiwiProfileLinkWrapper;
+export default memo(NiwiProfileLinkWrapper);

@@ -9,7 +9,13 @@ export type LinkCardType = {
   image: string;
   link: string;
   title: string;
+  youtubeInfo?: {
+    subscribeCount: string;
+    videoCount: string;
+  };
 };
+
+export type LinkCardYoutubeType = LinkCardType["youtubeInfo"];
 
 export const acceptableType = [
   "discord",
@@ -21,35 +27,50 @@ export const acceptableType = [
 
 export const profileDefaultList: LinkCardType[] = [
   {
-    id: nanoid(),
-    type: "discord",
-    size: "half",
-    link: "https://discordapp.com",
+    id: "Olf0XS-Asy3U8bu6qS0_H",
     image: "",
-    title: "Discord",
-  },
-  {
-    id: nanoid(),
-    type: "youtube",
-    size: "half",
-    link: "https://discordapp.com",
-    image: "",
-    title: "Youtube",
-  },
-  {
-    id: nanoid(),
+    link: "https://github.com/lwinmoepaing",
+    size: "full",
+    title: "Lwin Moe Paing",
     type: "github",
-    size: "full",
-    link: "https://githubapp.com",
-    image: "",
-    title: "Github",
   },
   {
-    id: nanoid(),
-    type: "linkedin",
+    id: "G9fo0CRkgzMlEfYLPEq41",
+    type: "youtube",
     size: "full",
-    link: "https://discordapp.com",
     image: "",
-    title: "Linkedin",
+    link: "https://youtube.com/@lwinmoepaingdev",
+    title: "Lwin Moe Paing",
+    youtubeInfo: {
+      subscribeCount: "148",
+      videoCount: "4",
+    },
   },
 ];
+
+export const makeGitHubCard = (name: string, link: string): LinkCardType => {
+  return {
+    id: nanoid(),
+    type: "github",
+    size: "square",
+    image: "",
+    link,
+    title: name,
+  };
+};
+
+export const makeYoutubeCard = (
+  name: string,
+  link: string,
+  youtubeInfo: LinkCardYoutubeType
+): LinkCardType => {
+  return {
+    id: nanoid(),
+    type: "youtube",
+    size: "square",
+    image: "",
+    link,
+    title: name,
+    youtubeInfo,
+  };
+};
