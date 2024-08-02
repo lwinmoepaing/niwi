@@ -9,8 +9,11 @@ export type LinkCardType = {
     | "youtube"
     | "github"
     | "linkedin"
+    | "instagram"
     | "sportify"
     | "buymecoffee"
+    | "facebook"
+    | "twitter"
     | "other";
   size: SizeType;
   image: string;
@@ -27,6 +30,9 @@ export type LinkCardYoutubeType = LinkCardType["youtubeInfo"];
 export const acceptableType = [
   "discord",
   "youtube",
+  "facebook",
+  "twitter",
+  "instagram",
   "github",
   "linkedin",
   "sportify",
@@ -40,13 +46,13 @@ export const profileDefaultList: LinkCardType[] = [
     type: "github",
     image: "",
     link: "https://github.com/lwinmoepaing",
-    size: "full",
+    size: "square",
     title: "Lwin Moe Paing",
   },
   {
     id: "G9fo0CRkgzMlEfYLPEq41",
     type: "youtube",
-    size: "full",
+    size: "square",
     image: "",
     link: "https://youtube.com/@lwinmoepaingdev",
     title: "Lwin Moe Paing",
@@ -70,6 +76,30 @@ export const profileDefaultList: LinkCardType[] = [
     image: "",
     link: "https://buymeacoffee.com/lwinmoepaing",
     title: "Buy Me a Coffee",
+  },
+  {
+    id: "wd98Nyanh-syRlu-cKUGr",
+    type: "facebook",
+    size: "square",
+    image: "",
+    link: "https://www.facebook.com/lwin.im",
+    title: "Facebook",
+  },
+  {
+    id: "WOtC6yYCesluuKX39HjAI",
+    type: "twitter",
+    size: "square",
+    image: "",
+    link: "https://x.com/LwinMoePaingDev",
+    title: "Twitter",
+  },
+  {
+    id: "zzWOtC6yYCesluuKX39HjAI",
+    type: "instagram",
+    size: "square",
+    image: "",
+    link: "https://x.com/LwinMoePaingDev",
+    title: "Instagram",
   },
 ];
 
@@ -119,5 +149,37 @@ export const makeBuyMeACoffeeCard = (link: string): LinkCardType => {
     image: "",
     link,
     title: "Buy Me a Coffee",
+  };
+};
+
+export const makeFacebookCard = (link: string): LinkCardType => {
+  return {
+    id: nanoid(),
+    type: "facebook",
+    size: "square",
+    image: "",
+    link,
+    title: "Facebook",
+  };
+};
+
+export const makeTwitterCard = (link: string): LinkCardType => {
+  return {
+    id: nanoid(),
+    type: "twitter",
+    size: "square",
+    image: "",
+    link,
+    title: "Twitter",
+  };
+};
+export const makeInstagramCard = (link: string): LinkCardType => {
+  return {
+    id: nanoid(),
+    type: "instagram",
+    size: "square",
+    image: "",
+    link,
+    title: "Instagram",
   };
 };

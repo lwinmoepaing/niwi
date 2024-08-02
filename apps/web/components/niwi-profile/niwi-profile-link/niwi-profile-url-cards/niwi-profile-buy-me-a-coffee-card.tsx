@@ -30,7 +30,7 @@ export default function NiwiProfileBuyMeACoffeeCard({
               <Image
                 className="w-[30px] h-auto object-cover rounded-[20px] bg-[#f4f4f5] dark:bg-black"
                 src="/images/profile/buy-me-a-coffee-tiny.webp"
-                alt="Sportify"
+                alt="Buy Me A Coffee"
                 width={30}
                 height={30}
               />
@@ -38,7 +38,7 @@ export default function NiwiProfileBuyMeACoffeeCard({
               <Image
                 className="w-[200px] h-auto object-cover rounded-[20px] bg-[#f4f4f5] dark:bg-black"
                 src="/images/profile/buy-me-a-coffee.webp"
-                alt="Sportify"
+                alt="Buy Me A Coffee"
                 width={200}
                 height={78}
               />

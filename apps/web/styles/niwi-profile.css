@@ -399,3 +399,9 @@ h1.niwi-profile-header {
 .github-overflow * {
   overflow: hidden !important;
 }
+
+.dark .niwi-twitter-animation {
+  background-color: white;
+  filter: grayscale(1) invert(0.96);
+  overflow: hidden;
+}

@@ -10,8 +10,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import {
   LinkCardType,
   makeBuyMeACoffeeCard,
+  makeFacebookCard,
   makeGitHubCard,
+  makeInstagramCard,
   makeSportifyCard,
+  makeTwitterCard,
   makeYoutubeCard,
   profileDefaultList,
   SizeType,
@@ -194,7 +197,6 @@ function NiwiProfileLink() {
           inputRef.current.value = pastedText;
         }
         const sportify = makeSportifyCard(pastedText);
-        console.log(sportify);
         setData((prev) => [...prev, sportify]);
         setTimeout(() => {
           clearInput();
@@ -203,7 +205,6 @@ function NiwiProfileLink() {
       }
 
       // BuyMeACoffeee
-      // buymeacoffee.com/lwinmoepaik
       const buyMeACoffeeRegex = /https:\/\/buymeacoffee\.com\/([\w-]+)/;
       const buyMeACoffeeMatch = buyMeACoffeeRegex.exec(pastedText);
       if (buyMeACoffeeMatch) {
@@ -211,8 +212,56 @@ function NiwiProfileLink() {
           inputRef.current.value = pastedText;
         }
         const buyMeACoffee = makeBuyMeACoffeeCard(pastedText);
-        console.log(buyMeACoffee);
         setData((prev) => [...prev, buyMeACoffee]);
+        setTimeout(() => {
+          clearInput();
+        }, 200);
+        return;
+      }
+
+      // Facebook
+      const facebookRegex =
+        /https:\/\/www\.facebook\.com\/(profile.php\?id=(\d+)|([\w.-]+))/;
+      const facebookMatch = facebookRegex.exec(pastedText);
+      if (facebookMatch) {
+        if (inputRef?.current && !inputRef.current.value) {
+          inputRef.current.value = pastedText;
+        }
+        const facebook = makeFacebookCard(pastedText);
+        setData((prev) => [...prev, facebook]);
+        setTimeout(() => {
+          clearInput();
+        }, 200);
+        return;
+      }
+
+      // Twitter
+      const twitterRegex = /https:\/\/twitter\.com\/([\w-]+)/;
+      const xComRegex = /https:\/\/x\.com\/([\w-]+)/;
+      const twitterMatch = twitterRegex.exec(pastedText);
+      const xComMatch = xComRegex.exec(pastedText);
+      if (twitterMatch || xComMatch) {
+        if (inputRef?.current && !inputRef.current.value) {
+          inputRef.current.value = pastedText;
+        }
+        const twitter = makeTwitterCard(pastedText);
+        console.log(twitter);
+        setData((prev) => [...prev, twitter]);
+        setTimeout(() => {
+          clearInput();
+        }, 200);
+        return;
+      }
+
+      // Instagram
+      const instagramRegex = /https:\/\/www\.instagram\.com\/([\w-]+)/;
+      const instagramMatch = instagramRegex.exec(pastedText);
+      if (instagramMatch) {
+        if (inputRef?.current && !inputRef.current.value) {
+          inputRef.current.value = pastedText;
+        }
+        const Instagram = makeInstagramCard(pastedText);
+        setData((prev) => [...prev, Instagram]);
         setTimeout(() => {
           clearInput();
         }, 200);
