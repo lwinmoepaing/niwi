@@ -1,14 +1,8 @@
 "use client";
 
 import { cn } from "@/libs/utils";
-import {
-  memo,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import useProfileStore from "@/stores/profile/profile.store";
+import { memo, PropsWithChildren, useCallback, useMemo, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import {
   acceptableType,
@@ -17,7 +11,6 @@ import {
 } from "./config/niwi-profile-config";
 import NiwiProfileDroppableSpace from "./niwi-profile-droppable-space";
 import NiwiProfileLinkSetting from "./niwi-profile-link-setting";
-import useProfileStore from "@/stores/profile/profile.store";
 
 type NiwiProfileLinkWrapperProps = PropsWithChildren<{
   item: LinkCardType;
@@ -25,6 +18,7 @@ type NiwiProfileLinkWrapperProps = PropsWithChildren<{
   index: number;
   handleSize: (index: number, type: string, size: SizeType) => void;
   onSwap: (itemOne: LinkCardType, itemTwo: LinkCardType) => void;
+  onDelete: (item: LinkCardType) => void;
   onPositionChange: (
     targetItem: LinkCardType,
     pointItem: LinkCardType,
@@ -39,6 +33,7 @@ function NiwiProfileLinkWrapper({
   item: { type, size },
   index,
   onSwap,
+  onDelete,
   handleSize,
   onPositionChange,
 }: NiwiProfileLinkWrapperProps) {
@@ -99,14 +94,16 @@ function NiwiProfileLinkWrapper({
     [onPositionChange, item, index]
   );
 
+  const onDeleteHandler = useCallback(() => {
+    onDelete(item);
+  }, [item]);
+
   const isStopAnimate = useMemo(() => {
     return stopAnimateProfileLink.some((link) => item.id === link);
   }, [stopAnimateProfileLink]);
 
-  useEffect(() => {
-    dragRef(ref);
-    dropRef(dropItemRef);
-  }, []);
+  dragRef(ref);
+  dropRef(dropItemRef);
 
   return (
     <div
@@ -128,6 +125,7 @@ function NiwiProfileLinkWrapper({
           type={type}
           index={index}
           size={size}
+          onDelete={onDeleteHandler}
           handleSize={handleSize}
         />
         <div

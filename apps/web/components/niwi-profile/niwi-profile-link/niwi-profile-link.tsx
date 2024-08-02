@@ -158,6 +158,9 @@ function NiwiProfileLink() {
       const youtubeRegex = /https:\/\/www\.youtube\.com\/channel\/([\w-]+)/;
       const youtubeMatch = youtubeRegex.exec(pastedText);
       if (youtubeMatch && youtubeMatch[1]) {
+        if (inputRef?.current && !inputRef.current.value) {
+          inputRef.current.value = pastedText;
+        }
         setFetchLoading(true);
         const { success, data } = await getYoutubeInfo(youtubeMatch[1]);
         if (success && data) {
@@ -173,7 +176,11 @@ function NiwiProfileLink() {
           );
           setData((prev) => [...prev, youtubeCard]);
         }
-        setFetchLoading(false);
+
+        setTimeout(() => {
+          clearInput();
+          setFetchLoading(false);
+        }, 200);
         return;
       }
 
@@ -185,10 +192,14 @@ function NiwiProfileLink() {
     [clearInput]
   );
 
+  const onDelete = useCallback((item: LinkCardType) => {
+    setData(prev => prev.filter(i => i.id !== item.id))
+  }, []);
+
   return (
     <div className="w-full">
       <DndProvider backend={HTML5Backend}>
-        <section className="min-h-[100px] flex flex-1 flex-row flex-wrap self-start transition-all">
+        <section className="flex flex-1 flex-row flex-wrap self-start transition-all">
           {data.map((item, index) => {
             return (
               <NiwiProfileLinkWrapper
@@ -199,6 +210,7 @@ function NiwiProfileLink() {
                 itemLength={data.length}
                 onSwap={onSwap}
                 onPositionChange={positionChange}
+                onDelete={onDelete}
               >
                 <NiwiProfileLinkItem item={item} />
               </NiwiProfileLinkWrapper>

@@ -17,6 +17,7 @@ type NiwiProfileLinkSettingProps = {
   type: string;
   index: number;
   size: SizeType;
+  onDelete: () => void;
   handleSize: (index: number, type: string, size: SizeType) => void;
 };
 
@@ -24,6 +25,7 @@ function NiwiProfileLinkSetting({
   size,
   index,
   type,
+  onDelete,
   handleSize,
 }: NiwiProfileLinkSettingProps) {
   const settingRef = useRef<HTMLDivElement>(null);
@@ -92,7 +94,7 @@ function NiwiProfileLinkSetting({
               handleSize(index, type, "half");
             }}
           >
-            <SquareSplitHorizontal  size={12} />
+            <SquareSplitHorizontal size={12} />
           </button>
           <button
             className={cn("icon", checkActiveSize("full") && "active")}
@@ -106,7 +108,10 @@ function NiwiProfileLinkSetting({
         </div>
       </div>
 
-      <div className="niwi-profile-linked-setting-icon close">
+      <div
+        className="niwi-profile-linked-setting-icon close"
+        onClick={onDelete}
+      >
         <X size={13} />
       </div>
     </section>
