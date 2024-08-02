@@ -130,7 +130,7 @@ function NiwiProfileLinkWrapper({
         />
         <div
           ref={dropItemRef}
-          className="flex-1 rounded-[1rem] overflow-hidden"
+          className="flex-1 rounded-[1rem] overflow-hidden relative"
         >
           {isOver && canDrop ? (
             <div className="w-full h-full border-dashed	 border-[2px] border-blue-400 rounded-[1rem] flex justify-center items-center">

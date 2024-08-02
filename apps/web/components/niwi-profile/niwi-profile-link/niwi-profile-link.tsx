@@ -1,21 +1,23 @@
 "use client";
 
+import { getGithubInfo } from "@/feats/profile/api/get-github-info";
+import { getYoutubeInfo } from "@/feats/profile/api/get-youtube-info";
+import useProfileStore from "@/stores/profile/profile.store";
+import { CircleDashed } from "lucide-react";
 import { memo, useCallback, useRef, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {
   LinkCardType,
+  makeBuyMeACoffeeCard,
   makeGitHubCard,
+  makeSportifyCard,
   makeYoutubeCard,
   profileDefaultList,
   SizeType,
 } from "./config/niwi-profile-config";
 import NiwiProfileLinkItem from "./niwi-profile-link-item";
 import NiwiProfileLinkWrapper from "./niwi-profile-link-wrapper";
-import useProfileStore from "@/stores/profile/profile.store";
-import { getGithubInfo } from "@/feats/profile/api/get-github-info";
-import { CircleDashed } from "lucide-react";
-import { getYoutubeInfo } from "@/feats/profile/api/get-youtube-info";
 
 function NiwiProfileLink() {
   const [data, setData] = useState(profileDefaultList);
@@ -185,15 +187,43 @@ function NiwiProfileLink() {
       }
 
       // Sportify
-      // const spotifyRegex =
-      //   /https:\/\/open\.spotify\.com\/(track|album|artist|playlist)\/([\w-]+)/;
-      // const sportifyMatch = spotifyRegex.exec(pastedText);
+      const spotifyRegex = /https:\/\/open\.spotify\.com\/(user)\/([\w-]+)/;
+      const spotifyMatch = spotifyRegex.exec(pastedText);
+      if (spotifyMatch) {
+        if (inputRef?.current && !inputRef.current.value) {
+          inputRef.current.value = pastedText;
+        }
+        const sportify = makeSportifyCard(pastedText);
+        console.log(sportify);
+        setData((prev) => [...prev, sportify]);
+        setTimeout(() => {
+          clearInput();
+        }, 200);
+        return;
+      }
+
+      // BuyMeACoffeee
+      // buymeacoffee.com/lwinmoepaik
+      const buyMeACoffeeRegex = /https:\/\/buymeacoffee\.com\/([\w-]+)/;
+      const buyMeACoffeeMatch = buyMeACoffeeRegex.exec(pastedText);
+      if (buyMeACoffeeMatch) {
+        if (inputRef?.current && !inputRef.current.value) {
+          inputRef.current.value = pastedText;
+        }
+        const buyMeACoffee = makeBuyMeACoffeeCard(pastedText);
+        console.log(buyMeACoffee);
+        setData((prev) => [...prev, buyMeACoffee]);
+        setTimeout(() => {
+          clearInput();
+        }, 200);
+        return;
+      }
     },
     [clearInput]
   );
 
   const onDelete = useCallback((item: LinkCardType) => {
-    setData(prev => prev.filter(i => i.id !== item.id))
+    setData((prev) => prev.filter((i) => i.id !== item.id));
   }, []);
 
   return (
@@ -203,7 +233,7 @@ function NiwiProfileLink() {
           {data.map((item, index) => {
             return (
               <NiwiProfileLinkWrapper
-                key={item.id}
+                key={`${item.id}_${item.type}`}
                 item={item}
                 index={index}
                 handleSize={handleIndexSize}

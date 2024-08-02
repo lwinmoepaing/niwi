@@ -4,7 +4,14 @@ export type SizeType = "half" | "full" | "square" | "sixty";
 
 export type LinkCardType = {
   id: string;
-  type: "discord" | "youtube" | "github" | "linkedin" | "other";
+  type:
+    | "discord"
+    | "youtube"
+    | "github"
+    | "linkedin"
+    | "sportify"
+    | "buymecoffee"
+    | "other";
   size: SizeType;
   image: string;
   link: string;
@@ -22,17 +29,19 @@ export const acceptableType = [
   "youtube",
   "github",
   "linkedin",
+  "sportify",
+  "buymecoffee",
   "other",
 ];
 
 export const profileDefaultList: LinkCardType[] = [
   {
     id: "Olf0XS-Asy3U8bu6qS0_H",
+    type: "github",
     image: "",
     link: "https://github.com/lwinmoepaing",
     size: "full",
     title: "Lwin Moe Paing",
-    type: "github",
   },
   {
     id: "G9fo0CRkgzMlEfYLPEq41",
@@ -45,6 +54,22 @@ export const profileDefaultList: LinkCardType[] = [
       subscribeCount: "148",
       videoCount: "4",
     },
+  },
+  {
+    id: "EfnxOEV4eFgX-AY3GMUe4",
+    type: "sportify",
+    size: "square",
+    image: "",
+    link: "https://open.spotify.com/user/31kyur6qv3ornwaaogjurolrhsqa",
+    title: "Sportify",
+  },
+  {
+    id: "RrQhsiG3WM-euSTD5vZJe",
+    type: "buymecoffee",
+    size: "square",
+    image: "",
+    link: "https://buymeacoffee.com/lwinmoepaing",
+    title: "Buy Me a Coffee",
   },
 ];
 
@@ -72,5 +97,27 @@ export const makeYoutubeCard = (
     link,
     title: name,
     youtubeInfo,
+  };
+};
+
+export const makeSportifyCard = (link: string): LinkCardType => {
+  return {
+    id: nanoid(),
+    type: "sportify",
+    size: "square",
+    image: "",
+    link,
+    title: "Sportify",
+  };
+};
+
+export const makeBuyMeACoffeeCard = (link: string): LinkCardType => {
+  return {
+    id: nanoid(),
+    type: "buymecoffee",
+    size: "square",
+    image: "",
+    link,
+    title: "Buy Me a Coffee",
   };
 };
