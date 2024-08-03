@@ -39,9 +39,12 @@ export default async function executeSeeding() {
       const profile = await prisma.userProfile.create({
         data: {
           aboutMe: "",
-          backgroundImage: "",
+          aboutMeJson: "",
           statusMessage: "",
-          gridProfile: {},
+          statusMessageJson: "",
+          showStatusMessage: true,
+          backgroundImage: "",
+          gridProfile: [],
         },
       });
 

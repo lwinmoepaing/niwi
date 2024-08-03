@@ -10,7 +10,7 @@ export type LinkCardType = {
     | "github"
     | "linkedin"
     | "instagram"
-    | "sportify"
+    | "spotify"
     | "buymecoffee"
     | "facebook"
     | "twitter"
@@ -35,7 +35,7 @@ export const acceptableType = [
   "instagram",
   "github",
   "linkedin",
-  "sportify",
+  "spotify",
   "buymecoffee",
   "other",
 ];
@@ -63,11 +63,11 @@ export const profileDefaultList: LinkCardType[] = [
   },
   {
     id: "EfnxOEV4eFgX-AY3GMUe4",
-    type: "sportify",
+    type: "spotify",
     size: "square",
     image: "",
     link: "https://open.spotify.com/user/31kyur6qv3ornwaaogjurolrhsqa",
-    title: "Sportify",
+    title: "Spotify",
   },
   {
     id: "RrQhsiG3WM-euSTD5vZJe",
@@ -130,14 +130,14 @@ export const makeYoutubeCard = (
   };
 };
 
-export const makeSportifyCard = (link: string): LinkCardType => {
+export const makeSpotifyCard = (link: string): LinkCardType => {
   return {
     id: nanoid(),
-    type: "sportify",
+    type: "spotify",
     size: "square",
     image: "",
     link,
-    title: "Sportify",
+    title: "Spotify",
   };
 };
 

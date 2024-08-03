@@ -45,9 +45,12 @@ model User {
 }
 
 model UserProfile {
-    id              String @id @default(auto()) @map("_id") @db.ObjectId
-    aboutMe         String
-    backgroundImage String
-    statusMessage   String
-    gridProfile     Json
+    id                String  @id @default(auto()) @map("_id") @db.ObjectId
+    backgroundImage   String
+    aboutMe           String
+    aboutMeJson       String
+    statusMessage     String
+    statusMessageJson String
+    showStatusMessage Boolean
+    gridProfile       Json
 }

@@ -13,6 +13,7 @@ import NiwiProfileDroppableSpace from "./niwi-profile-droppable-space";
 import NiwiProfileLinkSetting from "./niwi-profile-link-setting";
 
 type NiwiProfileLinkWrapperProps = PropsWithChildren<{
+  isEditing: boolean;
   item: LinkCardType;
   itemLength: number;
   index: number;
@@ -28,6 +29,7 @@ type NiwiProfileLinkWrapperProps = PropsWithChildren<{
 }>;
 
 function NiwiProfileLinkWrapper({
+  isEditing = false,
   children,
   item,
   item: { type, size },
@@ -60,8 +62,9 @@ function NiwiProfileLinkWrapper({
       collect: (monitor) => ({
         opacity: monitor.isDragging() ? 0 : 1,
       }),
+      canDrag: isEditing,
     }),
-    []
+    [isEditing]
   );
 
   const [{ isOver, canDrop }, dropRef] = useDrop(
@@ -118,21 +121,24 @@ function NiwiProfileLinkWrapper({
       <div
         className={cn(
           "niwi-profile-linked-container transition-all",
-          isOver && canDrop ? "niwi-profile-swing-animation" : ""
+          isOver && canDrop && isEditing ? "niwi-profile-swing-animation" : ""
         )}
       >
-        <NiwiProfileLinkSetting
-          type={type}
-          index={index}
-          size={size}
-          onDelete={onDeleteHandler}
-          handleSize={handleSize}
-        />
+        {isEditing && (
+          <NiwiProfileLinkSetting
+            type={type}
+            index={index}
+            size={size}
+            onDelete={onDeleteHandler}
+            handleSize={handleSize}
+          />
+        )}
+
         <div
           ref={dropItemRef}
           className="flex-1 rounded-[1rem] overflow-hidden relative"
         >
-          {isOver && canDrop ? (
+          {isOver && canDrop && isEditing ? (
             <div className="w-full h-full border-dashed	 border-[2px] border-blue-400 rounded-[1rem] flex justify-center items-center">
               SWAP ??
             </div>
@@ -140,7 +146,7 @@ function NiwiProfileLinkWrapper({
             children
           )}
         </div>
-        {size === "full" && (
+        {size === "full" && isEditing && (
           <>
             {index !== 0 && (
               <NiwiProfileDroppableSpace onDrop={leftUpdate} position="top" />
@@ -152,14 +158,14 @@ function NiwiProfileLinkWrapper({
           </>
         )}
 
-        {size !== "full" && index === 0 && (
+        {size !== "full" && index === 0 && isEditing && (
           <>
             <NiwiProfileDroppableSpace onDrop={leftUpdate} position="left" />
             <NiwiProfileDroppableSpace onDrop={rightUpdate} position="right" />
           </>
         )}
 
-        {size !== "full" && index !== 0 && (
+        {size !== "full" && index !== 0 && isEditing && (
           <>
             <NiwiProfileDroppableSpace onDrop={leftUpdate} position="left" />
             <NiwiProfileDroppableSpace onDrop={rightUpdate} position="right" />

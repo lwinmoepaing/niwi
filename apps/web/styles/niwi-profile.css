@@ -176,6 +176,16 @@
   background-color: #232528;
 }
 
+.niwi-profile-grid-input.editor {
+  border-radius: 3px;
+  outline: none;
+  background-color: white;
+}
+
+.dark .niwi-profile-grid-input.editor {
+  background-color: #232528;
+}
+
 .niwi-profile-header {
   width: 100%;
   display: block;
@@ -404,4 +414,14 @@ h1.niwi-profile-header {
   background-color: white;
   filter: grayscale(1) invert(0.96);
   overflow: hidden;
+}
+
+.dark .niwi-instagram-animation {
+  background-color: #0e0e0e;
+  filter: grayscale(1);
+  overflow: hidden;
+}
+
+.dark .niwi-instagram-animation img {
+  filter: invert(0.96);
 }

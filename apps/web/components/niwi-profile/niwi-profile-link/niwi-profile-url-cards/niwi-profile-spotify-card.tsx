@@ -2,14 +2,14 @@
 
 import { cn } from "@/libs/utils";
 import { LinkCardType } from "../config/niwi-profile-config";
-import NiwiProfileSportifyIcon from "../niwi-profile-icons/niwi-profile-sportify-icon";
+import NiwiProfileSpotifyIcon from "../niwi-profile-icons/niwi-profile-sportify-icon";
 import Image from "next/image";
 
 type NiwiProfileLinkItemProps = {
   item: LinkCardType;
 };
 
-export default function NiwiProfileSportifyCard({
+export default function NiwiProfileSpotifyCard({
   item,
 }: NiwiProfileLinkItemProps) {
   return (
@@ -19,7 +19,7 @@ export default function NiwiProfileSportifyCard({
       )}
     >
       <div className={item.size === "square" ? "w-full" : "min-w-[158px]"}>
-        <NiwiProfileSportifyIcon className="w-[24px] h-[24px] block mx-auto my-1" />
+        <NiwiProfileSpotifyIcon className="w-[24px] h-[24px] block mx-auto my-1" />
         <h2 className="text-xs text-center">{item.title}</h2>
       </div>
 

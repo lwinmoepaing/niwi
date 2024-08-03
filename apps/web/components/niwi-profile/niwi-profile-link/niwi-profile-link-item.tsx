@@ -5,7 +5,7 @@ import NiwiProfileBuyMeACoffeeCard from "./niwi-profile-url-cards/niwi-profile-b
 import NiwiProfileFacebookCard from "./niwi-profile-url-cards/niwi-profile-facebook-card";
 import NiwiProfileGithubCard from "./niwi-profile-url-cards/niwi-profile-github-card";
 import NiwiProfileInstagramCard from "./niwi-profile-url-cards/niwi-profile-instagram-card";
-import NiwiProfileSportifyCard from "./niwi-profile-url-cards/niwi-profile-sportify-card";
+import NiwiProfileSpotifyCard from "./niwi-profile-url-cards/niwi-profile-spotify-card";
 import NiwiProfileTwitterCard from "./niwi-profile-url-cards/niwi-profile-twitter-card";
 import NiwiProfileYoutubeCard from "./niwi-profile-url-cards/niwi-profile-youtube-card";
 
@@ -18,7 +18,7 @@ function NiwiProfileLinkItem({ item }: NiwiProfileLinkItemProps) {
     <div className="w-full h-full">
       {item.type === "github" && <NiwiProfileGithubCard item={item} />}
       {item.type === "youtube" && <NiwiProfileYoutubeCard item={item} />}
-      {item.type === "sportify" && <NiwiProfileSportifyCard item={item} />}
+      {item.type === "spotify" && <NiwiProfileSpotifyCard item={item} />}
       {item.type === "facebook" && <NiwiProfileFacebookCard item={item} />}
       {item.type === "twitter" && <NiwiProfileTwitterCard item={item} />}
       {item.type === "instagram" && <NiwiProfileInstagramCard item={item} />}

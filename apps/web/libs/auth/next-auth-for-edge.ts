@@ -34,7 +34,7 @@ const nextAuthEdgeConfig = {
 
       return true;
     },
-    jwt: ({ token, user, trigger }) => {
+    jwt: ({ token, user, trigger, session }) => {
       if (user) {
         // When user sign in
         token.userId = user.id as string;
@@ -47,6 +47,10 @@ const nextAuthEdgeConfig = {
 
       if (trigger === "update") {
         // When requesting update
+        const shortLink = session.user.shortLink as string;
+        if (shortLink) {
+          token.shortLink = shortLink;
+        }
       }
       return token;
     },
@@ -61,7 +65,7 @@ const nextAuthEdgeConfig = {
       }
       return session;
     },
-    redirect: async () => {
+    redirect: async (params) => {
       return "/"; // This can be any URL you want to redirect to
     },
   },

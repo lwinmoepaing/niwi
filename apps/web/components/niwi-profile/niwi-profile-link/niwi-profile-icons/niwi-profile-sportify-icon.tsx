@@ -1,6 +1,6 @@
 import React from "react";
 
-function NiwiProfileSportifyIcon({ className }: { className: string }) {
+function NiwiProfileSpotifyIcon({ className }: { className: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,4 +19,4 @@ function NiwiProfileSportifyIcon({ className }: { className: string }) {
   );
 }
 
-export default NiwiProfileSportifyIcon;
+export default NiwiProfileSpotifyIcon;

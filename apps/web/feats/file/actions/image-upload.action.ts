@@ -42,6 +42,6 @@ export const onUploadImageAction = async (form: FormData) => {
   await fs.writeFile(filePath, fileBuffer);
 
   return responseSuccess("File uploaded successfully", {
-    path: `/images/uploads/${imageName}`,
+    path: `/api/images/${imageName}`,
   });
 };

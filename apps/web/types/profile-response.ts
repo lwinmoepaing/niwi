@@ -1,3 +1,29 @@
+import { JsonValue } from "@prisma/client/runtime/library";
+
+export interface UserProfileResponse {
+  id: string;
+  name: string;
+  email: string | null;
+  image: string;
+  role: "USER" | "ADMIN";
+  shortLink: string;
+  userProfileId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  profile: UserProfile;
+}
+
+export interface UserProfile {
+  id: string;
+  backgroundImage: string;
+  aboutMe: string;
+  aboutMeJson: string;
+  statusMessage: string;
+  statusMessageJson: string;
+  showStatusMessage: boolean;
+  gridProfile: any[];
+}
+
 export interface GitHubProfileResponse {
   login: string;
   id: number;

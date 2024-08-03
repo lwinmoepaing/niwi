@@ -2,9 +2,10 @@
 
 import { getGithubInfo } from "@/feats/profile/api/get-github-info";
 import { getYoutubeInfo } from "@/feats/profile/api/get-youtube-info";
+import { SaveProfileFormValues } from "@/feats/profile/validation/profile.validation";
 import useProfileStore from "@/stores/profile/profile.store";
 import { CircleDashed } from "lucide-react";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {
@@ -13,17 +14,26 @@ import {
   makeFacebookCard,
   makeGitHubCard,
   makeInstagramCard,
-  makeSportifyCard,
+  makeSpotifyCard,
   makeTwitterCard,
   makeYoutubeCard,
-  profileDefaultList,
   SizeType,
 } from "./config/niwi-profile-config";
 import NiwiProfileLinkItem from "./niwi-profile-link-item";
 import NiwiProfileLinkWrapper from "./niwi-profile-link-wrapper";
 
-function NiwiProfileLink() {
-  const [data, setData] = useState(profileDefaultList);
+type NiwiProfileLinkProps = {
+  isEditing: boolean;
+  onChangeGridProfile: (data: SaveProfileFormValues["gridProfile"]) => void;
+  defaultData: SaveProfileFormValues["gridProfile"];
+};
+
+function NiwiProfileLink({
+  isEditing,
+  defaultData,
+  onChangeGridProfile,
+}: NiwiProfileLinkProps) {
+  const [data, setData] = useState(defaultData);
   const inputRef = useRef<HTMLInputElement>(null);
   const [fetchLoading, setFetchLoading] = useState(false);
   const [setStopAnimateProfileLink] = useProfileStore((store) => [
@@ -189,15 +199,15 @@ function NiwiProfileLink() {
         return;
       }
 
-      // Sportify
+      // Spotify
       const spotifyRegex = /https:\/\/open\.spotify\.com\/(user)\/([\w-]+)/;
       const spotifyMatch = spotifyRegex.exec(pastedText);
       if (spotifyMatch) {
         if (inputRef?.current && !inputRef.current.value) {
           inputRef.current.value = pastedText;
         }
-        const sportify = makeSportifyCard(pastedText);
-        setData((prev) => [...prev, sportify]);
+        const spotify = makeSpotifyCard(pastedText);
+        setData((prev) => [...prev, spotify]);
         setTimeout(() => {
           clearInput();
         }, 200);
@@ -245,7 +255,6 @@ function NiwiProfileLink() {
           inputRef.current.value = pastedText;
         }
         const twitter = makeTwitterCard(pastedText);
-        console.log(twitter);
         setData((prev) => [...prev, twitter]);
         setTimeout(() => {
           clearInput();
@@ -275,6 +284,10 @@ function NiwiProfileLink() {
     setData((prev) => prev.filter((i) => i.id !== item.id));
   }, []);
 
+  useEffect(() => {
+    onChangeGridProfile(data);
+  }, [data, onChangeGridProfile]);
+
   return (
     <div className="w-full">
       <DndProvider backend={HTML5Backend}>
@@ -290,6 +303,7 @@ function NiwiProfileLink() {
                 onSwap={onSwap}
                 onPositionChange={positionChange}
                 onDelete={onDelete}
+                isEditing={isEditing}
               >
                 <NiwiProfileLinkItem item={item} />
               </NiwiProfileLinkWrapper>
@@ -297,21 +311,23 @@ function NiwiProfileLink() {
           })}
         </section>
       </DndProvider>
-      <section className="px-[10px] flex flex-row relative">
-        <input
-          ref={inputRef}
-          className="niwi-profile-sub-header niwi-profile-input editor"
-          placeholder="Copy and paste your url..."
-          onPaste={handlePaste}
-          disabled={fetchLoading}
-        />
-        {fetchLoading && (
-          <CircleDashed
-            size={16}
-            className="absolute right-3 top-[4.5px] animate-spin text-[#ff4175]"
+      {isEditing && (
+        <section className="px-[10px] flex flex-row relative">
+          <input
+            ref={inputRef}
+            className="niwi-profile-sub-header niwi-profile-grid-input editor"
+            placeholder="Copy and paste your url..."
+            onPaste={handlePaste}
+            disabled={fetchLoading}
           />
-        )}
-      </section>
+          {fetchLoading && (
+            <CircleDashed
+              size={16}
+              className="absolute right-3 top-[4.5px] animate-spin text-[#ff4175]"
+            />
+          )}
+        </section>
+      )}
     </div>
   );
 }

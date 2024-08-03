@@ -264,4 +264,9 @@ const nextAuth = NextAuth(config);
 
 export const { GET, POST } = nextAuth.handlers;
 
-export const { auth, signIn, signOut } = nextAuth;
+export const {
+  auth,
+  signIn,
+  signOut,
+  unstable_update: sessionUpdate,
+} = nextAuth;

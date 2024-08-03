@@ -17,8 +17,11 @@ export const createUserProfile = async () => {
   return await prismaClient.userProfile.create({
     data: {
       aboutMe: "",
+      aboutMeJson: "",
       backgroundImage: "",
+      showStatusMessage: true,
       statusMessage: "",
+      statusMessageJson: "",
       gridProfile: [],
     },
   });

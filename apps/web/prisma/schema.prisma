@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Tue Jul 30 2024 15:00:33 GMT+0700 (Indochina Time)✨
+//🧩Don't Edit this file.✨Generated in Sat Aug 03 2024 01:31:06 GMT+0700 (Indochina Time)✨
 
 datasource db {
   provider = "mongodb"
@@ -148,10 +148,13 @@ model User {
 }
 
 model UserProfile {
-  id              String @id @default(auto()) @map("_id") @db.ObjectId
-  aboutMe         String
-  backgroundImage String
-  statusMessage   String
-  gridProfile     Json
-  User            User?
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  backgroundImage   String
+  aboutMe           String
+  aboutMeJson       String
+  statusMessage     String
+  statusMessageJson String
+  showStatusMessage Boolean
+  gridProfile       Json
+  User              User?
 }
