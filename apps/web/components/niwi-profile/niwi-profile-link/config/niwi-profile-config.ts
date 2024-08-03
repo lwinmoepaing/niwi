@@ -107,7 +107,7 @@ export const makeGitHubCard = (name: string, link: string): LinkCardType => {
   return {
     id: nanoid(),
     type: "github",
-    size: "square",
+    size: "full",
     image: "",
     link,
     title: name,
@@ -122,7 +122,7 @@ export const makeYoutubeCard = (
   return {
     id: nanoid(),
     type: "youtube",
-    size: "square",
+    size: "full",
     image: "",
     link,
     title: name,
@@ -173,6 +173,7 @@ export const makeTwitterCard = (link: string): LinkCardType => {
     title: "Twitter",
   };
 };
+
 export const makeInstagramCard = (link: string): LinkCardType => {
   return {
     id: nanoid(),

@@ -6,6 +6,7 @@
     "build": "turbo build",
     "add:web": "pnpm add --filter=web",
     "dev:web": "pnpm dev --filter=web",
+    "add:create-niwi": "pnpm add --filter='create-niwi'",
     "db:generate": "turbo db:generate",
     "dev": "turbo dev",
     "lint": "turbo lint",
@@ -20,8 +21,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
-    "turbo": "^2.0.5",
-    "typescript": "^5.4.5"
+    "turbo": "^2.0.5"
   },
   "engines": {
     "node": ">=18"
