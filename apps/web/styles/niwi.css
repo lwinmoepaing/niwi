@@ -336,7 +336,7 @@
 }
 
 @keyframes niwi-overlay-content-animation {
-  0% {  
+  0% {
     opacity: 0;
     scale: 0.98;
   }
@@ -406,4 +406,44 @@
 
 .dark .niwi-overlay-cross-icon .niwi-icon-wrapper {
   background-color: var(--niwi-dark-overlay-content-bg-color, #2b2d31);
+}
+
+/*=============================================
+=           Niwi Blog Share Setting           =
+=============================================*/
+.niwi-subscribe-card .container {
+  padding: 20px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.dark .niwi-subscribe-card .container {
+  background-color: #1d1f23;
+}
+
+.niwi-subscribe-card::before {
+  content: "";
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f43f5e, #7e22ce, #60a5fa);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dark .niwi-subscribe-card::before {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+}
+
+.niwi-subscribe-card .save-button {
+  background: linear-gradient(135deg, #f43f5e, #7e22ce, #60a5fa);
+  color: white;
+  align-self: flex-start;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: normal;
 }

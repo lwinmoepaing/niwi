@@ -1,9 +1,12 @@
 {
-  "name": "create-niwi",
+  "name": "niwi",
   "version": "0.0.1",
   "private": false,
   "main": "bin/index.js",
   "type": "module",
+  "bin": {
+    "niwi": "./bin/index.js"
+  },
   "scripts": {
     "start": "node ."
   },

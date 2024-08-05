@@ -25,6 +25,8 @@
     "@prisma/client": "^5.16.1",
     "@react-email/components": "^0.0.21",
     "@react-email/render": "^0.0.16",
+    "@stripe/react-stripe-js": "^2.7.3",
+    "@stripe/stripe-js": "^4.1.0",
     "@tanstack/react-query": "^5.51.4",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
@@ -52,7 +54,7 @@
     "react-share": "^5.1.0",
     "react-textarea-autosize": "^8.5.3",
     "server-only": "^0.0.1",
-    "swapy": "^0.1.0",
+    "stripe": "^16.6.0",
     "tailwind-merge": "^2.3.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"

@@ -1,8 +1,9 @@
+import config from "@/config";
 import { NextAuthConfig } from "next-auth";
 
 const nextAuthEdgeConfig = {
   trustHost: true,
-  secret: process.env.SECRET_HASH_KEY,
+  secret: config.secretKey,
   pages: {
     signIn: "/auth/login",
   },

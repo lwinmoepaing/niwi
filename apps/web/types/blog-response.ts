@@ -1,3 +1,20 @@
+export interface NiwiSubscriptionCardType {
+  type: "Pro" | "Basic" | "Customize";
+  customPrice?: string;
+  monthlyPrice: number;
+  yearlyPrice: number;
+  save: number;
+  yearlySave: string;
+  currency: string;
+  perMonthlyText: string;
+  perYearyText: string;
+  description: string;
+  serviceList: string[];
+  buttonTitle: string;
+  position: "top" | "default";
+  onClickCallback?: () => void;
+}
+
 export interface CheckBlogStausResponse {
   success: boolean;
   statusCode: number;
