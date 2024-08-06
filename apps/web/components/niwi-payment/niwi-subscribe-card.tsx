@@ -1,8 +1,15 @@
+"use client";
+
 import { cn } from "@/libs/utils";
+import { loadStripe } from "@stripe/stripe-js";
 import { NiwiSubscriptionCardType } from "@/types/blog-response";
 import { CircleCheck } from "lucide-react";
 import { useCallback } from "react";
 import Button from "../niwi-ui/button/button";
+import config from "@/config";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const stripePromise = loadStripe(config.payment.stripePubKey);
 
 type NiwiSubscribeCardProps = {
   item: NiwiSubscriptionCardType;
