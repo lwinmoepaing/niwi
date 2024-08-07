@@ -1,31 +1,76 @@
 "use client";
 
-import { cn } from "@/libs/utils";
-import { loadStripe } from "@stripe/stripe-js";
-import { NiwiSubscriptionCardType } from "@/types/blog-response";
-import { CircleCheck } from "lucide-react";
-import { useCallback } from "react";
-import Button from "../niwi-ui/button/button";
 import config from "@/config";
+import axiosClient from "@/libs/api/axios-client";
+import { cn } from "@/libs/utils";
+import { NiwiSubscriptionCardType } from "@/types/blog-response";
+import { loadStripe } from "@stripe/stripe-js";
+import { CircleCheck } from "lucide-react";
+import { User } from "next-auth";
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
+import toast from "react-hot-toast";
+import Button from "../niwi-ui/button/button";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const stripePromise = loadStripe(config.payment.stripePubKey);
 
 type NiwiSubscribeCardProps = {
   item: NiwiSubscriptionCardType;
   isYearly: boolean;
+  user?: User;
 };
 
 function NiwiSubscribeCard({
+  user,
   item: subscribe,
   isYearly,
 }: NiwiSubscribeCardProps) {
-  const onHandleButtonClick = useCallback(() => {
+  const router = useRouter();
+
+  const onHandleButtonClick = useCallback(async () => {
     if (subscribe?.onClickCallback) {
       subscribe.onClickCallback();
       return;
     }
-  }, []);
+
+    if (!user) {
+      router.push("/auth/login");
+      return;
+    }
+
+    if (!user.email) {
+      toast("You need to fill email address on your profile first");
+      return;
+    }
+
+    try {
+      const { data } = await axiosClient.post(
+        `${config.domainUrl}/api/payment-check-out`,
+        {
+          userId: user?.id,
+          email: user?.email,
+          priceId: isYearly
+            ? subscribe.paymentIdYearly
+            : subscribe.paymentIdMonthly,
+          subscription: true,
+        }
+      );
+
+      if (data.sessionId) {
+        const stripe = await stripePromise;
+        const response = await stripe?.redirectToCheckout({
+          sessionId: data.sessionId,
+        });
+        return response;
+      } else {
+        console.error("Failed to create checkout session");
+        toast("Failed to create checkout session");
+        return;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [subscribe, isYearly]);
 
   return (
     <section
@@ -66,10 +111,10 @@ function NiwiSubscribeCard({
         <p className="font-normal text-sm pt-2 pb-5">{subscribe.description}</p>
 
         <div className="pl-6 pb-6 pr-2 pt-0 flex flex-col gap-2">
-          {subscribe.serviceList.map((service) => (
+          {subscribe.serviceList.map((service, i) => (
             <div
               className="flex gap-2 relative text-xs font-normal"
-              key={service}
+              key={`${service}_${i}`}
             >
               <CircleCheck
                 size={14}

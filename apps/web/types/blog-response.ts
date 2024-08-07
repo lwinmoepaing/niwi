@@ -11,6 +11,8 @@ export interface NiwiSubscriptionCardType {
   description: string;
   serviceList: string[];
   buttonTitle: string;
+  paymentIdMonthly: string;
+  paymentIdYearly: string;
   position: "top" | "default";
   onClickCallback?: () => void;
 }

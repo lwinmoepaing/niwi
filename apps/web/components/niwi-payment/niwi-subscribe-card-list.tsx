@@ -4,6 +4,8 @@ import { NiwiSubscriptionCardType } from "@/types/blog-response";
 import NiwiSubscribeCard from "./niwi-subscribe-card";
 import { useCallback, useState } from "react";
 import NiwiSubacribePlanSwitcher from "./niwi-subscribe-plan-switcher";
+import config from "@/config";
+import { User } from "next-auth";
 
 const subscribeList = [
   {
@@ -16,6 +18,8 @@ const subscribeList = [
     perMonthlyText: "/ month",
     perYearyText: "/ year",
     description: "Essential features you need to get started",
+    paymentIdMonthly: config.payment.basicMonthlyPaymentKey,
+    paymentIdYearly: config.payment.basicYearlyPaymentKey,
     serviceList: [
       "Hehe",
       "Example Feature Number 2 with blah blah blah",
@@ -35,6 +39,8 @@ const subscribeList = [
     perMonthlyText: "/ month",
     perYearyText: "/ year",
     description: "Perfect for owners of small & medium businessess",
+    paymentIdMonthly: config.payment.basicMonthlyPaymentKey,
+    paymentIdYearly: config.payment.basicYearlyPaymentKey,
     serviceList: [
       "Hehe",
       "Example Feature Number 2 with blah blah blah",
@@ -49,7 +55,7 @@ const subscribeList = [
     position: "top",
   },
   {
-    type: "Enterprise",
+    type: "Customize",
     save: 0,
     customPrice: "Custom",
     monthlyPrice: 25,
@@ -75,7 +81,7 @@ const subscribeList = [
   },
 ] as NiwiSubscriptionCardType[];
 
-function NiwiSubscribeCardList() {
+function NiwiSubscribeCardList({ user }: { user?: User }) {
   const [paymentType, setPaymentType] = useState<"Monthly" | "Yearly">(
     "Monthly"
   );
@@ -96,6 +102,7 @@ function NiwiSubscribeCardList() {
             key={subscribe.type}
             item={subscribe}
             isYearly={paymentType === "Monthly" ? false : true}
+            user={user}
           />
         ))}
       </div>

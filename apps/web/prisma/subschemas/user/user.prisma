@@ -36,6 +36,9 @@ model User {
     // Relationships
     // -------------
 
+    // Subsctiptions
+    subscriptions Subscription[]
+
     // blog.prisma
     blogs             Blog[]
     blogComments      BlogComment[] // New field to track user comments
@@ -53,4 +56,26 @@ model UserProfile {
     statusMessageJson String
     showStatusMessage Boolean
     gridProfile       Json
+}
+
+model Subscription {
+    id             String  @id @default(auto()) @map("_id") @db.ObjectId
+    email          String
+    status         String
+    amountPaid     Int
+    currency       String
+    // Info
+    stripeUserId   String
+    subscriptionId String  @unique
+    planId         String
+    user           User?   @relation(fields: [userId], references: [id])
+    userId         String? @db.ObjectId
+
+    // Duration
+    startDate DateTime  @default(now())
+    endDate   DateTime? @default(now())
+
+    // DateTime
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

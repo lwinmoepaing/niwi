@@ -13,14 +13,16 @@ export async function POST(req: NextRequest) {
 
   if (subscription) {
     try {
+      const metadata = { userId, email, subscription };
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [{ price: priceId, quantity: 1 }],
-        metadata: { userId, email, subscription },
+        metadata,
         mode: "subscription",
         success_url: `${config.domainUrl}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${config.domainUrl}/payment/cancel`,
-        allow_promotion_codes: true,
+        allow_promotion_codes: false,
       });
 
       return responseAPI({

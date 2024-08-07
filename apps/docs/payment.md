@@ -32,4 +32,5 @@ Ready! You are using Stripe API Version [2024-06-20]. Your webhook signing secre
 2. And then click "+ Add Production" on the top right side
 3. Fill the name "Niwi Basic Monthly Plan" but you can use your own Proudct Name
 4. Input price and choose Monthly
-5. You can get Product ID on the right side of the screen.
+5. You can get Payment ID on the right side of the screen.
+6. Please set your environment file.

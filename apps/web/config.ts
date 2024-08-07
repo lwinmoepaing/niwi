@@ -16,6 +16,7 @@ const config = {
     supportEmail: `niwi@${process.env.EMAIL_DOMAIN_NAME}`,
   },
   payment: {
+    showLog: true,
     stripePubKey: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!,
     basicMonthlyPaymentKey: process.env.NEXT_PUBLIC_BASIC_MONTHLY_PRICE_ID!,
     basicYearlyPaymentKey: process.env.NEXT_PUBLIC_BASIC_YEARLY_PRICE_ID!,

@@ -32,7 +32,7 @@ export default async function HomePage() {
         )}
       </section>
 
-      <NiwiSubscribeCardList />
+      <NiwiSubscribeCardList user={session?.user} />
     </main>
   );
 }
