@@ -16,7 +16,7 @@ please open your terminal 0. For macos "brew install stripe/stripe-cli/stripe" a
 # Command line
 
 1. `stripe login`
-2. `stripe listen --forward-to localhost:3000/api/webhook/payment`
+2. `stripe listen --forward-to localhost:3000/api/payment/webhook`
 
 It'll show like this
 

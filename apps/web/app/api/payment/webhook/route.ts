@@ -17,6 +17,7 @@ const stripe = new Stripe(secretKey, {
 });
 
 type handleSubscriptionEventType = "created" | "updated" | "deleted";
+
 const handleSubscriptionEvent = async (
   event: Stripe.Event,
   type: handleSubscriptionEventType
@@ -41,43 +42,32 @@ const handleSubscriptionEvent = async (
       currency: "usd",
     };
 
+    let result;
+
     if (type === "created") {
       showPaymentLog({ message: "Created Func", isCalledFunc: true });
-      const newSubscription = await createSubscriptionPayment(subscriptionData);
-      return responseAPI({
-        message: "Ok",
-        statusCode: StatusCodes.OK,
-        data: newSubscription,
-      });
-    }
-
-    if (type === "updated" && subscription.metadata?.email) {
+      result = await createSubscriptionPayment(subscriptionData);
+    } else if (type === "updated" && subscription.metadata?.email) {
       showPaymentLog({ message: "Updated Func", isCalledFunc: true });
-      const newSubscription = await updateSubscriptionPayment(subscriptionData);
-      return responseAPI({
-        message: "Ok",
-        statusCode: StatusCodes.OK,
-        data: newSubscription,
-      });
-    }
-
-    if (type === "deleted") {
+      result = await updateSubscriptionPayment(subscriptionData);
+    } else if (type === "deleted") {
       showPaymentLog({ message: "Deleted Func", isCalledFunc: true });
-      const newSubscription = await updateSubscriptionPayment({
+      result = await updateSubscriptionPayment({
         ...subscriptionData,
         status: "cancelled",
       });
+    } else {
       return responseAPI({
-        message: "Ok",
+        message: "All the skip event type",
         statusCode: StatusCodes.OK,
-        data: newSubscription,
+        data: {},
       });
     }
 
     return responseAPI({
-      message: "All the skip event type",
+      message: "Ok",
       statusCode: StatusCodes.OK,
-      data: {},
+      data: result,
     });
   } catch (_e) {
     console.log((_e as Error)?.message);
@@ -107,7 +97,7 @@ const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
 
         return responseAPI({
           message: "Subscription metadata updated successfully",
-          statusCode: StatusCodes.NOT_FOUND,
+          statusCode: StatusCodes.OK,
         });
       } catch (_e) {
         console.error("Error updating subscription metadata:", _e);
@@ -116,15 +106,16 @@ const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
           statusCode: StatusCodes.NOT_FOUND,
         });
       }
+    } else {
+      // When you want to implement without subscription
+      return responseAPI({
+        message: "Ok",
+        statusCode: StatusCodes.OK,
+        data: {
+          type: event.type,
+        },
+      });
     }
-    // When you want to implement without subscription
-    return responseAPI({
-      message: "Ok",
-      statusCode: StatusCodes.OK,
-      data: {
-        type: event.type,
-      },
-    });
   } catch (e) {
     console.log(e);
     return responseAPI({
@@ -132,14 +123,8 @@ const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
       statusCode: StatusCodes.NOT_FOUND,
     });
   } finally {
-    console.log("========================================");
-    console.log("Finished: Trigger Handle Checkout Session Complete");
-    console.log("========================================\n");
+    showPaymentLog({ isFinished: true, type: "Session Completed" });
   }
-};
-
-const handleRefund = () => {
-  // handleRefund
 };
 
 type Params = { params: { something: string } };
@@ -162,28 +147,36 @@ export async function POST(request: NextRequest, { params: _params }: Params) {
       webHookKey
     );
 
+    showPaymentLog({ type: event.type });
+
+    let response;
+
     switch (event.type) {
-      case "customer.subscription.created":
-        return handleSubscriptionEvent(event, "created");
-      case "customer.subscription.updated":
-        return handleSubscriptionEvent(event, "updated");
-      case "customer.subscription.deleted":
-        return handleSubscriptionEvent(event, "deleted");
       case "checkout.session.completed":
-        return handleCheckoutSessionCompleted(event);
-      case "charge.refunded":
-        return handleRefund();
-      // case "invoice.payment_succeeded":
-      // case "invoice.payment_failed":
+        response = await handleCheckoutSessionCompleted(event);
+        break;
+
+      case "customer.subscription.created":
+        response = await handleSubscriptionEvent(event, "created");
+        break;
+
+      case "customer.subscription.updated":
+        response = await handleSubscriptionEvent(event, "updated");
+        break;
+
+      case "customer.subscription.deleted":
+        response = await handleSubscriptionEvent(event, "deleted");
+        break;
+
       default:
-        return responseAPI({
+        response = responseAPI({
           message: "Ok",
           statusCode: StatusCodes.OK,
-          data: {
-            type: event.type,
-          },
         });
+        break;
     }
+
+    return response;
   } catch (_e) {
     console.log(_e);
     return responseAPI({
@@ -213,15 +206,24 @@ const showPaymentLog = ({
     console.log("Trigger Handle Subscription");
     console.log("Type: " + type);
     console.log("=================================");
+    return;
   }
 
   if (isFinished) {
     console.log("========================================");
     console.log("Finished: Trigger Handle Subscription", type);
     console.log("========================================\n");
+    return;
   }
 
   if (isCalledFunc) {
     console.log("Trigger -> " + message);
+    return;
+  }
+
+  if (type) {
+    console.log("---->>>>");
+    console.log("Incoming Event type -> ", type);
+    console.log("---->>>>");
   }
 };

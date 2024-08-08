@@ -3,9 +3,19 @@ import { auth } from "@/libs/auth/next-auth";
 import Link from "next/link";
 import SignOutButton from "./(feat)/auth/assets/components/SignOutButton";
 import NiwiSubscribeCardList from "@/components/niwi-payment/niwi-subscribe-card-list";
+import {
+  checkAvailableSubscription,
+  getSubscribeData,
+} from "@/feats/payment/services/payment.service";
 
 export default async function HomePage() {
   const session = await auth();
+  const isAvailableSubscription = checkAvailableSubscription();
+
+  let subscribeData = null;
+  if (session?.user?.id) {
+    subscribeData = await getSubscribeData(session?.user?.id);
+  }
 
   return (
     <main className={"h-screen font-bold overflow-x-hidden"}>
@@ -32,7 +42,10 @@ export default async function HomePage() {
         )}
       </section>
 
-      <NiwiSubscribeCardList user={session?.user} />
+      <section>{JSON.stringify(subscribeData)}</section>
+      {isAvailableSubscription ? (
+        <NiwiSubscribeCardList user={session?.user} />
+      ) : null}
     </main>
   );
 }
