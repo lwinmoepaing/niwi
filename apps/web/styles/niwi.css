@@ -411,13 +411,13 @@
 /*=============================================
 =           Niwi Blog Share Setting           =
 =============================================*/
-.niwi-subscribe-card .container {
+.niwi-subscribe-card .sub-container {
   padding: 20px;
   border-radius: 20px;
   background-color: white;
 }
 
-.dark .niwi-subscribe-card .container {
+.dark .niwi-subscribe-card .sub-container {
   background-color: #1d1f23;
 }
 

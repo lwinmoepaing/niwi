@@ -27,6 +27,18 @@ const sideBarItems = [
       />
     ),
   },
+  {
+    name: "Payment",
+    href: "/dashboard/payments",
+    icon: () => (
+      <Image
+        src={"/images/icons/payment.gif"}
+        alt={"Payment"}
+        width={25}
+        height={25}
+      />
+    ),
+  },
 ];
 
 export default async function SideBar() {

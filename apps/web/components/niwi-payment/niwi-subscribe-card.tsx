@@ -45,7 +45,7 @@ function NiwiSubscribeCard({
 
     try {
       const { data } = await axiosClient.post(
-        `${config.domainUrl}/api/payment-check-out`,
+        `${config.domainUrl}/api/payment/payment-check-out`,
         {
           userId: user?.id,
           email: user?.email,
@@ -81,7 +81,7 @@ function NiwiSubscribeCard({
     >
       <div
         className={cn(
-          "relative container",
+          "relative sub-container",
           subscribe.position === "top" ? "" : ""
         )}
       >

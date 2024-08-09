@@ -2,6 +2,11 @@ import "server-only";
 
 import prismaClient from "@/libs/db/prismaClient";
 import config from "@/config";
+import {
+  responseError,
+  responseSuccess,
+} from "@/libs/response/response-helper";
+import { generateMetaForPagination } from "@/libs/utils";
 
 export type CreateSubscriptionPaymentProps = {
   email: string;
@@ -14,6 +19,12 @@ export type CreateSubscriptionPaymentProps = {
   userId: string;
   startDate?: Date;
   endDate?: Date;
+};
+
+export const getSubscriptonById = async (subscriptionId: string) => {
+  return prismaClient.subscription.findFirst({
+    where: { subscriptionId },
+  });
 };
 
 export const createSubscriptionPayment = async (
@@ -54,8 +65,73 @@ export const checkAvailableSubscription = () => {
   );
 };
 
-export const getSubscribeData = (userId: string) => {
-  return prismaClient.subscription.findFirst({
-    where: { userId, status: "active" },
+export const getSubscribePlanByUserId = async (userId: string) => {
+  try {
+    const subscription = await prismaClient.subscription.findFirst({
+      where: { userId, status: "active" },
+    });
+
+    if (!subscription) {
+      return responseError("Not found Subscription");
+    }
+
+    return responseSuccess("Successfully get subscription value", {
+      planType:
+        subscription.planId === config.payment.basicMonthlyPaymentKey ||
+        subscription.planId === config.payment.basicYearlyPaymentKey
+          ? "Basic Plan"
+          : "Pro Plan",
+    });
+  } catch (e) {
+    return responseError((e as Error).message);
+  }
+};
+
+export const cancelSubscriptionPayment = async (props: {
+  subscriptionId: string;
+}) => {
+  return prismaClient.subscription.update({
+    data: {
+      status: "cancelled",
+    },
+    where: {
+      subscriptionId: props.subscriptionId,
+    },
   });
+};
+
+type GetSubscriptionDataByUserIdProps = {
+  page: number;
+  userId: string;
+};
+
+export const getSubscriptionDataByUserId = async ({
+  page,
+  userId,
+}: GetSubscriptionDataByUserIdProps) => {
+  const LIMIT_COUNT = 10 as const;
+  const skip = (page - 1) * LIMIT_COUNT;
+
+  const totalCount = await prismaClient.subscription.count({
+    where: {
+      userId,
+    },
+  });
+
+  // Calculate total pages
+  const totalPages = Math.ceil(totalCount / LIMIT_COUNT);
+
+  const subscriptionList = await prismaClient.subscription.findMany({
+    skip: skip,
+    take: LIMIT_COUNT,
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const meta = generateMetaForPagination({ page, totalPages });
+
+  return {
+    meta,
+    data: subscriptionList,
+  };
 };
