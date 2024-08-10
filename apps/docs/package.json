@@ -1,0 +1,15 @@
+{
+  "name": "docs",
+  "version": "0.1.0",
+  "description": "Niwi starter documentation",
+  "scripts": {
+    "start": "mintlify dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mintlify": "^4.0.196"
+  }
+}

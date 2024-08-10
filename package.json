@@ -4,6 +4,7 @@
   "scripts": {
     "commit": "cz",
     "build": "turbo build",
+    "start:docs": "pnpm dev --filter=web",
     "add:web": "pnpm add --filter=web",
     "dev:web": "pnpm dev --filter=web",
     "add:create-niwi": "pnpm add --filter='create-niwi'",

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Niwi Starter",
+  "logo": {
+    "dark": "/logo/niwi-starter-logo.svg",
+    "light": "/logo/niwi-starter-logo.svg"
+  },
+  "favicon": "/niwi-logo.svg",
+  "colors": {
+    "primary": "#7C2ED2",
+    "light": "#7C2ED2",
+    "dark": "#7C2ED2",
+    "anchors": {
+      "from": "#7C2ED2",
+      "to": "#7C2ED2"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:hi@mintlify.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://dashboard.mintlify.com"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Documentation",
+      "icon": "book-open-cover",
+      "url": "https://lwinmoepaing.com"
+    },
+    {
+      "name": "Author",
+      "icon": "newspaper",
+      "url": "https://lwinmoepaing.com"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "installation",
+        "quickstart",
+        "development"
+      ]
+    },
+   
+    {
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction"
+      ]
+    },
+    {
+      "group": "Endpoint Examples",
+      "pages": [
+        "api-reference/endpoint/get",
+        "api-reference/endpoint/create",
+        "api-reference/endpoint/delete"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/LwinMoePaingDev",
+    "github": "https://github.com/lwinmoepaing/niwi",
+    "linkedin": "https://www.linkedin.com/in/lwinmoepaing/"
+  }
+}
