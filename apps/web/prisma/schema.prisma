@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Wed Aug 07 2024 22:40:52 GMT+0700 (Indochina Time)✨
+//🧩Don't Edit this file.✨Generated in Sat Aug 10 2024 16:59:54 GMT+0700 (Indochina Time)✨
 
 datasource db {
   provider = "mongodb"
