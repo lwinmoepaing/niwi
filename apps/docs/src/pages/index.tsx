@@ -114,7 +114,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout title={`${siteConfig.title}`} description="This is Niwi-Starter...">
       <HomepageHeader />
-      <section className="container max-w-[600px] mt-2 ">
+      <section className="mx-auto max-w-[600px] mt-2 px-[20px]">
         <div className="z-10 flexitems-center justify-center">
           <Link href="/docs/intro">
             <AnimatedGradientText className="cursor-pointer mb-5">
