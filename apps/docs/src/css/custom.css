@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Niwi Custom Theme */
+:root {
+  /* Link Hover */
+  --ifm-navbar-link-hover-color: #7c2ed2;
+
+  /* Text Color */
+  --ifm-color-primary: #b87aff;
+  --ifm-color-primary-dark: #a454ff;
+  --ifm-color-primary-darker: #9a41ff;
+  --ifm-color-primary-darkest: #7c09ff;
+  --ifm-color-primary-light: #cca0ff;
+  --ifm-color-primary-lighter: #d6b3ff;
+  --ifm-color-primary-lightest: #f4ebff;
+
+  /* Navbar */
+  --navbar-border: #fcfcfc;
+}
+
+[data-theme="dark"] {
+  --ifm-navbar-background-color: #0b0a11;
+  --ifm-background-color: #0b0a11 !important;
+
+  /* Link Hover */
+  --ifm-navbar-link-hover-color: #7c2ed2;
+
+  /* Text Color */
+  --ifm-color-primary: #b87aff;
+  --ifm-color-primary-dark: #a454ff;
+  --ifm-color-primary-darker: #9a41ff;
+  --ifm-color-primary-darkest: #7c09ff;
+  --ifm-color-primary-light: #cca0ff;
+  --ifm-color-primary-lighter: #d6b3ff;
+  --ifm-color-primary-lightest: #f4ebff;
+
+  /* Navbar */
+  --navbar-border: #1e1e1e;
+}
+
+.navbar {
+  border-bottom: 1px solid var(--navbar-border);
+}
+
+.menu__list {
+  padding-right: 10px;
+}
+
+/* Navbar */
+
+.niwi-nav-logo-item {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.niwi-nav-logo-item * {
+  width: 24px;
+  height: 24px;
+}
