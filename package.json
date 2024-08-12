@@ -4,6 +4,7 @@
   "scripts": {
     "commit": "cz",
     "build": "turbo build",
+    "add:docs": "pnpm add --filter=docs",
     "dev:docs": "pnpm dev --filter=docs",
     "add:web": "pnpm add --filter=web",
     "dev:web": "pnpm dev --filter=web",

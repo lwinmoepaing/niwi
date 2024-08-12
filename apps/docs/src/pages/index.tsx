@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 
 function Floating({
   delay,

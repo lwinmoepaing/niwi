@@ -37,6 +37,9 @@ importers:
       '@docusaurus/preset-classic':
         specifier: 3.5.1
         version: 3.5.1(@algolia/client-search@4.24.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(search-insights@2.16.2)(typescript@5.5.4)
+      '@docusaurus/remark-plugin-npm2yarn':
+        specifier: ^3.5.1
+        version: 3.5.1
       '@mdx-js/react':
         specifier: ^3.0.0
         version: 3.0.0(@types/react@18.3.3)(react@18.3.1)
@@ -2821,6 +2824,19 @@ packages:
     dependencies:
       '@types/react': 18.3.3
       react: 18.3.1
+
+  /@docusaurus/remark-plugin-npm2yarn@3.5.1:
+    resolution: {integrity: sha512-oN/jHOe4mI+wMmaQABYPvQm03DhiFrzJY2YEtHQrrUJNpfievoajM2QS2NObA8lngQ8U3+lMn0ULcKmfY309gQ==}
+    engines: {node: '>=18.0'}
+    dependencies:
+      mdast-util-mdx: 3.0.0
+      npm-to-yarn: 2.2.1
+      tslib: 2.6.3
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@docusaurus/theme-classic@3.5.1(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(typescript@5.5.4):
     resolution: {integrity: sha512-k8rLMwHuTc3SqYekc20s1uZHjabt9yi6mt1RUjbkwmjsJlAB6zrtYvsB+ZxrhY5yeUD8DZm3h0qVvKbClHVCCA==}
@@ -11257,6 +11273,11 @@ packages:
     dependencies:
       path-key: 4.0.0
     dev: true
+
+  /npm-to-yarn@2.2.1:
+    resolution: {integrity: sha512-O/j/ROyX0KGLG7O6Ieut/seQ0oiTpHF2tXAcFbpdTLQFiaNtkyTXXocM1fwpaa60dg1qpWj0nHlbNhx6qwuENQ==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: false
 
   /nprogress@0.2.0:
     resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}

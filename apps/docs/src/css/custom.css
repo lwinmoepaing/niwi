@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lancelot&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,8 +13,11 @@
   }
 }
 
+
 /* Niwi Custom Theme */
 :root {
+  /* Font Size */
+
   /* Link Hover */
   --ifm-navbar-link-hover-color: #7c2ed2;
 
@@ -27,6 +32,13 @@
 
   /* Navbar */
   --navbar-border: #fcfcfc;
+
+  /* Code Tabs */
+  --ifm-pre-padding: 10px;
+
+  /* Tabs-Background */
+  --tabs-border: #efefef;
+  --tabs-background: #eeeeee;
 }
 
 [data-theme="dark"] {
@@ -47,6 +59,14 @@
 
   /* Navbar */
   --navbar-border: #1e1e1e;
+
+  /* Code Tabs */
+  --ifm-pre-padding: 10px;
+
+  /* Tabs-Background */
+  --tabs-header: #0b0a10;
+  --tabs-border: #282828;
+  --tabs-background: #0d0c14;
 }
 
 .navbar {
@@ -72,3 +92,159 @@
   width: 24px;
   height: 24px;
 }
+
+/* Aside */
+.theme-doc-sidebar-container {
+  border-right: none !important;
+}
+
+.padding-bottom--lg {
+  padding-top: 2.5rem !important;
+}
+
+nav.menu {
+  padding-top: 2rem !important;
+}
+
+li > a.menu__link {
+  justify-content: flex-start;
+}
+
+.side-link-gif div a,
+.side-link-gif > a {
+  padding-left: 36px;
+  position: relative;
+}
+
+.side-link-gif div a::before,
+.side-link-gif > a::before {
+  position: absolute;
+  left: 12px;
+  content: " ";
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.niwi-get-started > a::before {
+  width: 17px;
+  height: 15px;
+  background-image: url(/img/niwi-blog.gif);
+}
+
+.niwi-project > a::before {
+  width: 17px;
+  height: 15px;
+  background-image: url(/img/niwi-seed.gif);
+}
+
+.niwi-auth div a::before {
+  width: 17px;
+  height: 15px;
+  background-image: url(/img/niwi-lock.gif);
+}
+
+/* Headers */
+.markdown h1:first-child {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.markdown p {
+  margin-bottom: 8px;
+}
+
+/* Tab Group */
+[data-theme="dark"] .tabs-container {
+  background-color: var(--tabs-background);
+  border: 1px solid var(--tabs-border);
+}
+
+.tabs-container {
+  background: #eeeeee;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid #dfdfdf;
+  overflow-x: hidden;
+}
+
+.tabs-container .margin-top--md {
+  margin-top: 0 !important;
+}
+
+.tabs-container ul {
+  background-color: var(--tabs-header);
+  border-bottom: 1px solid var(--tabs-border);
+}
+
+.tabs-container pre code {
+  border: none;
+}
+
+pre code {
+  font-size: 14px !important;
+  background: #eeeeee !important;
+  border: 1px solid var(--tabs-border);
+}
+
+[data-theme="dark"] pre code {
+  background: var(--tabs-background) !important;
+}
+
+.tabs__item {
+  padding: 10px;
+  text-transform: lowercase;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.tabs__item:hover {
+  background: transparent;
+}
+
+.tabs__item--active {
+  border-bottom-width: 1px;
+}
+
+.theme-code-block {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tabs-container .theme-code-block {
+  margin-top: 0px;
+}
+
+.markdown > h2 {
+  margin-top: 20px;
+}
+
+.theme-code-block {
+  background: var(--tabs-background) !important;
+  border: 1px solid var(--tabs-border);
+}
+
+.theme-code-block > div {
+  border-bottom: 1px solid var(--tabs-border);
+}
+
+.markdown h1:first-child,
+.markdown > h1,
+.markdown > h2,
+.markdown > h3,
+.markdown > h4,
+.markdown > h5,
+.markdown > h6 {
+  font-family: "Lancelot", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.markdown h1:first-child {
+  display: inline-block;
+  color: transparent; 
+  background: #7E22CE;
+  background: linear-gradient(to right, #F43F5E 0%, #7E22CE 50%, #60A5FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
