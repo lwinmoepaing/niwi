@@ -1,0 +1,73 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import NiwiAlert from "../src/components/niwi/niwi-alert";
+import { BorderBeam } from "../src/components/magicui/border-beam";
+
+# Get Started
+
+## Welcome to the Niwi-Starter !!
+
+Follow along to get your app up and running in less than 10 minutes.
+
+### 1. Start with CLI
+
+<Tabs>
+  <TabItem value="npx" label="NPX">
+    ```bash
+    npx create-niwi 
+    ```
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+    ```bash
+    pnpm create niwi 
+    ```
+  </TabItem>
+</Tabs>
+
+<NiwiAlert
+  type="info"
+  text="Niwi-Starter requires Node 18.17 or greater. Type node -v in your terminal to check version."
+/>
+
+<div className="relative rounded-[12px] mb-5">
+  <BorderBeam duration={8} size={170} />
+  <img src="/img/niwi-feature-version.svg" />
+</div>
+
+There are 2 ways to create ``Niwi`` Project, 
+
+Default Template and Pre-built Project. First, let's make default version.
+
+### 2. Setup Environment File
+
+Setting up your environment file.
+
+```bash
+cp .env.example .env
+```
+
+### 3. Connect Mongo Database
+
+Please add your Mongo Database url to `.env` file
+
+```bash
+DATABASE_URL="paste your mongo db url"
+```
+
+### 4. Seed Pre-Data
+
+```bash npm2yarn
+npm run seed
+```
+
+### 5. We can start Niwi now
+
+```bash npm2yarn
+npm run dev
+```
+
+❤️ Thank you for using `Niwi-Starter` !!

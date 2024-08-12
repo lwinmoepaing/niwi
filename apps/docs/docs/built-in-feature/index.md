@@ -1,8 +1,8 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 ---
 
-# Learning Auth
+# Exploring Built-in Feature
 
 Add **Markdown or React** files to `src/pages` to create a **standalone page**:
 

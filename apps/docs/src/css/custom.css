@@ -37,7 +37,7 @@
   --ifm-pre-padding: 10px;
 
   /* Tabs-Background */
-  --tabs-border: #efefef;
+  --tabs-border: #dfdfdf;
   --tabs-background: #eeeeee;
 }
 
@@ -143,6 +143,18 @@ li > a.menu__link {
   background-image: url(/img/niwi-lock.gif);
 }
 
+.niwi-built-in > a::before {
+  width: 17px;
+  height: 15px;
+  background-image: url(/img/niwi-seo.gif);
+}
+
+.niwi-testing div a::before {
+  width: 17px;
+  height: 15px;
+  background-image: url(/img/niwi-testing.gif);
+}
+
 /* Headers */
 .markdown h1:first-child {
   font-size: 2rem;
@@ -220,11 +232,11 @@ pre code {
 
 .theme-code-block {
   background: var(--tabs-background) !important;
-  border: 1px solid var(--tabs-border);
+  /* border: 1px solid var(--tabs-border); */
 }
 
 .theme-code-block > div {
-  border-bottom: 1px solid var(--tabs-border);
+  /* border-bottom: 1px solid var(--tabs-border); */
 }
 
 .markdown h1:first-child,
@@ -239,6 +251,16 @@ pre code {
   font-style: normal;
 }
 
+.markdown > h2 {
+  font-size: 1.75rem;
+  margin-bottom: 8px;
+}
+
+.markdown > h3 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
 .markdown h1:first-child {
   display: inline-block;
   color: transparent; 
@@ -248,3 +270,16 @@ pre code {
   -webkit-text-fill-color: transparent;
 }
 
+code {
+  background: var(--tabs-background);
+  border: 1px solid var(--tabs-border);
+  padding: 1px 10px;
+  font-size: 14px;
+}
+
+.tabs-container code {
+  border: none;
+  display: inline-block;
+  /* margin: 8px 0px; */
+  padding: 10px;
+}

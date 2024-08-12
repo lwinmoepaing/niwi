@@ -4,6 +4,7 @@ module.exports = {
     [
       'module-resolver',
       {
+        root: ["./src"],
         alias: {
           '@': './src', // Adjust the path to match your project structure
         },
