@@ -1,0 +1,99 @@
+---
+sidebar_position: 2
+---
+
+import NiwiAlert from "../src/components/niwi/niwi-alert";
+
+# Project Structure
+
+Discover **Niwi-Starter in less than 10 minutes**.
+
+### Page Routes
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-route-structures.svg" />
+</div>
+
+Niwi uses the app-router and group-route folder structure in Next.js.
+
+The `app` directory contains page and layout files, along with `(feat)` and `(protected)` folders. The `(feat)` folder is for general users, while the `(protected)` folder is for authenticated users.
+
+### Components
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-components-structures.svg" />
+</div>
+
+Explore Niwi components, and create your own within the `components` directory. Niwi uses Tailwind for basic styling, but you can add libraries like Radix or Shadcn UI to customize your project further.
+
+### Utilities
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-libs-structures.svg" />
+</div>
+
+This section contains helper functions for libraries like Stripe, Mailgun, and authentication.
+
+### Schema with Prisma
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-database-orm.svg" />
+</div>
+
+Niwi uses MongoDB with Prisma. You can create your own models in the `prisma/schema.prisma` file.
+
+### Seeding
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-seeding-pre-data.svg" />
+</div>
+
+The `seeds` folder contains pre-defined data for default features and users, used for seeding.
+
+### Styling
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-style.svg" />
+</div>
+
+You can modify existing Niwi component styles or add your own CSS in `globals.css`. Tailwind is the primary styling framework used for components.
+
+### State Management with Zustand
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-store-structures.svg" />
+</div>
+
+We use [Zustand](https://zustand-demo.pmnd.rs/) for client-side state management. However, you can replace it with another library if needed.
+
+## Core Feature Structure
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-feature-structures.svg" />
+</div>
+
+Niwi includes default and project-specific features in the `feat` directory. Our philosophy emphasizes separating business logic in `feat` to reduce complexity in Next.js.
+
+Each feature follows an organized structure with directories for `services`, `actions`, `validations`, `api`, and `hooks` to promote reusability.
+
+Explore the detailed structure of our features below!
+
+## Feature Detail Structure
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/project-structure/project-feature-detail-structures.svg" />
+</div>
+
+The `blog` feature is an example created for learning purposes.
+
+- `actions`: Server Actions with `"use server"`
+- `api`: Primarily uses `useQuery`, `useMutation`, and `useInfiniteQuery` from [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/overview)
+- `hooks`: Custom hooks for feature-specific reusability
+- `validations`: Validations with [Zod](https://zod.dev/) for both client and server-side actions
+- `services`: Services for specific features, applicable on both server and client sides
+
+<NiwiAlert
+  text={`
+In the \`blog.service\`, we use \`import "server-only"\` to ensure functions run only on the server. The \`blog-query-cache\` service is used for React Query on the client side.
+`}
+/>
