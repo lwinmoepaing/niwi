@@ -4,11 +4,11 @@
 
 :root {
   --niwi-blog-publish-img-color: #eee;
-  --niwi-dark-blog-publish-img-color: #313339;
+  --niwi-dark-blog-publish-img-color: #111119;
 
   /* Blog Profile */
   --niwi-blog-profile-bg-color: #fff;
-  --niwi-dark-blog-profile-bg-color: #313339;
+  --niwi-dark-blog-profile-bg-color: #111119;
 
   /* Blog Comment */
 }
@@ -453,7 +453,7 @@
 
 .dark .niwi-blog-setting-menu.active,
 .dark .niwi-blog-setting-menu:hover {
-  background-color: #282a2e;
+  background-color: #191624;
 }
 
 .niwi-blog-setting-menu.active .dot,
@@ -532,7 +532,7 @@
 }
 
 .dark .niwi-blog-setting-menu .menu {
-  background-color: #282a2e;
+  background-color: #191624;
 }
 
 .niwi-blog-setting-menu .menu::after {
@@ -548,7 +548,7 @@
 }
 
 .dark .niwi-blog-setting-menu .menu::after {
-  border-bottom: 10px solid #282a2e;
+  border-bottom: 10px solid #191624;
 }
 
 .niwi-blog-setting-menu .menu button {
@@ -783,7 +783,7 @@
 }
 
 .dark .niwi-blog-share-icon-container .niwi-share-setting {
-  background-color: #282a2e;
+  background-color: #191624;
 }
 
 .niwi-blog-share-icon-container .niwi-share-setting::after {
@@ -799,7 +799,7 @@
 }
 
 .dark .niwi-blog-share-icon-container .niwi-share-setting::after {
-  border-top: 10px solid #282a2e;
+  border-top: 10px solid #191624;
 }
 
 .niwi-blog-share-icon-container button {

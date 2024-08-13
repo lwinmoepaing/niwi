@@ -20,7 +20,7 @@ function SubscriptionList({
 
         return (
           <div
-            className="bg-white dark:bg-[#313339] rounded-[10px] my-2 p-[20px] gap-[10px] flex flex-col lg:flex-row justify-between items-center text-sm"
+            className="bg-white dark:bg-[#111119] rounded-[10px] my-2 p-[20px] gap-[10px] flex flex-col lg:flex-row justify-between items-center text-sm"
             key={subscription.id}
           >
             <div className="flex-1">

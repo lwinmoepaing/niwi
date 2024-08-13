@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 
 import { cn } from "@/libs/utils";
@@ -16,10 +17,16 @@ const PasswordInput = ({
 }: TextInputProps) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
+  const [hasHydrate, setHydrate] = React.useState(false);
+
   const handleEye = React.useCallback(() => {
     if (disabled) return;
     setShowPassword((prev) => !prev);
   }, [disabled]);
+
+  React.useEffect(() => {
+    setHydrate(true);
+  }, []);
 
   return (
     <section className="relative">
@@ -30,18 +37,21 @@ const PasswordInput = ({
         className={cn("pr-10", className)}
         disabled={disabled}
       />
-      <span
-        className={cn(
-          "absolute top-[7px] right-1 cursor-pointer select-none",
-          disabled && "opacity-30"
-        )}
-      >
-        {showPassword ? (
-          <EyeIcon onClick={handleEye} />
-        ) : (
-          <EyeOffIcon onClick={handleEye} />
-        )}
-      </span>
+
+      {!hasHydrate ? null : (
+        <span
+          className={cn(
+            "absolute top-[7px] right-1 cursor-pointer select-none",
+            disabled && "opacity-30"
+          )}
+        >
+          {showPassword ? (
+            <EyeIcon onClick={handleEye} />
+          ) : (
+            <EyeOffIcon onClick={handleEye} />
+          )}
+        </span>
+      )}
     </section>
   );
 };

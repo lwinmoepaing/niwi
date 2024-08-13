@@ -2,13 +2,19 @@ import Link from "next/link";
 import { LightDarkToggle } from "../light-dark-toggler/light-dark-toggler";
 import { User } from "next-auth";
 import Image from "next/image";
+import { cn } from "@/libs/utils";
+import { lancelotFont } from "@/libs/font/font-helper";
 
 export default function Navbar({ user }: { user?: User }) {
   return (
     <header className="niwi-navbar">
       <nav className="nav">
-        <section>
-          <Link href="/" className="niwi-logo-text text-2xl">
+        <section className="flex flex-row gap-x-[10px]">
+          <Image width={24} height={24} src="/niwi-logo.svg" alt="Niwi Logo" />
+          <Link
+            href="/"
+            className={cn("niwi-logo-text text-3xl", lancelotFont.className)}
+          >
             Niwi Starter
           </Link>
         </section>

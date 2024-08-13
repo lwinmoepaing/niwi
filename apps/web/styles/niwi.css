@@ -4,8 +4,8 @@
 :root {
   /* Background Color */
   --niwi-background: #f4f4f5;
-  --niwi-dark-background: #2b2d31;
-  --niwi-dark-primary-background: #313339;
+  --niwi-dark-background: #040303;
+  --niwi-dark-primary-background: #15151a;
 
   /* Text Color */
   --niwi-text-color: #0a0a0a;
@@ -30,25 +30,25 @@
 
   /* Navbar */
   --niwi-navbar-color: #ffffff;
-  --niwi-dark-navbar-color: #1d1f23;
+  --niwi-dark-navbar-color: #111119;
   --niwi-navbar-bottom-border-color: #eaeaea;
-  --niwi-dark-navbar-bottom-border-color: #282a2e;
+  --niwi-dark-navbar-bottom-border-color: #030303;
 
   /* Sidebar */
   --niwi-sidebar-color: white;
-  --niwi-dark-sidebar-color: #1d1f23;
+  --niwi-dark-sidebar-color: #111119;
 
   /* Sidebar Item */
   --niwi-sidebar-item-color: #f7f7f7;
-  --niwi-dark-sidebar-item-color: #313339;
+  --niwi-dark-sidebar-item-color: #161420;
   --niwi-sidebar-active-item-color: #dce5ff;
-  --niwi-dark-sidebar-active-item-color: #2b3953;
+  --niwi-dark-sidebar-active-item-color: #131b2a;
 
   /* Overlay */
   --niwi-overlay-color: #cbcbcb9c;
-  --niwi-dark-overlay-color: #3a3c41d9;
+  --niwi-dark-overlay-color: #1e222dd9;
   --niwi-overlay-content-bg-color: white;
-  --niwi-dark-overlay-content-bg-color: #2b2d31;
+  --niwi-dark-overlay-content-bg-color: #191624;
 }
 
 /*=============================================
@@ -418,7 +418,7 @@
 }
 
 .dark .niwi-subscribe-card .sub-container {
-  background-color: #1d1f23;
+  background-color: #040303;
 }
 
 .niwi-subscribe-card::before {

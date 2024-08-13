@@ -1,11 +1,10 @@
 /*=============================================
-
 =                  Variables                  =
 =============================================*/
 :root {
   /* Editor Container */
   --niwi-editor-text-container-color: #ffffff;
-  --niwi-dark-editor-text-container-color: #313339;
+  --niwi-dark-editor-text-container-color: #111119;
 
   /* Cursor Color */
   --niwi-editor-cursor-color: rgb(5, 5, 5);

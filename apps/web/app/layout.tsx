@@ -1,8 +1,8 @@
 import { LightDarkToggle } from "@/components/niwi-ui/light-dark-toggler/light-dark-toggler";
 import ReactQueryProvider from "@/components/query-client-provider/query-client-provider";
 import { getDarkModeCookie } from "@/feats/setting/actions/setting.action";
+import { geistMono, geistSans } from "@/libs/font/font-helper";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 
 // Importing Styles
@@ -15,18 +15,9 @@ import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-splash-image.
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor-tool.css";
 import "@/components/niwi-blog/niwi-text-editor/styles/niwi-editor.css";
 import "@/styles/globals.css";
-import "@/styles/niwi-profile.css";
 import "@/styles/niwi-blog.css";
+import "@/styles/niwi-profile.css";
 import "@/styles/niwi.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-});
 
 export const metadata: Metadata = {
   title: "Create niw! Starter",

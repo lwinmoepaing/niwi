@@ -22,7 +22,7 @@ function NiwiSubacribePlanSwitcher({
     <div className="relative border rounded-full py-1 px-1 text-[14px] dark:border-[#1d1f23]">
       <div
         className={cn(
-          "absolute w-[50%] h-[90%] top-[2px] bg-white dark:bg-[#1d1f23]  rounded-full",
+          "absolute w-[50%] h-[90%] top-[2px] bg-white dark:bg-[#111216]  rounded-full",
           "transition-all duration-[500ms] ease-in-out shadow-sm niwi-blog-switcher-animation",
           status === "Monthly" ? "left-[2px] forward" : "left-[49%] forward"
         )}

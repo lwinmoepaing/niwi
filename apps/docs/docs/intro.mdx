@@ -19,11 +19,13 @@ Follow along to get your app up and running in less than 10 minutes.
   <TabItem value="npx" label="NPX">
     ```bash
     npx create-niwi 
+    cd niwi-starter
     ```
   </TabItem>
   <TabItem value="pnpm" label="pnpm">
     ```bash
     pnpm create niwi 
+    cd niwi-starter
     ```
   </TabItem>
 </Tabs>
@@ -58,13 +60,19 @@ Please add your Mongo Database url to `.env` file
 DATABASE_URL="paste your mongo db url"
 ```
 
-### 4. Seed Pre-Data
+### 4. Generate Prisma Client
+
+```bash npm2yarn
+npm run db:generate
+```
+
+### 5. Seed Pre-Data
 
 ```bash npm2yarn
 npm run seed
 ```
 
-### 5. We can start Niwi now
+### 6. We can start Niwi now
 
 ```bash npm2yarn
 npm run dev

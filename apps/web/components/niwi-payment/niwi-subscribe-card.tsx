@@ -39,7 +39,12 @@ function NiwiSubscribeCard({
     }
 
     if (!user.email) {
-      toast("You need to fill email address on your profile first");
+      toast.error("You need to fill email address on your profile first");
+      return;
+    }
+
+    if (!subscribe.paymentIdYearly && !subscribe.paymentIdMonthly) {
+      toast.error("You need setup paymentID.");
       return;
     }
 
@@ -76,7 +81,7 @@ function NiwiSubscribeCard({
     <section
       className={cn(
         "w-[280px] relative transition-all niwi-subscribe-card",
-        subscribe.position === "top" ? "top-[-10px]" : ""
+        subscribe.position === "top" ? "lg:top-[-10px]" : ""
       )}
     >
       <div

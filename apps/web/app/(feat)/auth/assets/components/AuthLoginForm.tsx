@@ -1,4 +1,5 @@
 "use client";
+
 import SubmitButton from "@/components/niwi-ui/button/submit-button";
 import {
   Form,
@@ -11,12 +12,12 @@ import {
 } from "@/components/niwi-ui/form/form";
 import { PasswordInput } from "@/components/niwi-ui/form/password-input";
 import TextInput from "@/components/niwi-ui/form/text-input";
-import useLoginForm from "../hooks/useLoginForm";
-import GoogleIcon from "@/components/niwi-ui/social-icons/google-icon";
-import GithubIcon from "@/components/niwi-ui/social-icons/github-icon";
 import FacebookIcon from "@/components/niwi-ui/social-icons/facebook-icon";
+import GithubIcon from "@/components/niwi-ui/social-icons/github-icon";
+import GoogleIcon from "@/components/niwi-ui/social-icons/google-icon";
 import TwitterIcon from "@/components/niwi-ui/social-icons/twitter-icon";
 import Link from "next/link";
+import useLoginForm from "../hooks/useLoginForm";
 
 function AuthLoginForm() {
   const {
@@ -36,9 +37,7 @@ function AuthLoginForm() {
   return (
     <>
       <div className="text-center mb-2">
-        <h1 className="text-3xl niwi-logo-text">
-          Niwi Starter
-        </h1>
+        <h1 className="text-3xl niwi-logo-text">Niwi Starter</h1>
       </div>
       <Form {...form}>
         <form
@@ -98,7 +97,7 @@ function AuthLoginForm() {
 
       <div className="my-2">
         <Link href="/auth/magic-link" className="hover:underline niwi-link">
-          <p className="text-center"> Magic Link 🚀</p>
+          <p className="text-center"> Magic Link 🚀 </p>
         </Link>
       </div>
 

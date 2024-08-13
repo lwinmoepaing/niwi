@@ -21,10 +21,9 @@ const subscribeList = [
     paymentIdMonthly: config.payment.basicMonthlyPaymentKey,
     paymentIdYearly: config.payment.basicYearlyPaymentKey,
     serviceList: [
-      "Hehe",
-      "Example Feature Number 2 with blah blah blah",
-      "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
+      "Example Feature For Basic Plan",
+      "This is another Feature for Basic",
+      "This feature is amazing too",
     ],
     buttonTitle: "Get Started",
     position: "default",
@@ -39,17 +38,14 @@ const subscribeList = [
     perMonthlyText: "/ month",
     perYearyText: "/ year",
     description: "Perfect for owners of small & medium businessess",
-    paymentIdMonthly: config.payment.basicMonthlyPaymentKey,
-    paymentIdYearly: config.payment.basicYearlyPaymentKey,
+    paymentIdMonthly: "",
+    paymentIdYearly: "",
     serviceList: [
-      "Hehe",
-      "Example Feature Number 2 with blah blah blah",
-      "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
+      "Super Customize Features 1",
+      "Super Customize Features 2",
+      "Super Customize Features 3",
+      "Super Customize Features 4",
+      "Super Customize Features 5",
     ],
     buttonTitle: "Get Started",
     position: "top",
@@ -66,17 +62,15 @@ const subscribeList = [
     perYearyText: "/ year",
     description: "Dedicated support and infrastructure to fit your needs",
     serviceList: [
-      "Hehe",
-      "Example Feature Number 2 with blah blah blah",
       "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
-      "Super Customize Exclusive Features",
+      "Support for your customizations",
+      "24hour availability for your request",
+      "Super Customize Features ",
     ],
-    buttonTitle: "Get Started",
+    buttonTitle: "Contact Now!",
     position: "default",
     onClickCallback: () => {
-      alert("Hello");
+      alert("Contact Now!");
     },
   },
 ] as NiwiSubscriptionCardType[];
@@ -96,7 +90,7 @@ function NiwiSubscribeCardList({ user }: { user?: User }) {
         <NiwiSubacribePlanSwitcher onChangeStatus={onChangeStatus} />
       </div>
 
-      <div className="flex flex-row flex-wrap gap-[20px] items-start justify-center mb-20">
+      <div className="flex flex-col lg:flex-row lg:flex-wrap gap-[20px] items-center lg:items-start justify-center mb-20">
         {subscribeList.map((subscribe) => (
           <NiwiSubscribeCard
             key={subscribe.type}

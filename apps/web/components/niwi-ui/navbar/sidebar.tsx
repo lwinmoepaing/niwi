@@ -1,43 +1,22 @@
 import SignOutButton from "@/app/(feat)/auth/assets/components/SignOutButton";
-import Image from "next/image";
+import { Book, CircleDollarSign, HomeIcon } from "lucide-react";
 import SidebarItem from "./sidebar-item";
 
 const sideBarItems = [
   {
     name: "Home",
     href: "/dashboard",
-    icon: () => (
-      <Image
-        src={"/images/icons/house.gif"}
-        alt={"Home"}
-        width={25}
-        height={25}
-      />
-    ),
+    icon: () => <HomeIcon size={14} />,
   },
   {
     name: "Blog",
     href: "/dashboard/blogs",
-    icon: () => (
-      <Image
-        src={"/images/icons/blog.gif"}
-        alt={"Blogs"}
-        width={25}
-        height={25}
-      />
-    ),
+    icon: () => <Book size={14} />,
   },
   {
     name: "Payment",
     href: "/dashboard/payments",
-    icon: () => (
-      <Image
-        src={"/images/icons/payment.gif"}
-        alt={"Payment"}
-        width={25}
-        height={25}
-      />
-    ),
+    icon: () => <CircleDollarSign size={14} />,
   },
 ];
 

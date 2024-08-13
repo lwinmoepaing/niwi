@@ -10,7 +10,7 @@ const buttonVariants = cva(defaultStyle, {
       primary: "niwi-button--primary",
       success: "niwi-button--success",
       outline: "niwi-button--outline",
-      niwi: "bg-white dark:bg-[#1d1f23] rounded-full shadow-md ",
+      niwi: "bg-white dark:bg-[#111216] rounded-full shadow-md ",
     },
     size: {
       sm: "h-7 rounded-md px-3",
@@ -46,9 +46,13 @@ const Button = ({
       className={cn(buttonVariants({ variant, size, className }))}
       {...rest}
     >
-      <span className={cn(variant === "niwi" && "niwi-logo-text")}>
-        {children}
-      </span>
+      {variant === "niwi" ? (
+        <span className={cn(variant === "niwi" && "niwi-logo-text")}>
+          {children}
+        </span>
+      ) : (
+        children
+      )}
     </button>
   );
 };

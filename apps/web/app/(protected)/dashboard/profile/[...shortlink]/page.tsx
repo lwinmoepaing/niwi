@@ -16,6 +16,7 @@ const ProfileDetailPage = async ({
   searchParams,
 }: ProfileDetailPageProps) => {
   const session = await auth();
+  console.log({name: shortlink?.[0]})
   const { success, data } = await gerUserByShortLink(shortlink?.[0] || "");
   if (!success || !data) return notFound();
 
