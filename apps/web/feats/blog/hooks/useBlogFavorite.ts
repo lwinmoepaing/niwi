@@ -107,6 +107,7 @@ function useBlogFavorite({
   }, [dispatchFavoriteBlog, optimisticFav]);
 
   const onClickFavorite = useCallback(async () => {
+    if (!currentAuthId) return;
     setOptimisticFav((prev) => {
       setOptimisticFavCount(() =>
         countCalculation(parentIsFav, favoriteCount, !prev)
@@ -114,7 +115,7 @@ function useBlogFavorite({
       return !prev;
     });
     setClickCount((prev) => prev + 1);
-  }, [favoriteCount, parentIsFav]);
+  }, [favoriteCount, parentIsFav, currentAuthId]);
 
   // Debounce for 120 miliseconds
   useEffect(() => {

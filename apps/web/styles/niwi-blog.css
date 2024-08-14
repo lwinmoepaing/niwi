@@ -235,10 +235,13 @@
   color: var(--niwi-dark-editor-text-color);
 }
 
+.blog-image-padding {
+  padding-right: 35%;
+}
+
 .niwi-blog-profile-header {
   font-size: 24px;
   margin-bottom: 1rem;
-  padding-right: 40px;
   transition: all 0.2s ease-in-out;
 }
 

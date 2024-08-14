@@ -13,6 +13,8 @@ type NiwiBlogShareSettingProps = {
 function NiwiBlogShareSetting({ link }: NiwiBlogShareSettingProps) {
   const ref = useRef<HTMLDivElement>(null);
 
+  const navApi = typeof window !== "undefined" ? window.navigator : null;
+
   const [active, setActive] = useState(false);
 
   const toggleActive = useCallback(() => {
@@ -21,12 +23,12 @@ function NiwiBlogShareSetting({ link }: NiwiBlogShareSettingProps) {
 
   const handleCopyClick = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(link);
+      await navApi?.clipboard.writeText(link);
       toast.success("Link copied to clipboard!");
     } catch (err) {
       //
     }
-  }, [navigator]);
+  }, [navApi]);
 
   useEffect(() => {
     const handleOutSideClick = (event: MouseEvent) => {

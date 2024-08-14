@@ -83,11 +83,12 @@ function useBlogBookmark({
   }, [dispatchBookmarkBlog, optimisticBookmark]);
 
   const onClickBookmark = useCallback(async () => {
+    if (!currentAuthId) return;
     setOptimisticBookmark((prev) => {
       return !prev;
     });
     setClickCount((prev) => prev + 1);
-  }, [parentIsBookmark]);
+  }, [parentIsBookmark, currentAuthId]);
 
   // Debounce for 150 miliseconds
   useEffect(() => {

@@ -14,6 +14,7 @@ import {
 } from "@/types/blog-response";
 import { auth } from "@/libs/auth/next-auth";
 import { generateMetaForPagination } from "@/libs/utils";
+import config from "@/config";
 
 export const serializeSelectorField = () => {
   return {
@@ -736,4 +737,28 @@ export const getBlogCountByAuthor = (authorId: string) => {
       userId: authorId,
     },
   });
+};
+
+export const checkAvailableBlogs = () => {
+  return config.dbUrl?.length > 0;
+};
+
+export const getLast3Blogs = async (userId?: string) => {
+  const blogs = await prismaClient.blog.findMany({
+    where: {
+      isPublished: true,
+    },
+    orderBy: { createdAt: "desc" },
+    select: userId
+      ? {
+          ...serializeSelectorField(),
+          ...getUserSelectRelation(userId),
+        }
+      : {
+          ...serializeSelectorField(),
+          ...getUserSelectRelationWithoutAuth(),
+        },
+  });
+
+  return blogs;
 };

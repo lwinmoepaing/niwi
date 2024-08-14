@@ -1,5 +1,6 @@
 const config = {
   appName: "Niwi Starter",
+  dbUrl: process.env.DATABASE_URL || "",
   domainUrl: "http://localhost:3000",
   domainName: "niwistarter.com",
   defaultUserImage: "/images/auth/profile.png",

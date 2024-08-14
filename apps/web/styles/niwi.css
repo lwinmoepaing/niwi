@@ -238,7 +238,13 @@
 .niwi-sidebar-container {
   display: flex;
   flex: 1;
-  padding-left: 100px;
+  padding-left: 50px;
+}
+
+@media screen and (min-width: 768px) {
+  .niwi-sidebar-container {
+    padding-left: 100px;
+  }
 }
 
 .niwi-sidebar {
@@ -249,9 +255,15 @@
   justify-content: space-between;
   align-items: center;
   top: 4rem;
-  width: 100px;
+  width: 50px;
   height: calc(100vh - 4rem);
   background-color: var(--niwi-sidebar-color, white);
+}
+
+@media screen and (min-width: 768px) {
+  .niwi-sidebar {
+    width: 100px;
+  }
 }
 
 .dark .niwi-sidebar {
@@ -261,15 +273,24 @@
 .niwi-sidebar-item {
   display: flex;
   padding: 0.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 18px;
-  width: 54px;
-  height: 54px;
+  border-radius: 10px;
+  width: 34px;
+  height: 34px;
   color: black;
   background-color: var(--niwi-sidebar-item-color, #f7f7f7);
+}
+
+@media screen and (min-width: 768px) {
+  .niwi-sidebar-item {
+  margin-top: 1.5rem;
+    border-radius: 18px;
+    width: 54px;
+    height: 54px;
+  }
 }
 
 .niwi-sidebar-item:hover {

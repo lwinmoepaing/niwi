@@ -1,6 +1,7 @@
 {
   "globalEnv": [
     "SECRET_HASH_KEY",
+    "DATABASE_URL",
     "NODE_ENV",
     "GOOGLE_CLIENT_ID",
     "GOOGLE_CLIENT_SECRET",

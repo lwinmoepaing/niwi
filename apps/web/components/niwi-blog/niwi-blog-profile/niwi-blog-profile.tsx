@@ -1,3 +1,5 @@
+"use client";
+
 import useBlogBookmark from "@/feats/blog/hooks/useBlogBookmark";
 import useBlogFavorite from "@/feats/blog/hooks/useBlogFavorite";
 import dateUtil from "@/libs/date/date-util";
@@ -62,7 +64,12 @@ function NiwiBlogProfile({
   }, [blog?.title]);
 
   return (
-    <section className="niwi-blog-profile-container">
+    <section
+      className={cn(
+        "niwi-blog-profile-container",
+        blog.isPublished ? "blog-image-padding" : ""
+      )}
+    >
       <h1 className="niwi-blog-profile-header">
         {disabledLink ? (
           <span className="link">{blogTitle}</span>
@@ -72,6 +79,7 @@ function NiwiBlogProfile({
           </Link>
         )}
       </h1>
+
       <div className="niwi-blog-profile-row">
         <Link href={`/profile/${blog.user?.shortLink || ""}`}>
           <div className="niwi-blog-profile-image">
@@ -95,6 +103,7 @@ function NiwiBlogProfile({
           </div>
         </div>
       </div>
+
       <div
         className={cn("niwi-blog-profile-actions", hideActions && " !hidden ")}
       >
@@ -123,6 +132,7 @@ function NiwiBlogProfile({
           />
         </div>
       </div>
+
       {!showSetting ? null : <NiwiBlogSettingMenu blogId={blog.id} />}
 
       {!isShowComment ? null : (
@@ -134,6 +144,20 @@ function NiwiBlogProfile({
           authUser={currentAuth}
         />
       )}
+
+      {blog.isPublished && blog.previewImage ? (
+        <div className="w-[35%] absolute right-0 top-0 h-[100%] py-[15px] pr-[15px]">
+          <div className="relative w-full h-full rounded-[15px] overflow-hidden">
+            <Image
+              className="w-full h-full"
+              src={blog.previewImage}
+              alt={blogTitle}
+              fill
+              objectFit="cover"
+            />
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

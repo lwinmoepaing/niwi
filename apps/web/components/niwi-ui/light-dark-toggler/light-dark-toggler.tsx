@@ -40,7 +40,7 @@ export function LightDarkToggle({ className }: Props) {
       className={cn("niwi-toggler", className)}
       onClick={handleToggleDarkMode}
     >
-      {isDarkMode ? <MoonIcon /> : <SunIcon />}
+      {isDarkMode ? <MoonIcon size={18} /> : <SunIcon size={18} />}
     </button>
   );
 }
