@@ -5,7 +5,7 @@
 :root {
   /* Blog Profile */
   --niwi-profile-bg-color: #fff;
-  --niwi-dark-profile-bg-color: #313339;
+  --niwi-dark-profile-bg-color: #1d1f23;
 
   /* Setting Icon */
   --niwi-profile-linked-setting-color: #f4f4f5;
@@ -254,7 +254,7 @@ h1.niwi-profile-header {
 }
 
 .dark .niwi-profile-linked-container {
-  background: #272a2f;
+  background: #111119;
 }
 
 .niwi-profile-linked-setting-container {

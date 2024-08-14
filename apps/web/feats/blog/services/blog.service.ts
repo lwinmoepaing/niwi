@@ -607,6 +607,7 @@ export const getBlogByAuthor = async ({
   const totalCount = await prismaClient.blog.count({
     where: {
       userId: authorId,
+      isPublished: publishStatus,
     },
   });
 
@@ -727,4 +728,12 @@ export const getBookmarkedBlogs = async ({
     meta,
     data: comments,
   };
+};
+
+export const getBlogCountByAuthor = (authorId: string) => {
+  return prismaClient.blog.count({
+    where: {
+      userId: authorId,
+    },
+  });
 };

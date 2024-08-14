@@ -5,6 +5,7 @@ import { NiwiBlogProfileSkeleton } from "@/components/niwi-blog/niwi-blog-profil
 import NiwiEmptyBlog from "@/components/niwi-blog/niwi-blog-profile/niwi-empty-blog";
 import { useGetBookmarkedBlogs } from "@/feats/blog/api/get-bookmarked-blogs";
 import { BookmarkBlog } from "@/types/blog-response";
+import { Bookmark } from "lucide-react";
 import { User } from "next-auth";
 import { memo, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
@@ -45,17 +46,22 @@ function BlogListByBookmark({ currentAuth }: { currentAuth?: User }) {
   return (
     <section className="overflow-auto relative">
       {blogList.map((item) => (
-        <NiwiBlogProfile
-          key={item.id}
-          blog={item.blog}
-          currentAuth={currentAuth}
-          showSetting={false}
-          isBookmark={(item.blog._count?.blogBookmarks || 0) > 0 || false}
-          isFavorite={item.blog.userBlogReaction.some(
-            (item) => item.reaction === "HEART"
-          )}
-          commentCount={item.blog._count?.blogComments || 0}
-        />
+        <div className="relative" key={item.id}>
+          <NiwiBlogProfile
+            blog={item.blog}
+            currentAuth={currentAuth}
+            showSetting={false}
+            isBookmark={(item.blog._count?.blogBookmarks || 0) > 0 || false}
+            isFavorite={item.blog.userBlogReaction.some(
+              (item) => item.reaction === "HEART"
+            )}
+            commentCount={item.blog._count?.blogComments || 0}
+          />
+          <Bookmark
+            size={30}
+            className={" fill absolute top-[13px] right-[13px]"}
+          />
+        </div>
       ))}
       {isFetching ? (
         <>

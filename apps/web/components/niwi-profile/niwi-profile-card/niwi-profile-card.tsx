@@ -125,7 +125,7 @@ function NiwiProfileCard({
           / {user.shortLink}
           {isEditor && (
             <>
-              {!isEditing && (
+              {!isEditing && authUser?.id === user.id && (
                 <Button
                   size={"sm"}
                   className="inline-block ml-2"

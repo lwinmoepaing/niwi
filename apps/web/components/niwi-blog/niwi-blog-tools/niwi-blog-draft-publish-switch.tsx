@@ -19,10 +19,10 @@ function NiwiBlogDraftPublishSwitcher({
   }, [status]);
 
   return (
-    <div className="relative border rounded-full py-1 px-1 text-[14px] dark:border-[#1d1f23]">
+    <div className="relative border rounded-full px-1 text-[14px] dark:border-[#1d1f23]">
       <div
         className={cn(
-          "absolute w-[33.33%] h-[90%] top-[2px] bg-white dark:bg-[#111216]  rounded-full",
+          "absolute w-[33.33%] h-[90%] top-[1px] bg-white dark:bg-[#111216]  rounded-full",
           "transition-all duration-[500ms] ease-in-out shadow-sm niwi-blog-switcher-animation",
           status === "Draft"
             ? "left-[2px] forward"

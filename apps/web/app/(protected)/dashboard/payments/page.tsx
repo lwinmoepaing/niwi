@@ -14,7 +14,7 @@ async function BlogsLandingPage() {
   return (
     <section>
       <h1>Payment</h1>
-      <NiwiEmptyPayment />
+      {subscription.data.length <= 0 && <NiwiEmptyPayment />}
       <SubscriptionList data={subscription.data} userId={userId} />
     </section>
   );

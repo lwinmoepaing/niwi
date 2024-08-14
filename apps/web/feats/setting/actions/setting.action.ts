@@ -14,5 +14,8 @@ export const setDarkModeCookie = (value: boolean) => {
 
 export const getDarkModeCookie = async () => {
   const isDarkMode = await cookies().get(DARKMODE_KEY);
+
+  if (!isDarkMode) return true;
+
   return isDarkMode?.value === "true";
 };

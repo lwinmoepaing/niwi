@@ -24,7 +24,7 @@ function BlogListLandingPage({
     <>
       <div className="flex flex-row justify-between items-center">
         <section className="w-full md:max-w-[60%] flex flex-row items-center gap-x-[10px]">
-          <p className="dark:text-white">Blog Lists</p>
+          <p className="dark:text-white self-start">Blog Lists</p>
           <NiwiBlogDraftPublishSwitcher onChangeStatus={setSwitcher} />
         </section>
 
@@ -53,7 +53,7 @@ function BlogListLandingPage({
           />
         )}
         {switcher === "Bookmark" && (
-          <BlogListByBookmark currentAuth={currentAuth} />
+          <BlogListByBookmark currentAuth={currentAuth} key={switcher} />
         )}
       </div>
     </>

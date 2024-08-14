@@ -135,3 +135,11 @@ export const getSubscriptionDataByUserId = async ({
     data: subscriptionList,
   };
 };
+
+export const getSubscriptionCountByUserId = async (userId: string) => {
+  return prismaClient.subscription.count({
+    where: {
+      userId,
+    },
+  });
+};
