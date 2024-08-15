@@ -59,7 +59,7 @@ function FaqItem({
 
 const Faq = () => {
   return (
-    <section className="niwi-faq mt-[60px] grid grid-cols-1 lg:grid-cols-2 gap-x-[10px] px-[20px]">
+    <section className="niwi-faq grid grid-cols-1 lg:grid-cols-2 gap-x-[10px] px-[20px]">
       <div className="mb-5 text-center lg:text-left">
         <h2
           className={cn("niwi-logo-text text-3xl mb-4", lancelotFont.className)}

@@ -46,6 +46,7 @@ function NiwiProfileCard({
     setIsEditing,
     statusMessageJson,
     aboutMeJson,
+    formState,
   } = useProfileSave({
     authUser,
     data: {
@@ -109,8 +110,10 @@ function NiwiProfileCard({
 
   const onCancel = useCallback(() => {
     setIsEditing(false);
-    resetForm();
-  }, [resetForm]);
+    if (formState.isDirty) {
+      resetForm();
+    }
+  }, [resetForm, formState.isDirty]);
 
   return (
     <>
@@ -299,6 +302,7 @@ function NiwiProfileCard({
           isEditing={isEditing && !loading}
           onChangeGridProfile={onChangeGridProfile}
           defaultData={getValues("gridProfile")}
+          key={`Link_${editorResetKey}`}
         />
       </div>
     </>

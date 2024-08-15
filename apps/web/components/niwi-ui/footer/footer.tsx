@@ -22,7 +22,7 @@ const LinkItem = ({
 
 function Footer() {
   return (
-    <footer className="w-full mt-[80px] pt-[60px] pb-[80px] mb-[40px] border-t border-[#2a2a2a]">
+    <footer className="w-full mt-[80px] pt-[60px] pb-[120px] bg-white dark:bg-transparent border-t border-[#fafafa] dark:border-[#2a2a2a]">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-[40px] gap-x-[20px] w-full max-w-[1080px] px-[20px] mx-auto">
         <div className="lg:text-left">
           <h1

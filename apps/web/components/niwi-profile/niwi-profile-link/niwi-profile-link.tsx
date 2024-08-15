@@ -292,7 +292,7 @@ function NiwiProfileLink({
     <div className="w-full">
       <DndProvider backend={HTML5Backend}>
         <section className="flex flex-1 flex-col max-w-[298px] lg:max-w-none mx-auto lg:flex-row lg:flex-wrap self-start transition-all">
-          {data.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <NiwiProfileLinkWrapper
                 key={`${item.id}_${item.type}`}

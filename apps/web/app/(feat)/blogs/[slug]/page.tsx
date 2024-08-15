@@ -19,7 +19,7 @@ const BlogDetailPage = async ({ params: { slug } }: BlogDetailPageProps) => {
     <>
       <section className="w-full max-w-[760px] mx-auto px-[20px] mt-[40px] mb-[20px]">
         <Link href="/">
-          <Button variant={"niwi"}>Back Go Home</Button>
+          <Button variant={"niwi"}>Go Back Home</Button>
         </Link>
       </section>
       <PublishBLogProfile blog={blog} currentAuth={session?.user} />

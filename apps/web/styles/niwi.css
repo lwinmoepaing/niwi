@@ -162,6 +162,10 @@
   transition-duration: 300ms;
 }
 
+.niwi-button:hover {
+  opacity: 0.85;
+}
+
 .niwi-button[disabled],
 .niwi-button:disabled {
   opacity: 0.5;
@@ -179,11 +183,13 @@
 
 .niwi-button--outline {
   border: 1px solid var(--niwi-form-border-color, #e5e7eb);
+  background-color: white;
 }
 
 .dark .niwi-button--outline {
   border: 1px solid var(--niwi-button-outline-border-color, #383c42);
   color: var(--niwi-dark-text-color, #f1f3f5);
+  background-color: transparent;
 }
 
 /*=============================================

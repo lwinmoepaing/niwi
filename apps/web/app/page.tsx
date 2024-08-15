@@ -2,6 +2,7 @@ import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-
 import NiwiSubscribeCardList from "@/components/niwi-payment/niwi-subscribe-card-list";
 import { BorderBeam } from "@/components/niwi-ui/border-beam/border-beam";
 import Button from "@/components/niwi-ui/button/button";
+import CenterTitle from "@/components/niwi-ui/center-title/center-title";
 import Faq from "@/components/niwi-ui/faq/faq";
 import Footer from "@/components/niwi-ui/footer/footer";
 import NiwiHero from "@/components/niwi-ui/niwi-hero/niwi-hero";
@@ -62,11 +63,7 @@ export default async function HomePage() {
       {isAvailableBlogs ? (
         <section className="w-full max-w-[720px] mx-auto mt-[20px]">
           <div className="text-center">
-            <h2
-              className={cn(lancelotFont.className, "niwi-logo-text text-4xl ")}
-            >
-              Latest Blogs
-            </h2>
+            <CenterTitle>Latest Blogs</CenterTitle>
           </div>
           {blogs.map((item) => (
             <NiwiBlogProfile
@@ -110,15 +107,8 @@ export default async function HomePage() {
 
       {isAvailableSubscription && !subscribePlan?.data ? (
         <>
-          <div className="text-center mt-[40px]">
-            <h2
-              className={cn(
-                lancelotFont.className,
-                "niwi-logo-text text-4xl mb-[20px]"
-              )}
-            >
-              Pricing
-            </h2>
+          <div className="text-center mt-[40px] mb-[25px]">
+            <CenterTitle>Pricing</CenterTitle>
           </div>
           <NiwiSubscribeCardList user={session?.user} />
         </>
@@ -157,7 +147,7 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <section className="w-full max-w-[800px] mx-auto">
+      <section className="w-full mt-[60px] pt-[20px] max-w-[880px] mx-auto bg-white dark:bg-transparent rounded-[12px] ">
         <Faq />
       </section>
 

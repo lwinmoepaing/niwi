@@ -44,11 +44,18 @@ const useProfileSave = ({
 
   const defaultShortLink = useRef<string>(data.shortLink);
 
-  const { handleSubmit, setValue, reset, watch, getValues, register } =
-    useForm<SaveProfileFormValues>({
-      resolver: zodResolver(saveProfileSchema),
-      defaultValues: { ...data, userId: authUser?.id || "" },
-    });
+  const {
+    handleSubmit,
+    setValue,
+    reset,
+    watch,
+    getValues,
+    register,
+    formState,
+  } = useForm<SaveProfileFormValues>({
+    resolver: zodResolver(saveProfileSchema),
+    defaultValues: { ...data, userId: authUser?.id || "" },
+  });
 
   const submit = useCallback(
     async (values: SaveProfileFormValues) => {
@@ -147,6 +154,7 @@ const useProfileSave = ({
     setIsEditing,
     statusMessageJson,
     aboutMeJson,
+    formState,
   };
 };
 
