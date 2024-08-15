@@ -28,7 +28,7 @@ const ProfileDetailPage = async ({
     data.shortLink === shortLink;
 
   return (
-    <div className="max-w-[860px] mx-auto w-full">
+    <div className="max-w-[880px] mx-auto w-full">
       <section>
         {isNeedToUpdate && <ShortLinkUpdater shortLink={shortLink} />}
         <NiwiProfileCard

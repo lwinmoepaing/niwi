@@ -58,8 +58,13 @@
 .niwi-logo-text {
   color: transparent;
   background-clip: text;
-  background-image: linear-gradient(to right, #f43f5e, #7e22ce, #60a5fa);
+  
+  background-image: linear-gradient(to right, #ff254b, #5c08a5, #116ad8);
   display: inline-block;
+}
+
+.dark .niwi-logo-text {
+  background-image: linear-gradient(to right, #f43f5e, #7e22ce, #60a5fa);
 }
 
 /*=============================================
@@ -467,4 +472,56 @@
   padding: 5px 10px;
   font-size: 12px;
   font-weight: normal;
+}
+
+/*=============================================
+=                  Niwi FAQ                   =
+=============================================*/
+
+.niwi-faq summary {
+  display: flex;
+  cursor: pointer;
+  padding: 20px 40px 20px 20px;
+  border-top: 1px solid #fafafa;
+  position: relative;
+}
+
+.dark .niwi-faq summary {
+  border-top: 1px solid #2a2a2a;
+}
+
+.niwi-faq summary::after {
+  content: '+';
+  width: 20px;
+  height: 20px;
+  margin-left: 0.75em;
+  transition: transform 0.3s ease;
+  transform-origin: 50% 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  position: absolute;
+  right: 20px;
+}
+
+.niwi-faq details[open] > summary::after {
+  content: "-";
+  font-size: 30px;
+  transform: rotate(180deg);
+}
+
+
+.faq-content {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  padding: 0px 20px 20px 20px;
+}
+
+.niwi-faq details[open] > .faq-content {
+  height: auto; /* This height is managed by JavaScript dynamically */
+  transition: all 0.3s ease;
+  opacity: 1;
 }

@@ -85,12 +85,12 @@ function NiwiSubscribeCardList({ user }: { user?: User }) {
   }, []);
 
   return (
-    <div className="w-full max-w-[880px] mx-auto pb-20">
+    <div className="w-full max-w-[880px] mx-auto mb-[40px]">
       <div className="flex flex-row justify-center mb-[40px]">
         <NiwiSubacribePlanSwitcher onChangeStatus={onChangeStatus} />
       </div>
 
-      <div className="flex flex-col lg:flex-row lg:flex-wrap gap-[20px] items-center lg:items-start justify-center mb-20">
+      <div className="flex flex-col lg:flex-row lg:flex-wrap gap-[20px] items-center lg:items-start justify-center mb-[20px]">
         {subscribeList.map((subscribe) => (
           <NiwiSubscribeCard
             key={subscribe.type}

@@ -54,7 +54,7 @@ function HomepageHeader() {
     <header className="container">
       <div className="mx-auto max-w-[650px] my-28 relative rounded-[10px]">
         <BorderBeam duration={5} size={170} />
-        <img src="/landing/niwi-starter.svg" />
+        <img src="/landing/niwi-starter-docs.svg" />
 
         <Floating
           delay={0}
@@ -75,7 +75,7 @@ function HomepageHeader() {
 
         <Floating
           delay={0.08}
-          className="absolute w-[152px] -top-16 -right-5"
+          className="absolute w-[152px] -top-16 -right-7"
           position="right"
           duration={1.5}
         >
@@ -92,7 +92,7 @@ function HomepageHeader() {
 
         <Floating
           delay={0.16}
-          className="absolute w-[48px] -bottom-20 left-[48%] -translate-x-[50%]"
+          className="absolute w-[48px] -bottom-24 left-[48%] -translate-x-[50%]"
         >
           <img src="/landing/mongo-arrow.png" />
         </Floating>
