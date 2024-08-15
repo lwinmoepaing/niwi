@@ -63,6 +63,12 @@ function NiwiBlogProfile({
     return !blog.title || blog.title === "-" ? "Untitled Blog" : blog.title;
   }, [blog?.title]);
 
+  const link = useMemo(() => {
+    const isOwner = currentAuth?.id === blog.userId;
+    if (isOwner) return `/dashboard/blogs/${blog.id}`;
+    return `/blogs/${blog.slug}`;
+  }, []);
+
   return (
     <section
       className={cn(
@@ -74,7 +80,7 @@ function NiwiBlogProfile({
         {disabledLink ? (
           <span className="link">{blogTitle}</span>
         ) : (
-          <Link href={`/dashboard/blogs/${blog.id}`} className="link">
+          <Link href={link} className="link">
             {blogTitle}
           </Link>
         )}
