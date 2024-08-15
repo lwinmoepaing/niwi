@@ -47,11 +47,11 @@ function NiwiProfileLinkWrapper({
 
   const calculateSize = useCallback((size: SizeType) => {
     return size === "square"
-      ? "w-[33%]"
+      ? "w-full lg:w-[33%]"
       : size === "half"
-        ? "w-[50%]"
+        ? "w-full lg:w-[50%]"
         : size === "sixty"
-          ? "w-[66%]"
+          ? "w-full lg:w-[66%]"
           : "w-full";
   }, []);
 

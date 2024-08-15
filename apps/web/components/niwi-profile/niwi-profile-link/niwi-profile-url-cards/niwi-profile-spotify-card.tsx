@@ -18,13 +18,13 @@ export default function NiwiProfileSpotifyCard({
         "w-full h-full flex flex-1 flex-row items-center relative",
       )}
     >
-      <div className={item.size === "square" ? "w-full" : "min-w-[158px]"}>
+      <div className={item.size === "square" ? "w-full" : "w-full lg:w-[158px]"}>
         <NiwiProfileSpotifyIcon className="w-[24px] h-[24px] block mx-auto my-1" />
         <h2 className="text-xs text-center">{item.title}</h2>
       </div>
 
       <div
-        className={cn("w-full h-full", item.size === "square" ? "hidden" : "")}
+        className={cn("flex-1 h-full", item.size === "square" ? "hidden" : "hidden lg:flex")}
       >
         <div className="w-full h-full relative overflow-hidden py-[14px] px-[20px]">
           <Image

@@ -17,7 +17,7 @@ const ProfileDetailPage = async ({
   if (!success || !data) return notFound();
 
   return (
-    <div className="max-w-[880px] mx-auto w-full mt-28">
+    <div className="max-w-[960px] px-[20px] lg:px-0 mx-auto w-full mt-28">
       <section>
         <NiwiProfileCard
           user={data}

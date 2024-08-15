@@ -13,7 +13,7 @@ export default function NiwiProfileYoutubeCard({
 }: NiwiProfileLinkItemProps) {
   return (
     <div className="w-full h-full flex flex-1 flex-row items-center gap-x-[10px]">
-      <div className={item.size === "square" ? "w-full" : "min-w-[158px]"}>
+      <div className={item.size === "square" ? "w-full" : "w-full lg:w-[158px]"}>
         <NiwiProfileYoutubeIcon className="w-[24px] h-[24px] block mx-auto my-1" />
         <h2 className="text-xs text-center">{item.title}</h2>
       </div>
@@ -21,7 +21,7 @@ export default function NiwiProfileYoutubeCard({
       <div
         className={cn(
           "flex flex-col gap-y-[8px] flex-1 h-full relative pt-[20px] pb-[10px]",
-          item.size !== "square" ? "" : "hidden"
+          item.size !== "square" ? "hidden lg:flex" : "hidden"
         )}
       >
         <div

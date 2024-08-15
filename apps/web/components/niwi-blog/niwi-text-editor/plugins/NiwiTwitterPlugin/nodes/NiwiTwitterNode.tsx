@@ -125,7 +125,13 @@ export class NiwiTwitterNode extends DecoratorBlockNode {
         nodeKey={this.getKey()}
         loadingComponent="Loading..."
         tweetID={this.__id}
-        onError={() => this.remove()}
+        onError={() => {
+          try {
+            this?.remove();
+          } catch (e) {
+            console.log(e);
+          }
+        }}
       />
     );
   }

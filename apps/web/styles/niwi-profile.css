@@ -25,7 +25,13 @@
   transition: all 0.3s ease-in-out;
   background-color: var(--niwi-profile-bg-color);
   border: 1px solid #c4c4c44a;
-  align-self: start;
+  align-self: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .niwi-profile-card-container {
+    align-self: start;
+  }
 }
 
 .dark .niwi-profile-card-container {
@@ -247,10 +253,18 @@ h1.niwi-profile-header {
   border-radius: 0.75rem;
   width: 100%;
   cursor: pointer;
-  height: 140px;
+  height: auto;
+  padding: 40px 0;
   margin-bottom: 20px;
   background-color: #fff;
   transition: all 0.1s ease-in-out;
+}
+
+@media screen and (min-width: 1024px) {
+  .niwi-profile-linked-container {
+    height: 140px;
+    padding: 0;
+  }
 }
 
 .dark .niwi-profile-linked-container {
@@ -361,9 +375,16 @@ h1.niwi-profile-header {
 }
 
 .niwi-profile-wrapper {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
   position: relative;
+}
+
+@media screen and (min-width: 1024px) {
+  .niwi-profile-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .niwi-profile-wrapper.animate {

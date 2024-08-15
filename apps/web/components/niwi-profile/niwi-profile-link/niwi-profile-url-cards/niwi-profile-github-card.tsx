@@ -49,14 +49,14 @@ export default function NiwiProfileGithubCard({
 
   return (
     <div className="w-full h-full flex flex-1 flex-row items-center gap-x-[10px]">
-      <div className={item.size === "square" ? "w-full" : "min-w-[158px]"}>
+      <div className={item.size === "square" ? "w-full" : "w-full lg:w-[158px]"}>
         <Github size={24} className="block mx-auto my-1" />
         <h2 className="text-xs text-center">{item.title}</h2>
       </div>
       <div
         className={cn(
           "flex-1 justify-center items-center",
-          item.size === "square" ? "hidden" : "flex"
+          item.size === "square" ? "hidden" : "hidden lg:flex"
         )}
       >
         <div className="github-overflow">

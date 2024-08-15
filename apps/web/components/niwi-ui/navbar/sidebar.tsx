@@ -32,7 +32,7 @@ export default async function SideBar() {
           </li>
         ))}
       </ul>
-      <footer className="fixed bottom-4 w-[50px] md:w-[100px] px-[10px]">
+      <footer className="fixed bottom-4 w-[50px] md:w-[65px] px-[10px]">
         <SignOutButton text="Logout" className="w-[34px] h-[34px] md:block md:w-full px-0 py-0" withMobileIcon={true} />
       </footer>
     </aside>

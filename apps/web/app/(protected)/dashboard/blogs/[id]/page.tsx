@@ -20,7 +20,7 @@ const BlogDetailPage = async ({ params: { id } }: BlogDetailPageProps) => {
 
   return (
     <article>
-      <div className="max-w-[880px] mx-auto">
+      <div className="max-w-[720px] mx-auto">
         <h2>
           <Link
             href="/dashboard/blogs"

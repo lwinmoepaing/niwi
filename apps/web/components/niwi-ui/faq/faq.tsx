@@ -30,7 +30,6 @@ function FaqItem({
       setOpen(isOpen === true);
 
       if (content) {
-        console.log({ height: content.scrollHeight });
         content.style.height = isOpen ? `${content.scrollHeight}px` : "0px";
       }
     };

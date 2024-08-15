@@ -248,7 +248,7 @@
 
 @media screen and (min-width: 768px) {
   .niwi-sidebar-container {
-    padding-left: 100px;
+    padding-left: 65px;
   }
 }
 
@@ -267,7 +267,7 @@
 
 @media screen and (min-width: 768px) {
   .niwi-sidebar {
-    width: 100px;
+    width: 65px;
   }
 }
 
@@ -293,8 +293,8 @@
   .niwi-sidebar-item {
   margin-top: 1.5rem;
     border-radius: 18px;
-    width: 54px;
-    height: 54px;
+    width: 48px;
+    height: 48px;
   }
 }
 

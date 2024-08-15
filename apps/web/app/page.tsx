@@ -36,7 +36,7 @@ export default async function HomePage() {
 
   return (
     <main className={"h-screen overflow-x-hidden px-[20px] md:px-0"}>
-      <section className="w-full max-w-[880px] mx-auto pt-20 text-center mb-10">
+      <section className="w-full max-w-[720px] mx-auto pt-20 text-center mb-10">
         <div className="mx-auto w-full my-5 relative rounded-[18px] bg-white dark:bg-transparent">
           <BorderBeam duration={5} size={170} />
           <NiwiHero />
@@ -60,7 +60,7 @@ export default async function HomePage() {
       </section>
 
       {isAvailableBlogs ? (
-        <section className="w-full max-w-[880px] mx-auto mt-[20px]">
+        <section className="w-full max-w-[720px] mx-auto mt-[20px]">
           <div className="text-center">
             <h2
               className={cn(lancelotFont.className, "niwi-logo-text text-4xl ")}
@@ -157,7 +157,7 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <section className="w-full max-w-[1080px] mx-auto">
+      <section className="w-full max-w-[800px] mx-auto">
         <Faq />
       </section>
 

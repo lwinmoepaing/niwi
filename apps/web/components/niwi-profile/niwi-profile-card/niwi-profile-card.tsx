@@ -164,7 +164,7 @@ function NiwiProfileCard({
         </h2>
       )}
 
-      <div className="flex flex-row gap-[20px]">
+      <div className="flex flex-col lg:flex-row gap-[20px]">
         <section className="niwi-profile-card-container">
           <div className="niwi-profile-card-image">
             {watch("backgroundImage") ? (

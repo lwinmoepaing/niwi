@@ -29,7 +29,7 @@
 
 .editor-container {
   margin: 20px auto 20px auto;
-  max-width: 880px;
+  max-width: 720px;
   color: var(--niwi-editor-text-color, #0a0a0a);
   position: relative;
   line-height: 20px;

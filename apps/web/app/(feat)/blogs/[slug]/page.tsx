@@ -3,6 +3,8 @@ import { getBlogBySlug } from "@/feats/blog/services/blog.service";
 import { auth } from "@/libs/auth/next-auth";
 import { notFound } from "next/navigation";
 import PublishBLogProfile from "../assets/components/publish-blog-profile";
+import Button from "@/components/niwi-ui/button/button";
+import Link from "next/link";
 
 type BlogDetailPageProps = { params: { slug: string } };
 
@@ -15,6 +17,11 @@ const BlogDetailPage = async ({ params: { slug } }: BlogDetailPageProps) => {
 
   return (
     <>
+      <section className="w-full max-w-[760px] mx-auto px-[20px] mt-[40px] mb-[20px]">
+        <Link href="/">
+          <Button variant={"niwi"}>Back Go Home</Button>
+        </Link>
+      </section>
       <PublishBLogProfile blog={blog} currentAuth={session?.user} />
       <NiwiHtmlView htmlText={blog.content || ""} />
     </>
