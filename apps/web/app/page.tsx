@@ -82,7 +82,7 @@ export default async function HomePage() {
           ))}
         </section>
       ) : (
-        <section className="max-w-[650px] mx-auto mb-8">
+        <section className="max-w-[720px] mx-auto mb-8">
           <div className="relative niwi-subscribe-card">
             <div className="relative sub-container text-center">
               <p>
@@ -113,7 +113,7 @@ export default async function HomePage() {
           <NiwiSubscribeCardList user={session?.user} />
         </>
       ) : (
-        <section className="max-w-[650px] mx-auto">
+        <section className="max-w-[720px] mx-auto">
           <div className="relative niwi-subscribe-card">
             <div className="relative sub-container text-center">
               <p>
@@ -137,7 +137,7 @@ export default async function HomePage() {
       )}
 
       {subscribePlan?.success && subscribePlan.data ? (
-        <section className="max-w-[650px] mx-auto">
+        <section className="max-w-[720px] mx-auto">
           <div className="relative niwi-subscribe-card">
             <div className="relative sub-container text-center">
               Thank you, You are currently using with{" "}
@@ -147,7 +147,7 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <section className="w-full mt-[60px] pt-[20px] max-w-[880px] mx-auto bg-white dark:bg-transparent rounded-[12px] ">
+      <section className="w-full mt-[60px] pt-[20px] max-w-[760px] mx-auto bg-white dark:bg-transparent rounded-[12px] ">
         <Faq />
       </section>
 

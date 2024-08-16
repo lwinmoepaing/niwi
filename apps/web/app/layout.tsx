@@ -1,7 +1,7 @@
 import { LightDarkToggle } from "@/components/niwi-ui/light-dark-toggler/light-dark-toggler";
 import ReactQueryProvider from "@/components/query-client-provider/query-client-provider";
 import { getDarkModeCookie } from "@/feats/setting/actions/setting.action";
-import { geistMono, geistSans } from "@/libs/font/font-helper";
+import { geistMono, geistSans, nunitoFont } from "@/libs/font/font-helper";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 
@@ -34,7 +34,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} niwi-body ${isDarkMode ? "dark" : ""}`}
+        className={`${nunitoFont.className} niwi-body ${isDarkMode ? "dark" : ""}`}
       >
         <ReactQueryProvider>
           {children}

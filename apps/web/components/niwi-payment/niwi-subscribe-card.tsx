@@ -80,7 +80,7 @@ function NiwiSubscribeCard({
   return (
     <section
       className={cn(
-        "w-[280px] relative transition-all niwi-subscribe-card",
+        "w-[260px] lg:w-[230px] relative transition-all niwi-subscribe-card",
         subscribe.position === "top" ? "lg:top-[-10px]" : ""
       )}
     >
@@ -98,7 +98,7 @@ function NiwiSubscribeCard({
         </div>
 
         <div className="flex items-end gap-0.5 mb-1">
-          <h2 className="text-4xl">
+          <h2 className="text-3xl">
             {subscribe?.customPrice ? (
               <>{subscribe.customPrice}</>
             ) : (
@@ -113,7 +113,7 @@ function NiwiSubscribeCard({
           </h2>
         </div>
 
-        <p className="font-normal text-sm pt-2 pb-5">{subscribe.description}</p>
+        <p className="font-normal text-xs pt-2 pb-5">{subscribe.description}</p>
 
         <div className="pl-6 pb-6 pr-2 pt-0 flex flex-col gap-2">
           {subscribe.serviceList.map((service, i) => (

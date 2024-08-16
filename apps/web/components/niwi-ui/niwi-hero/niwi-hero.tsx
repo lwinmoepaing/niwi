@@ -6,6 +6,7 @@ function NiwiHero() {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 681 297"
+      className=""
     >
       <g clipPath="url(#clip0_66_2)">
         <path

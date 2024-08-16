@@ -4,7 +4,7 @@ import NiwiHero from "@/components/niwi-ui/niwi-hero/niwi-hero";
 import { getBlogCountByAuthor } from "@/feats/blog/services/blog.service";
 import { getSubscriptionCountByUserId } from "@/feats/payment/services/payment.service";
 import { auth } from "@/libs/auth/next-auth";
-import { lancelotFont } from "@/libs/font/font-helper";
+import { lancelotFont, nunitoFont } from "@/libs/font/font-helper";
 import { cn } from "@/libs/utils";
 import { notFound } from "next/navigation";
 
@@ -16,11 +16,11 @@ async function DashboardPage() {
   const paymentCount = await getSubscriptionCountByUserId(session?.user?.id);
 
   return (
-    <div>
-      <p className="dark:text-white">Protected Dashboard Page</p>
+    <section className="w-full max-w-[720px] mx-auto">
+      <p className={nunitoFont.className}>Welcome Niwi Dashboard</p>
 
       <section className="flex flex-col lg:flex-row my-[20px] ">
-        <div className="w-full lg:max-w-[70%] relative ">
+        <div className="w-full relative ">
           <div className="flex flex-col lg:flex-row relative mb-[20px] gap-[20px]">
             <BorderShiner
               className="relative w-full h-[120px] md:h-auto md:pt-[18%]"
@@ -62,7 +62,7 @@ async function DashboardPage() {
           </div>
         </div>
       </section>
-    </div>
+    </section>
   );
 }
 

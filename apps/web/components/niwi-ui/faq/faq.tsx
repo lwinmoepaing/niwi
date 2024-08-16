@@ -47,7 +47,7 @@ function FaqItem({
 
   return (
     <details ref={detailsRef} className="niwi-faq-item">
-      <summary className={cn(lancelotFont.className, "text-2xl")}>
+      <summary className={cn("text-lg")}>
         <span className={cn(open && "niwi-logo-text")}>{question}</span>
       </summary>
       <div ref={contentRef} className="faq-content">
@@ -61,23 +61,21 @@ const Faq = () => {
   return (
     <section className="niwi-faq grid grid-cols-1 lg:grid-cols-2 gap-x-[10px] px-[20px]">
       <div className="mb-5 text-center lg:text-left">
-        <h2
-          className={cn("niwi-logo-text text-3xl mb-4", lancelotFont.className)}
-        >
+        <h2 className={cn("niwi-logo-text text-xl mb-4")}>
           Frequently Asked Questions
         </h2>
         <p>
           Have another question? Contact me on{" "}
           <Link
             href="https://x.com/LwinMoePaingDev"
-            className={cn("niwi-logo-text text-xl", lancelotFont.className)}
+            className={cn("niwi-logo-text")}
           >
             Twitter
           </Link>{" "}
           or by{" "}
           <Link
             href="mailto:lwinmoepaing.dev@gmail.com"
-            className={cn("niwi-logo-text text-xl", lancelotFont.className)}
+            className={cn("niwi-logo-text")}
           >
             email
           </Link>
@@ -96,7 +94,8 @@ const Faq = () => {
                 blog, UI components, and much more
               </p>
               <p className="mb-2">
-                - The documentation helps you set up your app from scratch! Why are you wasting your time? Let's get started.
+                - The documentation helps you set up your app from scratch! Why
+                are you wasting your time? Let's get started.
               </p>
             </>
           }
