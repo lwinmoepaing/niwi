@@ -37,7 +37,7 @@ function BlogListByBookmark({ currentAuth }: { currentAuth?: User }) {
   if (!isFetching && blogList.length <= 0) {
     return (
       <>
-        <NiwiEmptyBlog title={"You haven’t any bookmark yet."} />
+        <NiwiEmptyBlog title={"You don’t have any bookmarks yet."} />
       </>
     );
   }

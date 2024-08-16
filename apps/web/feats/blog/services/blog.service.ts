@@ -256,10 +256,11 @@ type PublishBlogProps = {
   slug: string;
   userId: string;
   subTitle: string;
+  previewImage?: string;
 };
 
 export const publishBlog = async (blogProps: PublishBlogProps) => {
-  const { blogId, userId, slug, title, subTitle } = blogProps;
+  const { blogId, userId, slug, title, subTitle, previewImage } = blogProps;
 
   try {
     const { success, data: blog } = await getBlogById(blogId);
@@ -282,6 +283,7 @@ export const publishBlog = async (blogProps: PublishBlogProps) => {
           subTitle,
           slug,
           isPublished: true,
+          previewImage,
         },
       });
       return responseSuccess("Successfully publish blog", updatedBlog);

@@ -238,12 +238,12 @@
 }
 
 .blog-image-padding {
-  padding-right: 150px;
+  padding-right: 160px;
 }
 
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 520px) {
   .blog-image-padding {
-    padding-right: 235px;
+    padding-right: 266px;
   }
 }
 
@@ -276,6 +276,7 @@
   border-radius: 22px;
   cursor: pointer;
   overflow: hidden;
+  position: relative;
 }
 
 .niwi-blog-profile-right-section {

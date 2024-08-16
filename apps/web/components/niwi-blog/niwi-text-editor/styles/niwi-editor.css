@@ -62,13 +62,14 @@
 .editor-input {
   min-height: 150px;
   resize: none;
-  font-size: 20px;
+  font-size: 16px;
   caret-color: var(--niwi-editor-cursor-color, #60a5fa);
   position: relative;
   tab-size: 1;
   outline: 0;
   padding: 20px;
   caret-color: #444;
+  line-height: 1.5em;
 }
 
 .dark .editor-input {

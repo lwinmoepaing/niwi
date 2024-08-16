@@ -37,7 +37,7 @@ function CreateBlogForm({ currentUser }: { currentUser?: User }) {
       <NiwiBlogDraftCard
         title={"Title will be generated when you published..."}
         profileLink={`/dashboard/profile/${currentUser?.id || ""}`}
-        profileImg={currentUser?.image || "/images/auth/profile.png"}
+        profileImg={currentUser?.image || "/images/auth/profile.jpg"}
         profileName={currentUser?.name || "-"}
         estimateTime={"estimate time to "}
         date={"Jun 21, 2024"}

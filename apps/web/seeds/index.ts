@@ -1,4 +1,8 @@
 import "dotenv/config";
 import useSeeds from "./user.seed";
+import blogSeeds from "./blog.seed";
 
-useSeeds();
+(async () => {
+  await useSeeds();
+  await blogSeeds();
+})();

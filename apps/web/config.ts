@@ -3,7 +3,7 @@ const config = {
   dbUrl: process.env.DATABASE_URL || "",
   domainUrl: "http://localhost:3000",
   domainName: "niwistarter.com",
-  defaultUserImage: "/images/auth/profile.png",
+  defaultUserImage: "/images/auth/profile.jpg",
   secretKey: process.env.SECRET_HASH_KEY || "niwi",
   authRoute: {
     loginUrl: "/auth/login",
@@ -22,8 +22,6 @@ const config = {
     basicMonthlyPaymentKey: process.env.NEXT_PUBLIC_BASIC_MONTHLY_PRICE_ID!,
     basicYearlyPaymentKey: process.env.NEXT_PUBLIC_BASIC_YEARLY_PRICE_ID!,
   },
-  minorFeatures: ["auth", "blog"],
-  seeders: ["user", "blog"],
 };
 
 export default config;

@@ -21,6 +21,7 @@ import {
 } from "./config/niwi-profile-config";
 import NiwiProfileLinkItem from "./niwi-profile-link-item";
 import NiwiProfileLinkWrapper from "./niwi-profile-link-wrapper";
+import Link from "next/link";
 
 type NiwiProfileLinkProps = {
   isEditing: boolean;
@@ -305,7 +306,13 @@ function NiwiProfileLink({
                 onDelete={onDelete}
                 isEditing={isEditing}
               >
-                <NiwiProfileLinkItem item={item} />
+                {!isEditing ? (
+                  <Link href={item.link} target="_blank">
+                    <NiwiProfileLinkItem item={item} />
+                  </Link>
+                ) : (
+                  <NiwiProfileLinkItem item={item} />
+                )}
               </NiwiProfileLinkWrapper>
             );
           })}

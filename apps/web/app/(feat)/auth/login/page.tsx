@@ -1,9 +1,11 @@
+import { checkAvailabeOtherAuths } from "@/feats/auth/services/auth.service";
 import AuthLoginForm from "../assets/components/AuthLoginForm";
 
-function AuthLoginPage() {
+async function AuthLoginPage() {
+  const availableAuths = checkAvailabeOtherAuths();
   return (
     <section className="niwi-auth-section container">
-      <AuthLoginForm />
+      <AuthLoginForm availableAuths={availableAuths} />
     </section>
   );
 }

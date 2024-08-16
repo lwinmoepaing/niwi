@@ -182,3 +182,25 @@ export const checkMagicKeyValid = async (magicKey: string) => {
 
   return responseSuccess("Magic key is valid", user);
 };
+
+export const checkAvailabeOtherAuths = () => {
+  const {
+    MAILGUN_API_KEY,
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    GITHUB_CLIENT_ID,
+    GITHUB_CLIENT_SECRET,
+    FACEBOOK_CLIENT_ID,
+    FACEBOOK_CLIENT_SECRET,
+    TWITTER_CLIENT_ID,
+    TWITTER_CLIENT_SECRET,
+  } = process.env;
+
+  return {
+    isAvailableMagicLinkAuth: !!MAILGUN_API_KEY,
+    isAvailableGoogleAuth: !!GOOGLE_CLIENT_ID && !!GOOGLE_CLIENT_SECRET,
+    isAvailableGithubAuth: !!GITHUB_CLIENT_ID && !!GITHUB_CLIENT_SECRET,
+    isAvailableFacebookAuth: !!FACEBOOK_CLIENT_ID && !!FACEBOOK_CLIENT_SECRET,
+    isAvailableTwitterAuth: !!TWITTER_CLIENT_ID && !!TWITTER_CLIENT_SECRET,
+  };
+};

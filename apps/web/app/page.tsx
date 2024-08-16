@@ -19,6 +19,7 @@ import { auth } from "@/libs/auth/next-auth";
 import { lancelotFont } from "@/libs/font/font-helper";
 import { cn } from "@/libs/utils";
 import { PublishedBlog } from "@/types/blog-response";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function HomePage() {
@@ -149,6 +150,13 @@ export default async function HomePage() {
         <section className="max-w-[714px] mx-auto mt-[60px]">
           <div className="relative niwi-subscribe-card">
             <div className="relative sub-container text-center">
+              <Image
+                src={"/images/icons/payment.gif"}
+                alt={"Pricing"}
+                width={25}
+                height={25}
+                className="relative top-[-2px]"
+              />
               Thank you, You are currently using with{" "}
               {subscribePlan.data.planType}.
             </div>

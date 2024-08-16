@@ -24,7 +24,6 @@ const useCancelSubscription = ({
 
   const submit = useCallback(
     async (values: CancelSubscriptionValues) => {
-      console.log("Dispatch");
       dispatchCancelSub(values);
     },
     [dispatchCancelSub]

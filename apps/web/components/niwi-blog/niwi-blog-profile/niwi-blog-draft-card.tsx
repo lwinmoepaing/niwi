@@ -34,7 +34,7 @@ function NiwiBlogDraftCard({
       <div className="niwi-blog-profile-row">
         <Link href={profileLink}>
           <div className="niwi-blog-profile-image">
-            <Image width={44} height={44} src={profileImg} alt={profileName} />
+            <Image fill src={profileImg} alt={profileName} objectFit="cover" />
           </div>
         </Link>
         <div className="niwi-blog-profile-right-section">

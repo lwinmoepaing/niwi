@@ -14,7 +14,7 @@ function NiwiEmptyPayment({
         <p className="tracking-widest flex flex-row w-full justify-center items-center gap-x-2 mb-4">
           <Image
             src={"/images/icons/payment.gif"}
-            alt={"Blogs"}
+            alt={"Pricing"}
             width={25}
             height={25}
             className="relative top-[-2px]"

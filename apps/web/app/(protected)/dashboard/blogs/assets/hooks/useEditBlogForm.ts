@@ -110,7 +110,6 @@ const useEditBlogForm = ({
       setValue("contentJson", json, { shouldDirty: true });
 
       const estTime = estimateReadingTime(text ?? "");
-      console.log("EstimateTime", estTime);
       setValue("estimateTime", estTime, { shouldDirty: true });
 
       const [getTitle, getSubTitle, imageList] = getExtractNodeFromEditor(json);

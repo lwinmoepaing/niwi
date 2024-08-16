@@ -26,7 +26,6 @@ function SubscriptionMenu({
         size="sm"
         disabled={pending}
         onClick={() => {
-          console.log("Click");
           handleSubmit();
         }}
       >

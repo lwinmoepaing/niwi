@@ -19,7 +19,17 @@ import TwitterIcon from "@/components/niwi-ui/social-icons/twitter-icon";
 import Link from "next/link";
 import useLoginForm from "../hooks/useLoginForm";
 
-function AuthLoginForm() {
+function AuthLoginForm({
+  availableAuths,
+}: {
+  availableAuths: {
+    isAvailableMagicLinkAuth: boolean;
+    isAvailableGoogleAuth: boolean;
+    isAvailableGithubAuth: boolean;
+    isAvailableFacebookAuth: boolean;
+    isAvailableTwitterAuth: boolean;
+  };
+}) {
   const {
     pending,
     handleSubmit,
@@ -33,6 +43,21 @@ function AuthLoginForm() {
     errorMsgTwitter,
     dispatchTwitter,
   } = useLoginForm();
+
+  const {
+    isAvailableMagicLinkAuth,
+    isAvailableGoogleAuth,
+    isAvailableGithubAuth,
+    isAvailableFacebookAuth,
+    isAvailableTwitterAuth,
+  } = availableAuths;
+
+  const allServiceNotAvailable =
+    !isAvailableMagicLinkAuth &&
+    !isAvailableGoogleAuth &&
+    !isAvailableGithubAuth &&
+    !isAvailableFacebookAuth &&
+    !isAvailableTwitterAuth;
 
   return (
     <>
@@ -89,50 +114,64 @@ function AuthLoginForm() {
         </form>
       </Form>
 
-      <div className="my-2">
-        <p className="text-center">
-          <small>Or</small>
-        </p>
-      </div>
+      {!allServiceNotAvailable && (
+        <div className="my-2">
+          <p className="text-center">
+            <small>Or</small>
+          </p>
+        </div>
+      )}
 
-      <div className="my-2">
-        <Link href="/auth/magic-link" className="hover:underline niwi-link">
-          <p className="text-center"> Magic Link 🚀 </p>
-        </Link>
-      </div>
+      {isAvailableMagicLinkAuth && (
+        <div className="my-2">
+          <Link href="/auth/magic-link" className="hover:underline niwi-link">
+            <p className="text-center"> Magic Link 🚀 </p>
+          </Link>
+        </div>
+      )}
 
-      <form className="flex flex-col my-[10px]" action={dispatchGoogle}>
-        <SubmitButton
-          text="Sign In with Google"
-          variant={"outline"}
-          rightIcon={<GoogleIcon className="w-5 h-5 ml-2" />}
-        />
-        {errorMsgGoogle ? <p>{errorMsgGoogle}</p> : null}
-      </form>
-      <form className="flex flex-col my-[10px]" action={dispatchGitHub}>
-        <SubmitButton
-          text="Sign In with Github"
-          variant={"outline"}
-          rightIcon={<GithubIcon className="w-5 h-5 ml-2" />}
-        />
-        {errorMsgGitHub ? <p>{errorMsgGitHub}</p> : null}
-      </form>
-      <form className="flex flex-col my-[10px]" action={dispatchFacebook}>
-        <SubmitButton
-          text="Sign In with Facebook"
-          variant={"outline"}
-          rightIcon={<FacebookIcon className="w-5 h-5 ml-2" />}
-        />
-        {errorMsgFacebook ? <p>{errorMsgFacebook}</p> : null}
-      </form>
-      <form className="flex flex-col my-[10px]" action={dispatchTwitter}>
-        <SubmitButton
-          text="Sign In with Twitter"
-          variant={"outline"}
-          rightIcon={<TwitterIcon className="w-4 h-4 ml-2" />}
-        />
-        {errorMsgTwitter ? <p>{errorMsgTwitter}</p> : null}
-      </form>
+      {isAvailableGoogleAuth && (
+        <form className="flex flex-col my-[10px]" action={dispatchGoogle}>
+          <SubmitButton
+            text="Sign In with Google"
+            variant={"outline"}
+            rightIcon={<GoogleIcon className="w-5 h-5 ml-2" />}
+          />
+          {errorMsgGoogle ? <p>{errorMsgGoogle}</p> : null}
+        </form>
+      )}
+
+      {isAvailableGithubAuth && (
+        <form className="flex flex-col my-[10px]" action={dispatchGitHub}>
+          <SubmitButton
+            text="Sign In with Github"
+            variant={"outline"}
+            rightIcon={<GithubIcon className="w-5 h-5 ml-2" />}
+          />
+          {errorMsgGitHub ? <p>{errorMsgGitHub}</p> : null}
+        </form>
+      )}
+
+      {isAvailableFacebookAuth && (
+        <form className="flex flex-col my-[10px]" action={dispatchFacebook}>
+          <SubmitButton
+            text="Sign In with Facebook"
+            variant={"outline"}
+            rightIcon={<FacebookIcon className="w-5 h-5 ml-2" />}
+          />
+          {errorMsgFacebook ? <p>{errorMsgFacebook}</p> : null}
+        </form>
+      )}
+      {isAvailableTwitterAuth && (
+        <form className="flex flex-col my-[10px]" action={dispatchTwitter}>
+          <SubmitButton
+            text="Sign In with Twitter"
+            variant={"outline"}
+            rightIcon={<TwitterIcon className="w-4 h-4 ml-2" />}
+          />
+          {errorMsgTwitter ? <p>{errorMsgTwitter}</p> : null}
+        </form>
+      )}
       <div className="my-2">
         <Link href="/auth/reset-password" className="hover:underline">
           <p>

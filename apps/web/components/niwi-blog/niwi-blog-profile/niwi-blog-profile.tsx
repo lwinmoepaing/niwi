@@ -90,10 +90,10 @@ function NiwiBlogProfile({
         <Link href={`/profile/${blog.user?.shortLink || ""}`}>
           <div className="niwi-blog-profile-image">
             <Image
-              width={44}
-              height={44}
-              src={blog.user?.image || "/images/auth/profile.png"}
+              src={blog.user?.image || "/images/auth/profile.jpg"}
               alt={blog.user?.name || "-"}
+              objectFit="cover"
+              fill
             />
           </div>
         </Link>
@@ -139,8 +139,6 @@ function NiwiBlogProfile({
         </div>
       </div>
 
-      {!showSetting ? null : <NiwiBlogSettingMenu blogId={blog.id} />}
-
       {!isShowComment ? null : (
         <NiwiBlogCommentsModal
           blogId={blog.id}
@@ -164,6 +162,8 @@ function NiwiBlogProfile({
           </div>
         </div>
       ) : null}
+
+      {!showSetting ? null : <NiwiBlogSettingMenu blogId={blog.id} />}
     </section>
   );
 }
