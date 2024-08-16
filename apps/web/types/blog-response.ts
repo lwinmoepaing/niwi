@@ -57,6 +57,7 @@ export interface SingleBlog {
   id: string;
   slug: string;
   title: string;
+  subTitle: string | null;
   content?: string;
   contentJson?: string;
   estimateTime?: string;

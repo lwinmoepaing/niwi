@@ -1,6 +1,7 @@
 import NiwiProfileCard from "@/components/niwi-profile/niwi-profile-card/niwi-profile-card";
 import { gerUserByShortLink } from "@/feats/profile/services/profile.service";
 import { auth } from "@/libs/auth/next-auth";
+import { getSeoTag } from "@/libs/seo/seo";
 import { notFound } from "next/navigation";
 
 type ProfileDetailPageProps = {
@@ -8,6 +9,24 @@ type ProfileDetailPageProps = {
     shortlink: string[];
   };
 };
+
+export async function generateMetadata({
+  params: { shortlink },
+}: ProfileDetailPageProps) {
+  const { success, data } = await gerUserByShortLink(shortlink?.[0] || "");
+  if (!success || !data) {
+    return getSeoTag({
+      title: "Not found Profile",
+      description: "Profile is not found | 404 🎉",
+    });
+  }
+
+  return getSeoTag({
+    title: data.name,
+    description: data.profile.statusMessage ?? `This is ${data.name} | Profile`,
+    image: data.image,
+  });
+}
 
 const ProfileDetailPage = async ({
   params: { shortlink },

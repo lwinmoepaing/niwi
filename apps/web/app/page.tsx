@@ -17,10 +17,17 @@ import {
 } from "@/feats/payment/services/payment.service";
 import { auth } from "@/libs/auth/next-auth";
 import { lancelotFont } from "@/libs/font/font-helper";
+import { getSeoTag } from "@/libs/seo/seo";
 import { cn } from "@/libs/utils";
 import { PublishedBlog } from "@/types/blog-response";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata = getSeoTag({
+  title: "Learn Fast, Build Fast, Ship Fast",
+  description:
+    "Niwi Starter is a comprehensive, easy-to-use template for rapidly bootstrapping a Next.js application with essential features like authentication, blog management, email integration, database pre-seeding, and more. 🎉",
+});
 
 export default async function HomePage() {
   const session = await auth();

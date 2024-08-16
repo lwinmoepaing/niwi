@@ -1,12 +1,32 @@
 import NiwiHtmlView from "@/components/niwi-blog/niwi-html-view/niwi-html-view";
+import Button from "@/components/niwi-ui/button/button";
 import { getBlogBySlug } from "@/feats/blog/services/blog.service";
 import { auth } from "@/libs/auth/next-auth";
+import { getSeoTag } from "@/libs/seo/seo";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import PublishBLogProfile from "../assets/components/publish-blog-profile";
-import Button from "@/components/niwi-ui/button/button";
-import Link from "next/link";
 
 type BlogDetailPageProps = { params: { slug: string } };
+
+export async function generateMetadata({
+  params: { slug },
+}: BlogDetailPageProps) {
+  const { data: blog, success } = await getBlogBySlug(slug);
+
+  if (!success || !blog || !blog.isPublished) {
+    return getSeoTag({
+      title: "Not found blog",
+      description: "Blog is not found | 404 🎉",
+    });
+  }
+
+  return getSeoTag({
+    title: blog.title,
+    description: blog.subTitle ?? blog.title,
+    image: blog.previewImage,
+  });
+}
 
 const BlogDetailPage = async ({ params: { slug } }: BlogDetailPageProps) => {
   const { data: blog, success } = await getBlogBySlug(slug);
@@ -22,8 +42,11 @@ const BlogDetailPage = async ({ params: { slug } }: BlogDetailPageProps) => {
           <Button variant={"niwi"}>Go Back Home</Button>
         </Link>
       </section>
-      <PublishBLogProfile blog={blog} currentAuth={session?.user} />
-      <NiwiHtmlView htmlText={blog.content || ""} />
+
+      <section className="px-[20px]">
+        <PublishBLogProfile blog={blog} currentAuth={session?.user} />
+        <NiwiHtmlView htmlText={blog.content || ""} />
+      </section>
     </>
   );
 };

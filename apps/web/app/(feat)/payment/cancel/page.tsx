@@ -1,5 +1,11 @@
 import Button from "@/components/niwi-ui/button/button";
+import { getSeoTag } from "@/libs/seo/seo";
 import Link from "next/link";
+
+export const metadata = getSeoTag({
+  title: "Payment Cancelled",
+  description: "The good news is, you can try again 😊",
+});
 
 export default function Cancel() {
   return (

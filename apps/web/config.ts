@@ -5,6 +5,10 @@ const config = {
   domainName: "niwistarter.com",
   defaultUserImage: "/images/auth/profile.jpg",
   secretKey: process.env.SECRET_HASH_KEY || "niwi",
+  meta: {
+    defaultMetaImage: "/images/niwi-blog.png",
+    defaultSuffix: "Niwi Starter",
+  },
   authRoute: {
     loginUrl: "/auth/login",
     callback: "/dashboard",

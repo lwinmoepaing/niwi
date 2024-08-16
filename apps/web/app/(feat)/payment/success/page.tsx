@@ -1,6 +1,12 @@
 import Button from "@/components/niwi-ui/button/button";
+import { getSeoTag } from "@/libs/seo/seo";
 import Link from "next/link";
 import Stripe from "stripe";
+
+export const metadata = getSeoTag({
+  title: "Payment Success",
+  description: "Thank you for purchasing our membership",
+});
 
 // Initialize Stripe with your secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);

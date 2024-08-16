@@ -58,7 +58,7 @@
 .niwi-logo-text {
   color: transparent;
   background-clip: text;
-  
+
   background-image: linear-gradient(to right, #ff254b, #5c08a5, #116ad8);
   display: inline-block;
 }
@@ -197,7 +197,7 @@
 =============================================*/
 
 .niwi-auth-section.container {
-  margin: 60px auto;
+  margin: 0 auto 60px auto;
   max-width: 360px;
   border-radius: 6px;
   background: white;
@@ -297,7 +297,7 @@
 
 @media screen and (min-width: 768px) {
   .niwi-sidebar-item {
-  margin-top: 1.5rem;
+    margin-top: 1.5rem;
     border-radius: 18px;
     width: 44px;
     height: 44px;
@@ -497,7 +497,7 @@
 }
 
 .niwi-faq summary::after {
-  content: '+';
+  content: "+";
   width: 20px;
   height: 20px;
   margin-left: 0.75em;
@@ -516,7 +516,6 @@
   font-size: 30px;
   transform: rotate(180deg);
 }
-
 
 .faq-content {
   transition: all 0.3s ease;

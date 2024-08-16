@@ -1,6 +1,13 @@
 import { checkResetPasswordKeyValid } from "@/feats/auth/services/auth.service";
-import ResetPasswordForm from "../assets/components/ResetPasswordForm";
+import { getSeoTag } from "@/libs/seo/seo";
 import Link from "next/link";
+import ResetPasswordForm from "../assets/components/ResetPasswordForm";
+import Button from "@/components/niwi-ui/button/button";
+
+export const metadata = getSeoTag({
+  title: "Reset Password",
+  description: "Please don't give your information to someone.",
+});
 
 type ResetPasswordPageProps = {
   params: { slug: string };
@@ -20,12 +27,18 @@ async function ResetPasswordPage({ searchParams }: ResetPasswordPageProps) {
   }
 
   return (
-    <section className="niwi-auth-section container">
-      <ResetPasswordForm resetPasswordKey={resetPasswordKey} />
-      <Link href="/auth/login" className="niwi-link hover:underline mt-2 block">
-        Go Back
-      </Link>
-    </section>
+    <>
+      <section className="w-full max-w-[400px] mx-auto px-[20px] mt-[40px] mb-[20px]">
+        <Link href="/auth/login">
+          <Button variant={"niwi"}>Back to Login</Button>
+        </Link>
+      </section>
+      <div className="px-[20px]">
+        <section className="niwi-auth-section container">
+          <ResetPasswordForm resetPasswordKey={resetPasswordKey} />
+        </section>
+      </div>
+    </>
   );
 }
 export default ResetPasswordPage;

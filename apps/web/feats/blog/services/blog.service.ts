@@ -21,6 +21,7 @@ export const serializeSelectorField = () => {
     id: true,
     slug: true,
     subTitle: true,
+    estimateTime: true,
     title: true,
     isPublished: true,
     previewImage: true,

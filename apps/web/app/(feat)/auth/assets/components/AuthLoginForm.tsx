@@ -172,10 +172,15 @@ function AuthLoginForm({
           {errorMsgTwitter ? <p>{errorMsgTwitter}</p> : null}
         </form>
       )}
-      <div className="my-2">
+      <div className="my-2 flex flex-row justify-between">
         <Link href="/auth/reset-password" className="hover:underline">
           <p>
             <small>Forgot your password ?</small>
+          </p>
+        </Link>
+        <Link href="/auth/sign-up" className="hover:underline">
+          <p>
+            <small>Sign-up now</small>
           </p>
         </Link>
       </div>
