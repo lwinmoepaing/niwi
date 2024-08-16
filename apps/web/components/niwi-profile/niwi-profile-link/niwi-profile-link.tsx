@@ -67,7 +67,7 @@ function NiwiProfileLink({
       if (item1Index < 0 || item2Index < 0 || !item1 || !item2)
         return updateArr;
 
-      // Mangaing Sizes and Temporary Storage
+      // Managing Sizes and Temporary Storage
       const temp = { ...item1 };
       const temp1Size = (temp.size + "") as SizeType;
       const item2Size = (item2.size + "") as SizeType;
@@ -316,7 +316,7 @@ function NiwiProfileLink({
           <input
             ref={inputRef}
             className="niwi-profile-sub-header niwi-profile-grid-input editor"
-            placeholder="Copy and paste your url..."
+            placeholder="Paste your spotify, x.com, youtube, facebook, buyMeACoffee, github url..."
             onPaste={handlePaste}
             disabled={fetchLoading}
           />

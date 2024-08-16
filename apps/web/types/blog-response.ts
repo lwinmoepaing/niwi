@@ -59,6 +59,7 @@ export interface SingleBlog {
   title: string;
   content?: string;
   contentJson?: string;
+  estimateTime?: string;
   isPublished: boolean;
   previewImage: string | null;
   userId: string;

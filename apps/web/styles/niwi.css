@@ -98,8 +98,8 @@
 =============================================*/
 
 .niwi-toggler {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -299,8 +299,8 @@
   .niwi-sidebar-item {
   margin-top: 1.5rem;
     border-radius: 18px;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
   }
 }
 

@@ -103,7 +103,7 @@ function NiwiBlogProfile({
           </div>
           <div className="niwi-blog-profile-datetime-container">
             <h4>
-              {"estimate time to"} read ·{" "}
+              {blog.estimateTime ?? "1 minute"} to read ·{" "}
               {dateUtil(blog.createdAt).format("MMM D, YYYY")}
             </h4>
           </div>

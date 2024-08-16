@@ -18,7 +18,7 @@ function CreateBlogForm({ currentUser }: { currentUser?: User }) {
         <div className="w-full h-full flex justify-center items-center mr-5">
           <Button
             type="button"
-            size={"md"}
+            size={"sm"}
             onClick={handleSubmit}
             className="min-w-[142px]"
             disabled={!isValidForm}

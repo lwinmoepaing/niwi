@@ -4,6 +4,7 @@ import {
   SaveBlogFormValues,
   saveBlogSchema,
 } from "@/feats/blog/validations/blog.validation";
+import { estimateReadingTime } from "@/libs/editor/estimateReadingTime";
 import { getExtractNodeFromEditor } from "@/libs/editor/getExtractNodeFromEditor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { nanoid } from "nanoid";
@@ -64,6 +65,7 @@ const useEditBlogForm = ({
       blogId,
       content,
       contentJson,
+      estimateTime: "1 minute",
     },
   });
 
@@ -107,8 +109,11 @@ const useEditBlogForm = ({
       setValue("content", html, { shouldDirty: true });
       setValue("contentJson", json, { shouldDirty: true });
 
+      const estTime = estimateReadingTime(text ?? "");
+      console.log("EstimateTime", estTime);
+      setValue("estimateTime", estTime, { shouldDirty: true });
+
       const [getTitle, getSubTitle, imageList] = getExtractNodeFromEditor(json);
-      // setValue("title", getTitle?.trim(), { shouldDirty: true });
       setTitle(getTitle?.trim());
       setSubTitle(getSubTitle?.trim());
       setImages(imageList);

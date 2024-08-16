@@ -22,7 +22,7 @@ export default function Navbar({ user }: { user?: User }) {
           <div id="niwi-navbar-right-portal"></div>
           {user && (
             <Link
-              className="w-[40px] h-[40px] rounded-full overflow-hidden mr-2"
+              className="w-[30px] h-[30px] rounded-full overflow-hidden mr-2"
               href={`/dashboard/profile/${user.shortLink}`}
             >
               <Image

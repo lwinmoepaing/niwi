@@ -5,7 +5,6 @@ import { NiwiBlogProfileSkeleton } from "@/components/niwi-blog/niwi-blog-profil
 import NiwiEmptyBlog from "@/components/niwi-blog/niwi-blog-profile/niwi-empty-blog";
 import { useGetBookmarkedBlogs } from "@/feats/blog/api/get-bookmarked-blogs";
 import { BookmarkBlog } from "@/types/blog-response";
-import { Bookmark } from "lucide-react";
 import { User } from "next-auth";
 import { memo, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
@@ -57,10 +56,10 @@ function BlogListByBookmark({ currentAuth }: { currentAuth?: User }) {
             )}
             commentCount={item.blog._count?.blogComments || 0}
           />
-          <Bookmark
+          {/* <Bookmark
             size={30}
-            className={" fill absolute top-[13px] right-[13px]"}
-          />
+            className={"fill absolute top-[13px] right-[13px]"}
+          /> */}
         </div>
       ))}
       {isFetching ? (

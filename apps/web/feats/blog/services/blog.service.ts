@@ -218,10 +218,12 @@ type SaveBlogProps = {
   content: string;
   contentJson: string;
   userId: string;
+  estimateTime: string;
 };
 
 export const saveBlog = async (blogProps: SaveBlogProps) => {
-  const { blogId, content, contentJson, userId, title } = blogProps;
+  const { blogId, content, contentJson, userId, title, estimateTime } =
+    blogProps;
 
   try {
     const { success, data: blog } = await getBlogById(blogId);
@@ -237,6 +239,7 @@ export const saveBlog = async (blogProps: SaveBlogProps) => {
         title,
         content,
         contentJson,
+        estimateTime,
       },
       include: getUserSelectRelation(userId),
     });

@@ -40,7 +40,7 @@ export default function SideBarItem({
       )}
     >
       {icon}
-      <span className="hidden md:block text-[10px] mt-1">{children}</span>
+      <span className="hidden md:block text-[10px] mt-[2px]">{children}</span>
     </Link>
   );
 }

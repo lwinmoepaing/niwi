@@ -18,6 +18,7 @@ export const saveBlogSchema = z.object({
   blogId: z.string().min(1, "BlogID is required"),
   content: z.string().min(1, "Content is required"),
   contentJson: z.string().min(1, "Content's JSON is required"),
+  estimateTime: z.string().min(1, "Estimate time is required"),
 });
 
 export type SaveBlogFormValues = z.infer<typeof saveBlogSchema>;

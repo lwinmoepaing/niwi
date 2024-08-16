@@ -17,7 +17,9 @@ async function DashboardPage() {
 
   return (
     <section className="w-full max-w-[720px] mx-auto">
-      <p className={nunitoFont.className}>Welcome Niwi Dashboard</p>
+      <p className={`${nunitoFont.className} px-[10px]`}>
+        Welcome Niwi-Starter{" "}
+      </p>
 
       <section className="flex flex-col lg:flex-row my-[20px] ">
         <div className="w-full relative ">
@@ -46,13 +48,14 @@ async function DashboardPage() {
             >
               <span
                 className={cn(
-                  "absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-xl text-center",
-                  lancelotFont.className
+                  "absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-xl text-center"
                 )}
               >
-                <span className="text-3xl">{paymentCount}</span>
+                <span className="text-xl">{paymentCount}</span>
                 <br />
-                <span>Total Transaction</span>
+                <span className={lancelotFont.className}>
+                  Total Transaction
+                </span>
               </span>
             </BorderShiner>
           </div>

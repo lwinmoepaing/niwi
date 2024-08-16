@@ -10,6 +10,8 @@ import { useInView } from "react-intersection-observer";
 import NiwiBlogComment from "./niwi-blog-comment";
 import NiwiBlogCreateComment from "./niwi-blog-create-comment";
 import dateUtil from "@/libs/date/date-util";
+import NiwiBlogCommentLoading from "./niwi-blog-comment-loading";
+import NiwiBLogEmptyCommentBox from "./niwi-blog-empty-comment-box";
 
 type NiwiBlogCommentsModalProps = {
   show: boolean;
@@ -26,7 +28,7 @@ function NiwiBlogCommentsModal({
   onClose,
   authUser,
 }: NiwiBlogCommentsModalProps) {
-  const { inView } = useInView({ threshold: 0 });
+  const { ref, inView } = useInView({ threshold: 0 });
   const { data, isFetching, fetchNextPage, hasNextPage } =
     useGetCommentsByBlogId({
       pageNo: 1,
@@ -65,11 +67,7 @@ function NiwiBlogCommentsModal({
               {!!authUser && (
                 <NiwiBlogCreateComment blogId={blogId} currentUser={authUser} />
               )}
-              {isEmptyList && (
-                <p className="px-[30px] text-center text-[12px] mt-2">
-                  Empty Comments
-                </p>
-              )}
+              {!isFetching && isEmptyList && <NiwiBLogEmptyCommentBox />}
               {commentList.map((comment) => (
                 <NiwiBlogComment
                   key={comment.id}
@@ -84,6 +82,15 @@ function NiwiBlogCommentsModal({
                   currentUser={authUser}
                 />
               ))}
+              {isFetching ? (
+                <>
+                  <NiwiBlogCommentLoading />
+                  <NiwiBlogCommentLoading />
+                  <NiwiBlogCommentLoading />
+                </>
+              ) : (
+                <div ref={ref} className="h-[20px]"></div>
+              )}
             </div>
           </div>
         </div>

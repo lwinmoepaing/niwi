@@ -8,7 +8,7 @@ function NiwiEmptyPayment({
   title = "You have no payment.",
 }: NiwiEmptyPaymentProps) {
   return (
-    <section className="w-full md:w-[60%]">
+    <section className="w-full">
       <div className="niwi-blog-profile-container text-[16px] flex flex-col justify-center items-center gap-y-[18px]">
         <p className="niwi-logo-text font-bold text-[24px] mt-2">{title}</p>
         <p className="tracking-widest flex flex-row w-full justify-center items-center gap-x-2 mb-4">

@@ -55,7 +55,7 @@ export default function NiwiProfileGithubCard({
       </div>
       <div
         className={cn(
-          "flex-1 justify-center items-center",
+          "flex-1 justify-center items-center overflow-hidden pr-[8px]",
           item.size === "square" ? "hidden" : "hidden lg:flex"
         )}
       >

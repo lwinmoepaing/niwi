@@ -33,7 +33,10 @@ const profileGridCardSchema = z.object({
 export const saveProfileSchema = z.object({
   userId: z.string().trim().min(1, "UserID is required"),
   name: z.string().trim().min(1, "Name is required"),
-  shortLink: z.string().trim().min(3, "Short link is required."),
+  shortLink: z
+    .string()
+    .min(1, "Short Link is required")
+    .transform((val) => val.toLowerCase().replace(/\s+/g, "-")),
   backgroundImage: z.string().default(""),
   aboutMe: z.string().default(""),
   aboutMeJson: z.string().default(""),

@@ -11,6 +11,8 @@
   --niwi-dark-blog-profile-bg-color: #111119;
 
   /* Blog Comment */
+  --niwi-blog-comment-box-color: #111119;
+  --niwi-blog-comment-box-input: #1c1c25;
 }
 
 /*=============================================
@@ -236,7 +238,13 @@
 }
 
 .blog-image-padding {
-  padding-right: 35%;
+  padding-right: 150px;
+}
+
+@media screen and (min-width: 720px) {
+  .blog-image-padding {
+    padding-right: 235px;
+  }
 }
 
 .niwi-blog-profile-header {
@@ -640,7 +648,7 @@
 .niwi-blog-comment-item {
   position: relative;
   border-radius: 1rem;
-  border-width: 1px;
+  /* border-width: 1px; */
   padding-top: 14px;
   padding-bottom: 16px;
   margin-left: 22px;
@@ -649,12 +657,10 @@
   padding-right: 10px;
 
   background-color: #ffffff;
-  border-color: #efefef;
 }
 
 .dark .niwi-blog-comment-item {
-  background-color: #313339;
-  border-color: #313339;
+  background-color: var(--niwi-blog-comment-box-color);
 }
 
 .niwi-blog-comment-item .profile-section-container {
@@ -722,7 +728,7 @@
 }
 
 .dark .niwi-blog-comment-item .textarea {
-  background-color: #232528;
+  background-color: var(--niwi-blog-comment-box-input);
 }
 
 .niwi-blog-comment-item .message-text .sent-button {

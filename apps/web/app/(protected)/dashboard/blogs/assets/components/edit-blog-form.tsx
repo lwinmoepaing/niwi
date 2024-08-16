@@ -64,7 +64,7 @@ function EditBlogForm({
           <Button
             type="button"
             variant={"success"}
-            size={"md"}
+            size={"sm"}
             onClick={handleSubmit}
             disabled={!isValidForm}
           >
@@ -79,7 +79,7 @@ function EditBlogForm({
           {!isPublished ? (
             <Button
               type="button"
-              size={"md"}
+              size={"sm"}
               disabled={!isValidPublish}
               onClick={togglePreviewModal}
             >
@@ -87,7 +87,7 @@ function EditBlogForm({
             </Button>
           ) : (
             <Link href={`${config.domainUrl}/blogs/${slugName}`}>
-              <Button type="button" size={"md"}>
+              <Button type="button" size={"sm"}>
                 Go Publish Page
               </Button>
             </Link>

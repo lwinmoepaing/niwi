@@ -34,6 +34,7 @@ export const saveProfileAction = async (
       return responseError(updatedProfile.message);
     }
 
+    console.log(updatedProfile.data);
     return responseSuccess(
       "Successfully updated your profile.",
       updatedProfile.data

@@ -1,7 +1,7 @@
 import { LightDarkToggle } from "@/components/niwi-ui/light-dark-toggler/light-dark-toggler";
 import ReactQueryProvider from "@/components/query-client-provider/query-client-provider";
 import { getDarkModeCookie } from "@/feats/setting/actions/setting.action";
-import { geistMono, geistSans, nunitoFont } from "@/libs/font/font-helper";
+import { nunitoFont } from "@/libs/font/font-helper";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 

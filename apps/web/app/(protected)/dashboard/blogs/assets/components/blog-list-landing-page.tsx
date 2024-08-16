@@ -22,20 +22,20 @@ function BlogListLandingPage({
 
   return (
     <>
-      <div className="flex flex-row justify-between items-center">
-        <section className="w-full md:max-w-[60%] flex flex-row items-center gap-x-[10px]">
+      <NavbarRightPortal>
+        <Link href="/dashboard/blogs/create" className="mr-2">
+          <Button size="sm">Create new blog</Button>
+        </Link>
+      </NavbarRightPortal>
+
+      <div className="flex flex-row justify-between items-center max-w-[700px] mx-auto">
+        <section className="w-full flex flex-row items-center gap-x-[10px]">
           <p className="dark:text-white self-start">Blog Lists</p>
           <NiwiBlogDraftPublishSwitcher onChangeStatus={setSwitcher} />
         </section>
-
-        <NavbarRightPortal>
-          <Link href="/dashboard/blogs/create" className="mr-2">
-            <Button>Create new blog</Button>
-          </Link>
-        </NavbarRightPortal>
       </div>
 
-      <div className="w-full md:max-w-[60%]">
+      <div className="w-full">
         {switcher === "Draft" && (
           <BlogListByAuthor
             authorId={authorId}

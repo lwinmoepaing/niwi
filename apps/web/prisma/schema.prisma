@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Sat Aug 10 2024 16:59:54 GMT+0700 (Indochina Time)✨
+//🧩Don't Edit this file.✨Generated in Fri Aug 16 2024 16:02:38 GMT+0700 (Indochina Time)✨
 
 datasource db {
   provider = "mongodb"
@@ -22,6 +22,7 @@ model Blog {
   subTitle     String?
   content      String
   contentJson  String
+  estimateTime String  @default("")
   isPublished  Boolean @default(false)
   previewImage String?
   user         User    @relation(fields: [userId], references: [id])

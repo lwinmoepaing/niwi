@@ -12,8 +12,8 @@ async function BlogsLandingPage() {
   const subscription = await getSubscriptionDataByUserId({ page: 1, userId });
 
   return (
-    <section>
-      <h1>Payment</h1>
+    <section className="w-full max-w-[720px] mx-auto">
+      <h1 className="px-[10px]">Payment</h1>
       {subscription.data.length <= 0 && <NiwiEmptyPayment />}
       <SubscriptionList data={subscription.data} userId={userId} />
     </section>

@@ -30,20 +30,20 @@ function NiwiProfileCard({
   showHeader: boolean;
 }) {
   const {
+    onToggleShowStatusMessage,
     onChangeBackgroundImage,
     onChangeGridProfile,
-    onToggleShowStatusMessage,
     onChangeStatusMessage,
     onChangeAboutMeValue,
     handleSubmit,
-    loading,
-    getValues,
-    editorResetKey,
-    register,
     watch,
+    getValues,
+    register,
     resetForm,
-    isEditing,
     setIsEditing,
+    loading,
+    editorResetKey,
+    isEditing,
     statusMessageJson,
     aboutMeJson,
     formState,
@@ -284,7 +284,11 @@ function NiwiProfileCard({
             ) : (
               <h1 className="niwi-profile-sub-header">{watch("shortLink")}</h1>
             )}
-
+            {formState.errors.shortLink?.message ? (
+              <span className="text-rose-500 text-xs">
+                {formState.errors.shortLink.message}
+              </span>
+            ) : null}
             <div className="niwi-profile-about-container">
               <h2 className="niwi-profile-sub-header">About me</h2>
               <NiwiTinyTextEditor
@@ -304,6 +308,8 @@ function NiwiProfileCard({
           defaultData={getValues("gridProfile")}
           key={`Link_${editorResetKey}`}
         />
+
+        <p>{formState.errors.shortLink?.message ?? ""}</p>
       </div>
     </>
   );

@@ -28,15 +28,19 @@ const SignOutButton = ({
   }, []);
 
   return (
-    <Button disabled={isPending} onClick={handleSignOut} className={className}>
+    <Button
+      disabled={isPending}
+      onClick={handleSignOut}
+      className={className}
+    >
       {isPending ? (
         <>
           <CircleDashed className="animate-spin" />
         </>
       ) : withMobileIcon ? (
         <>
-          <LogOut size={14} className="md:hidden"/>
-          <span className="hidden md:inline-block">{text}</span>
+          <LogOut size={14} className="rotate-180" />
+          {/* <span className="hidden md:inline-block">{text}</span> */}
         </>
       ) : (
         text

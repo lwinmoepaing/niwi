@@ -117,6 +117,8 @@ const useProfileSave = ({
             statusMessage: res.data.profile.statusMessage,
             statusMessageJson: res.data.profile.statusMessageJson,
             showStatusMessage: res.data.profile.showStatusMessage,
+            gridProfile: res.data.profile
+              .gridProfile as SaveProfileFormValues["gridProfile"],
           },
           { keepDefaultValues: false }
         );
@@ -144,14 +146,14 @@ const useProfileSave = ({
     onChangeAboutMeValue,
     handleSubmit: handleSubmit(submit),
     watch,
-    loading,
-    saveProfileResponse,
-    editorResetKey,
     getValues,
     register,
     resetForm,
-    isEditing,
     setIsEditing,
+    loading,
+    saveProfileResponse,
+    editorResetKey,
+    isEditing,
     statusMessageJson,
     aboutMeJson,
     formState,

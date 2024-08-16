@@ -11,6 +11,7 @@ model Blog {
     subTitle     String?
     content      String
     contentJson  String
+    estimateTime String  @default("1 minute")
     isPublished  Boolean @default(false)
     previewImage String?
     user         User    @relation(fields: [userId], references: [id])

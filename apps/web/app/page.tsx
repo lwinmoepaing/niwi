@@ -1,4 +1,5 @@
 import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
+import NiwiEmptyBlog from "@/components/niwi-blog/niwi-blog-profile/niwi-empty-blog";
 import NiwiSubscribeCardList from "@/components/niwi-payment/niwi-subscribe-card-list";
 import { BorderBeam } from "@/components/niwi-ui/border-beam/border-beam";
 import Button from "@/components/niwi-ui/button/button";
@@ -80,6 +81,12 @@ export default async function HomePage() {
               showSetting={false}
             />
           ))}
+          {blogs.length === 0 && (
+            <NiwiEmptyBlog
+              title="There is no blogs"
+              text="Let's create new blog ?"
+            />
+          )}
         </section>
       ) : (
         <section className="max-w-[720px] mx-auto mb-8">
@@ -105,15 +112,17 @@ export default async function HomePage() {
         </section>
       )}
 
-      {isAvailableSubscription && !subscribePlan?.data ? (
+      {isAvailableSubscription && !subscribePlan?.data?.planType && (
         <>
           <div className="text-center mt-[40px] mb-[25px]">
             <CenterTitle>Pricing</CenterTitle>
           </div>
           <NiwiSubscribeCardList user={session?.user} />
         </>
-      ) : (
-        <section className="max-w-[720px] mx-auto">
+      )}
+
+      {!isAvailableSubscription && (
+        <section className="max-w-[714px] mx-auto mt-[60px]">
           <div className="relative niwi-subscribe-card">
             <div className="relative sub-container text-center">
               <p>
@@ -137,7 +146,7 @@ export default async function HomePage() {
       )}
 
       {subscribePlan?.success && subscribePlan.data ? (
-        <section className="max-w-[720px] mx-auto">
+        <section className="max-w-[714px] mx-auto mt-[60px]">
           <div className="relative niwi-subscribe-card">
             <div className="relative sub-container text-center">
               Thank you, You are currently using with{" "}
