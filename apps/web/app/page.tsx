@@ -67,6 +67,12 @@ export default async function HomePage() {
             </div>
           </>
         )}
+
+        <div className="flex flex-row gap-x-[16px] justify-center mt-[20px]">
+          <Link href="/mini-apps">
+            <Button variant={"outline"}>Go to Mini-Apps</Button>
+          </Link>
+        </div>
       </section>
 
       {isAvailableBlogs ? (
