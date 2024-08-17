@@ -77,7 +77,7 @@ const NiwiToolBarItemList = ({
         )}
         onClick={() => onClickAction("ol")}
       >
-        <List size={20} />
+        <ListOrdered size={20} />
       </span>
       <span
         className={cn(
@@ -86,7 +86,7 @@ const NiwiToolBarItemList = ({
         )}
         onClick={() => onClickAction("ul")}
       >
-        <ListOrdered size={20} />
+        <List size={20} />
       </span>
       <span
         className={cn(

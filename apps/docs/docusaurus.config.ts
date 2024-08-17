@@ -69,7 +69,7 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
     navbar: {
-      hideOnScroll: true,
+      hideOnScroll: false,
       logo: {
         alt: "Niwi Starter Logo",
         src: "img/niwi-starter-logo.svg",

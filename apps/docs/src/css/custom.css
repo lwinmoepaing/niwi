@@ -69,6 +69,11 @@
   --tabs-background: #0d0c14;
 }
 
+.container > div > div > div {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
 .navbar {
   border-bottom: 1px solid var(--navbar-border);
 }
@@ -104,6 +109,11 @@
 
 nav.menu {
   padding-top: 2rem !important;
+  border-right: 1px solid var(--navbar-border);
+}
+
+.table-of-contents__left-border {
+  border-color: var(--navbar-border);
 }
 
 li > a.menu__link {
@@ -283,3 +293,4 @@ code {
   /* margin: 8px 0px; */
   padding: 10px;
 }
+

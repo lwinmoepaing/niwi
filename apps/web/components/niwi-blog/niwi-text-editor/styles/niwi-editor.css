@@ -172,7 +172,7 @@
 
 .editor-paragraph {
   margin: 0;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   position: relative;
 }
 
@@ -209,17 +209,19 @@
 .editor-list-ol {
   padding: 0;
   margin: 0;
-  margin-left: 16px;
+  margin-left: 10px;
+  list-style-type: decimal;
 }
 
 .editor-list-ul {
   padding: 0;
   margin: 0;
-  margin-left: 16px;
+  margin-left: 10px;
+  list-style-type: disc;
 }
 
 .editor-listitem {
-  margin: 8px 32px 8px 32px;
+  margin: 2px 22px 2px 22px;
 }
 
 .editor-nested-listitem {
