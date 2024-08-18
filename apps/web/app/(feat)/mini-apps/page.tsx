@@ -1,3 +1,4 @@
+import NiwiMiniAppsList from "@/components/niwi-mini-apps/niwi-mini-apps-list";
 import Button from "@/components/niwi-ui/button/button";
 import { getSeoTag } from "@/libs/seo/seo";
 import Link from "next/link";
@@ -8,7 +9,6 @@ export const metadata = getSeoTag({
     "Niwi Starter is a comprehensive, easy-to-use template for rapidly bootstrapping a Next.js application with essential features like authentication, blog management, email integration, database pre-seeding, and more. 🎉",
 });
 
-
 function MiniAppPage() {
   return (
     <>
@@ -17,7 +17,8 @@ function MiniAppPage() {
           <Button variant={"niwi"}>Go Back Home</Button>
         </Link>
       </section>
-      <section className="max-w-[760px] mx-auto px-[20px] mb-8">
+      <NiwiMiniAppsList />
+      {/* <section className="max-w-[760px] mx-auto px-[20px] mb-8">
         <h1>Mini App Page</h1>
 
         <div className="mt-[20px] flex flex-row gap-x-[10px]">
@@ -36,7 +37,7 @@ function MiniAppPage() {
             <Button variant={"niwi"}>Memory Game</Button>
           </Link>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
