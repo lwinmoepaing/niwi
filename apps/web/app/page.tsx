@@ -1,5 +1,6 @@
 import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
 import NiwiEmptyBlog from "@/components/niwi-blog/niwi-blog-profile/niwi-empty-blog";
+import AboutSection from "@/components/niwi-portfolio/about/about-section";
 import HeroSection from "@/components/niwi-portfolio/hero/hero-section";
 import WorkHistory from "@/components/niwi-portfolio/work-history/work-history";
 import CenterTitle from "@/components/niwi-ui/center-title/center-title";
@@ -32,8 +33,13 @@ export default async function HomePage() {
 
   return (
     <main className={"h-screen overflow-x-hidden px-[20px] md:px-0"}>
-      <HeroSection />
+      <HeroSection
+        name="Lwin Moe Paing"
+        message="Senior Frontend Engineer. I love building things and helping people. Very active on Facebook and also Twitter."
+      />
 
+      <AboutSection />
+      
       <WorkHistory />
 
       {isAvailableBlogs ? (
