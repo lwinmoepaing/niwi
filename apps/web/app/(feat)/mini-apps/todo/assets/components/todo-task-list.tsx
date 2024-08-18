@@ -55,7 +55,7 @@ function TodoTaskList({
         <h1 className="w-[68px]">Task List</h1>
         <div className="h-[30px] flex-1 px-[10px] bg-white rounded-lg dark:bg-[#111119] border dark:border-[#303039] flex flex-row items-center">
           <input
-            placeholder="Create New Task"
+            placeholder={`Create New Task ${selectedCategory.id !== "default" ? " For " + selectedCategory.message : ""}`}
             className="w-full h-full bg-transparent outline-none ring-0"
             ref={inputRef}
             onKeyUp={(e) => {

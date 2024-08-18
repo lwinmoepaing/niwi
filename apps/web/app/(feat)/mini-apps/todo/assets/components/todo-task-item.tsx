@@ -130,7 +130,7 @@ const TodoTaskItem = ({
         />
       </div>
       <div
-        className="h-full mx-1 text-white px-[10px] rounded-md text-[10px] group-hover:hidden"
+        className="mx-1 text-white px-[10px] rounded-md text-[10px] group-hover:hidden"
         style={{ backgroundColor: task.category.color.dark }}
       >
         {task.category.message}

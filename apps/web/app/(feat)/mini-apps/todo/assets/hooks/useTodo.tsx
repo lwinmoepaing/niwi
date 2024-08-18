@@ -83,7 +83,7 @@ const useTodo = () => {
 
   const onRemoveCategory = useCallback((value: TodoCategoryType) => {
     if (value.id === "default")
-      return toast.error("Non-Category can't be removed.");
+      return toast.error("All-Categories can't be removed.");
 
     setCategories((prev) => prev.filter((cat) => cat.id !== value.id));
 
