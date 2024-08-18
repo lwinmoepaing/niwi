@@ -30,7 +30,7 @@ const QUESTIONS = [
     type: "list",
     name: "template",
     message: "Do you want to choose another feature?",
-    choices: ["default", "myanmar-mini-apps", "sms[school-management-system]"],
+    choices: ["default", "mini-apps", "portfolio-template"],
   },
 ];
 
@@ -41,22 +41,22 @@ const askFeature = async () => {
   await sleep();
   spinner.success();
 
-  if (answers.template !== "default") {
-    console.log("This feature is not currently available!");
+  if (answers.template === "portfolio-template") {
+    console.log("This template is not currently available!");
     console.log(gradientText("Sorry..."));
     line();
     return;
   }
 
   const projectPath = path.join(process.cwd(), "niwi-starter");
-  cloneRepo("main", projectPath);
+  cloneRepo(answers.template, projectPath);
 };
 
 async function cloneRepo(branch, targetPath) {
   const repoUrl = "https://github.com/lwinmoepaing/niwi.git";
 
   // Clone the specific branch
-  console.log(gradientText(`Cloning the repository with ${branch} branch...`));
+  console.log(gradientText(`Downloading ${branch} ...`));
   const spinner = createSpinner("Loading...");
   spinner.start();
   await git.clone(repoUrl, targetPath, ["-b", branch]);
