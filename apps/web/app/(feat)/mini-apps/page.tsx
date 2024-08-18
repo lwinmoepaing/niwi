@@ -20,13 +20,17 @@ function MiniAppPage() {
       <section className="max-w-[760px] mx-auto px-[20px] mb-8">
         <h1>Mini App Page</h1>
 
-        <div className="mt-[20px]">
-          <Link href="/mini-apps/todo" className="mr-[10px]">
+        <div className="mt-[20px] flex flex-row gap-x-[10px]">
+          <Link href="/mini-apps/todo">
             <Button variant={"niwi"}>Todo App</Button>
           </Link>
 
           <Link href="/mini-apps/pomodoro">
             <Button variant={"niwi"}>Pomodoro App</Button>
+          </Link>
+
+          <Link href="/mini-apps/screenshot-url">
+            <Button variant={"niwi"}>Preview Screenshot</Button>
           </Link>
         </div>
       </section>

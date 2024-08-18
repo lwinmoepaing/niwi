@@ -49,7 +49,6 @@ const TodoTaskItem = ({
             ref={inputRef}
             defaultValue={task.message}
             onKeyUp={(e) => {
-              console.log(e.key);
               if (e.key === "Enter") return onChangeMessage();
               if (e.key === "Escape") return setIsEdit(false);
             }}

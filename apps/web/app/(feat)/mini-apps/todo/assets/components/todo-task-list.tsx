@@ -63,7 +63,7 @@ function TodoTaskList({
             }}
           />
           <button
-            // onClick={onCreateCategory}
+            onClick={onCreateTask}
             className="rounded-md hover:bg-[#f9f9f9] hover:dark:bg-[#1c1c25] text-xs flex flex-row px-[10px] py-[2px]"
           >
             <EnterIcon /> Save
