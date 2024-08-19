@@ -41,13 +41,6 @@ const askFeature = async () => {
   await sleep();
   spinner.success();
 
-  if (answers.template === "portfolio-template") {
-    console.log("This template is not currently available!");
-    console.log(gradientText("Sorry..."));
-    line();
-    return;
-  }
-
   const projectPath = path.join(process.cwd(), "niwi-starter");
   cloneRepo(answers.template, projectPath);
 };
@@ -63,7 +56,7 @@ async function cloneRepo(branch, targetPath) {
   spinner.success();
 
   // Remove all folders except `app/web`
-  console.log(gradientText("Cleaning up unnecessary folders..."));
+  console.log(gradientText("Upadating Dependencies..."));
 
   const items = fs.readdirSync(targetPath);
   items.forEach((item) => {
