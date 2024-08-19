@@ -7,7 +7,7 @@ const config = {
   secretKey: process.env.SECRET_HASH_KEY || "niwi",
   meta: {
     defaultMetaImage: "/images/niwi-blog.png",
-    defaultSuffix: "Niwi Starter",
+    defaultSuffix: "",
   },
   authRoute: {
     loginUrl: "/auth/login",

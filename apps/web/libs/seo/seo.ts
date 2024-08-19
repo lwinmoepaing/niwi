@@ -27,7 +27,7 @@ export const getSeoTag = ({
   ];
 
   return {
-    title: `${title} | ${config.meta.defaultSuffix}`,
+    title: `${title} ${config.meta.defaultSuffix ? `| ${config.meta.defaultSuffix}` : ""}`,
     description: description,
     openGraph: {
       title,

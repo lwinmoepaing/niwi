@@ -22,12 +22,12 @@ const LinkItem = ({
 
 function Footer() {
   return (
-    <footer className="w-full mt-[80px] pt-[60px] pb-[120px] bg-white dark:bg-transparent border-t border-[#fafafa] dark:border-[#2a2a2a]">
+    <footer className="w-full mt-[80px] pt-[60px] pb-[120px] bg-white dark:bg-transparent border-t border-[#e1e1e1] dark:border-[#2a2a2a]">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-[40px] gap-x-[20px] w-full max-w-[880px] px-[20px] mx-auto">
         <div className="lg:text-left">
           <h1
             className={cn(
-              "mb-2 lg:mb-3 text-2xl niwi-logo-text",
+              "mb-2 lg:mb-3 text-xl niwi-logo-text",
               lancelotFont.className
             )}
           >
@@ -38,11 +38,10 @@ function Footer() {
               alt="Niwi Starter"
               className="w-[18px] h-[18px] inline-block mr-1 relative top-[-2px]"
             />
-            Niwi-Starter
+            Build with Niwi Starter
           </h1>
           <p className="text-sm">
-            Make your own blog and sexy profile with Niwi. Copyright © 2024 ~
-            present All rights reserved
+            Welcome to my profile.
           </p>
         </div>
         <div className="lg:text-center text-sm">
@@ -60,9 +59,9 @@ function Footer() {
             Documentation{" "}
           </LinkItem>
           <LinkItem href="https://x.com/LwinMoePaingDev"> Twitter </LinkItem>
-          <LinkItem href="https://github.com/lwinmoepaing/niwi/">
+          <LinkItem href="https://github.com/lwinmoepaing/">
             {" "}
-            ⭐ Github{" "}
+            Github{" "}
           </LinkItem>
         </div>
         <div className="lg:text-center text-sm">
