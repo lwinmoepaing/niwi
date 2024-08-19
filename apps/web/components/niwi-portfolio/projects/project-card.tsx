@@ -60,39 +60,31 @@ const ProjectCard: React.FC<
 
           <div className="flex flex-row flex-wrap gap-x-[6px]">
             {links.map((link) => (
-              <Button
-                key={link.url}
-                variant={"niwi"}
-                size={"xs"}
-                type="button"
-                className="!text-xs flex flex-row"
-                prefixIcon={
-                  link.type === "github" ? (
-                    <Github size={14} className="inline-block mr-1" />
+              <Link key={link.url} href={link.url} target="_blank">
+                <Button
+                  variant={"niwi"}
+                  size={"xs"}
+                  type="button"
+                  className="!text-xs flex flex-row"
+                  prefixIcon={
+                    link.type === "github" ? (
+                      <Github size={14} className="inline-block mr-1" />
+                    ) : link.type === "video" ? (
+                      <Youtube size={14} className="inline-block mr-1" />
+                    ) : (
+                      <Globe size={14} className="inline-block mr-1" />
+                    )
+                  }
+                >
+                  {link.type === "github" ? (
+                    <>Source</>
                   ) : link.type === "video" ? (
-                    <Youtube size={14} className="inline-block mr-1" />
+                    <>Watch</>
                   ) : (
-                    <Globe size={14} className="inline-block mr-1" />
-                  )
-                }
-              >
-                {link.type === "github" ? (
-                  <>
-                    {/* <Github /> */}
-                    Source
-                  </>
-                ) : link.type === "video" ? (
-                  <>
-                    {/* <Youtube /> */}
-                    Watch
-                  </>
-                ) : (
-                  <>
-                    {/* <Globe />  */}
-                    Website
-                  </>
-                )}
-              </Button>
+                    <>Website</>
+                  )}
+                </Button>
+              </Link>
             ))}
           </div>
         </div>

@@ -12,11 +12,14 @@ const ProjectSection = () => {
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <ProjectCard
-          image={""}
+          image={"/images/portfolio/niwi-starter.gif"}
           projectTitle={"Niwi Starter"}
           projectDate={"July 2024 - Present"}
-          skills={["Hehe.js"]}
-          links={[{ type: "video", url: "https://lwinmoepaing.com" }]}
+          skills={["Next.js", "React.js", "Tailwind"]}
+          links={[
+            { type: "github", url: "https://github.com/lwinmoepaing/niwi" },
+            { type: "web", url: "https://niwi-docs.vercel.app" },
+          ]}
         >
           <p>Hello</p>
         </ProjectCard>
@@ -24,13 +27,18 @@ const ProjectSection = () => {
           image={"/images/portfolio/lwin-store.gif"}
           projectTitle={"Lwin Store"}
           projectDate={"July 2024 - Present"}
-          skills={[
-            "React Three Fiber",
-            "React.js",
-            "Vite",
-            "Typescript",
+          skills={["React Three Fiber", "React.js", "Vite", "Typescript"]}
+          links={[
+            {
+              type: "github",
+              url: "https://github.com/lwinmoepaing/threejs-lwin-store",
+            },
+            { type: "web", url: "https://threejs-lwin-store.vercel.app" },
+            {
+              type: "video",
+              url: "https://www.facebook.com/watch/?v=3680244405565404",
+            },
           ]}
-          links={[{ type: "video", url: "https://lwinmoepaing.com" }]}
         >
           <p>My Learning ThreeJS Progress . It tiny project but enjoy it .</p>
         </ProjectCard>
@@ -38,13 +46,17 @@ const ProjectSection = () => {
           image={"/images/portfolio/mmswe.gif"}
           projectTitle={"Myanmar Software Engineer"}
           projectDate={"July 2024 - Present"}
-          skills={[
-            "React.js",
-            "Framer",
-            "MDX",
-            "Typescript",
+          skills={["React.js", "Framer", "MDX", "Typescript"]}
+          links={[
+            {
+              type: "github",
+              url: "https://github.com/myanmar-software-engineers/myanmar-software-engineers.github.io",
+            },
+            {
+              type: "web",
+              url: "https://myanmar-software-engineers.github.io",
+            },
           ]}
-          links={[{ type: "video", url: "https://lwinmoepaing.com" }]}
         >
           <p>
             This platform welcomes all software engineers in Myanmar. Whether
@@ -56,8 +68,12 @@ const ProjectSection = () => {
           image={"/images/portfolio/invoice.gif"}
           projectTitle={"Invoice Maker"}
           projectDate={"July 2024 - Present"}
-          skills={["React.js", "Tailwind", "LottieFiles"]}
-          links={[{ type: "video", url: "https://lwinmoepaing.com" }]}
+          skills={["React.js", "Javascript", "Tailwind", "LottieFiles"]}
+          links={[
+            { type: "web", url: "https://invoice-maker-six.vercel.app" },
+            { type: "github", url: "https://github.com/lwinmoepaing/invoice-maker" },
+            { type: "video", url: "https://youtu.be/XoGOtx33NYM" }
+          ]}
         >
           <p>Simple Invoice-Maker with Only React.Js</p>
         </ProjectCard>
