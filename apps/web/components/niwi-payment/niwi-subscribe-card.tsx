@@ -12,7 +12,9 @@ import { useCallback } from "react";
 import toast from "react-hot-toast";
 import Button from "../niwi-ui/button/button";
 
-const stripePromise = loadStripe(config.payment.stripePubKey);
+const stripePromise = config.payment.stripePubKey
+  ? loadStripe(config.payment.stripePubKey)
+  : null;
 
 type NiwiSubscribeCardProps = {
   item: NiwiSubscriptionCardType;
