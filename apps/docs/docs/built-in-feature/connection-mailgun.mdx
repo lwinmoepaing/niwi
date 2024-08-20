@@ -1,0 +1,57 @@
+---
+sidebar_position: 2
+---
+
+import NiwiAlert from "../../src/components/niwi/niwi-alert";
+
+# Connect Mailgun
+
+## How to Connect Mailgun and Obtain the API Key
+
+In this guide, we’ll walk through the steps to connect Mailgun to your project and update the necessary environment variables.
+
+### Why Mailgun?
+
+Mailgun is a reliable and powerful email service provider used to send, receive, and track emails programmatically. Whether you’re building a simple contact form or managing a full-scale email marketing campaign, Mailgun is a great tool.
+
+### Step-by-Step Guide to Obtain Your Mailgun API Key
+
+#### Step 1: Create a Mailgun Account
+
+1. **Visit the Mailgun Website**: Go to [Mailgun’s website](https://www.mailgun.com) and click the “Sign Up” button.
+2. **Sign Up**: Enter your details and create an account. Mailgun offers a free tier that’s great for testing and small-scale projects.
+3. **Verify Your Email**: After signing up, you’ll receive a verification email. Make sure to verify your email to unlock Mailgun’s features.
+
+#### Step 2: Set Up Your Domain
+
+1. **Go to the Domains Tab**: In your Mailgun dashboard, navigate to the **Domains** section.
+2. **Add a New Domain**: Click “Add New Domain.” Here, you’ll need to enter a domain name. If you don’t have your own domain, you can use a subdomain like `mg.yourdomain.com`.
+3. **Verify Your Domain**: Follow the steps provided by Mailgun to verify your domain. This usually involves updating your DNS records.
+
+#### Step 3: Access Your API Key
+
+1. **Go to API Settings**: In your dashboard, go to **Settings > API Keys**.
+2. **Copy the API Key**: You’ll see a key labeled `Private API Key`. Click the “Copy” button next to it. This key is crucial for authenticating your API requests.
+
+#### Step 4: Update Your Project’s Environment Variables
+
+Now that you have your API key, it’s time to configure your project.
+
+1. **Open Your Project’s `.env` File**: In the root of your project, open the `.env` file. If it doesn’t exist, create one.
+2. **Add the Following Variables**:
+
+```bash
+MAILGUN_API_KEY=your-private-api-key-here
+EMAIL_DOMAIN_NAME=your-domain.com
+```
+
+Replace `your-private-api-key-here` with the actual API key you copied and `your-domain.com` with your Mailgun domain.
+
+### Conclusion
+
+Setting up Mailgun is essential for handling email operations in your project. With your API key and domain configured, you’re ready to start sending emails programmatically. For more advanced settings and features, explore Mailgun’s documentation.
+
+### Additional Resources
+
+- [Mailgun Documentation](https://documentation.mailgun.com/)
+- [Troubleshooting Mailgun Issues](https://help.mailgun.com/hc/en-us)
