@@ -8,7 +8,7 @@ import simpleGit from "simple-git";
 import figlet from "figlet";
 import fs from "fs";
 import { createSpinner } from "nanospinner";
-import { exec } from "child_process";
+import { spawn } from "child_process";
 
 const git = simpleGit();
 
@@ -64,6 +64,14 @@ const askFeature = async () => {
 };
 
 async function cloneRepo(branch, targetPath, packageManager, projectName) {
+  if (fs.existsSync(targetPath) && fs.readdirSync(targetPath).length > 0) {
+    console.log(
+      chalk.red(
+        `\nError: The directory "${targetPath}" already exists and is not empty.`
+      )
+    );
+    return;
+  }
   const repoUrl = "https://github.com/lwinmoepaing/niwi.git";
 
   // Clone the specific branch
@@ -161,6 +169,17 @@ async function cloneRepo(branch, targetPath, packageManager, projectName) {
     }
   }
 
+  // Copy .env.example to .env if it exists
+  const envExamplePath = path.join(finalPath, ".env.example");
+  const envPath = path.join(finalPath, ".env");
+
+  if (fs.existsSync(envExamplePath)) {
+    fs.copyFileSync(envExamplePath, envPath);
+    console.log(chalk.green("✔ .env.example copied to .env ."));
+  } else {
+    console.log(chalk.yellow("⚠️  .env.example not found, skipping the copy."));
+  }
+
   console.log(
     chalk.green(`✔ Created ${path.basename(targetPath)} successfully.`)
   );
@@ -173,51 +192,43 @@ function installDependencies(projectPath, packageManager, projectName) {
   console.log(
     gradientText(`Installing dependencies using ${packageManager}...`)
   );
-
-  const spinner = createSpinner("Installing...");
+  console.log("It'll take a little bit of time.\n");
 
   try {
     const installCmd =
       packageManager === "yarn"
-        ? "yarn install"
+        ? ["install"]
         : packageManager === "npm"
-          ? "npm install --legacy-peer-deps"
-          : `${packageManager} install`;
-    spinner.start();
+          ? ["install", "--legacy-peer-deps"]
+          : ["install"];
 
     // Attempt to install dependencies and suppress output
-    exec(installCmd, { cwd: projectPath }, (error, stdout, stderr) => {
-      if (error) {
-        spinner.error();
-        console.error(chalk.red(`\nError: ${error.message}`));
+    const installProcess = spawn(packageManager, installCmd, {
+      cwd: projectPath,
+      stdio: "inherit", // This ensures the output is shown in real-time
+    });
+
+    installProcess.on("close", (code) => {
+      if (code === 0) {
+        // Clear the console and show final instructions
+        console.log("\n-----");
+        console.log(chalk.green(`✔ Setup complete! Here are the next steps:`));
+        console.log("-----");
+        console.log(`\ncd ${projectName}`);
+        console.log(
+          `${packageManager} ${packageManager === "npm" ? "run " : ""}dev`
+        );
+        console.log("\n-----");
+        console.log(gradientText(`Thank you for using Niwi-Starter!`));
+      } else {
         console.error(
           chalk.red(
-            "Something went wrong during the installation. Please check the error above.\n"
+            `\nError: The installation process exited with code ${code}.`
           )
         );
-        return;
       }
-
-      if (stderr) {
-        console.error(chalk.yellow(`\nstderr: ${stderr}`));
-      }
-
-      if (stdout) {
-        console.log(stdout);
-      }
-
-      spinner.success();
-      // Clear the console and show final instructions
-      console.clear();
-      console.log(chalk.green(`\n✔ Setup complete! Here are the next steps:`));
-      console.log(gradientText(`\ncd ${projectName}`));
-      console.log(gradientText(`${packageManager} run dev`));
-      console.log("\n-----");
-      console.log(gradientText(`Thank you for using Niwi-Starter!`));
-      console.log("-----");
     });
   } catch (error) {
-    spinner.error();
     console.error(chalk.red(`\nError: ${error.message}`));
     console.error(
       chalk.red(
