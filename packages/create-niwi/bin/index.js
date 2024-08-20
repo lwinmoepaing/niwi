@@ -202,15 +202,19 @@ function installDependencies(projectPath, packageManager, projectName) {
         console.error(chalk.yellow(`\nstderr: ${stderr}`));
       }
 
+      if (stdout) {
+        console.log(stdout);
+      }
+
       spinner.success();
       // Clear the console and show final instructions
       console.clear();
       console.log(chalk.green(`\n✔ Setup complete! Here are the next steps:`));
-      console.log(gradientText(`\n cd ${projectName}`));
+      console.log(gradientText(`\ncd ${projectName}`));
       console.log(gradientText(`${packageManager} run dev`));
-      console.log("\n-----")
-      console.log(gradientText(`Thank you for using Niwi-Starter!\n`));
-      console.log("\n-----")
+      console.log("\n-----");
+      console.log(gradientText(`Thank you for using Niwi-Starter!`));
+      console.log("-----");
     });
   } catch (error) {
     spinner.error();
