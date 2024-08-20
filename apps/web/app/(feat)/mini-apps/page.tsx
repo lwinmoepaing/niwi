@@ -8,7 +8,6 @@ export const metadata = getSeoTag({
     "Niwi Starter is a comprehensive, easy-to-use template for rapidly bootstrapping a Next.js application with essential features like authentication, blog management, email integration, database pre-seeding, and more. 🎉",
 });
 
-
 function MiniAppPage() {
   return (
     <>
@@ -34,6 +33,9 @@ function MiniAppPage() {
           </Link>
           <Link href="/mini-apps/memory-game">
             <Button variant={"niwi"}>Memory Game</Button>
+          </Link>
+          <Link href="/mini-apps/wallet">
+            <Button variant={"niwi"}>E-Wallet</Button>
           </Link>
         </div>
       </section>
