@@ -1,0 +1,101 @@
+---
+sidebar_position: 2
+---
+
+import NiwiAlert from "../../src/components/niwi/niwi-alert";
+
+# Niwi Blog
+
+## Built-in Blog Features
+
+<div className="relative rounded-[12px] overflow-hidden my-5">
+  <img className="w-full" src="/blog/blog-comment-bookmark-copy-feat.gif" />
+</div>
+
+The Niwi Starter blog comes with essential features that enhance user interaction. Readers can easily `comment`, `bookmark`, `share`, and `favorite` blog posts, making the blog more engaging and user-friendly.
+
+### Custom Emoji Support
+
+<div className="relative rounded-[12px] overflow-hidden my-5">
+  <img className="w-full" src="/blog/using-emojis.gif" />
+</div>
+
+Niwi Starter allows you to personalize your blog with custom emojis. You can add emojis using a simple `:` keyword. The configuration is flexible, allowing you to modify or introduce your own emojis effortlessly.
+
+If you’re interested in adding your own emojis, the process is straightforward, and we’ll guide you step-by-step below.
+
+### How to Add Custom Emojis
+
+<div className="relative rounded-[12px] overflow-hidden my-5">
+  <img className="w-full" src="/blog/adding-emojis.gif" />
+</div>
+
+To add a new emoji, follow these steps:
+
+1. First, place your new `gif` file inside the `/public/images/emojis` directory.
+
+2. Next, update the configuration in the file located at: `emoji-config.ts`
+
+This step finalizes the addition of your custom emoji. For example, if your new GIF file is named `hugging-face.gif`, the configuration would look like this:
+
+```tsx title="/components/niwi-blog/niwi-text-editor/plugins/NiwiEmojiPlugin/config/emoji-config.ts"
+export const customEmoji: Map<string, [string, string]> = new Map([
+  // Custom Gifs
+  [":3", ["emoji-img:meow_party.gif", " "]],
+  [":B", ["emoji-img:bo_party.gif", " "]],
+  [":F", ["emoji-img:fire_yellow.gif", " "]],
+  [":R", ["emoji-img:raiva.gif", " "]],
+  [":?", ["emoji-img:meow_question.gif", " "]],
+  [":b", ["emoji-img:blog.gif", " "]],
+  [":r", ["emoji-img:pink_ribbon.gif", " "]],
+  [":C", ["emoji-img:cat_scratch.gif", " "]],
+
+  // Adding a New Gif
+  [":H", ["emoji-img:hugging-face.gif", " "]],
+]);
+```
+
+Once this is done, your new emojis will be available for use in the blog editor, enhancing the customization options for your posts.
+
+## Unsplash Image Picker Integration
+
+If you want to include an Unsplash image picker in your blog, you'll need to set up the following environment variable:
+
+Add the `NEXT_PUBLIC_UNSPLASH_ACCESS_KEY` to your `.env` file with your Unsplash API access key.
+
+```env
+NEXT_PUBLIC_UNSPLASH_ACCESS_KEY=your-access-key-here
+```
+
+<div className="relative rounded-[12px] overflow-hidden my-5">
+  <img className="w-full" src="/blog/unsplash.gif" />
+</div>
+
+### How to Get Your Unsplash API Access Key
+
+Follow these steps to obtain your Unsplash API access key:
+
+1. **Sign Up or Log In to Unsplash**  
+   Visit [unsplash.com](https://unsplash.com) and create an account if you don’t have one. If you already have an account, simply log in.
+
+2. **Apply as a Developer**  
+   Go to the [Unsplash Developer page](https://unsplash.com/developers) and click on **Get Started**. You’ll need to fill out a brief application explaining how you plan to use the API.
+
+3. **Create a New Application**  
+   Once your application is approved, navigate to the Developer Dashboard and click on **New Application**. Fill in the required details like the application name, description, and website URL.
+
+4. **Get Your Access Key**  
+   After creating your application, you’ll receive an **Access Key** and a **Secret Key**. You only need the Access Key for Niwi Starter. Copy it for the next step.
+
+5. **Add the Access Key to Your `.env` File**  
+   In your project’s root directory, create or update the `.env` file with the following line:
+
+   ```env
+   NEXT_PUBLIC_UNSPLASH_ACCESS_KEY=your-access-key-here
+   ```
+
+6. **Save and Restart Your Project**  
+   Make sure to save your changes and restart your development server to apply the configuration.
+
+This feature allows you to conveniently search for and insert high-quality images from Unsplash directly within the blog editor.
+
