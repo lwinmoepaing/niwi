@@ -165,6 +165,12 @@ li > a.menu__link {
   background-image: url(/img/niwi-testing.gif);
 }
 
+.niwi-mini-apps > a::before {
+  width: 17px;
+  height: 15px;
+  background-image: url(/img/niwi-mini-apps.gif);
+}
+
 /* Headers */
 .markdown h1:first-child {
   font-size: 2rem;
@@ -308,4 +314,19 @@ code {
 
 .language-tsx > div:first-child {
   border: 1px solid var(--tabs-border);
+}
+
+.markdown ol {
+  list-style-type: decimal;
+  padding-left: 18px;
+}
+
+.markdown ul {
+  list-style-type: disc;
+  padding-left: 18px;
+}
+
+.sperate-top-navbar {
+  border-top: 1px solid var(--navbar-border);
+  padding-top: 2px;
 }

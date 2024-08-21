@@ -1,0 +1,95 @@
+---
+
+sidebar_position: 1
+
+---
+
+# Authentication
+
+## Niwi Basic Auth
+
+<div className="relative rounded-[12px] overflow-hidden my-5">
+  <img className="w-full" src="/auth/default-login.gif" />
+</div>
+
+Niwi provides basic email and password credential authentication. The Niwi Auth service is built on top of the `next-auth` service. You can view the authentication logic in the `/libs/auth/next-auth.ts` file.
+
+### Default Credential Auth
+
+Niwi uses the Credentials Provider as the default login system. The Credentials Provider allows you to handle signing in with custom credentials, giving you the flexibility to modify your authentication logic.
+
+```tsx title="/libs/auth/next-auth.ts"
+Credentials({
+    async authorize(credentials) {
+        // All authentication logic here
+        // ...
+        // ...
+        return user;
+    },
+}),
+```
+
+## Other Social Auth
+
+Niwi also supports social OAuth login with providers like `GoogleProvider`, `GithubProvider`, `FacebookProvider`, and `TwitterProvider`. You can check how this is implemented in the `/libs/auth/next-auth.ts` file.
+
+```tsx title="/libs/auth/next-auth.ts"
+providers: [
+  GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+    authorization: {
+      prompt: "consent",
+      access_type: "offline",
+      response_type: "code",
+    },
+  }),
+  // ... Other OAuth Providers
+];
+```
+
+### Setting Up Google Auth
+
+To use Google Authentication, add the following environment variables to your `.env` file with your Google API keys:
+
+```env
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+```
+
+If you’re a complete beginner and don't know how to get Google API keys, please refer to this guide: [How to get Google Auth keys?](how-to-get-google-auth-keys.mdx).
+
+### Setting Up Facebook Auth
+
+To use Facebook Authentication, add the following environment variables to your `.env` file with your Facebook API keys:
+
+```env
+FACEBOOK_CLIENT_ID=your-facebook-client-id
+FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
+```
+
+If you’re a complete beginner and don't know how to get Facebook API keys, please refer to this guide: [How to get Facebook Auth keys?](how-to-get-facebook-auth-keys.mdx).
+
+
+### Setting Up Twitter Auth
+
+To use Twitter Authentication, add the following environment variables to your `.env` file with your Twitter API keys:
+
+```env
+TWITTER_CLIENT_ID=your-twitter-client-id
+TWITTER_CLIENT_SECRET=your-twitter-client-secret
+```
+
+If you’re a complete beginner and don't know how to get Twitter API keys, please refer to this guide: [How to get Twitter Auth keys?](how-to-get-twitter-auth-keys.mdx).
+
+
+### Setting Up GitHub Auth
+
+To use GitHub Authentication, add the following environment variables to your `.env` file with your GitHub API keys:
+
+```env
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+```
+
+If you’re a complete beginner and don't know how to get Github API keys, please refer to this guide: [How to get Github Auth keys?](how-to-get-github-auth-keys.mdx).

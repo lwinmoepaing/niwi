@@ -251,7 +251,7 @@ const config = {
         });
 
         if (!isCorrectPassword) {
-          throw new Error("Do you forgot your password?");
+          throw new Error("Do you forget your password?");
         }
 
         return user;
