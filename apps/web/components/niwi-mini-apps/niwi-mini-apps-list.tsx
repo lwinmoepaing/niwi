@@ -55,12 +55,18 @@ function NiwiMiniAppsList() {
       image: "/images/mini-apps/tic-tac-toe.jpg",
       link: "/mini-apps/tic-tac-toe",
     },
-    // {
-    //   title: "Coming Soon",
-    //   body: "Stay tuned for the next mini-apps.",
-    //   image: "/images/niwi-blog.png",
-    //   link: "/mini-apps",
-    // },
+    {
+      title: "Wallet",
+      body: "Wallet for Expense tracker.",
+      image: "/images/mini-apps/wallet.jpg",
+      link: "/mini-apps/wallet",
+    },
+    {
+      title: "Coming Soon",
+      body: "Stay tuned for the next mini-apps.",
+      image: "/images/niwi-blog.png",
+      link: "/mini-apps",
+    },
   ] as const;
 
   return (
