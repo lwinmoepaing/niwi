@@ -1,5 +1,6 @@
 import NiwiBlogProfile from "@/components/niwi-blog/niwi-blog-profile/niwi-blog-profile";
 import NiwiEmptyBlog from "@/components/niwi-blog/niwi-blog-profile/niwi-empty-blog";
+import NiwiMiniAppsList from "@/components/niwi-mini-apps/niwi-mini-apps-list";
 import NiwiSubscribeCardList from "@/components/niwi-payment/niwi-subscribe-card-list";
 import { BorderBeam } from "@/components/niwi-ui/border-beam/border-beam";
 import Button from "@/components/niwi-ui/button/button";
@@ -68,12 +69,9 @@ export default async function HomePage() {
           </>
         )}
 
-        <div className="flex flex-row gap-x-[16px] justify-center mt-[20px]">
-          <Link href="/mini-apps">
-            <Button variant={"outline"}>Go to Mini-Apps</Button>
-          </Link>
-        </div>
       </section>
+
+      <NiwiMiniAppsList />
 
       {isAvailableBlogs ? (
         <section className="w-full max-w-[720px] mx-auto mt-[20px]">

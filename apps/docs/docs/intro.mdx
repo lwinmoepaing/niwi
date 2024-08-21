@@ -44,16 +44,7 @@ Default Template and Pre-built Project. First, let's make default version.
 
 After installing niwi, enter niwi-starter directory `cd niwi-starter` .
 
-
-### 2. Setup Environment File
-
-Setting up your environment file.
-
-```bash
-cp .env.example .env
-```
-
-### 3. Connect Mongo Database
+### 2. Connect Mongo Database
 
 Please add your Mongo Database url to `.env` file
 
@@ -61,19 +52,13 @@ Please add your Mongo Database url to `.env` file
 DATABASE_URL="paste your mongo db url"
 ```
 
-### 4. Generate Prisma Client
-
-```bash npm2yarn
-npm run db:generate
-```
-
-### 5. Seed Pre-Data
+### 3. Seed Pre-Data
 
 ```bash npm2yarn
 npm run seed
 ```
 
-### 6. We can start Niwi now
+### 4. We can start Niwi now
 
 ```bash npm2yarn
 npm run dev

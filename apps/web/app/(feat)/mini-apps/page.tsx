@@ -1,3 +1,4 @@
+import NiwiMiniAppsList from "@/components/niwi-mini-apps/niwi-mini-apps-list";
 import Button from "@/components/niwi-ui/button/button";
 import { getSeoTag } from "@/libs/seo/seo";
 import Link from "next/link";
@@ -16,7 +17,8 @@ function MiniAppPage() {
           <Button variant={"niwi"}>Go Back Home</Button>
         </Link>
       </section>
-      <section className="max-w-[760px] mx-auto px-[20px] mb-8">
+      <NiwiMiniAppsList />
+      {/* <section className="max-w-[760px] mx-auto px-[20px] mb-8">
         <h1>Mini App Page</h1>
 
         <div className="mt-[20px] flex flex-row gap-x-[10px]">
@@ -31,14 +33,20 @@ function MiniAppPage() {
           <Link href="/mini-apps/screenshot-url">
             <Button variant={"niwi"}>Preview Screenshot</Button>
           </Link>
+
           <Link href="/mini-apps/memory-game">
             <Button variant={"niwi"}>Memory Game</Button>
           </Link>
+
           <Link href="/mini-apps/wallet">
             <Button variant={"niwi"}>E-Wallet</Button>
           </Link>
+
+          <Link href="/mini-apps/tic-tac-toe">
+            <Button variant={"niwi"}>Tic Tac Toe Game</Button>
+          </Link>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
