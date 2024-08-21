@@ -92,7 +92,7 @@ function NiwiBlogProfile({
             <Image
               src={blog.user?.image || "/images/auth/profile.jpg"}
               alt={blog.user?.name || "-"}
-              objectFit="cover"
+              className="object-cover"
               fill
             />
           </div>
@@ -153,11 +153,10 @@ function NiwiBlogProfile({
         <div className="w-[35%] absolute right-0 top-0 h-[100%] py-[15px] pr-[15px]">
           <div className="relative w-full h-full rounded-[15px] overflow-hidden">
             <Image
-              className="w-full h-full"
+              className="w-full h-full object-cover"
               src={blog.previewImage}
               alt={blogTitle}
               fill
-              objectFit="cover"
             />
           </div>
         </div>

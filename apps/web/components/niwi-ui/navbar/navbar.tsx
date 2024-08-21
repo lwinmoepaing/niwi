@@ -29,7 +29,7 @@ export default function Navbar({ user }: { user?: User }) {
                 src={user?.image || "/images/auth/profile.jpg"}
                 alt={user?.name || "-"}
                 fill
-                objectFit="cover"
+                className=" object-cover"
               />
             </Link>
           )}

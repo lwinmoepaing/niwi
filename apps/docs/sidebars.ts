@@ -42,6 +42,12 @@ const sidebars: SidebarsConfig = {
       id: "mini-apps",
       className: "side-link-gif niwi-mini-apps sperate-top-navbar",
     },
+    {
+      type: "doc",
+      label: "Portfolio Template",
+      id: "portfolio-template",
+      className: "side-link-gif niwi-mini-apps",
+    },
     // {
     //   type: "category",
     //   label: "Testing",
