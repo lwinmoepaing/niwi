@@ -17,6 +17,7 @@ function NiwiBookmarkIcon({ onClick, active }: NiwiBookmarkIconProps) {
         height={15}
         alt="Shining Star"
         className="animated-star"
+        unoptimized
       />
     </button>
   );
