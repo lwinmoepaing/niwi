@@ -81,6 +81,7 @@ function NiwiMiniAppsList() {
       <div className="flex flex-row flex-wrap gap-[25px] my-5 justify-center">
         {list.map((item) => (
           <MiniAppCard
+            key={item.title}
             title={item.title}
             body={item.body}
             image={item.image}
