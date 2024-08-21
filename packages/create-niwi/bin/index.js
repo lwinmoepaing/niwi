@@ -20,7 +20,7 @@ const line = () => console.log(chalk.blue("-------------------- \n"));
 
 const welcome = async () => {
   const iconText = await figlet("Niwi-Starter!!");
-  await sleep(1000);
+  await sleep(200);
   const welcomeTitle = gradientText(iconText);
   console.log(welcomeTitle);
   line();
@@ -51,7 +51,7 @@ const askFeature = async () => {
   const answers = await inquirer.prompt(QUESTIONS);
   const spinner = createSpinner("Checking features...");
   spinner.start();
-  await sleep(800);
+  await sleep(300);
   spinner.success();
 
   const projectPath = path.join(process.cwd(), answers.projectName);
@@ -83,8 +83,6 @@ async function cloneRepo(branch, targetPath, packageManager, projectName) {
     branch === "default" ? "main" : branch,
   ]);
   spinner.success();
-  await sleep(500);
-  spinner.clear();
 
   // Remove all folders except `app/web`
   console.log(gradientText("Upadating Dependencies..."));
