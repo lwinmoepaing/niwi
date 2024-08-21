@@ -1,0 +1,25 @@
+---
+
+sidebar_position: 5
+
+---
+
+# How to Get Github Auth Keys
+
+## Step-by-Step Guide
+
+1. Go to your [GitHub Settings](https://github.com/settings/profile).
+2. In the left sidebar, scroll down and click on **Developer settings**.
+3. Under **Developer settings**, select **OAuth Apps** and click **New OAuth App** to create a new OAuth application.
+4. If it’s your first time, you’ll see a “Register a new application” option. If not, click on **New OAuth App**.
+5. Fill out the "Register a new OAuth application" form:
+   - For **Homepage URL**, enter `http://localhost:3000` (for development).
+   - For **Authorization callback URL**, set it to `http://localhost:3000/api/auth/callback/github`.
+6. Once you complete the registration, you’ll receive your **Client ID** and **Client Secret**.
+
+Add these credentials to your `.env` file:
+
+```env
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+```

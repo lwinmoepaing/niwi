@@ -4,6 +4,7 @@ module.exports = {
   content: [
     "./docs/**/*.{ts,tsx,mdx}",
     "./src/**/*.{ts,tsx}",
+    "./sidebars.ts"
   ],
   prefix: "",
   theme: {

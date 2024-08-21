@@ -1,0 +1,24 @@
+---
+
+sidebar_position: 3
+
+---
+
+# How to Get Facebook Auth Keys
+
+## Step-by-Step Guide
+
+1. Go to the [Facebook Developers](https://developers.facebook.com/) website and sign in.
+2. Navigate to the [Apps Dashboard](https://developers.facebook.com/apps) and click **Create App**.
+3. In the "Use Case" options, select **Customize** under "Authentication and Account Creation".
+4. First, go to the **Permissions** section, find the **email** permission, and click the **Request** button.
+5. Next, go to the **Settings** section and set the **Deauthorize Callback URL** to `https://localhost:3000/api/auth/callback/facebook` (for development).
+6. In the main left sidebar, select **App Settings**. You’ll see two options: **Basic** and **Advanced**.
+7. Click on **Basic**, where you’ll find your **App ID** and **App Secret**.
+
+Add these credentials to your `.env` file:
+
+```env
+FACEBOOK_CLIENT_ID=your-facebook-app-id
+FACEBOOK_CLIENT_SECRET=your-facebook-app-secret
+```

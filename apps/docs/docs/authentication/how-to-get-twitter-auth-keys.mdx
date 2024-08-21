@@ -1,0 +1,25 @@
+---
+
+sidebar_position: 4
+
+---
+
+# How to Get Twitter Auth Keys
+
+## Step-by-Step Guide
+
+1. Go to the [Twitter Developer Dashboard](https://developer.twitter.com/en/portal/dashboard). If you don’t have a developer account, sign up first.
+2. Once you’re in the developer dashboard, select **Projects & Apps** from the sidebar.
+3. You’ll see a nested structure where the first level is the Project, and the inner level contains the Application.
+4. Click on your application, which will take you to the app details page. Scroll down until you see **User authentication settings**.
+5. Click **Setup**, which will guide you through the "User authentication settings".
+6. Under **Type of App**, select **Web App, Automated App, or Bot**.
+7. In the **App Info** section, set the **Callback URI / Redirect URL** to `http://localhost:3000/api/auth/callback/twitter`.
+8. After adding your domain, you’ll receive your **Client ID** and **Client Secret**.
+
+Add these credentials to your `.env` file:
+
+```env
+TWITTER_CLIENT_ID=your-twitter-client-id
+TWITTER_CLIENT_SECRET=your-twitter-client-secret
+```
