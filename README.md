@@ -34,26 +34,22 @@ In addition to the default features, Niwi Starter offers additional feature that
 
 ## Niwi Portfolio
 
-<div style="max-width: 600px; height: auto;  position: relative; margin: 5px auto 12px auto;" >
-  <img
-    style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px; display: block;"
-    src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/portfolio-installation.gif"
-    alt="Niwi Starter - Portfolio"
-  />
-</div>
+<img
+  style="width: 480px; height: 100%;"
+  src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/portfolio-installation.gif"
+  alt="Niwi Starter - Portfolio"
+/>
 
 You can build a Stunning Portfolio in Less Than 5 Minutes
 Niwi Starter makes it quick and easy to create a beautiful, professional portfolio using Next.js.
 
 ## Niwi Mini-Apps
 
-<div style="max-width: 600px; height: auto;  position: relative; margin: 5px auto 12px auto;" >
-  <img
-    style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px; display: block;"
-    src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/mini-apps.gif"
-    alt="Niwi Starter Mini Apps Preview"
-  />
-</div>
+<img
+  style="width: 480px; height: 100%;"
+  src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/mini-apps.gif"
+  alt="Niwi Starter Mini Apps Preview"
+/>
 
 Niwi Starter is packed with mini-apps designed to help you level up your React.js skills. Whether you’re a beginner or looking for fun projects, we’ve got you covered! 🚀
 
