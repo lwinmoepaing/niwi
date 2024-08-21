@@ -29,9 +29,7 @@ const HeroSection = () => {
           <div className="flex">
             <span className="inline-block max-w-[600px] md:text-lg">
               <>
-                {hero.message} {hero.linkPrefix}
-                <HeroLinks />
-                {hero.linkSuffix}
+                {hero.message} {hero.linkPrefix} <HeroLinks /> {hero.linkSuffix}
               </>
             </span>
           </div>
