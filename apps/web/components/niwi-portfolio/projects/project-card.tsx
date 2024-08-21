@@ -28,6 +28,7 @@ const ProjectCard: React.FC<
             alt={projectTitle}
             fill
             objectFit="cover"
+            unoptimized
           />
         </div>
       </Link>

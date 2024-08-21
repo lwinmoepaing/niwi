@@ -12,10 +12,12 @@ import {
 } from "@/feats/blog/services/blog.service";
 import { auth } from "@/libs/auth/next-auth";
 import { getSeoTag } from "@/libs/seo/seo";
+import portfolioConfig from "@/portfolio.config";
 import { PublishedBlog } from "@/types/blog-response";
 
 export const metadata = getSeoTag({
-  title: "Lwin Moe Paing",
+  title: portfolioConfig.name,
+  image: portfolioConfig.hero.image,
   description:
     "Senior Frontend Engineer. I love building things and helping people. Very active on Facebook and also Twitter 🎉",
 });

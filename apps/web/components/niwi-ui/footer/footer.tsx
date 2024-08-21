@@ -1,8 +1,11 @@
 import { lancelotFont } from "@/libs/font/font-helper";
 import { cn } from "@/libs/utils";
+import portfolioConfig from "@/portfolio.config";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+const { footerHead, link, channel } = portfolioConfig.footer;
 
 const LinkItem = ({
   href,
@@ -34,15 +37,13 @@ function Footer() {
             <Image
               width={18}
               height={18}
-              src="/niwi-logo.svg"
+              src={footerHead.icon}
               alt="Niwi Starter"
-              className="w-[18px] h-[18px] inline-block mr-1 relative top-[-2px]"
+              className="w-[18px] h-[18px] inline-block mr-1 relative top-[-2px] object-contain"
             />
-            Build with Niwi Starter
+            {footerHead.headMessage}
           </h1>
-          <p className="text-sm">
-            Welcome to my profile.
-          </p>
+          <p className="text-sm">{footerHead.message}</p>
         </div>
         <div className="lg:text-center text-sm">
           <h1
@@ -51,25 +52,23 @@ function Footer() {
               lancelotFont.className
             )}
           >
-            {" "}
-            Links{" "}
+            {link.title}
           </h1>
-          <LinkItem href="https://niwi-docs.vercel.app/">
-            {" "}
-            Documentation{" "}
-          </LinkItem>
-          <LinkItem href="https://x.com/LwinMoePaingDev"> Twitter </LinkItem>
-          <LinkItem href="https://github.com/lwinmoepaing/">
-            {" "}
-            Github{" "}
-          </LinkItem>
+          {link.links.map((item) => (
+            <LinkItem key={item.url} href={item.url}>
+              {item.name}
+            </LinkItem>
+          ))}
         </div>
         <div className="lg:text-center text-sm">
           <h1 className={cn("mb-2 lg:mb-3 text-2xl", lancelotFont.className)}>
-            {" "}
-            Channel{" "}
+            {channel.title}
           </h1>
-          <LinkItem href=" https://discord.gg/7Vpja2RKTG"> Discord </LinkItem>
+          {channel.links.map((item) => (
+            <LinkItem key={item.url} href={item.url}>
+              {item.name}
+            </LinkItem>
+          ))}
         </div>
       </div>
     </footer>

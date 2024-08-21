@@ -1,30 +1,7 @@
 import Button from "@/components/niwi-ui/button/button";
+import portfolioConfig from "@/portfolio.config";
 
-const skills = [
-  "Next.js",
-  "React.js",
-  "Javascript",
-  "Typescript",
-  "React Native",
-  "Solid.js",
-  "Vue.js",
-  "Node",
-  "Express",
-  "MongoDB",
-  "Prisma",
-  "Zod",
-  "React Hook Form",
-  "React Query",
-  "Superbase",
-  "Storybook",
-  "Redux",
-  "Zustand",
-  "AJAX",
-  "Axios",
-  "CSS",
-  "SASS",
-  "SCSS",
-];
+const { skills } = portfolioConfig;
 
 function SkillsSection() {
   return (
