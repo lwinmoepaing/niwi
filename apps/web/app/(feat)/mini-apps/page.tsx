@@ -33,8 +33,13 @@ function MiniAppPage() {
           <Link href="/mini-apps/screenshot-url">
             <Button variant={"niwi"}>Preview Screenshot</Button>
           </Link>
+
           <Link href="/mini-apps/memory-game">
             <Button variant={"niwi"}>Memory Game</Button>
+          </Link>
+
+          <Link href="/mini-apps/tic-tac-toe">
+            <Button variant={"niwi"}>Tic Tac Toe Game</Button>
           </Link>
         </div>
       </section> */}
