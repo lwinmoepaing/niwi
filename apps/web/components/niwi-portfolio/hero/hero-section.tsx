@@ -29,7 +29,7 @@ const HeroSection = () => {
           <div className="flex">
             <span className="inline-block max-w-[600px] md:text-lg">
               <>
-                {hero.message} Catch me active on {hero.linkPrefix}
+                {hero.message} {hero.linkPrefix}
                 <HeroLinks />
                 {hero.linkSuffix}
               </>

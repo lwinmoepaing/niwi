@@ -3,7 +3,7 @@ const heroConfig = {
   image: "/images/auth/lwin-moe-paing.jpeg",
   message:
     "Senior Frontend Engineer passionate about building and helping others.",
-  linkPrefix: "",
+  linkPrefix: "Catch me active on",
   linkSuffix: "🎉",
   links: [
     { name: "Twitter", link: "https://x.com/LwinMoePaingDev" },
@@ -195,7 +195,6 @@ const projectConfig = {
       description:
         "This platform welcomes all software engineers in Myanmar. Whether you are into desktop, web, mobile, or cloud engineering, this is your space to connect, learn, and share for all software engineers.",
     },
-
     {
       image: "/images/portfolio/invoice.gif",
       projectTitle: "Invoice Maker",
