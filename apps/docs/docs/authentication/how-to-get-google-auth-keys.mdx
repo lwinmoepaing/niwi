@@ -1,0 +1,24 @@
+---
+
+sidebar_position: 2
+
+---
+
+# How to Get Google Auth Keys
+
+## Step-by-Step Guide
+
+- Go to the [Google Cloud Console](https://console.cloud.google.com/).
+- Create a new project or select an existing one.
+- In the left-hand menu, navigate to **APIs & Services** > **Credentials**.
+- Click **Create Credentials** and choose **OAuth client ID**.
+- Set up the consent screen by following the prompts. Choose **Web application** as the application type.
+- Under **Authorized redirect URIs**, add your application’s redirect URI. For local development, this is typically: `http://localhost:3000/api/auth/callback/google`.
+- After completing the setup, you’ll receive your **Client ID** and **Client Secret**.
+
+Next, add these credentials to your `.env` file:
+
+```env
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+```
