@@ -1,6 +1,6 @@
 {
   "name": "create-niwi",
-  "version": "0.0.2",
+  "version": "0.0.7",
   "private": false,
   "main": "bin/index.js",
   "type": "module",
