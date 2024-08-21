@@ -38,6 +38,10 @@ function MiniAppPage() {
             <Button variant={"niwi"}>Memory Game</Button>
           </Link>
 
+          <Link href="/mini-apps/wallet">
+            <Button variant={"niwi"}>E-Wallet</Button>
+          </Link>
+
           <Link href="/mini-apps/tic-tac-toe">
             <Button variant={"niwi"}>Tic Tac Toe Game</Button>
           </Link>
