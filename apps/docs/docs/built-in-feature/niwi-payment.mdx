@@ -1,0 +1,169 @@
+---
+sidebar_position: 5
+---
+
+# Niwi Payment
+
+## Stripe Payment Integration Guide
+
+### Getting Started with Stripe
+
+1. Visit [stripe.com](https://stripe.com) and create a new account.
+2. Access your dashboard at [https://dashboard.stripe.com](https://dashboard.stripe.com).
+3. In the **Developer** section, copy the **Publishable Key** and **Secret Key**.
+4. Click on **Developer** > **Webhooks** and save the **endpoint_secret** value for testing in a local environment.
+5. Set your environment variables using the obtained keys.
+
+### Prerequisites
+
+1. Install the Stripe CLI:
+    - For macOS: Run `brew install stripe/stripe-cli/stripe`.
+    - For other systems: Refer to [Stripe CLI Documentation](https://stripe.com/docs/stripe-cli) for installation instructions.
+
+### Command Line Setup
+
+1. Log in to Stripe:  
+   ```bash
+   stripe login
+   ```
+2. Start listening for webhooks and forward them to your local server:  
+   ```bash
+   stripe listen --forward-to localhost:3000/api/payment/webhook
+   ```
+3. Trigger a payment intent in a new terminal tab:  
+   ```bash
+   stripe trigger payment_intent.succeeded
+   ```
+
+### Creating a Subscription Plan
+
+1. In the Stripe dashboard, navigate to **Product catalog** > **+ Add Product**.
+2. Enter a product name, e.g., "Niwi Basic Monthly Plan".
+3. Set the price and billing frequency (e.g., Monthly).
+4. Note down the **Price ID** and update your environment variables.
+
+### Setting Environment Variables
+
+Add the following keys to your `.env` file:
+
+```env
+# Stripe Payment Service
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=your_publishable_key_here
+STRIPE_SECRET_KEY=your_secret_key_here
+STRIPE_WEBHOOK_KEY=your_webhook_secret_here
+
+# Subscription Price IDs from Stripe Account
+NEXT_PUBLIC_BASIC_MONTHLY_PRICE_ID=your_monthly_price_id_here
+NEXT_PUBLIC_BASIC_YEARLY_PRICE_ID=your_yearly_price_id_here
+NEXT_PUBLIC_PRO_MONTHLY_PRICE_ID=your_pro_monthly_price_id_here
+NEXT_PUBLIC_PRO_YEARLY_PRICE_ID=your_pro_yearly_price_id_here
+```
+
+---
+
+## Stripe Webhook Setup and Handling
+
+This guide explains how to handle Stripe webhook events for subscription-related activities and checkout sessions.
+
+file path: `/app/api/payment/webhook/route.ts`
+
+### Key Components
+
+#### 1. **Setting Up the Stripe Client**
+
+```ts
+const secretKey = process.env.STRIPE_SECRET_KEY || "";
+const webHookKey = process.env.STRIPE_WEBHOOK_KEY || "";
+
+const stripe = new Stripe(secretKey, { apiVersion: "2024-06-20" });
+```
+
+#### 2. **Handling Subscription Events**
+
+The `handleSubscriptionEvent` function manages events like subscription creation, updates, and deletions:
+
+```ts
+const handleSubscriptionEvent = async (event: Stripe.Event, type: handleSubscriptionEventType) => {
+  // Event handling logic
+};
+```
+
+#### 3. **Handling Checkout Session Completion**
+
+The `handleCheckoutSessionCompleted` function processes checkout session completion events:
+
+```ts
+const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
+  // Handle metadata and update subscriptions if applicable
+};
+```
+
+#### 4. **The Main Webhook Handler**
+
+The `POST` function serves as the webhook endpoint:
+
+```ts
+export async function POST(request: NextRequest) {
+  // Webhook logic and event routing
+}
+```
+
+- **Signature Verification:** Verifies the payload using the `Stripe-Signature` header.
+- **Event Routing:** Routes events like:
+  - `checkout.session.completed` → `handleCheckoutSessionCompleted`
+  - `customer.subscription.created` → `handleSubscriptionEvent("created")`
+  - `customer.subscription.updated` → `handleSubscriptionEvent("updated")`
+  - `customer.subscription.deleted` → `handleSubscriptionEvent("deleted")`
+
+#### 5. **Logging and Debugging**
+
+The `showPaymentLog` function provides configurable logging:
+
+```ts
+const showPaymentLog = ({ message, type }: LogOptions) => {
+  // Configurable log output
+};
+```
+
+### How to Use This Webhook
+
+#### Environment Setup
+
+Ensure you have the following environment variables configured:
+
+```env
+STRIPE_SECRET_KEY=your_secret_key_here
+STRIPE_WEBHOOK_KEY=your_webhook_key_here
+```
+
+#### Handling Events Locally
+
+For local testing, use:
+
+```bash
+stripe listen --forward-to localhost:3000/api/payment/webhook
+```
+
+You can trigger test events using:
+
+```bash
+stripe trigger payment_intent.succeeded
+```
+
+### Extending Event Handling
+
+Add more cases in the event routing switch statement to handle additional events:
+
+```ts
+switch (event.type) {
+  // Existing cases...
+  
+  case "another.event.type":
+    // Handle another event
+    break;
+}
+```
+
+### Conclusion
+
+This implementation provides a robust approach for managing Stripe subscriptions and payments. You can extend it further by adding more event types, refining subscription logic, or enhancing logging options.
