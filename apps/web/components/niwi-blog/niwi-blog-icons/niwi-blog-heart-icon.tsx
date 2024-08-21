@@ -35,6 +35,7 @@ function NiwiBlogHeartIcon({ isActive, onClick }: NiwiBlogHeartIconProps) {
         height={15}
         alt="Shining Star"
         className="animated-star"
+        unoptimized
       />
     </button>
   );
