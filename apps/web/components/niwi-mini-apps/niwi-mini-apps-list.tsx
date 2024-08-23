@@ -62,11 +62,17 @@ function NiwiMiniAppsList() {
       link: "/mini-apps/wallet",
     },
     {
-      title: "Coming Soon",
-      body: "Stay tuned for the next mini-apps.",
-      image: "/images/niwi-blog.png",
-      link: "/mini-apps",
+      title: "Memory Game",
+      body: "Memory Game for memorizing numbers and colors.",
+      image: "/images/mini-apps/memory-game.jpg",
+      link: "/mini-apps/memory-game",
     },
+    // {
+    //   title: "Coming Soon",
+    //   body: "Stay tuned for the next mini-apps.",
+    //   image: "/images/niwi-blog.png",
+    //   link: "/mini-apps",
+    // },
   ] as const;
 
   return (
