@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lancelot&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lancelot&family=Nunito&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +13,6 @@
     @apply bg-background text-foreground;
   }
 }
-
 
 /* Niwi Custom Theme */
 :root {
@@ -153,7 +153,7 @@ li > a.menu__link {
   background-image: url(/img/niwi-lock.gif);
 }
 
-.niwi-built-in > a::before {
+.niwi-built-in div a::before {
   width: 17px;
   height: 15px;
   background-image: url(/img/niwi-seo.gif);
@@ -163,6 +163,12 @@ li > a.menu__link {
   width: 17px;
   height: 15px;
   background-image: url(/img/niwi-testing.gif);
+}
+
+.niwi-mini-apps > a::before {
+  width: 17px;
+  height: 15px;
+  background-image: url(/img/niwi-mini-apps.gif);
 }
 
 /* Headers */
@@ -245,10 +251,11 @@ pre code {
   /* border: 1px solid var(--tabs-border); */
 }
 
-.theme-code-block > div {
+.theme-code-block > div:first-child {
   /* border-bottom: 1px solid var(--tabs-border); */
 }
 
+body, 
 .markdown h1:first-child,
 .markdown > h1,
 .markdown > h2,
@@ -256,7 +263,9 @@ pre code {
 .markdown > h4,
 .markdown > h5,
 .markdown > h6 {
-  font-family: "Lancelot", serif;
+
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
@@ -273,11 +282,15 @@ pre code {
 
 .markdown h1:first-child {
   display: inline-block;
-  color: transparent; 
-  background: #7E22CE;
-  background: linear-gradient(to right, #F43F5E 0%, #7E22CE 50%, #60A5FA 100%);
+  color: transparent;
+  background: #7e22ce;
+  background: linear-gradient(to right, #f43f5e 0%, #7e22ce 50%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-family: "Lancelot", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 44px;
 }
 
 code {
@@ -294,3 +307,30 @@ code {
   padding: 10px;
 }
 
+.theme-doc-sidebar-item-link-level-2 a {
+  font-size: 14px;
+  padding-left: 24px;
+}
+
+.language-tsx > div:first-child {
+  border: 1px solid var(--tabs-border);
+}
+
+.markdown ol {
+  list-style-type: decimal;
+  padding-left: 18px;
+}
+
+.markdown ul {
+  list-style-type: disc;
+  padding-left: 18px;
+}
+
+.sperate-top-navbar {
+  border-top: 1px solid var(--navbar-border);
+  padding-top: 2px;
+}
+
+ul.tabs {
+  padding-left: 0;
+}

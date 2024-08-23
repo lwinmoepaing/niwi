@@ -1,0 +1,103 @@
+---
+sidebar_position: 1
+---
+
+import NiwiAlert from "../../src/components/niwi/niwi-alert";
+
+# Connect MongoDB
+
+## Update Environment Key
+
+```bash
+DATABASE_URL=PasteYourMongoDBUrlHere
+```
+Please add your Mongo Database URL to the `.env` file:
+
+
+<NiwiAlert
+  type="info"
+  text="If you are absolutely new to MongoDB, keep reading below to get started."
+/>
+
+## Absolute Beginner MongoDB Atlas Guide
+
+This section is for those who have little to no experience with MongoDB. Let’s walk through the process of setting up a MongoDB Atlas account, creating a new database, and obtaining the database connection URL.
+
+### Step 1: Sign Up for a MongoDB Atlas Account
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/mongo-connect/mongo-db-try.svg" />
+</div>
+
+1. Go to the [MongoDB Atlas website](https://www.mongodb.com/cloud/atlas).
+2. Click on **Try Free** and sign up using your email, Google account, or GitHub account.
+3. Follow the sign-up steps and verify your email if prompted.
+
+### Step 2: Create Your First Project
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/mongo-connect/mongo-new-project.svg" />
+</div>
+
+1. Once logged in, click on **New Project**.
+2. Enter a name for your project (e.g., "My First Project").
+3. Choose any members to add if you’re working in a team, or skip this step.
+4. Click **Create Project**.
+
+### Step 3: Set Up a Cluster
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/mongo-connect/mongo-new-cluster.svg" />
+</div>
+
+1. After creating the project, click on **Build a Cluster**.
+2. Choose the **Shared Cluster** (free tier) option for this tutorial.
+3. Select your preferred cloud provider and region (leave the defaults if unsure).
+4. Name your cluster or leave it as the default name (e.g., "Cluster0").
+5. Click **Create Cluster**. It may take a few minutes for the cluster to be provisioned.
+
+### Step 4: Create a Database User
+
+1. Once the cluster is ready, go to the **Database Access** section.
+2. Click **Add New Database User**.
+3. Set a username and password. Be sure to save these credentials securely as you’ll need them later.
+4. Under **Database User Privileges**, select **Read and write to any database**.
+5. Click **Add User**.
+
+### Step 5: Set Network Access
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/mongo-connect/mongo-network-access.svg" />
+</div>
+
+1. Go to the **Network Access** section.
+2. Click **Add IP Address**.
+3. Choose **Allow Access from Anywhere** to make it easier while developing.
+4. Click **Confirm**.
+
+### Step 6: Get Your MongoDB Connection URL
+
+<div className="relative rounded-[12px] my-5">
+  <img src="/mongo-connect/mongo-connection-url.svg" />
+</div>
+
+1. Go back to the **Clusters** section.
+2. Click **Connect** on your cluster.
+3. Select **Connect your application**.
+4. Copy the connection string provided, which looks something like this:
+   ```bash
+   mongodb+srv://<username>:<password>@cluster0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+   ```
+5. Replace `<username>` and `<password>` with the credentials you created earlier.
+6. Replace `niwi-starter` with the name of the database you want to create or connect to.
+
+### Step 7: Add the URL to Your `.env` File
+
+1. Open your project in your code editor.
+2. In your `.env` file, paste the connection URL like this:
+   ```bash
+   DATABASE_URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/niwi-starter?retryWrites=true&w=majority
+   ```
+3. Make sure to replace all placeholder values with your actual credentials.
+
+And that's it! Your MongoDB database is now connected and ready for use in your application.

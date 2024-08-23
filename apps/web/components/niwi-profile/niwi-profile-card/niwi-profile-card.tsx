@@ -2,6 +2,7 @@
 
 import NiwiTinyTextEditor from "@/components/niwi-blog/niwi-text-editor/niwi-tiny-text-editor";
 import Button from "@/components/niwi-ui/button/button";
+import NavbarRightPortal from "@/components/niwi-ui/navbar/navbar-right-portal";
 import config from "@/config";
 import { onUploadImageAction } from "@/feats/file/actions/image-upload.action";
 import { imageUploadSchema } from "@/feats/file/validation/image-upload.validation";
@@ -162,6 +163,30 @@ function NiwiProfileCard({
                   </Button>
                 </>
               )}
+              <NavbarRightPortal>
+                <div className="w-full h-full flex justify-center items-center mr-5">
+                  <Button
+                    type="button"
+                    size={"sm"}
+                    className="min-w-[142px]"
+                    variant={"niwi"}
+                    onClick={() => {
+                      const navApi =
+                        typeof window !== "undefined" ? window.navigator : null;
+                      try {
+                        navApi?.clipboard.writeText(
+                          `${config.domainUrl}/profile/${user.shortLink}`
+                        );
+                        toast.success("Link copied to clipboard!");
+                      } catch (err) {
+                        //
+                      }
+                    }}
+                  >
+                    Share Your Profile
+                  </Button>
+                </div>
+              </NavbarRightPortal>
             </>
           )}
         </h2>
