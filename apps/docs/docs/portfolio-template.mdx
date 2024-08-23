@@ -1,8 +1,104 @@
 ---
+
 sidebar_position: 6
+
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
 # Portfolio Template
+
+## Welcome to Niwi Starter Portfolio
+
+<div className="relative rounded-[12px] overflow-hidden my-5">
+  <img
+    className="w-full"
+    src="/img/portfolio-installation.gif"
+    alt="Niwi Starter Portfolio installation"
+  />
+</div>
+
+### Build a Stunning Portfolio in Less Than 5 Minutes
+
+Niwi Starter makes it quick and easy to create a beautiful, professional portfolio using Next.js. In this guide, we’ll walk you through:
+
+- 🎨 **Setting up your portfolio** with just one command: `npx create-niwi`.
+
+<Tabs>
+  <TabItem value="npx" label="NPX">
+    ``` npx create-niwi ```
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+    ``` yarn create niwi ```
+  </TabItem>
+  <TabItem value="pnpm" label="PNPM">
+    ``` pnpm create niwi ```
+  </TabItem>
+</Tabs>
+
+- 📄 **Customizing the pre-built portfolio template** to make it uniquely yours.
+- 🚀 **Deploying your site** with just a few clicks, getting it live in no time.
+
+This guide is perfect for developers, designers, or anyone who wants a simple, fast, and efficient way to build a polished portfolio.
+
+## How to Customize Your Portfolio
+
+<div className="relative rounded-[12px] overflow-hidden my-5">
+  <img
+    className="w-full"
+    src="/img/portfolio-modify.gif"
+    alt="Customize Portfolio"
+  />
+</div>
+
+All the portfolio content is fully configurable in the `portfolio.config.ts` file. Let’s look at how to update different sections of your portfolio.
+
+### Example Configuration
+
+inside `portfolio.config.ts`
+
+```tsx title="portfolio.config.ts"
+const portfolioConfig = {
+  name: "Lwin Moe Paing",
+  hero: heroConfig,
+  about: aboutConfig,
+  skills: skillsConfig,
+  workHistory: workHistoryConfig,
+  educationHistory: educationHistoryConfig,
+  project: projectConfig,
+  contact: contactConfig,
+  footer: footerConfig,
+} as const;
+```
+
+For example, to update the hero section, you can modify the `heroConfig` object:
+
+```tsx title="portfolio.config.ts"
+const heroConfig = {
+  welcomeMessage: "Hi, I'm Lwin Moe Paing",
+  image: "/images/auth/lwin-moe-paing.jpeg",
+  message:
+    "Senior Frontend Engineer passionate about building and helping others.",
+  linkPrefix: "Catch me active on",
+  linkSuffix: "🎉",
+  links: [
+    { name: "Twitter", link: "https://x.com/LwinMoePaingDev" },
+    { name: "Facebook", link: "https://facebook.com/lwin.im" },
+  ],
+};
+```
+
+You can easily update fields like `welcomeMessage`, `image`, `message`, and more. This structure applies to other sections like `skills`, `about`, `workHistory`, and `educationHistory`.
+
+### Getting Started with Customization
+
+1. **Edit the Configuration:** Open `portfolio.config.ts` and update the values according to your personal or professional details.
+2. **Preview Your Changes:** Run your project locally to see how the updates look.
+3. **Deploy Your Portfolio:** Once you’re happy with the result, deploy your site using your preferred hosting service.
+
+<br />
+
+❤️ Happy coding, and enjoy building your amazing portfolio !
+
+❤️ Thank you ❤️ for choosing **Niwi Starter**!

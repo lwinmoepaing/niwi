@@ -1,11 +1,16 @@
 # [Niwi Starter](https://lwinmoepaing.com) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lwinmoepaing/niwi/blob/main/license) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/lwinmoepaing/niwi)
 
-```markdown
-# 🚀 Niwi Starter
+<div style="height: auto;  position: relative; margin: 5px auto 12px auto;" >
+  <img
+    style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px; display: block;"
+    src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/niwi-starter.svg"
+    alt="Niwi Starter - Portfolio"
+  />
+</div>
 
 Niwi Starter is a comprehensive, easy-to-use template for rapidly bootstrapping a Next.js application with essential features like authentication, blog management, email integration, database pre-seeding, and more. 🎉
 
-## 🎯 Getting Started
+Documentation: [https://niwi-docs.vercel.app/](https://niwi-docs.vercel.app/docs/intro)
 
 To create a new project using Niwi Starter, run the following command:
 
@@ -25,53 +30,32 @@ This will automatically generate a Next.js project with the following features:
 
 ## 🚀 Additional Custom Features
 
-In addition to the default features, Niwi Starter offers additional systems that can be included during the setup process. When you run the `npx create-niwi` command, you will be prompted to select any additional features you want to include:
+In addition to the default features, Niwi Starter offers additional feature that can be included during the setup process. When you run the `npx create-niwi` command, you will be prompted to select any additional features you want to include:
 
-- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-music.gif" height="25" style="margin: 0px 2px; positon: relative; top: 1px" /> **Niwi Music**: A music management system similar to Spotify.
-- <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-library.gif" height="25" style="margin: 0px 2px; positon: relative; top: 1px" /> **Niwi Library**: A library management system for organizing books and other media.
+## Niwi Portfolio
 
-## 🔧 Example Usage
+<img
+  style="width: 480px; height: 100%;"
+  src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/portfolio-installation.gif"
+  alt="Niwi Starter - Portfolio"
+/>
 
-To create a new project with Niwi Music or Niwi Library, follow these steps:
+You can build a Stunning Portfolio in Less Than 5 Minutes
+Niwi Starter makes it quick and easy to create a beautiful, professional portfolio using Next.js.
 
-1. Run the Niwi Starter command:
-   ```bash
-   npx create-niwi
-   ```
-2. When prompted, select the additional features you want to include:
-   ```text
-   Which major feature do you want to add?
-   > niwi-music
-   > niwi-library
-   ```
+## Niwi Mini-Apps
 
-## 🛠️ Features
+<img
+  style="width: 480px; height: 100%;"
+  src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/mini-apps.gif"
+  alt="Niwi Starter Mini Apps Preview"
+/>
 
-### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-lock.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Authentication Flow
-- Secure user authentication out of the box.
+Niwi Starter is packed with mini-apps designed to help you level up your React.js skills. Whether you’re a beginner or looking for fun projects, we’ve got you covered! 🚀
 
-### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-blog.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Blog Management System
-- Create, edit, and manage blog posts with ease.
-- Similar functionality to Medium.
+## Contributors
 
-### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-mail.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Mail Integration
-- Send emails using Mailgun.
-
-### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-seed.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Pre-seeded Database
-- Initial data for seamless development and testing.
-
-### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-database.png" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Database Management
-- Prisma ORM configured with MongoDB.
-
-### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-payment.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> Payment Integration
-- Accept and manage payments using Stripe.
-
-### <img src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-seo.gif" height="18" style="margin: 0px 2px; positon: relative; top: 1px" /> SEO Helper Functions
-- Tools to optimize your site's search engine performance.
-
-### 🎯 Additional Systems
-- 🎵 **Niwi Music**: Stream and manage music similar to Spotify.
-- 📚 **Niwi Library**: Manage books and other media efficiently.
+<a href="https://lwinmoepaing.com" target="_blank"><img width="36px" height="36px" style="border-radius: 18px; overflow: hidden; object-fit: cover;" src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/web/public/images/auth/lwin-moe-paing.jpeg" /></a>
 
 ## 🤝 Contributing
 
@@ -84,6 +68,3 @@ This project is licensed under the MIT License. See the [LICENSE](license) file 
 ---
 
 Start your project with Niwi Starter and build your application with ease! 🚀
-
-![Welcome to Niwi Starter](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3o2bWF4bWhtZDhmaHlmMTVrdWhsdmxqNWJ3NG83c3prZWJkaWllbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/z6EG2su1f5jOTourNL/giphy.gif)
-
