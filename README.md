@@ -3,8 +3,8 @@
 <div style="height: auto;  position: relative; margin: 5px auto 12px auto;" >
   <img
     style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px; display: block;"
-    src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/niwi-starter.svg"
-    alt="Niwi Starter - Portfolio"
+    src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-readme.png"
+    alt="Niwi Starter"
   />
 </div>
 
@@ -55,7 +55,13 @@ Niwi Starter is packed with mini-apps designed to help you level up your React.j
 
 ## Contributors
 
-<a href="https://lwinmoepaing.com" target="_blank"><img width="36px" height="36px" style="border-radius: 18px; overflow: hidden; object-fit: cover;" src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/web/public/images/auth/lwin-moe-paing.jpeg" /></a>
+<a href="https://lwinmoepaing.com" target="_blank">
+  <img 
+    width="36px" 
+    height="36px" 
+    src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/contributors/lwin-moe-paing.png" 
+  />
+</a>
 
 ## 🤝 Contributing
 
