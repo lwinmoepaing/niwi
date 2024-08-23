@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 type MemoryCardItemProps = {
   num: number;
   color: string;

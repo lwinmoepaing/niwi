@@ -1,8 +1,5 @@
 import Button from "@/components/niwi-ui/button/button";
 import Link from "next/link";
-import React from "react";
-import MemoryCardItem from "./assets/components/memory-card-item";
-import MemoryCardContainer from "./assets/components/memory-card-container";
 import MemoryLevel from "./assets/components/memory-level";
 
 export default function page() {

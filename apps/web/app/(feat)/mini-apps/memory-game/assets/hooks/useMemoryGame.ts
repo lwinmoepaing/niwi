@@ -9,6 +9,7 @@ type Card = {
   isFlipped: boolean;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const shuffleArray = (array: any) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -61,7 +62,7 @@ const generatePairsWithColors = (numPairs: number, level: DifficultyLevel) => {
     ],
   };
 
-  let colors = difficultyColors[`${level}`];
+  const colors = difficultyColors[`${level}`];
 
   for (let i = 1; i <= numPairs; i++) {
     const color = colors[i % colors.length]!;
