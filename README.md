@@ -1,12 +1,13 @@
-# [Niwi Starter](https://lwinmoepaing.com) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lwinmoepaing/niwi/blob/main/license) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/lwinmoepaing/niwi)
-
-<div style="height: auto;  position: relative; margin: 5px auto 12px auto;" >
+<div style="height: auto;  position: relative;" >
   <img
     style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px; display: block;"
     src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/niwi-readme.png"
     alt="Niwi Starter"
   />
 </div>
+
+# Niwi-Starter [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lwinmoepaing/niwi/blob/main/license) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/lwinmoepaing/niwi)
+
 
 Niwi Starter is a comprehensive, easy-to-use template for rapidly bootstrapping a Next.js application with essential features like authentication, blog management, email integration, database pre-seeding, and more. 🎉
 
@@ -35,7 +36,7 @@ In addition to the default features, Niwi Starter offers additional feature that
 ## Niwi Portfolio
 
 <img
-  style="width: 480px; height: 100%;"
+  style="width: 480px; height: 100%"
   src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/apps/docs/static/img/portfolio-installation.gif"
   alt="Niwi Starter - Portfolio"
 />
