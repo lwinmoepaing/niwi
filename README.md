@@ -76,7 +76,7 @@ Niwi Starter is packed with mini-apps designed to help you level up your React.j
     src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/contributors/may-thit-htun.png" 
   />
 </a>
-<a href="https://novarista.netlify.app" target="_blank">
+<a href="https://naingaungzaw.vercel.app" target="_blank">
   <img 
     width="36px" 
     height="36px" 
