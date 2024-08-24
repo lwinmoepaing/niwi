@@ -8,7 +8,6 @@
 
 # Niwi-Starter [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lwinmoepaing/niwi/blob/main/license) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/lwinmoepaing/niwi)
 
-
 Niwi Starter is a comprehensive, easy-to-use template for rapidly bootstrapping a Next.js application with essential features like authentication, blog management, email integration, database pre-seeding, and more. 🎉
 
 Documentation: [https://niwi-docs.vercel.app/](https://niwi-docs.vercel.app/docs/intro)
@@ -75,6 +74,13 @@ Niwi Starter is packed with mini-apps designed to help you level up your React.j
     width="36px" 
     height="36px" 
     src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/contributors/may-thit-htun.png" 
+  />
+</a>
+<a href="https://novarista.netlify.app" target="_blank">
+  <img 
+    width="36px" 
+    height="36px" 
+    src="https://raw.githubusercontent.com/lwinmoepaing/niwi/main/assets/contributors/naing-aung-zaw.png" 
   />
 </a>
 
