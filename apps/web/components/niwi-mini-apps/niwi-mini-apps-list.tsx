@@ -67,6 +67,12 @@ function NiwiMiniAppsList() {
       image: "/images/mini-apps/memory-game.jpg",
       link: "/mini-apps/memory-game",
     },
+    {
+      title: "QRCode Generator",
+      body: "Create a qr code free.",
+      image: "/images/mini-apps/memory-game.jpg",
+      link: "/mini-apps/qrcode-generator",
+    },
     // {
     //   title: "Coming Soon",
     //   body: "Stay tuned for the next mini-apps.",
@@ -87,7 +93,10 @@ function NiwiMiniAppsList() {
           Mini-Apps
         </h1>
 
-        <p className="my-2"> This is for learning purposes, provided by Niwi-Starter.</p>
+        <p className="my-2">
+          {" "}
+          This is for learning purposes, provided by Niwi-Starter.
+        </p>
       </div>
 
       <div className="flex flex-row flex-wrap gap-[25px] my-5 justify-center">
